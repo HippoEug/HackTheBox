@@ -2,7 +2,7 @@
 `nmap -sC -v 10.10.10.3 -Pn`
 
 ## First Attack on FTP
-Shows Port 21 FTP Login allowed amongst othger opened ports.
+Shows Port 21 FTP Login allowed amongst other opened ports.
 
 `nc 10.10.10.3 21` shows `vsFTPd v2.3.4`.
 `searchsploit vsftpd 2.3.4` shows `Backdoor Command Execution`.
