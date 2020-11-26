@@ -21,7 +21,7 @@ Let's try something else which turned out to be more useful.
 ## Second attack on Port 445 Samba
 Shows Samba smbd 3.0.20-Debian
 `searchsploit samba 3.0.20`
-There are a few interesting choices, but we are going for `Metasploit Usernawme map script Command Execution`.
+There are a few interesting choices, but we are going for `Metasploit Username map script Command Execution`.
 Researching it, we find https://securitytrails.com/blog/nmap-vulnerability-scan.
 Let's run the metasploit script `use exploit/multi/samba/usermap_script`
 Boom, we got root access and find the flag!
