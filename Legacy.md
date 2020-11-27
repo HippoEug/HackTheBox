@@ -1,4 +1,4 @@
-## NMAP, business as usual
+## NMAP, Business as Usual
 ```
 hippoeug@kali:~$ nmap -sC -sV -A -v 10.10.10.4 -Pn
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 21:57 +08
@@ -37,6 +37,7 @@ Host script results:
 ```
 Wow, interesting, Windows XP (2000 LAN Manager). Unpatched Windows, hell yeah. Let's see..
 
+## Vulnerability Search
 ```
 hippoeug@kali:~$ searchsploit windows 2000 smb
 ------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
@@ -51,6 +52,7 @@ Shellcodes: No Results
 ```
 Hmm, maybe I need something more direct. Let's scan the ports and see.
 
+## NMAP Again
 ```
 hippoeug@kali:~$ sudo nmap -p 445 --script=vuln 10.10.10.4 -v -Pn
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 22:48 +08
@@ -95,6 +97,8 @@ Host script results:
 |_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
 ```
 OOH, it's vulnerable to `smb-vuln-ms08-067`. And good ol' `smb-vuln-ms17-010` eternalblue which I'm not gonna attempt on this poor XP machine.
+
+## Metasploit!
 Let's try it with metasploit. Source: http://scx020c07c.blogspot.com/2012/09/exploitation-windows-xp-using.html
 
 ```
