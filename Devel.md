@@ -173,7 +173,9 @@ Interesting, scripts for `.NET`, `ASPX` and `PHP` is supported.
 
 ## Reverse Shell Upload
 We can choose between `.NET`, `ASPX` and `PHP` scripts, but let me first attempt to upload a PHP reverse shell.
+
 PHP reverse shell source: https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php
+
 Upload to FTP source: https://www.howtoforge.com/tutorial/how-to-use-ftp-on-the-linux-shell/
 
 
