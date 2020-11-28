@@ -361,6 +361,7 @@ We don't find anything interesting we can use, or know how to use unfortunately.
 I made a huge error. Time to make things right as rain.
 
 The reason why `msf5 > use post/multi/manage/shell_to_meterpreter` failed previously was because default payload `generic/shell_reverse_tcp` for `exploit/multi/handler` was used instead of `windows/shell/reverse_tcp`.
+Let's fix this by setting the correct payload in the multi handler.
 ```
 msf5 exploit(multi/handler) > set payload windows/shell/reverse_tcp
 payload => windows/shell/reverse_tcp
