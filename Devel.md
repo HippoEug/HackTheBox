@@ -153,7 +153,7 @@ Going to `http://10.10.10.5`, we see the IIS welcome page.
 Trying `http://10.10.10.5/iisstart.htm` and `http://10.10.10.5/welcome.png` as seen on the FTP server, we get results! 
 So they're indeed connected and linked! FTP could be a good vector to attack from! Let's check the FTP out.
 
-## Attacking Again!
+## Finding Vulnerabilties for FTP & IIS
 We see FTP on Port 21 has `Anonymous FTP login allowed (FTP code 230)`
 ```
 msf5 > use auxiliary/scanner/ftp/anonymous
@@ -163,3 +163,17 @@ msf5 > use auxiliary/scanner/ftp/anonymous
 [*] Auxiliary module execution completed
 ```
 Interesting, `Anonymous READ/WRITE (220 Microsoft FTP Service)`. Let's upload a f*\*ken reverse shell!
+But what reverse shell? 
+
+Doing some research (Source: https://www.atlantic.net/what-is-an-iis-server/), we see:
+```
+Because IIS uses C# and .NET web application frameworks like ASP.NET MVC and Entity Framework; additionally, it integrates with Visual Studio, all of which make it a popular choice for enterprises. Other key advantages are native .NET, ASPX and PHP support for modules and scripts, which allows web developers to create eye-catching, seamlessly designed content to their web creations.
+```
+Interesting, scripts for `.NET`, `ASPX` and `PHP` is supported. 
+
+## Reverse Shell Upload
+We can choose between `.NET`, `ASPX` and `PHP` scripts, but let me first attempt to upload a PHP reverse shell.
+PHP reverse shell source: https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php
+Upload to FTP source: https://www.howtoforge.com/tutorial/how-to-use-ftp-on-the-linux-shell/
+
+
