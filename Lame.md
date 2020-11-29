@@ -1,14 +1,14 @@
 # Summary
-## 1. NMAP Scan
+### 1. NMAP Scan
 Typical NMAP scan, reveals `vsFTPd v2.3.4` on Port 21.
 
-## 2. First Attack on FTP
+### 2. First Attack on FTP
 Tried with metasploit modules, did not work.
 
-## 3. Finding another attack vector
+### 3. Finding another attack vector
 We do more NMAP scans and find `netbios-ssn Samba smbd 3.0.20-Debian`.
 
-## 4. Second attack on Port 445 Samba
+### 4. Second attack on Port 445 Samba
 SearchSploit reveals it is susceptible to a `Username map script Command Execution` Metasploit module.
 We run it and is able to compromise the system.
 
