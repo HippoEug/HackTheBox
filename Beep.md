@@ -1,18 +1,8 @@
 ## NMAP
-
+First typical scan.
+```
 hippoeug@kali:~$ nmap -sC -sV 10.10.10.7 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-29 17:53 +08
-NSE: Loaded 151 scripts for scanning.
-NSE: Script Pre-scanning.
-Initiating NSE at 17:53
-Completed NSE at 17:53, 0.00s elapsed
-Initiating NSE at 17:53
-Completed NSE at 17:53, 0.00s elapsed
-Initiating NSE at 17:53
-Completed NSE at 17:53, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 17:53
-Completed Parallel DNS resolution of 1 host. at 17:53, 0.02s elapsed
-Initiating Connect Scan at 17:53
+...
 Scanning 10.10.10.7 [1000 ports]
 Discovered open port 111/tcp on 10.10.10.7
 Discovered open port 110/tcp on 10.10.10.7
@@ -26,24 +16,7 @@ Discovered open port 25/tcp on 10.10.10.7
 Discovered open port 993/tcp on 10.10.10.7
 Discovered open port 4445/tcp on 10.10.10.7
 Discovered open port 10000/tcp on 10.10.10.7
-Completed Connect Scan at 17:53, 14.30s elapsed (1000 total ports)
-Initiating Service scan at 17:53
-Scanning 12 services on 10.10.10.7
-Stats: 0:01:38 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
-Service scan Timing: About 91.67% done; ETC: 17:55 (0:00:08 remaining)
-Stats: 0:01:43 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
-Service scan Timing: About 91.67% done; ETC: 17:55 (0:00:08 remaining)
-Completed Service scan at 17:56, 156.63s elapsed (12 services on 1 host)
-NSE: Script scanning 10.10.10.7.
-Initiating NSE at 17:56
-Completed NSE at 17:56, 37.67s elapsed
-Initiating NSE at 17:56
-Completed NSE at 17:59, 155.66s elapsed
-Initiating NSE at 17:59
-Completed NSE at 17:59, 0.00s elapsed                                           
-Nmap scan report for 10.10.10.7
-Host is up (0.0083s latency).
-Not shown: 988 closed ports
+...
 PORT      STATE SERVICE    VERSION
 22/tcp    open  ssh        OpenSSH 4.3 (protocol 2.0)
 | ssh-hostkey: 
@@ -75,31 +48,13 @@ PORT      STATE SERVICE    VERSION
 |_http-server-header: MiniServ/1.570
 |_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).
 Service Info: Hosts:  beep.localdomain, 127.0.0.1, example.com
+```
+Holy shit, that is a lotta open ports!
 
-Host script results:
-|_clock-skew: 1h00m01s
-
-NSE: Script Post-scanning.
-Initiating NSE at 17:59
-Completed NSE at 17:59, 0.00s elapsed
-Initiating NSE at 17:59
-Completed NSE at 17:59, 0.00s elapsed
-Initiating NSE at 17:59
-Completed NSE at 17:59, 0.00s elapsed
-Read data files from: /usr/bin/../share/nmap
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 364.88 seconds
+Let's do a vulnerability scan too.
+```
 hippoeug@kali:~$ nmap --script vuln 10.10.10.7 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-29 18:42 +08
-NSE: Loaded 105 scripts for scanning.
-NSE: Script Pre-scanning.
-Initiating NSE at 18:42
-Completed NSE at 18:42, 10.02s elapsed
-Initiating NSE at 18:42
-Completed NSE at 18:42, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 18:42
-Completed Parallel DNS resolution of 1 host. at 18:42, 0.23s elapsed
-Initiating Connect Scan at 18:42
+...
 Scanning 10.10.10.7 [1000 ports]
 Discovered open port 143/tcp on 10.10.10.7
 Discovered open port 25/tcp on 10.10.10.7
@@ -113,19 +68,7 @@ Discovered open port 111/tcp on 10.10.10.7
 Discovered open port 10000/tcp on 10.10.10.7
 Discovered open port 443/tcp on 10.10.10.7
 Discovered open port 4445/tcp on 10.10.10.7
-Completed Connect Scan at 18:42, 1.16s elapsed (1000 total ports)
-NSE: Script scanning 10.10.10.7.
-Initiating NSE at 18:42
-NSE: [tls-ticketbleed] Not running due to lack of privileges.
-NSE: [firewall-bypass] lacks privileges.
-NSE: [ssl-ccs-injection] No response from server: EOF
-NSE: [ssl-ccs-injection] No response from server: EOF
-Completed NSE at 18:48, 362.91s elapsed
-Initiating NSE at 18:48
-Completed NSE at 18:48, 1.01s elapsed
-Nmap scan report for 10.10.10.7
-Host is up (0.0076s latency).
-Not shown: 988 closed ports
+...
 PORT      STATE SERVICE
 22/tcp    open  ssh
 |_clamav-exec: ERROR: Script execution failed (use -d to debug)
@@ -300,12 +243,5 @@ PORT      STATE SERVICE
 |       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3566
 |_      https://www.openssl.org/~bodo/ssl-poodle.pdf
 |_sslv2-drown: ERROR: Script execution failed (use -d to debug)
-
-NSE: Script Post-scanning.
-Initiating NSE at 18:48
-Completed NSE at 18:48, 0.00s elapsed
-Initiating NSE at 18:48
-Completed NSE at 18:48, 0.00s elapsed
-Read data files from: /usr/bin/../share/nmap
-Nmap done: 1 IP address (1 host up) scanned in 375.76 seconds
-hippoeug@kali:~$ 
+```
+Holy
