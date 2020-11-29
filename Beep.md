@@ -346,6 +346,8 @@ OpenSSH < 7.4 - agent Protocol Arbitrary Library Loading                        
 OpenSSH < 7.7 - User Enumeration (2)                                                                              | linux/remote/45939.py
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
 ```
+Doesn't look like there's anything interesting in openssh.
+
 ```
 hippoeug@kali:~$ searchsploit apache httpd
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
@@ -359,6 +361,8 @@ NCSA 1.3/1.4.x/1.5 / Apache HTTPd 0.8.11/0.8.14 - ScriptAlias Source Retrieval  
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
 Shellcodes: No Results
 ```
+Nothing interesting in apache httpd either.
+
 ```
 hippoeug@kali:~$ searchsploit pop3d
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
@@ -372,8 +376,7 @@ tPop3d 1.5.3 - Denial of Service                                                
 Vpop3d - Remote Denial of Service                                                                                 | windows/dos/23053.pl
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
 Shellcodes: No Results
-```
-```
+
 hippoeug@kali:~$ searchsploit imapd
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
  Exploit Title                                                                                                    |  Path
@@ -415,6 +418,8 @@ WU-IMAPd 2000/2001 - Partial Mailbox Attribute Remote Buffer Overflow (2)       
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
 Shellcodes: No Results
 ```
+Nothing we can use, we know our pop3d is updated, `Cyrus pop3d 2.3.7-Invoca-RPM-2.3.7-7.el5_6.4`.
+
 ```
 hippoeug@kali:~$ searchsploit webmin
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
@@ -443,3 +448,4 @@ Webmin < 1.920 - 'rpc.cgi' Remote Code Execution (Metasploit)                   
 ------------------------------------------------------------------------------------------------------------------ ---------------------------------
 Shellcodes: No Results
 ```
+There might be something we can use here, since compatible with our webmin, `MiniServ 1.570 (Webmin httpd)`.
