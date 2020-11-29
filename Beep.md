@@ -1,4 +1,4 @@
-## NMAP
+## 1. NMAP
 First typical scan.
 ```
 hippoeug@kali:~$ nmap -sC -sV 10.10.10.7 -Pn -v
@@ -244,3 +244,23 @@ PORT      STATE SERVICE
 |_      https://www.openssl.org/~bodo/ssl-poodle.pdf
 |_sslv2-drown: ERROR: Script execution failed (use -d to debug)
 ```
+
+## 2. Finding Attack Vector
+Let's find out more on the http servers.
+
+`Port 80 & Port 443`: Going to `https://10.10.10.7`, we see an expired certificate. We can KIV this. Accepting the risk, we see it is a login page for "Elastix". We also get automatically redirected to `https` despite trying to go `http`. We know from the scans this is Apache httpd 2.2.3.
+
+`Port 10000`: We see a Webmin webpage with another login page. We know from the scans this is MiniServ 1.570 (Webmin httpd). We also see something interesting.
+```
+http-vuln-cve2006-3392: 
+|   VULNERABLE:
+|   Webmin File Disclosure
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2006-3392
+|       Webmin before 1.290 and Usermin before 1.220 calls the simplify_path function before decoding HTML.
+|       This allows arbitrary files to be read, without requiring authentication, using "..%01" sequences
+|       to bypass the removal of "../" directory traversal sequences.
+```
+Alright then, let's give this attack Webmin on Port 10000 a shot based on a [guide](https://www.rapid7.com/db/modules/auxiliary/admin/webmin/file_disclosure/) & [it's code](https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/webmin/file_disclosure.rb).
+
+## 3. Attacking Webmin (Port 10000)
