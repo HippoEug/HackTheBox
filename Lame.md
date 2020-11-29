@@ -1,7 +1,22 @@
-## NMAP Scan
+# Summary
+## 1. NMAP Scan
+Typical NMAP scan, reveals `vsFTPd v2.3.4` on Port 21.
+
+## 2. First Attack on FTP
+Tried with metasploit modules, did not work.
+
+## 3. Finding another attack vector
+We do more NMAP scans and find `netbios-ssn Samba smbd 3.0.20-Debian`.
+
+## 4. Second attack on Port 445 Samba
+SearchSploit reveals it is susceptible to a `Username map script Command Execution` Metasploit module.
+We run it and is able to compromise the system.
+
+# Attack
+## 1. NMAP Scan
 `nmap -sC -v 10.10.10.3 -Pn`
 
-## First Attack on FTP
+## 2. First Attack on FTP
 Shows Port 21 FTP Login allowed amongst other opened ports.
 
 `nc 10.10.10.3 21` shows `vsFTPd v2.3.4`.
@@ -13,7 +28,7 @@ Sources:
 - https://www.rapid7.com/db/modules/exploit/unix/ftp/vsftpd_234_backdoor/
 - https://metalkey.github.io/vsftpd-v234-backdoor-command-execution.html
 
-## Finding another attack vector
+## 3. Finding another attack vector
 Our first NMAP scan was useless. Let's try more nmap scans!
 
 `nmap --script nmap-vulners -sV 10.10.10.3 -Pn -v` but didn't turn out to be useful. (Source: https://securitytrails.com/blog/nmap-vulnerability-scan).
@@ -63,7 +78,7 @@ Host script results:
 
 ```
 
-## Second attack on Port 445 Samba
+## 4. Second attack on Port 445 Samba
 Shows Samba smbd 3.0.20-Debian.
 `searchsploit samba 3.0.20`.
 ```
@@ -80,8 +95,8 @@ Samba < 3.6.2 (x86) - Denial of Service (PoC)                                   
 Shellcodes: No Results
 ```
 
-There are a few interesting choices, but we are going for `Metasploit Username map script Command Execution`.
+There are a few interesting choices, but we are going for `Username map script Command Execution` Metasploit module.
 Researching it, we find https://securitytrails.com/blog/nmap-vulnerability-scan.
 Let's run the metasploit script `use exploit/multi/samba/usermap_script`.
 
-Boom, we got root access and find the flag!
+Boom, we got root access and found the flags!
