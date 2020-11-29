@@ -1,18 +1,18 @@
 # Summary
-### 1. x
-x
+### 1. NMAP, Business as Usual
+We see the system is a outdated and old version of Windows, Windows XP (2000 LAN Manager)
 
-### 2. x
-x
+### 2. Vulnerability Search
+We see lots of SMB exploits when doing a SearchSploit search for Windows 2000. Let's enumerate further.
 
-### 3. x
-x
+### 3. NMAP Again
+We find that the system is vulnerable to `smb-vuln-ms08-067` & `smb-vuln-ms17-010` on SMB, Port 445.
 
-### 4. x
-x
+### 4. Metasploit!
+We use a metasploit module `exploit/windows/smb/ms08_067_netapi` for `smb-vuln-ms08-067` and it worked! We got into the system.
 
 # Attack
-## NMAP, Business as Usual
+## 1. NMAP, Business as Usual
 ```
 hippoeug@kali:~$ nmap -sC -sV -A -v 10.10.10.4 -Pn
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 21:57 +08
@@ -51,7 +51,7 @@ Host script results:
 ```
 Wow, interesting, Windows XP (2000 LAN Manager). Unpatched Windows, hell yeah. Let's see..
 
-## Vulnerability Search
+## 2. Vulnerability Search
 ```
 hippoeug@kali:~$ searchsploit windows 2000 smb
 ------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
@@ -66,7 +66,7 @@ Shellcodes: No Results
 ```
 Hmm, maybe I need something more direct. Let's scan the ports and see.
 
-## NMAP Again
+## 3. NMAP Again
 ```
 hippoeug@kali:~$ sudo nmap -p 445 --script=vuln 10.10.10.4 -v -Pn
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 22:48 +08
@@ -112,7 +112,7 @@ Host script results:
 ```
 OOH, it's vulnerable to `smb-vuln-ms08-067`. And good ol' `smb-vuln-ms17-010` eternalblue which I'm not gonna attempt on this poor XP machine.
 
-## Metasploit!
+## 4. Metasploit!
 Let's try it with metasploit. Source: http://scx020c07c.blogspot.com/2012/09/exploitation-windows-xp-using.html
 
 ```
