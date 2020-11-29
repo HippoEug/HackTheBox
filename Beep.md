@@ -318,5 +318,15 @@ msf5 auxiliary(admin/webmin/file_disclosure) > run
 [*] Auxiliary module execution completed
 ```
 Ah this works, but no file found.
+I've tried finding common files, such as:
+```
+/etc/webmin/miniserv.conf
+/etc/webmin/htusers
+/etc/webmin/virtual-server/plainpass
+/etc/webmin/virtual-server/plainpass dir.
+/etc/webmin/miniserv.users
+/etc/shadow
+```
+But they all return with `File not found` error. There should be another way in..
 
 ## 4. GoBuster..?
