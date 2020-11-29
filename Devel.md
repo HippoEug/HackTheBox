@@ -1,3 +1,17 @@
+# Summary
+### 1. x
+x
+
+### 2. x
+x
+
+### 3. x
+x
+
+### 4. x
+x
+
+# Attack
 ## Another Day, Another NMAP
 ```
 hippoeug@kali:~$ nmap -sC -sV -A --script=vuln 10.10.10.5 -v -Pn
