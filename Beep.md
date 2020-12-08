@@ -482,6 +482,6 @@ There might be something we can use here, since compatible with our webmin, `Min
 ## 5. Attempt to Attack Webmin Again!
 Since we saw a few interesting things from using `searchsploit`, we do more [research](https://www.cvedetails.com/metasploit-modules/vendor-358/Webmin.html). We see that we can use two attacks supported by Metasploit, first being `CVE-2019-9624  Webmin Upload Authenticated RCE` and second being `CVE-2019-12840  Webmin Package Updates Remote Command Execution`.
 
-We try both Metasploit modules, [first being `use exploit/unix/webapp/webmin_upload_exec`](https://www.rapid7.com/db/modules/exploit/unix/webapp/webmin_upload_exec/) of `Webmin Upload Authenticated RCE`, and [second being `use exploit/linux/http/webmin_packageup_rce`](https://www.rapid7.com/db/modules/exploit/linux/http/webmin_packageup_rce/) of `Webmin Package Updates Remote Command Execution`. However, both modules required credentials to the Webmin, USERNAME & PASSWORD.
+We try both Metasploit modules, first being [`use exploit/unix/webapp/webmin_upload_exec`](https://www.rapid7.com/db/modules/exploit/unix/webapp/webmin_upload_exec/) of `Webmin Upload Authenticated RCE`, and second being [`use exploit/linux/http/webmin_packageup_rce`](https://www.rapid7.com/db/modules/exploit/linux/http/webmin_packageup_rce/) of `Webmin Package Updates Remote Command Execution`. However, both modules required credentials to the Webmin, USERNAME & PASSWORD.
 
 To go down this path, we must get the some credentials.
