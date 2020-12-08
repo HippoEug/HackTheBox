@@ -11,7 +11,7 @@ x
 ### 4. Searchsploit.. More Enumeration :(
 x
 
-### 5. Attacking Webmin Again!
+### 5. Attempt to Attack Webmin Again!
 x
 
 ### 6. x
