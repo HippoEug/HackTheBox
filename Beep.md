@@ -294,11 +294,11 @@ Alright then, let's give this attack Webmin on Port 10000 a shot based on a [gui
 
 We also do some GoBusters, for example:
 ```
-hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7:10000" -w /usr/share/wordlists/dirbuster/directory-lis
+hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7:10000" -w /usr/share/wordlists/dirbuster/directory-list-1.0.txt
 ...
 Error: error on running goubster: unable to connect to https://10.10.10.7:10000/: invalid certificate: x509: cannot validate certificate for 10.10.10.7 because it doesn't contain any IP SANs
 ...
-hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7" -w /usr/share/wordlists/dirbuster/directory-lis
+hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7" -w /usr/share/wordlists/dirbuster/directory-list-1.0.txt
 ...
 Error: error on running goubster: unable to connect to https://10.10.10.7/: invalid certificate: x509: certificate has expired or is not yet valid
 ```
