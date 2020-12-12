@@ -1,3 +1,9 @@
+hippoeug@kali:~$ searchsploit -x 37637.pl
+  Exploit: Elastix 2.2.0 - 'graph.php' Local File Inclusion
+      URL: https://www.exploit-db.com/exploits/37637
+     Path: /usr/share/exploitdb/exploits/php/webapps/37637.pl
+File Type: ASCII text, with CRLF line terminators
+
 
 source: https://www.securityfocus.com/bid/55078/info
 
