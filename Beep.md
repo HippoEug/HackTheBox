@@ -671,7 +671,7 @@ From our earlier Dirbuster search, we've already seen a directory `/vtigercrm`.
 
 Going to our web browser, we go to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action)`, but somehow got redirected to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%2500&module=Accounts&action)`, with the error message: `Sorry! Attempt to access restricted file.` displayed. 
 
-We manually change the URL again, and this time, get a valid HTML page. However, it's just a chunk of text and we instead we view the page source to see a formated version.
+We manually change the URL again from 2500 back to 00, and this time, get a valid HTML page. However, it's just a chunk of text and we instead we view the page source to see a formated version.
 ```
 # This file is part of FreePBX.
 #
