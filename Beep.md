@@ -575,4 +575,28 @@ Dir found: /error/ - 403
 ```
 However, neither the landing page nor GoBuster/DirBuster revealed the version of Elastix.
 
-We could now look at finding vulnerabilities in Elastix and VTigerCRM as we've seen in the directories.
+We could now look at finding vulnerabilities in Elastix and VTigerCRM as we've seen in the directories. Let's do some SearchSploits.
+```
+hippoeug@kali:~$ searchsploit elastix
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Elastix - 'page' Cross-Site Scripting                                                                                               | php/webapps/38078.py
+Elastix - Multiple Cross-Site Scripting Vulnerabilities                                                                             | php/webapps/38544.txt
+Elastix 2.0.2 - Multiple Cross-Site Scripting Vulnerabilities                                                                       | php/webapps/34942.txt
+Elastix 2.2.0 - 'graph.php' Local File Inclusion                                                                                    | php/webapps/37637.pl
+Elastix 2.x - Blind SQL Injection                                                                                                   | php/webapps/36305.txt
+Elastix < 2.5 - PHP Code Injection                                                                                                  | php/webapps/38091.php
+FreePBX 2.10.0 / Elastix 2.2.0 - Remote Code Execution                                                                              | php/webapps/18650.py
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+```
+Oh wow, couple interesting stuff, but nothing for Metasploit.
+
+What about VTigerCRM?
+```
+hippoeug@kali:~$ searchsploit vtigercrm
+Exploits: No Results
+Shellcodes: No Results
+```
+Nothing. Let's focus on Elastix exploits.
