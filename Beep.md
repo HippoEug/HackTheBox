@@ -956,5 +956,27 @@ ASTVARLIBDIR=/var/lib/asterisk
 ASTAGIDIR=/var/lib/asterisk/agi-bin
 ASTSPOOLDIR=/var/spool/asterisk
 ASTRUNDIR=/var/run/asterisk
-ASTLOGDIR=/var/log/asteriskSorry! Attempt to access restricted file.
+ASTLOGDIR=/var/log/asterisk
+Sorry! Attempt to access restricted file.
 ```
+Wow, lots of information on credentials!
+
+Let's filter through the information for something that we can actually use.
+```
+# AMPDBPASS: Password for AMPDBUSER
+# AMPDBPASS=amp109
+AMPDBPASS=jEhdIekWmdjE
+
+# AMPMGRPASS: Password for AMPMGRUSER
+#AMPMGRPASS=amp111
+AMPMGRPASS=jEhdIekWmdjE
+
+# FOPPASSWORD: Password for performing transfers and hangups in the Flash Operator Panel
+#FOPPASSWORD=passw0rd
+FOPPASSWORD=jEhdIekWmdjE
+
+# This is the default admin password to allow an administrator to login to ARI bypassing all security.
+# Change this to a secure password.
+ARI_ADMIN_PASSWORD=jEhdIekWmdjE
+```
+We see a common password, `jEhdIekWmdjE`. Since we saw Port 22 opened earlier, we can try to SSH into the system with this password found.
