@@ -573,7 +573,6 @@ File found: /config.php - 200
 Dir found: /error/ - 403
 ...
 ```
-However, neither the landing page nor GoBuster/DirBuster revealed the version of Elastix.
 
 We could now look at finding vulnerabilities in Elastix and VTigerCRM as we've seen in the directories. Let's do some SearchSploits.
 ```
@@ -599,4 +598,7 @@ hippoeug@kali:~$ searchsploit vtigercrm
 Exploits: No Results
 Shellcodes: No Results
 ```
-Nothing. Let's focus on Elastix exploits.
+Nothing. Let's focus on Elastix exploits. Let's also try to get the version of Elastix being ran.
+However, neither the landing page nor GoBuster/DirBuster revealed the version of Elastix. Viewing Elastix page source on 443 didn't reveal the version either.
+
+## 7. Attacking Elastix on Port 443
