@@ -485,3 +485,94 @@ Since we saw a few interesting things from using `searchsploit`, we do more [res
 We try both Metasploit modules, first being [`use exploit/unix/webapp/webmin_upload_exec`](https://www.rapid7.com/db/modules/exploit/unix/webapp/webmin_upload_exec/) of `Webmin Upload Authenticated RCE`, and second being [`use exploit/linux/http/webmin_packageup_rce`](https://www.rapid7.com/db/modules/exploit/linux/http/webmin_packageup_rce/) of `Webmin Package Updates Remote Command Execution`. However, both modules required credentials to the Webmin, USERNAME & PASSWORD.
 
 To go down this path, we must get the some credentials.
+
+## 6. Finding another Attack Vector, More Enumeration
+At this point, I've pretty much no idea what to do at this point and had to look up for clues!
+
+Turns out, the GoBuster attempted in step 2 was correct! We just needed to add a `-k` flag to disable certificates check.
+```
+hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7:443" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -k
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            https://10.10.10.7:443
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2020/12/08 22:54:51 Starting gobuster
+===============================================================
+/images (Status: 301)
+/help (Status: 301)
+/themes (Status: 301)
+/modules (Status: 301)
+/mail (Status: 301)
+/admin (Status: 301)
+/static (Status: 301)
+/lang (Status: 301)
+/var (Status: 301)
+/panel (Status: 301)
+/libs (Status: 301)
+/recordings (Status: 301)
+/configs (Status: 301)
+/vtigercrm (Status: 301)
+===============================================================
+2020/12/08 23:36:08 Finished
+===============================================================
+```
+We actually see `/vtigercrm`! Using the same wordlist but doing it on the GUI DirBuster `OWASP Dirbuster 1.0-RC1`, we see way more directories, but mainly related to `Elastix` which we saw when we visited `https://10.10.10.7` with our web browser.
+```
+hippoeug@kali:~$ dirbuster
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Starting OWASP DirBuster 1.0-RC1
+Starting dir/file list based brute forcing
+File found: /index.php - 200
+Dir found: / - 200
+Dir found: /images/ - 200
+File found: /register.php - 200
+Dir found: /cgi-bin/ - 403
+Dir found: /help/ - 200
+Dir found: /themes/ - 200
+Dir found: /icons/ - 200
+Dir found: /themes/elastixneo/ - 200
+Dir found: /themes/elastixneo/images/ - 200
+File found: /help/frameLeft.php - 200
+File found: /help/frameRight.php - 200
+Dir found: /modules/ - 200
+Dir found: /themes/al/ - 200
+Dir found: /themes/default/ - 200
+Dir found: /themes/elastixneo/_common/ - 200
+Dir found: /themes/elastixblue/ - 200
+File found: /themes/elastixneo/applet.css - 200
+Dir found: /themes/elastixeasy-Black/ - 200
+File found: /themes/elastixneo/content.css - 200
+...
+ERROR: https://10.10.10.7/themes/default/_common/{$url} - IllegalArgumentException Invalid uri 'https://10.10.10.7/themes/default/_common/{$url}': escaped absolute path not valid
+Exception in thread "Thread-8" java.lang.IllegalArgumentException: Invalid uri 'https://10.10.10.7:443/themes/al/_common/themes/{$THEMENAME}/thereIsNoWayThat-You-CanBeThere/': escaped absolute path not valid
+        at org.apache.commons.httpclient.HttpMethodBase.<init>(HttpMethodBase.java:222)
+        at org.apache.commons.httpclient.methods.GetMethod.<init>(GetMethod.java:89)
+        at com.sittinglittleduck.DirBuster.GenBaseCase.genBaseCase(GenBaseCase.java:126)
+        at com.sittinglittleduck.DirBuster.HTMLparse.findBaseCasePoint(HTMLparse.java:332)
+        at com.sittinglittleduck.DirBuster.HTMLparse.run(HTMLparse.java:196)
+Exception in thread "Thread-9" java.lang.IllegalArgumentException: Invalid uri 'https://10.10.10.7:443/themes/elastixblue/_common/themes/{$THEMENAME}/thereIsNoWayThat-You-CanBeThere/': escaped absolute path not valid
+        at org.apache.commons.httpclient.HttpMethodBase.<init>(HttpMethodBase.java:222)
+        at org.apache.commons.httpclient.methods.GetMethod.<init>(GetMethod.java:89)
+        at com.sittinglittleduck.DirBuster.GenBaseCase.genBaseCase(GenBaseCase.java:126)
+        at com.sittinglittleduck.DirBuster.HTMLparse.findBaseCasePoint(HTMLparse.java:332)
+        at com.sittinglittleduck.DirBuster.HTMLparse.run(HTMLparse.java:196)
+java.lang.IllegalArgumentException: Invalid uri 'https://10.10.10.7/themes/elastixblue/_common/themes/{$THEMENAME}/': escaped absolute path not valid
+        at org.apache.commons.httpclient.HttpMethodBase.<init>(HttpMethodBase.java:222)
+        at org.apache.commons.httpclient.methods.HeadMethod.<init>(HeadMethod.java:94)
+        at com.sittinglittleduck.DirBuster.Worker.run(Worker.java:152)
+        at java.base/java.lang.Thread.run(Thread.java:834)
+ERROR: https://10.10.10.7/themes/elastixblue/_common/themes/{$THEMENAME}/ - IllegalArgumentException Invalid uri 'https://10.10.10.7/themes/elastixblue/_common/themes/{$THEMENAME}/': escaped absolute path not valid
+File found: /config.php - 200
+Dir found: /error/ - 403
+...
+```
+However, neither the landing page nor GoBuster/DirBuster revealed the version of Elastix.
+
+We could now look at finding vulnerabilities in Elastix and VTigerCRM as we've seen in the directories.
