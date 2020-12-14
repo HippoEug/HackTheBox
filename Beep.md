@@ -767,6 +767,8 @@ Wow, lots of information on credentials!
 
 Let's filter through the information for something that we can actually use.
 ```
+ARI_ADMIN_USERNAME=admin
+
 # AMPDBPASS: Password for AMPDBUSER
 # AMPDBPASS=amp109
 AMPDBPASS=jEhdIekWmdjE
@@ -783,7 +785,7 @@ FOPPASSWORD=jEhdIekWmdjE
 # Change this to a secure password.
 ARI_ADMIN_PASSWORD=jEhdIekWmdjE
 ```
-We see a common password, `jEhdIekWmdjE`. Since we saw Port 22 opened earlier, we can try to SSH into the system with this password found.
+We see a username `admin`, and a common password, `jEhdIekWmdjE`. Since we saw Port 22 opened earlier, we can try to SSH into the system with this password found.
 
 ## 8. SSH with Credentials Found, Getting Flags
 Upon getting password `jEhdIekWmdjE`, we can attempt to SSH into the system.
