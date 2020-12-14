@@ -1,1 +1,28 @@
 
+hippoeug@kali:~$ ssh admin@10.10.10.7
+Unable to negotiate with 10.10.10.7 port 22: no matching key exchange method found. Their offer: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 admin@10.10.10.7
+admin@10.10.10.7's password: 
+Permission denied, please try again.
+admin@10.10.10.7's password: 
+Permission denied, please try again.
+admin@10.10.10.7's password: 
+
+hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 root@10.10.10.7
+root@10.10.10.7's password: 
+Last login: Tue Jul 16 11:45:47 2019
+
+Welcome to Elastix 
+----------------------------------------------------
+
+To access your Elastix System, using a separate workstation (PC/MAC/Linux)
+Open the Internet Browser using the following URL:
+http://10.10.10.7
+
+[root@beep ~]# whoami
+root
+
+
+==========
+
+Also able to log in to https://10.10.10.7:10000/ with root & password creds
