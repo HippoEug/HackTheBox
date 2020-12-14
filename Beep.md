@@ -29,12 +29,14 @@ Turns out, the Gobuster that was performed in step 2 was a correct step, and a `
 
 We do a `searchsploit vtigercrm`, with no results, followed by a `searchsploit elastix` and see a few interesting possible attacks, but unfortuantely nothing supported by Metasploit. We had to step out of our comfort zone and try to attack it the harder way.
 
+### 7. Attacking Elastix on Port 443 (Method 1: VTigerCRM)
 We try to find the version of Elastix through viewing of the page source as well as enumerating from Gobuster/Dirbuster, but all did not reveal the version of Elastix.
 
-### 7. Attacking Elastix on Port 443 (Method 1: VTigerCRM)
-x
+The first attack we try is `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, with the underlying attack exploiting file access through `/vtigercrm` directory through a web browser. 
 
-### 8. SSH with Credentials Found, Getting Flags
+We go to our web browser and browse to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action)`, and see a dump of credentials. Sifting trough the information, we see a username `admin` and password `jEhdIekWmdjE`.
+
+### 8. SSH (Port 22) with Credentials Found, Getting Flags
 x
 
 # Attack
@@ -798,7 +800,7 @@ ARI_ADMIN_PASSWORD=jEhdIekWmdjE
 ```
 We see a username `admin`, and a common password, `jEhdIekWmdjE`. Since we saw Port 22 opened earlier, we can try to SSH into the system with this password found.
 
-## 8. SSH with Credentials Found, Getting Flags
+## 8. SSH (Port 22) with Credentials Found, Getting Flags
 Upon getting password `jEhdIekWmdjE`, we can attempt to SSH into the system.
 ```
 CHANGE THIS
