@@ -34,7 +34,7 @@ We try to find the version of Elastix through viewing of the page source as well
 
 The first attack we try is `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, with the underlying attack exploiting file access through `/vtigercrm` directory through a web browser. 
 
-We go to our web browser and browse to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action)`, and see a dump of credentials. Sifting trough the information, we see a username `admin` and password `jEhdIekWmdjE`.
+We go to our web browser and browse to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action)`, and see a dump of credentials. Sifting trough the information, we see a username `admin` and password `jEhdIekWmdjE`. Since we saw Port 22 through NMAP, we can attempt to SSH with these credentials.
 
 ### 8. SSH (Port 22) with Credentials Found, Getting Flags
 x
