@@ -3,21 +3,33 @@
 Typically the first thing to do when pentesting a machine. We see many open ports, and tons of vulnerabilities in the NMAP scan.
 
 ### 2. Finding Attack Vector
-Since we saw the existence of a webserver on Port 80 & Port 443, we view it first since it's the most interesting. We see "Elastix" on the main page of the HTTPS page. We also see "Webmin" on Port 1000, and NMAP revealed that it was vulnerable to an File Disclosure exploit. 
+Since we saw the existence of a webserver on Port 80 & Port 443, we view it first since it's the most interesting. We see "Elastix" on the main page of the HTTPS page.
 
-Finally, we also do Gobuster but got a invalid certificate error.
+We also see "Webmin" on Port 1000, and NMAP revealed that it was vulnerable to an File Disclosure exploit. Finally, we also do Gobuster but got a invalid certificate error.
 
 ### 3. Attacking Webmin (Port 10000)
-x
+NOTE: Unnecessary Step
+
+Since the Webmin File Disclosure exploit had a Metasploit module pre-written, `auxiliary/admin/webmin/file_disclosure`, we run it but were unable to get any files. All the searches returned with `404 File not found` errors.
 
 ### 4. Searchsploit.. More Enumeration :(
-x
+NOTE: Unnecessary Step
+
+More enumeration performed for openssh, apache httpd, pop3d and webmin. We see a couple of exploits from `searchsploit webmin` though!
 
 ### 5. Attempt to Attack Webmin Again!
-x
+NOTE: Unnecessary Step
+
+We perform two attacks on Webmin, both happen to have Metasploit modules written for it. However to use them, credentials are needed.
 
 ### 6. Finding another Attack Vector, More Enumeration
-x
+At this point, I am not too sure on what else I could try and had to look online for some clues.
+
+Turns out, the Gobuster that was performed in step 2 was a correct step, and a `-k` flag could be added to disable the checking of certificate. From the HTTPS (Port 443), we see an interesting directory, `/vtigercrm`. Running the GUI Dirbuster, we see more interesting directories, with many of them relating to `Elastix` as we saw when we visited `https://10.10.10.7:443`.
+
+We do a `searchsploit vtigercrm`, with no results, followed by a `searchsploit elastix` and see a few interesting possible attacks, but unfortuantely nothing supported by Metasploit. We had to step out of our comfort zone and try to attack it the harder way.
+
+We try to find the version of Elastix through viewing of the page source as well as enumerating from Gobuster/Dirbuster, but all did not reveal the version of Elastix.
 
 ### 7. Attacking Elastix on Port 443 (Method 1: VTigerCRM)
 x
@@ -597,11 +609,11 @@ hippoeug@kali:~$ searchsploit vtigercrm
 Exploits: No Results
 Shellcodes: No Results
 ```
-Nothing. Let's focus on Elastix exploits. Let's also try to get the version of Elastix being ran.
-However, neither the landing page nor Gobuster/Dirbuster revealed the version of Elastix. Viewing Elastix page source on 443 didn't reveal the version either.
+Nothing. Let's focus on Elastix exploits.
 
 ## 7. Attacking Elastix on Port 443 (Method 1: VTigerCRM)
-Using Burp to intercept a response from Elastix, we still do not find any version numbers. Let's just try using some of the exploits we saw from doing `searchsploit elastix`.
+Since we are looking for a Elastix exploit, we try to get the version of Elastix being ran.
+However, neither the landing page nor Gobuster/Dirbuster revealed the version of Elastix. Viewing Elastix page source on 443 didn't reveal the version either. Using Burp to intercept a response from Elastix, we still do not find any version numbers. Let's just try using some of the exploits we saw from doing `searchsploit elastix`.
 
 Trying the first one, `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, we examine it first.
 ```
