@@ -1,9 +1,11 @@
 # Summary
 ### 1. NMAP
-x
+Typically the first thing to do when pentesting a machine. We see many open ports, and tons of vulnerabilities in the NMAP scan.
 
 ### 2. Finding Attack Vector
-x
+Since we saw the existence of a webserver on Port 80 & Port 443, we view it first since it's the most interesting. We see "Elastix" on the main page of the HTTPS page. We also see "Webmin" on Port 1000, and NMAP revealed that it was vulnerable to an File Disclosure exploit. 
+
+Finally, we also do Gobuster but got a invalid certificate error.
 
 ### 3. Attacking Webmin (Port 10000)
 x
@@ -14,16 +16,13 @@ x
 ### 5. Attempt to Attack Webmin Again!
 x
 
-### 6. x
+### 6. Finding another Attack Vector, More Enumeration
 x
 
-### 7. x
+### 7. Attacking Elastix on Port 443 (Method 1: VTigerCRM)
 x
 
-### 8. x
-x
-
-### 9. x
+### 8. SSH with Credentials Found, Getting Flags
 x
 
 # Attack
@@ -292,7 +291,7 @@ http-vuln-cve2006-3392:
 ```
 Alright then, let's give this attack Webmin on Port 10000 a shot based on a [guide](https://www.rapid7.com/db/modules/auxiliary/admin/webmin/file_disclosure/) & [it's code](https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/webmin/file_disclosure.rb).
 
-We also do some GoBusters, for example:
+We also do some Gobusters, for example:
 ```
 hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7:10000" -w /usr/share/wordlists/dirbuster/directory-list-1.0.txt
 ...
