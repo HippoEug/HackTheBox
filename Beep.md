@@ -37,7 +37,9 @@ The first attack we try is `Elastix 2.2.0 - 'graph.php' Local File Inclusion | p
 We go to our web browser and browse to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action)`, and see a dump of credentials. Sifting trough the information, we see a username `admin` and password `jEhdIekWmdjE`. Since we saw Port 22 through NMAP, we can attempt to SSH with these credentials.
 
 ### 8. SSH (Port 22) with Credentials Found, Getting Flags
-x
+Trying to SSH in to the system with username `admin` and password `jEhdIekWmdjE`, we got a `Permission denied` error, and perhaps it was the username that was wrong. Using the same VTigerCRM exploit to expose files, we expose the `etc/passwd` file to find valid usernames.
+
+We were able to SSH into the system with username `root` and password `jEhdIekWmdjE`, to get the flags in the box.
 
 # Attack
 ## 1. NMAP
