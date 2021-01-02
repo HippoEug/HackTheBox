@@ -1,5 +1,12 @@
 # Summary
 ### 1. NMAP
+Typical NMAP scan, and already finding a obvious vulnerability.
+
+### 2. Metasploit
+We run the EternalBlue module to gain access into the system.
+
+### 3. Getting Flags
+Simply finding flags within the system.
 
 # Attack
 ## 1. NMAP
