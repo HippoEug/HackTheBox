@@ -1,9 +1,9 @@
 # Summary
 ### 1. NMAP Scan
-Typical NMAP scan, reveals `vsFTPd v2.3.4` on Port 21.
+Typical NMAP scan, reveals FTP `vsFTPd v2.3.4` on Port 21.
 
 ### 2. First Attack on FTP
-Tried with metasploit modules, did not work.
+We find out if we can upload to the FTP, but could only do Anonymous Read. We also try attacking with FTP metasploit modules, but did not work.
 
 ### 3. Finding another attack vector
 We do more NMAP scans and find `netbios-ssn Samba smbd 3.0.20-Debian`.
@@ -14,12 +14,76 @@ We run it and is able to compromise the system.
 
 # Attack
 ## 1. NMAP Scan
-`nmap -sC -v 10.10.10.3 -Pn`
+We do our typical NMAP scan!
+```
+hippoeug@kali:~$ nmap -sC -sV 10.10.10.3 -Pn -v
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-02 21:11 +08
+...
+Scanning 10.10.10.3 [1000 ports]
+Discovered open port 22/tcp on 10.10.10.3
+Discovered open port 445/tcp on 10.10.10.3
+Discovered open port 139/tcp on 10.10.10.3
+Discovered open port 21/tcp on 10.10.10.3
+...
+PORT    STATE SERVICE     VERSION
+21/tcp  open  ftp         vsftpd 2.3.4
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 10.10.14.16
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      vsFTPd 2.3.4 - secure, fast, stable
+|_End of status
+22/tcp  open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+| ssh-hostkey: 
+|   1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)
+|_  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)
+139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp open  netbios-ssn Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: 2h30m20s, deviation: 3h32m10s, median: 18s
+| smb-os-discovery: 
+|   OS: Unix (Samba 3.0.20-Debian)
+|   Computer name: lame
+|   NetBIOS computer name: 
+|   Domain name: hackthebox.gr
+|   FQDN: lame.hackthebox.gr
+|_  System time: 2021-01-02T08:12:15-05:00
+| smb-security-mode: 
+|   account_used: <blank>
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+|_smb2-time: Protocol negotiation failed (SMB2)
+...
+```
+The FTP looks interesting, let's try that out first.
 
 ## 2. First Attack on FTP
-Shows Port 21 FTP Login allowed amongst other opened ports.
+Shows Port 21 FTP Login allowed amongst other opened ports. Let's see if we can first upload a reverse shell.
+```
+hippoeug@kali:~$ msfconsole
+...
+msf5 > use auxiliary/scanner/ftp/anonymous
+msf5 auxiliary(scanner/ftp/anonymous) > show options
+...
+msf5 auxiliary(scanner/ftp/anonymous) > run
 
-`nc 10.10.10.3 21` shows `vsFTPd v2.3.4`.
+[+] 10.10.10.3:21         - 10.10.10.3:21 - Anonymous READ (220 (vsFTPd 2.3.4))
+[*] 10.10.10.3:21         - Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+```
+Unfortunately we only get anonymous read access.
+
+Doing `nc 10.10.10.3 21` also confirms it is running `vsFTPd v2.3.4`.
 
 `searchsploit vsftpd 2.3.4` shows `Backdoor Command Execution`.
 However, metasploit attacks etc didn't work.
