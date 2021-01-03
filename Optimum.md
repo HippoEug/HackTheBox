@@ -83,7 +83,7 @@ PORT   STATE SERVICE
 ```
 Wow, a couple of vulnerabilities it seems. Let's KIV those and move on to a little more enumeration.
 
-## 2. Enumeration: Searchsploit & GoBuster
+## 2. Enumeration: Searchsploit & Dirbuster
 Let's run some searchsploit and see what we get.
 ```
 hippoeug@kali:~$ searchsploit httpfileserver
@@ -119,3 +119,43 @@ Rejetto HTTP File Server (HFS) 2.3a/2.3b/2.3c - Remote Command Execution        
 Shellcodes: No Results
 ```
 Wow, looks like quite a few things!
+
+Let's see Dirbuster!
+```
+hippoeug@kali:~$ dirbuster
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Starting OWASP DirBuster 1.0-RC1
+Starting dir/file list based brute forcing
+Jan 03, 2021 2:17:11 PM org.apache.commons.httpclient.HttpMethodBase readResponseBody
+INFO: Response content length is not known
+Jan 03, 2021 2:17:11 PM org.apache.commons.httpclient.HttpMethodBase readResponseBody
+INFO: Response content length is not known
+ERROR: http://10.10.10.8:80/home.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/2005.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/sitemap.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/archives.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/support.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/keygen.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/index/ - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/04.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/crack/ - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/archive.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+Dir found: / - 200
+ERROR: http://10.10.10.8:80/register.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+Jan 03, 2021 2:17:12 PM au.id.jericho.lib.html.LoggerProviderJava$JavaLogger info
+INFO: StartTag a at (r45,c3,p1451) contains a '/' character before the closing '>', which is ignored because tags of this name cannot be empty-element tags
+ERROR: http://10.10.10.8:80/new/ - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/press.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/media.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/16.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/sitemap/ - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/docs.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+Jan 03, 2021 2:17:12 PM au.id.jericho.lib.html.LoggerProviderJava$JavaLogger info
+INFO: StartTag at (r9,c5,p361) missing required end tag - invalid nested start tag encountered before end tag
+ERROR: http://10.10.10.8:80/08/ - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/22.php - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+ERROR: http://10.10.10.8:80/articles/ - IOException The server 10.10.10.8 failed to respond with a valid HTTP response
+Jan 03, 2021 2:17:16 PM org.apache.commons.httpclient.HttpMethodBase readResponseBody
+INFO: Response content length is not known
+```
+What's this! Content length not known?!
