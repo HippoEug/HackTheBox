@@ -200,7 +200,7 @@ hippoeug@kali:~$ nano 39161.py
 ```
 We must change the local listening IP address (our kali machine) and the port.
 
-Overall, this is how our Python script looks.
+Overall, this is how our Python script looks after changing the IP and port to 80.
 ```
 #!/usr/bin/python
 # Exploit Title: HttpFileServer 2.3.x Remote Command Execution
