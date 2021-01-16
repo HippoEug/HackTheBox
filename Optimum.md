@@ -85,7 +85,24 @@ PORT   STATE SERVICE
 |_      https://www.tenable.com/plugins/nessus/55976
 ...
 ```
-Wow, a couple of vulnerabilities it seems. Let's KIV those and move on to a little more enumeration.
+Wow, a couple of vulnerabilities it seems. but mainly for DoS. Let's take a quick look at `http-method-tamper` links and try something.
+```
+hippoeug@kali:~$ nmap -p 80 --script http-methods 10.10.10.8
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-03 14:37 +08
+...
+PORT   STATE SERVICE
+80/tcp open  http
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+```
+Hmm, nothing interesting AFAIK. Testing another..
+```
+hippoeug@kali:~$ nc 10.10.10.8 80
+
+```
+No response from netcat attempt.
+
+Let's KIV those and move on to a little more enumeration.
 
 ## 2. Enumeration: Searchsploit & Dirbuster
 Let's run some searchsploit and see what we get.
