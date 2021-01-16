@@ -180,7 +180,7 @@ INFO: Response content length is not known
 What's this! Content length not known?!
 
 ## 3. Attacking HFS 2.3
-The first Searchsploit result `Buffer Overflow (PoC)` seems to be about DoS. Moving on, the second result `Arbitrary File Upload` wasn't useful. Thirdly, the third result `Remote Command Execution (1)` didn't have detailed documentation, and I do not know how to exploit this. ([Online Guide](https://www.jdksec.com/hack-the-box/optimum)) Finally, the forth result `Remote Command Execution (2)` looks promising so we're going to attempt to use this Python script.
+The first Searchsploit result `Buffer Overflow (PoC)` seems to be about DoS. Moving on, the second result `Arbitrary File Upload` wasn't useful. Thirdly, the third result `Remote Command Execution (1)` didn't have detailed documentation, and I do not know how to exploit this ([External Online Guide](https://www.jdksec.com/hack-the-box/optimum)). Finally, the forth result `Remote Command Execution (2)` looks promising so we're going to attempt to use this Python script.
 
 Let's copy the file to our workspace and work from there.
 ```
