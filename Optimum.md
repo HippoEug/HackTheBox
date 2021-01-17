@@ -429,7 +429,7 @@ Microsoft Windows 8.1/ Server 2012 - 'Win32k.sys' Local Privilege Escalation (MS
 ```
 Googling "windows server 2012 r2 privilege escalation", we see an exploit for `MS16-032`.
 
-Both `MS14-058` and `MS16-032` vulnerabilties have Metasploit exploits for them. 
+Both `[MS14-058](https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS14-058)` and `[MS16-032](https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS16-032)` vulnerabilties have Metasploit exploits for them. 
 
 For `MS14-058`:
 ```
