@@ -1,5 +1,5 @@
 # HackTheBox
-Sorted by HTB Difficulty Rating
+Sorted by HTB Difficulty Rating & Order
 
 ## Machines
 ### Easy
