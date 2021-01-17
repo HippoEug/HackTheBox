@@ -438,7 +438,7 @@ Module options (exploit/windows/local/ms14_058_track_popup_menu):
    SESSION                   yes       The session to run this module on.
 ...
 ```
-For `MS14-058`:
+For `MS16-032`:
 ```
 msf5 > use exploit/windows/local/ms16_032_secondary_logon_handle_privesc
 [*] No payload configured, defaulting to windows/meterpreter/reverse_tcp   
