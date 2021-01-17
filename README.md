@@ -8,7 +8,8 @@ Sorted by HTB Difficulty Rating & Order
 3. [Devel](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Devel.md): ASPX Reverse Shell (IIS) through FTP Upload
 4. [Beep](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Beep.md): VTigerCRM (Elastix) Exploit, Credential Reuse **[SEMI-INCOMPLETE]**
 5. [Optimum](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Optimum.md): HFS 2.3 Remote Code Execution, MS16-032 Secondary Logon Privilege Elevation
-6. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): EternalBlue
+6. [Arctic](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Arctic.md):
+7. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): EternalBlue
 
 ## Challenges
 ### Easy
