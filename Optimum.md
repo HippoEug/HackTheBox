@@ -1,7 +1,9 @@
-https://or10nlabs.tech/hackthebox-optimum/
-https://www.rapid7.com/db/modules/exploit/windows/http/rejetto_hfs_exec/
 # Summary
 ### 1. NMAP
+
+# Reference
+1. https://or10nlabs.tech/hackthebox-optimum/
+2. https://www.rapid7.com/db/modules/exploit/windows/http/rejetto_hfs_exec/
 
 # Attack
 ## 1. NMAP
@@ -763,3 +765,4 @@ Mode              Size  Type  Last modified              Name
 meterpreter > cat root.txt
 51ed1b36553c8461f4552c2e92b3eeed
 ```
+System flag achieved!
