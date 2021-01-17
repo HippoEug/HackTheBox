@@ -302,7 +302,11 @@ dir
                2 File(s)        760.352 bytes
                2 Dir(s)  31.899.250.688 bytes free
 ```
-Success! Let's get our first flag!
+Success!
+
+NOTE: There is a metasploit module for this `39161.py` vulnerability, [Rejetto HttpFileServer Remote Command Execution](https://www.rapid7.com/db/modules/exploit/windows/http/rejetto_hfs_exec/).
+
+Let's get our first flag!
 ```
 C:\Users\kostas\Desktop>type user.txt.txt
 type user.txt.txt
