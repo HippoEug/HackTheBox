@@ -593,7 +593,7 @@ Saved as: meterpreter.exe
 ```
 We now need to transfer this file over to the target machine. Using the previous infrastructure `sudo python -m SimpleHTTPServer 80`, we can host the file.
 
-Let's go back to the regular shell and download our hosted `meterpreter.exe`. We can refer to our old attempt on HTB, [Devel](https://github.com/HippoEug/HackTheBox/blob/main/Devel.md) where we used `certutil.exe` to download the payload.
+Let's go back to the regular shell and download our hosted `meterpreter.exe`. We can refer to our old attempt on HTB, [Devel](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Devel.md) where we used `certutil.exe` to download the payload.
 ```
 msf5 > sessions -i 1
 [*] Starting interaction with 1...
