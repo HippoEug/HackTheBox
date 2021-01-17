@@ -4,6 +4,28 @@
 
 # Summary
 ### 1. NMAP
+Running NMAP, we see there's only Port 80 open. Thankfully we have only one thing to focus on!
+
+### 2. Enumeration: Searchsploit & Dirbuster
+Seeing Searchsploit for `HFS 2.3`, we see a couple of vulnerabilties that we can use. Dirbuster didn't work correctly unfortunately.
+
+### 3. Attacking HFS 2.3
+We end up using a Remote Command Execution vulnerabiltiy, by downloading and editing the provided Python script, in order to get a regular reverse shell from it. Alternatively, there was a Metasploit module for this vulnerabiltiy which we did not use. 
+
+At this point, we managed to get the user flag. Since we did not have system/administrator privileges, we could not get the system flag.
+
+### 4. Privilege Escalation
+In order to privilege esclate, we need to understand our environment more, which we did with `systeminfo`. We see that the machine we are attacking is a Microsoft Windows Server 2012 R2 Standard x64. Doing some searching, we see that this OS is susceptible to `MS14-058` & `MS16-032`, with existing Metasploit modules we could leverage on.
+
+Since these needed a existing Metasploit session, we had to run our listener with Metasploit instead of just using a netcat listener. We try to get a `windows/x64/meterpreter/reverse_tcp` listener/payload, but that failed. We defaulted to using a regular `windows/x64/shell/reverse_tcp` listener/payload which worked.
+
+### 5. First Attempt on MS14-058 & MS16-032
+Our first attempt with `exploit/windows/local/ms14_058_track_popup_menu` metasploit module failed, as with `exploit/windows/local/ms16_032_secondary_logon_handle_privesc`. We probably need a meterpreter shell instead of a regular windows shell to make it work.
+
+### 6. Second Attempt on MS14-058 & MS16-032
+We create a meterpreter reverse shell payload as an executable using `msfvenom`. To transfer, we host the payload using `SimpleHTTPServer` on our Kali machine, and downloading that hosted payload onto the target machine with the regular shell we have access to, using `certutil.exe`. After downloading it, all we had to do was use a `multi/handler` to listen for the incoming reverse meterpreter shell, before executing the reverse shell payload.
+
+Through this, we got a meterpreter shell successfully. We try `exploit/windows/local/ms14_058_track_popup_menu`, but that did not work. We move on to `exploit/windows/local/ms16_032_secondary_logon_handle_privesc`, which worked wonderfully, giving us a privileged meterpreter shell. With access to System/Administrator, we got the system flag.
 
 # Attack
 ## 1. NMAP
