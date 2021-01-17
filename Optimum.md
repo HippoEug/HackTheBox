@@ -304,7 +304,7 @@ dir
 ```
 Success!
 
-NOTE: There is a metasploit module for this `39161.py` vulnerability, [Rejetto HttpFileServer Remote Command Execution](https://www.rapid7.com/db/modules/exploit/windows/http/rejetto_hfs_exec/).
+**NOTE: There is a metasploit module for this `39161.py` vulnerability, [Rejetto HttpFileServer Remote Command Execution](https://www.rapid7.com/db/modules/exploit/windows/http/rejetto_hfs_exec/).**
 
 Let's get our first flag!
 ```
