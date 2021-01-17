@@ -20,10 +20,10 @@ In order to privilege esclate, we need to understand our environment more, which
 Since these needed a existing Metasploit session, we had to run our listener with Metasploit instead of just using a netcat listener. We try to get a `windows/x64/meterpreter/reverse_tcp` listener/payload, but that failed. We defaulted to using a regular `windows/x64/shell/reverse_tcp` listener/payload which worked.
 
 ### 5. First Attempt on MS14-058 & MS16-032
-Our first attempt with `exploit/windows/local/ms14_058_track_popup_menu` metasploit module failed, as with `exploit/windows/local/ms16_032_secondary_logon_handle_privesc`. We probably need a meterpreter shell instead of a regular windows shell to make it work.
+Our first attempt with `exploit/windows/local/ms14_058_track_popup_menu` metasploit module failed, as with `exploit/windows/local/ms16_032_secondary_logon_handle_privesc`. We probably need a meterpreter shell instead of a regular metasploit windows shell to make it work.
 
 ### 6. Second Attempt on MS14-058 & MS16-032
-We create a meterpreter reverse shell payload as an executable using `msfvenom`. To transfer, we host the payload using `SimpleHTTPServer` on our Kali machine, and downloading that hosted payload onto the target machine with the regular shell we have access to, using `certutil.exe`. After downloading it, all we had to do was use a `multi/handler` to listen for the incoming reverse meterpreter shell, before executing the reverse shell payload.
+We create a meterpreter reverse shell payload as an executable using `msfvenom`. To transfer, we host the payload using `SimpleHTTPServer` on our Kali machine, and downloading that hosted payload onto the target machine with the regular shell we have access to, using `certutil.exe`. After downloading it, all we had to do was use a `multi/handler` to listen for the incoming reverse meterpreter shell when executing the reverse shell payload.
 
 Through this, we got a meterpreter shell successfully. We try `exploit/windows/local/ms14_058_track_popup_menu`, but that did not work. We move on to `exploit/windows/local/ms16_032_secondary_logon_handle_privesc`, which worked wonderfully, giving us a privileged meterpreter shell. With access to System/Administrator, we got the system flag.
 
