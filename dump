@@ -1,10 +1,4 @@
-hippoeug@kali:~$ searchsploit windows server 2012
 
-Microsoft Windows 8.1/ Server 2012 - 'Win32k.sys' Local Privilege Escalation (MS14-058)                                             | windows/local/46945.cpp
-
-
-====
-Google MS14-058, got metasploit module
 
 hippoeug@kali:~$ msfconsole
 
