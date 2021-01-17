@@ -1,6 +1,6 @@
 # References
-1. [Optimum Writeup](https://or10nlabs.tech/hackthebox-optimum/)
-2. [Optimum Writeup](https://medium.com/@nmappn/htb-optimum-writeup-9680466f01f7)
+1. [Optimum Writeup by or10nlabs.tech](https://or10nlabs.tech/hackthebox-optimum/)
+2. [Optimum Writeup on medium.com](https://medium.com/@nmappn/htb-optimum-writeup-9680466f01f7)
 
 # Summary
 ### 1. NMAP
