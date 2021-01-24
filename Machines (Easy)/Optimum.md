@@ -127,7 +127,7 @@ No response from netcat attempt.
 Let's KIV those and move on to a little more enumeration.
 
 ## 2. Enumeration: Searchsploit & Dirbuster
-Let's run some searchsploit and see what we get.
+Let's run some Searchsploit and see what we get.
 ```
 hippoeug@kali:~$ searchsploit httpfileserver
 Exploits: No Results
