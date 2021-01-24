@@ -1,6 +1,6 @@
 # References
-1. [Optimum Writeup (medium.com)](https://medium.com/@Rehman.Beg/hackthebox-arctic-writeup-442d2b268833)
-2. [Optimum Writeup (absolomb.com)](https://www.absolomb.com/2017-12-29-HackTheBox-Arctic-Writeup/)
+1. [Optimum Writeup (absolomb.com)](https://www.absolomb.com/2017-12-29-HackTheBox-Arctic-Writeup/)
+2. [Optimum Writeup (medium.com)](https://medium.com/@Rehman.Beg/hackthebox-arctic-writeup-442d2b268833)
 
 # Summary
 ### 1. NMAP
@@ -514,4 +514,12 @@ Debugging & Logging
 	Code Analyzer
 	License Scanner
 ```
-Scheduled Tasks!
+Scheduled Tasks! We could use this to download and run our reverse shell payload.
+
+Let's create a payload.
+```
+```
+
+Let's Schedule New Task.
+```
+```
