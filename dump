@@ -1,4 +1,74 @@
- 	
+Server Details
+Server Product 	ColdFusion
+Version 	8,0,1,195765  
+Edition 	Developer  
+Serial Number 	Developer  
+Operating System 	Windows Vista  
+OS Version 	6.1  
+JVM Details
+Java Version 	1.6.0_04  
+Java Vendor 	Sun Microsystems Inc.  
+Java Vendor URL 	http://java.sun.com/
+Java Home 	C:\ColdFusion8\runtime\jre  
+Java File Encoding 	Cp1253  
+Java Default Locale 	el_GR  
+File Separator 	\  
+Path Separator 	;  
+Line Separator 	Chr(13)
+User Name 	tolis  
+User Home 	C:\Users\tolis  
+User Dir 	C:\ColdFusion8\runtime\bin  
+Java VM Specification Version 	1.0  
+Java VM Specification Vendor 	Sun Microsystems Inc.  
+Java VM Specification Name 	Java Virtual Machine Specification  
+Java VM Version 	10.0-b19  
+Java VM Vendor 	Sun Microsystems Inc.  
+Java VM Name 	Java HotSpot(TM) 64-Bit Server VM  
+Java Specification Version 	1.6  
+Java Specification Vendor 	Sun Microsystems Inc.  
+Java Specification Name 	Java Platform API Specification  
+Java Class Version 	50.0  
+Java Class Path 	
+
+CF Classpath
+;C:/ColdFusion8/runtime/../lib/ant-launcher.jar;  C:/ColdFusion8/runtime/../lib/ant.jar;  C:/ColdFusion8/runtime/../lib/asn1.jar;  C:/ColdFusion8/runtime/../lib/axis.jar;  C:/ColdFusion8/runtime/../lib/backport-util-concurrent.jar;  C:/ColdFusion8/runtime/../lib/bcel.jar;  C:/ColdFusion8/runtime/../lib/cdo.jar;  C:/ColdFusion8/runtime/../lib/cdohost.jar;  C:/ColdFusion8/runtime/../lib/certj.jar;  C:/ColdFusion8/runtime/../lib/cf-acrobat.jar;  C:/ColdFusion8/runtime/../lib/cf-assembler.jar;  C:/ColdFusion8/runtime/../lib/cf-logging.jar;  C:/ColdFusion8/runtime/../lib/cf4was.jar;  C:/ColdFusion8/runtime/../lib/cf4was_ae.jar;  C:/ColdFusion8/runtime/../lib/cfusion-req.jar;  C:/ColdFusion8/runtime/../lib/cfusion.jar;  C:/ColdFusion8/runtime/../lib/clibwrapper_jiio.jar;  C:/ColdFusion8/runtime/../lib/commons-beanutils-1.6.jar;  C:/ColdFusion8/runtime/../lib/commons-codec-1.3.jar;  C:/ColdFusion8/runtime/../lib/commons-collections-2.1.jar;  C:/ColdFusion8/runtime/../lib/commons-digester-1.7.jar;  C:/ColdFusion8/runtime/../lib/commons-discovery-0.2.jar;  C:/ColdFusion8/runtime/../lib/commons-httpclient-3.0.1.jar;  C:/ColdFusion8/runtime/../lib/commons-logging-api.1.0.4.jar;  C:/ColdFusion8/runtime/../lib/commons-logging.1.0.4.jar;  C:/ColdFusion8/runtime/../lib/commons-net-1.4.0.jar;  C:/ColdFusion8/runtime/../lib/crystal.jar;  C:/ColdFusion8/runtime/../lib/derby.jar;  C:/ColdFusion8/runtime/../lib/derbyclient.jar;  C:/ColdFusion8/runtime/../lib/derbynet.jar;  C:/ColdFusion8/runtime/../lib/derbyrun.jar;  C:/ColdFusion8/runtime/../lib/derbytools.jar;  C:/ColdFusion8/runtime/../lib/FCSj.jar;  C:/ColdFusion8/runtime/../lib/flashgateway.jar;  C:/ColdFusion8/runtime/../lib/flex-messaging-common.jar;  C:/ColdFusion8/runtime/../lib/flex-messaging-opt.jar;  C:/ColdFusion8/runtime/../lib/flex-messaging-req.jar;  C:/ColdFusion8/runtime/../lib/flex-messaging.jar;  C:/ColdFusion8/runtime/../lib/httpclient.jar;  C:/ColdFusion8/runtime/../lib/ib6addonpatch.jar;  C:/ColdFusion8/runtime/../lib/ib6core.jar;  C:/ColdFusion8/runtime/../lib/ib6http.jar;  C:/ColdFusion8/runtime/../lib/ib6swing.jar;  C:/ColdFusion8/runtime/../lib/ib6util.jar;  C:/ColdFusion8/runtime/../lib/im.jar;  C:/ColdFusion8/runtime/../lib/iText.jar;  C:/ColdFusion8/runtime/../lib/iTextAsian.jar;  C:/ColdFusion8/runtime/../lib/izmado.jar;  C:/ColdFusion8/runtime/../lib/jai_codec.jar;  C:/ColdFusion8/runtime/../lib/jai_core.jar;  C:/ColdFusion8/runtime/../lib/jai_imageio.jar;  C:/ColdFusion8/runtime/../lib/jakarta-oro-2.0.6.jar;  C:/ColdFusion8/runtime/../lib/jakarta-slide-webdavlib-2.1.jar;  C:/ColdFusion8/runtime/../lib/java2wsdl.jar;  C:/ColdFusion8/runtime/../lib/jax-qname.jar;  C:/ColdFusion8/runtime/../lib/jaxb-api.jar;  C:/ColdFusion8/runtime/../lib/jaxb-impl.jar;  C:/ColdFusion8/runtime/../lib/jaxb-libs.jar;  C:/ColdFusion8/runtime/../lib/jaxb-xjc.jar;  C:/ColdFusion8/runtime/../lib/jaxrpc.jar;  C:/ColdFusion8/runtime/../lib/jdom-1.0.jar;  C:/ColdFusion8/runtime/../lib/jeb.jar;  C:/ColdFusion8/runtime/../lib/jintegra.jar;  C:/ColdFusion8/runtime/../lib/jnbcore.jar;  C:/ColdFusion8/runtime/../lib/jpedal.jar;  C:/ColdFusion8/runtime/../lib/jsch-0.1.28m.jar;  C:/ColdFusion8/runtime/../lib/jstack.jar;  C:/ColdFusion8/runtime/../lib/jutf7-0.9.0.jar;  C:/ColdFusion8/runtime/../lib/ldap.jar;  C:/ColdFusion8/runtime/../lib/ldapbp.jar;  C:/ColdFusion8/runtime/../lib/log4j-1.2.12.jar;  C:/ColdFusion8/runtime/../lib/macromedia_drivers.jar;  C:/ColdFusion8/runtime/../lib/mail.jar;  C:/ColdFusion8/runtime/../lib/metadata-extractor-2.2.2.jar;  C:/ColdFusion8/runtime/../lib/mlibwrapper_jai.jar;  C:/ColdFusion8/runtime/../lib/mm-mysql-jdbc.jar;  C:/ColdFusion8/runtime/../lib/msapps.jar;  C:/ColdFusion8/runtime/../lib/mysql-connector-java-commercial-5.0.5-bin.jar;  C:/ColdFusion8/runtime/../lib/namespace.jar;  C:/ColdFusion8/runtime/../lib/pdfencryption.jar;  C:/ColdFusion8/runtime/../lib/poi-2.5.1-final-20040804.jar;  C:/ColdFusion8/runtime/../lib/poi-contrib-2.5.1-final-20040804.jar;  C:/ColdFusion8/runtime/../lib/postgresql-8.1-407.jdbc3.jar;  C:/ColdFusion8/runtime/../lib/relaxngDatatype.jar;  C:/ColdFusion8/runtime/../lib/ri_generic.jar;  C:/ColdFusion8/runtime/../lib/rome-cf.jar;  C:/ColdFusion8/runtime/../lib/saaj.jar;  C:/ColdFusion8/runtime/../lib/smack.jar;  C:/ColdFusion8/runtime/../lib/smpp.jar;  C:/ColdFusion8/runtime/../lib/STComm.jar;  C:/ColdFusion8/runtime/../lib/tools.jar;  C:/ColdFusion8/runtime/../lib/tt-bytecode.jar;  C:/ColdFusion8/runtime/../lib/vadmin.jar;  C:/ColdFusion8/runtime/../lib/verity.jar;  C:/ColdFusion8/runtime/../lib/vparametric.jar;  C:/ColdFusion8/runtime/../lib/vsearch.jar;  C:/ColdFusion8/runtime/../lib/wc50.jar;  C:/ColdFusion8/runtime/../lib/webchartsJava2D.jar;  C:/ColdFusion8/runtime/../lib/wsdl2java.jar;  C:/ColdFusion8/runtime/../lib/wsdl4j-1.5.1.jar;  C:/ColdFusion8/runtime/../lib/xalan.jar;  C:/ColdFusion8/runtime/../lib/xercesImpl.jar;  C:/ColdFusion8/runtime/../lib/xml-apis.jar;  C:/ColdFusion8/runtime/../lib/xsdlib.jar;  C:/ColdFusion8/runtime/../lib/;  C:/ColdFusion8/runtime/../gateway/lib/examples.jar;  C:/ColdFusion8/runtime/../gateway/lib/;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/asc.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-awt-util.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-bridge.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-css.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-dom.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-ext.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-gvt.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-parser.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-script.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-svg-dom.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-svggen.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-transcoder.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-util.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/batik-xml.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/cfdataservicesadapter.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/cfgatewayadapter.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/concurrent.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/flex-acrobat.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/flex-webtier-jsp.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/flex-webtier.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/license.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/mm-velocity-1.4.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/mxmlc.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/oscache.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/swfkit.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/xercesImpl.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/xercesPatch.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/xmlParserAPIs.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/flex/jars/;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/batik-awt-util.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/batik-css.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/batik-ext.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/batik-transcoder.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/batik-util.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/commons-discovery.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/commons-logging.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/concurrent.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/flex.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/jakarta-oro-2.0.7.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/jcert.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/jnet.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/jsse.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/oscache.jar;  C:/ColdFusion8/runtime/../wwwroot/WEB-INF/cfform/jars/;  
+Server Classpath
+C:\ColdFusion8\runtime\servers\lib;
+C:\ColdFusion8\runtime\servers\lib\jrun-patch.jar;
+C:\ColdFusion8\runtime\..\lib\macromedia_drivers.jar;
+C:\ColdFusion8\runtime\lib\cfmx_mbean.jar;
+C:\ColdFusion8\runtime\lib;
+C:\ColdFusion8\runtime\lib\cfmx_mbean.jar;
+C:\ColdFusion8\runtime\lib\instutil.jar;
+C:\ColdFusion8\runtime\lib\java2wsdl.jar;
+C:\ColdFusion8\runtime\lib\jrun-ant-tasks.jar;
+C:\ColdFusion8\runtime\lib\jrun-xdoclet.jar;
+C:\ColdFusion8\runtime\lib\jrun.jar;
+C:\ColdFusion8\runtime\lib\jspc.jar;
+C:\ColdFusion8\runtime\lib\migrate.jar;
+C:\ColdFusion8\runtime\lib\oem-xdoclet.jar;
+C:\ColdFusion8\runtime\lib\sniffer.jar;
+C:\ColdFusion8\runtime\lib\webservices.jar;
+C:\ColdFusion8\runtime\lib\wsconfig.jar;
+C:\ColdFusion8\runtime\lib\wsdl2java.jar;
+C:\ColdFusion8\runtime\lib\xmlscript.jar;
+C:\ColdFusion8\runtime\lib\jrun.jar
+Java Ext Dirs 	C:\ColdFusion8\runtime\jre\lib\ext;C:\Windows\Sun\Java\lib\ext  
+Printer Details
+Default Printer 	Microsoft XPS Document Writer
+Printers 	Microsoft XPS Document Writer 
+
+
+
+
+
+
+
+
+
+
+
+
 Expand All / Collapse All
 		
 	Server Settings 	
