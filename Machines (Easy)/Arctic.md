@@ -4,10 +4,13 @@
 
 # Summary
 ### 1. NMAP
+Running NMAP, we see 3 ports are opened. Ports 135 & 49154 runs Microsoft RPC Service, while Port 8500 runs FMTP Service.
 
 ### 2. Enumeration & Attack Attempt 1: MSRPC
+No searchsploit for msrpc, and with Google, we find a metasploit exploit `exploit/multi/misc/msf_rpc_console` which required a username and password which we do not have. Unable to use this exploit, we move on.
 
 ### 3. Enumeration & Attack Attempt 2: FMTP
+Searchsploit for fmtp didn't show anything. However, we could navigate to `http://10.10.10.11:8500` on our browser even though it took forever to load.
 
 ### 4. Further Enumeration of Port 8500, FMTP
 
