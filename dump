@@ -1,3 +1,50 @@
+hippoeug@kali:~$ searchsploit coldfusion
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Adobe ColdFusion - 'probe.cfm' Cross-Site Scripting                                                                                 | cfm/webapps/36067.txt
+Adobe ColdFusion - Directory Traversal                                                                                              | multiple/remote/14641.py
+Adobe ColdFusion - Directory Traversal (Metasploit)                                                                                 | multiple/remote/16985.rb
+Adobe Coldfusion 11.0.03.292866 - BlazeDS Java Object Deserialization Remote Code Execution                                         | windows/remote/43993.py
+Adobe ColdFusion 2018 - Arbitrary File Upload                                                                                       | multiple/webapps/45979.txt
+Adobe ColdFusion 6/7 - User_Agent Error Page Cross-Site Scripting                                                                   | cfm/webapps/29567.txt
+Adobe ColdFusion 7 - Multiple Cross-Site Scripting Vulnerabilities                                                                  | cfm/webapps/36172.txt
+Adobe ColdFusion 9 - Administrative Authentication Bypass                                                                           | windows/webapps/27755.txt
+Adobe ColdFusion 9 - Administrative Authentication Bypass (Metasploit)                                                              | multiple/remote/30210.rb
+Adobe ColdFusion < 11 Update 10 - XML External Entity Injection                                                                     | multiple/webapps/40346.py
+Adobe ColdFusion APSB13-03 - Remote Multiple Vulnerabilities (Metasploit)                                                           | multiple/remote/24946.rb
+Adobe ColdFusion Server 8.0.1 - '/administrator/enter.cfm' Query String Cross-Site Scripting                                        | cfm/webapps/33170.txt
+Adobe ColdFusion Server 8.0.1 - '/wizards/common/_authenticatewizarduser.cfm' Query String Cross-Site Scripting                     | cfm/webapps/33167.txt
+Adobe ColdFusion Server 8.0.1 - '/wizards/common/_logintowizard.cfm' Query String Cross-Site Scripting                              | cfm/webapps/33169.txt
+Adobe ColdFusion Server 8.0.1 - 'administrator/logviewer/searchlog.cfm?startRow' Cross-Site Scripting                               | cfm/webapps/33168.txt
+Allaire ColdFusion Server 4.0 - Remote File Display / Deletion / Upload / Execution                                                 | multiple/remote/19093.txt
+Allaire ColdFusion Server 4.0.1 - 'CFCRYPT.EXE' Decrypt Pages                                                                       | windows/local/19220.c
+Allaire ColdFusion Server 4.0/4.0.1 - 'CFCACHE' Information Disclosure                                                              | multiple/remote/19712.txt
+ColdFusion 8.0.1 - Arbitrary File Upload / Execution (Metasploit)                                                                   | cfm/webapps/16788.rb
+ColdFusion 9-10 - Credential Disclosure                                                                                             | multiple/webapps/25305.py
+ColdFusion MX - Missing Template Cross-Site Scripting                                                                               | cfm/remote/21548.txt
+ColdFusion MX - Remote Development Service                                                                                          | windows/remote/50.pl
+ColdFusion Scripts Red_Reservations - Database Disclosure                                                                           | asp/webapps/7440.txt
+ColdFusion Server 2.0/3.x/4.x - Administrator Login Password Denial of Service                                                      | multiple/dos/19996.txt
+Macromedia ColdFusion MX 6.0 - Error Message Full Path Disclosure                                                                   | cfm/webapps/22544.txt
+Macromedia ColdFusion MX 6.0 - Oversized Error Message Denial of Service                                                            | multiple/dos/24013.txt
+Macromedia ColdFusion MX 6.0 - Remote Development Service File Disclosure                                                           | multiple/remote/22867.pl
+Macromedia ColdFusion MX 6.0 - SQL Error Message Cross-Site Scripting                                                               | cfm/webapps/23256.txt
+Macromedia ColdFusion MX 6.1 - Template Handling Privilege Escalation                                                               | multiple/remote/24654.txt
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+
+
+
+
+
+
+
+
+
+
+=======
+
 http://10.10.10.11:8500/CFIDE/wizards/common/_logintowizard.cfm
 http://10.10.10.11:8500/CFIDE/wizards/common/_authenticatewizarduser.cfm
 
