@@ -206,6 +206,6 @@ Mode              Size  Type  Last modified              Name
 100444/r--r--r--  32    fil   2017-03-23 03:01:59 +0800  root.txt
 
 meterpreter > cat root.txt
-
+ce65ceee66b2b5ebaff07e50508ffb90
 
 
