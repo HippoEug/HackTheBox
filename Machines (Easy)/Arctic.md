@@ -142,5 +142,87 @@ From this, we know that the salted password is encrypted with SHA1.
 
 Let's enumerate a little more down the list of directories.
 ```
+Index of /CFIDE/classes/
 
+Parent ..                                 dir   03/22/17 08:52 μμ
+cf-j2re-win.cab                       5073487   03/18/08 11:06 πμ
+cfapplets.jar                           87810   03/18/08 11:06 πμ
+images/                                   dir   03/22/17 08:52 μμ
 ```
+```
+Index of /CFIDE/componentutils/
+
+Parent ..                                                 dir   03/22/17 08:52 μμ
+Application.cfm                                          2477   03/18/08 11:07 πμ
+_component_cfcToHTML.cfm                                 8560   03/18/08 11:07 πμ
+_component_cfcToMCDL.cfm                                 2643   03/18/08 11:07 πμ
+_component_style.cfm                                      462   03/18/08 11:07 πμ
+_component_utils.cfm                                     7247   03/18/08 11:07 πμ
+cfcexplorer.cfc                                         11121   03/18/08 11:07 πμ
+cfcexplorer_utils.cfm                                    6557   03/18/08 11:07 πμ
+componentdetail.cfm                                      1215   03/18/08 11:07 πμ
+componentdoc.cfm                                          629   03/18/08 11:07 πμ
+componentlist.cfm                                        1212   03/18/08 11:07 πμ
+gatewaymenu/                                              dir   03/22/17 08:52 μμ
+login.cfm                                               19984   03/18/08 11:06 πμ
+packagelist.cfm                                          1286   03/18/08 11:07 πμ
+utils.cfc                                                1180   03/18/08 11:07 πμ
+```
+```
+Index of /CFIDE/debug/
+
+Parent ..                              dir   03/22/17 08:52 μμ
+blank.html                              78   03/18/08 11:06 πμ
+cf_debugFr.cfm                        2843   03/18/08 11:06 πμ
+images/                                dir   03/22/17 08:52 μμ
+includes/                              dir   03/22/17 08:52 μμ
+```
+```
+Index of /CFIDE/debug/includes/
+
+Parent ..                                         dir   03/22/17 08:52 μμ
+cf_debug_main.js                                 1195   03/18/08 11:06 πμ
+```
+```
+Index of /CFIDE/images/
+
+Parent ..                             dir   03/22/17 08:52 μμ
+required.gif                           94   03/18/08 11:07 πμ
+skins/                                dir   03/22/17 08:52 μμ
+```
+```
+Index of /CFIDE/scripts/
+
+Parent ..                                        dir   03/22/17 08:52 μμ
+CF_RunActiveContent.js                           116   03/18/08 11:07 πμ
+ajax/                                            dir   03/22/17 08:52 μμ
+cfform-src.js                                  22480   03/18/08 11:07 πμ
+cfform.js                                      10617   03/18/08 11:07 πμ
+cfform.swc                                    424916   03/18/08 11:07 πμ
+cfformhistory.cfm                               4120   03/18/08 11:06 πμ
+cfformhistory.js                                1616   03/18/08 11:07 πμ
+cfformhistory.swf                               2656   03/18/08 11:07 πμ
+css/                                             dir   03/22/17 08:52 μμ
+dump.js                                         5142   03/18/08 11:07 πμ
+fpwrapper.fla                                 165376   03/18/08 11:07 πμ
+fpwrapper.swf                                  27476   03/18/08 11:07 πμ
+masks-src.js                                    9393   03/18/08 11:07 πμ
+masks.js                                        3897   03/18/08 11:07 πμ
+wddx.js                                        22617   03/18/08 11:07 πμ
+xsl/                                             dir   03/22/17 08:52 μμ
+```
+```
+Index of /CFIDE/wizards/
+
+Parent ..                         dir   03/22/17 08:52 μμ
+common/                           dir   03/22/17 08:52 μμ
+```
+```
+Index of /CFIDE/wizards/common/
+
+Parent ..                                                    dir   03/22/17 08:52 μμ
+_authenticatewizarduser.cfm                                 1585   03/18/08 11:07 πμ
+_logintowizard.cfm                                          7135   03/18/08 11:07 πμ
+utils.cfc                                                   1596   03/18/08 11:07 πμ
+```
+Ah, we cannot find a file that we can use to our advantage.
