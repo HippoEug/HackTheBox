@@ -333,27 +333,60 @@ With this password `happyday`, let's go back to `http://10.10.10.11:8500/CFIDE/a
 
 We get directed to `10.10.10.11:8500/CFIDE/administrator/index.cfm` and successfully got in!
 
+NOTE: While browsing through other write-ups, I found out that navigating directly to URL `http://server/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en`, taken from [14641.py](https://www.exploit-db.com/exploits/14641), displays the hash password on screen immediately. 
+
 ## 6. Enumerating ColdFusion Administrative Page
 Looking through the Administrator page, we could only see various Menus to view or modify.
 ```
 Expand All / Collapse All
 
 Server Settings 
-...
+	Settings
+	Request Tuning
+	Caching
+	Client Variables
+	Memory Variables
+	Mappings
+	Mail
+	Charting
+	Font Management
+	Java and JVM
+	Settings Summary
 Data & Services
-...
+	Data Sources
+	Verity Collections
+	Verity K2 Server
+	Web Services
+	Flex Integration
 Debugging & Logging
-...
+	Debug Output Settings
+	Debugging IP Addresses
+	Debugger Settings
+	Logging Settings
+	Log Files
+	Scheduled Tasks
+	System Probes
+	Code Analyzer
+	License Scanner
 Server Monitoring
-...
+	Server Monitor
 Extensions
-...
+	Java Applets
+	CFX Tags
+	Custom Tag Paths
+	CORBA Connectors
 Event Gateways
-...
+	Settings
+	Gateway Types
+	Gateway Instances
 Security
-...
+	Administrator
+	RDS
+	Sandbox Security
+	User Manager
 Packaging & Deployment
-...
+	ColdFusion Archives
+	J2EE Archives
 ```
 Nothing interesting unfortunately. Suddenly, on the top right corner, I noticed a "System Information" button.
 
@@ -450,3 +483,5 @@ msf5 exploit(windows/http/coldfusion_fckeditor) > exploit
 [*] Exploit completed, but no session was created.
 ```
 Within seconds of `[*] Sending our POST request...`, it returned with `[-] Upload Failed...`. This apparently is an unusual, quoting IppSec that every request to `10.10.10.11` takes about 30s to return something, there is no way this exploit would know that this request failed this quickly.
+
+At this point, I am lost and looked online for guidance. The official documentation & [IppSec](https://www.youtube.com/watch?v=e9lVyFH7-4o&feature=emb_title&ab_channel=IppSec) managed to still use this `exploit/windows/http/coldfusion_fckeditor` exploit, with the use of Burp Suite. "However, due to the request delay to the target, the Metasploit module fails to run and must be intercepted in Burp Suite, then requested through Burp Repeater." 
