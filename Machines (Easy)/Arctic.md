@@ -1,8 +1,23 @@
 # References
-1. [X Writeup (x)](x)
+1. [Optimum Writeup (medium.com)](https://medium.com/@Rehman.Beg/hackthebox-arctic-writeup-442d2b268833)
+2. [Optimum Writeup (absolomb.com)](https://www.absolomb.com/2017-12-29-HackTheBox-Arctic-Writeup/)
 
 # Summary
 ### 1. NMAP
+
+### 2. Enumeration & Attack Attempt 1: MSRPC
+
+### 3. Enumeration & Attack Attempt 2: FMTP
+
+### 4. Further Enumeration of Port 8500, FMTP
+
+### 5. Finding & Attacking with Adobe ColdFusion 8 Exploits
+
+### 6. Enumerating ColdFusion Administrative Page
+
+### 7. Attacking Machine by Uploading Payload
+
+### 8. 
 
 # Attack
 ## 1. NMAP
@@ -485,3 +500,18 @@ msf5 exploit(windows/http/coldfusion_fckeditor) > exploit
 Within seconds of `[*] Sending our POST request...`, it returned with `[-] Upload Failed...`. This apparently is an unusual, quoting IppSec that every request to `10.10.10.11` takes about 30s to return something, there is no way this exploit would know that this request failed this quickly.
 
 At this point, I am lost and looked online for guidance. The official documentation & [IppSec](https://www.youtube.com/watch?v=e9lVyFH7-4o&feature=emb_title&ab_channel=IppSec) managed to still use this `exploit/windows/http/coldfusion_fckeditor` exploit, with the use of Burp Suite. "However, due to the request delay to the target, the Metasploit module fails to run and must be intercepted in Burp Suite, then requested through Burp Repeater." 
+
+Not wanting to use the Burp suite method, I followed an alternative method as seen from other writeups. Turns out, I missed out a tool I could leverage on from the ColdFusion administrator site.
+```
+Debugging & Logging
+	Debug Output Settings
+	Debugging IP Addresses
+	Debugger Settings
+	Logging Settings
+	Log Files
+  ----> Scheduled Tasks
+	System Probes
+	Code Analyzer
+	License Scanner
+```
+Scheduled Tasks!
