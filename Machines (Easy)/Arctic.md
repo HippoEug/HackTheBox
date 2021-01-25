@@ -32,6 +32,11 @@ ColdFusion will execute `.cfm` & `.jsp` files. We ended up generating a `.jsp` r
 We start a HTTP Server serving the `jsp_shell.jsp` payload. Afterwards, we scheduled a task, to download the payload from our HTTP Server, and save it in one of the file mappings, `C:\ColdFusion8\wwwroot\CFIDE\jsp_shell.jsp`. We start a nc listener, and ran our `jsp_shell.jsp` by navigating to `http://10.10.10.11:8500/CFIDE/jsp_shell.jsp` on our browser. We got into a regular shell, and got our first user flag here.
 
 ### 9. Privilege Escalation
+To privilege escalate, we choose to get a meterpreter shell to make things easier. We create a meterpreter reverse shell with msfvenom, host it on our Python HTTP Server. We then use our regular shell we got from earlier to download the meterpreter shell with `certutil.exe`.
+
+After setting a `multi/handler` to listen for the meterpreter connection, we run our meterpreter payload, and got a meterpreter shell successfully. Since `getsystem` did not work, we use `recon/local_exploit_sugester` to find exploits to privilege escalate.
+
+Trying `ms10_092_schelevator` worked, we got system rights and the system flag.
 
 # Attack
 ## 1. NMAP
