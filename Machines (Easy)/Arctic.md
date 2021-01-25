@@ -10,17 +10,26 @@ Running NMAP, we see 3 ports are opened. Ports 135 & 49154 runs Microsoft RPC Se
 No searchsploit for msrpc, and with Google, we find a metasploit exploit `exploit/multi/misc/msf_rpc_console` which required a username and password which we do not have. Unable to use this exploit, we move on.
 
 ### 3. Enumeration & Attack Attempt 2: FMTP
-Searchsploit for fmtp didn't show anything. However, we could navigate to `http://10.10.10.11:8500` on our browser even though it took forever to load.
+Searchsploit for fmtp didn't show anything. However, we could navigate to `http://10.10.10.11:8500` on our browser even though it took forever to load. We found out Port 8500 serves Adobe ColdFusion, and `http://10.10.10.11:8500/CFIDE/administrator/` is a ColdFusion 8 Administrator login page.
 
 ### 4. Further Enumeration of Port 8500, FMTP
+From the source page of the ColdFusion 8 login page, we see that the password is encrypted with SHA1. Enumerating through the rest of the subdirectories on `http://10.10.10.11:8500` did not reveal anything else.
 
 ### 5. Finding & Attacking with Adobe ColdFusion 8 Exploits
+Doing a Searchsploit on Coldfusion showed a few possible attacks. Trying `Directory Traversal 14641.py`, we see a SHA1 password, where we can use Crackstation to get the password "happyday". With the password we just obtained, we are able to log into the administrator page, `http://10.10.10.11:8500/CFIDE/administrator/`.
 
 ### 6. Enumerating ColdFusion Administrative Page
+We were unable to find a use for the admin page, except a System Information button where we found it is a machine running Windows Vista 6.1, ColdFusion v8.0.1.195765 & JVM v1.6.0_04. We also know there is a user tolis, path C:\Users\tolis.
 
 ### 7. Attacking Machine by Uploading Payload Attempt 1: fck_editor Exploit
+We try a Metasploit exploit `ColdFusion 8.0.1 Arbitrary File Upload and Execute` to upload a payload. Since it failed, we move on to another method, Scheduled Tasks. However, the official documentation continues to use this `ColdFusion 8.0.1 Arbitrary File Upload and Execute` exploit with the help of Burp Suite.
 
 ### 8. Attacking Machine by Uploading Payload Attempt 2: Scheduled Tasks
+On the ColdFusion administrative site `http://10.10.10.11:8500/CFIDE/administrator/`, there was actually a Scheduled Tasks functionality where we cound use it to schedule the payload to be downloaded.
+
+ColdFusion will execute `.cfm` & `.jsp` files. We ended up generating a `.jsp` reverse shell with msfvenom. Through the ColdFusion Mappings, we see 2 file paths where we could potentially place our reverse shells in.
+
+We start a HTTP Server serving the `jsp_shell.jsp` payload. Afterwards, we scheduled a task, to download the payload from our HTTP Server, and save it in one of the file mappings, `C:\ColdFusion8\wwwroot\CFIDE\jsp_shell.jsp`. We start a nc listener, and ran our `jsp_shell.jsp` by navigating to `http://10.10.10.11:8500/CFIDE/jsp_shell.jsp` on our browser. We got into a regular shell, and got our first user flag here.
 
 ### 9. Privilege Escalation
 
