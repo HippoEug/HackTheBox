@@ -13,7 +13,7 @@ Sorted by HTB Difficulty Rating & Order
  8. Granny:
  9. Bank:
 10. Blocky:
-11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): EternalBlue
+11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): MS17_010_EternalBlue
 
 ## Challenges
 ### Easy
