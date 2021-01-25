@@ -1,6 +1,6 @@
 # Summary
 ### 1. NMAP, Business as Usual
-We see the system is a outdated and old version of Windows, Windows XP (2000 LAN Manager)
+We see the system is a outdated and old version of Windows, Windows XP (2000 LAN Manager).
 
 ### 2. Vulnerability Search
 We see lots of SMB exploits when doing a SearchSploit search for Windows 2000. Let's enumerate further.
