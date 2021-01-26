@@ -25,7 +25,7 @@ Fixing the `exploit/multi/handler` with the correct `windows/shell/reverse_tcp` 
 ### 8. Privilege Escalation
 Upon getting a meterpreter shell, we try `getsystem` which failed. We run a `post/multi/recon/local_exploit_suggester`, and tried one of the exploits, `exploit/windows/local/ms10_015_kitrap0d`. 
 
-It didn't work on the first time because the meterpreter shell we were trying to escalate privileges on was on a directory without write permissions. We had to change to another directory with write permissions, in this case `%temp`. We run the `ms10_015_kitrap0d` exploit again after changing directory, and successfully got a `AUTHORITY\SYSTEM` meterpreter shell.
+It didn't work on the first time because the meterpreter shell we were trying to escalate privileges on was on a directory without write permissions. We had to change to another directory with write permissions, in this case `%temp%`. We run the `ms10_015_kitrap0d` exploit again after changing directory, and successfully got a `AUTHORITY\SYSTEM` meterpreter shell.
 
 ### 9. Alternative Reverse Shell, with Meterpreter & MSFVenom
 This is a slightly shorter and alternative method of #5, where we can use msfvenom to construct a ASPX meterpreter reverse shell, and upon executing this payload on the target, we immediately get a meterpreter shell.
