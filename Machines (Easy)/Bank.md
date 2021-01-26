@@ -59,6 +59,9 @@ PORT   STATE SERVICE
 ```
 
 ### 2. Enumeration
-Let's visit the webpage, and we can do Dirbuster if we don't find anything.
+Let's visit the webpage. Navigating to `http://10.10.10.29:80` on our browser, we see the Apache2 Ubuntu Default Page.
 
-Navigating to `x`, we see..
+We can do Dirbuster if we do not find anything else. Time to find exploits!
+```
+searchsploit apache 2.4.7
+```
