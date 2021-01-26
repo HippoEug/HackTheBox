@@ -1,11 +1,19 @@
 # Summary
 ### 1. NMAP
+Running NMAP, we see only 1 Port open, Port 80 running Microsoft IIS httpd 6.0.
 
 ### 2. Enumeration
+Visiting `http://10.10.10.14:80` was not useful, as the page was "Under Construction". However, Searchsploit for `iis 6.0` showed many potential exploits we could use. On Google, we see two metasploit modules, [Microsoft IIS WebDAV Write Access Code Execution](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_upload_asp/) & [Microsoft IIS WebDav ScStoragePathFromUrl Overflow](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_scstoragepathfromurl/).
 
 ### 3. Exploit
+Trying the first [Microsoft IIS WebDAV Write Access Code Execution](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_upload_asp/), we had a `403 Forbidden` error message. So we tried [Microsoft IIS WebDav ScStoragePathFromUrl Overflow](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_scstoragepathfromurl/), which worked, giving us a Meterpreter shell.
+
+However, when we tried to change directory to both Administrator or Harry, we received the "Access is denied" error. We need to privilege escalate at this point.
 
 ### 4. Privilege Escalation
+We run `/recon/local_exploit_suggester`, and again see many exploits we could use. We run the first one, [`exploit/windows/local/ms14_058_track_popup_menu`](https://www.rapid7.com/db/modules/exploit/windows/local/ms14_058_track_popup_menu/). Yet again, we got a "Access is denied" error when running the Metasploit exploit. 
+
+We ty moving to `%temp%` on our Metasploit shell, before running the exploit again. But still, the "Access is denied" error was present. Turns out, we had to migrate to a process running under NT AUTHORITY\NETWORK SERVICE, and in our case to `wmiprvse.exe`. This time around, running the [`exploit/windows/local/ms14_058_track_popup_menu`](https://www.rapid7.com/db/modules/exploit/windows/local/ms14_058_track_popup_menu/) exploit again, we got a privileged Meterpreter shell and were able to find both flags.
 
 # Attack
 ## 1. NMAP
@@ -203,7 +211,7 @@ msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
 ```
 Access is denied. Maybe it is because we are in a directory where this exploit do not have write permissions. We first saw this in [Devel](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Devel.md), where we had to navigate to the %temp% folder with the meterpreter shell. This is best explained by the official write up, "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
 
-Let's move to `%temp`.
+Let's move to `%temp%`.
 ```
 meterpreter > cd %temp%
 meterpreter > pwd
