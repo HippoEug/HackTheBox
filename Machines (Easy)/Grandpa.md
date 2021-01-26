@@ -187,7 +187,7 @@ nil versions are discouraged and will be deprecated in Rubygems 4
 ```
 Wow, again full of exploits we can potentially use.
 
-Let's run the first one, `exploit/windows/local/ms14_058_track_popup_menu`.
+Let's run the first one, [`exploit/windows/local/ms14_058_track_popup_menu`](https://www.rapid7.com/db/modules/exploit/windows/local/ms14_058_track_popup_menu/).
 ```
 meterpreter > background
 [*] Backgrounding session 1...
