@@ -11,7 +11,7 @@ Sorted by HTB Difficulty Rating & Order
  6. [Arctic](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Arctic.md): Port 8500 FMTP Adobe ColdFusion 8 Directory Traversal, JSP Reverse Shell through Task Scheduler
  7. [Grandpa](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Grandpa.md): Port 80 Microsoft IIS WebDav ScStoragePathFromUrl Overflow
  8. [Granny](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Granny.md): Port 80 Microsoft IIS WebDav ScStoragePathFromUrl Overflow
- 9. Bank:
+ 9. [Bank](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Bank.md):
 10. Blocky:
 11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): MS17_010 EternalBlue
 
