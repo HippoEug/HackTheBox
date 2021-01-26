@@ -1,14 +1,21 @@
-# References
-1. [Granny Writeup (x.com)]()
+NOTE: Machine is essentially a carbon copy of [Grandpa](https://github.com/HippoEug/HackTheBox/edit/main/Machines%20(Easy)/Grandpa.md) machine.
 
 # Summary
 ### 1. NMAP
+Running NMAP, we see only 1 Port open, Port 80 running Microsoft IIS httpd 6.0.
 
 ### 2. Enumeration
+Visiting `http://10.10.10.15:80` was not useful, as the page was "Under Construction". However, Searchsploit for `iis 6.0` showed many potential exploits we could use. On Google, we see two metasploit modules, [Microsoft IIS WebDAV Write Access Code Execution](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_upload_asp/) & [Microsoft IIS WebDav ScStoragePathFromUrl Overflow](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_scstoragepathfromurl/).
 
 ### 3. Exploit
+We tried [Microsoft IIS WebDav ScStoragePathFromUrl Overflow](https://www.rapid7.com/db/modules/exploit/windows/iis/iis_webdav_scstoragepathfromurl/), which worked, giving us a Meterpreter shell.
+
+However, when we tried to change directory to both Administrator or Lakis, we received the "Access is denied" error. We need to privilege escalate at this point.
 
 ### 4. Privilege Escalation
+We run `/recon/local_exploit_suggester`, and again see many exploits we could use. We run the first one, [`exploit/windows/local/ms14_058_track_popup_menu`](https://www.rapid7.com/db/modules/exploit/windows/local/ms14_058_track_popup_menu/). 
+
+We had to migrate to a process running under NT AUTHORITY\NETWORK SERVICE, and in our case to `wmiprvse.exe`. Running the [`exploit/windows/local/ms14_058_track_popup_menu`](https://www.rapid7.com/db/modules/exploit/windows/local/ms14_058_track_popup_menu/) exploit after the process migration, we got a privileged Meterpreter shell and were able to find both flags.
 
 # Attack
 ## 1. NMAP
