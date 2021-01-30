@@ -65,9 +65,7 @@ PORT   STATE SERVICE
 ## 2. Enumeration
 Let's visit the webpage. Navigating to `http://10.10.10.29:80` on our browser, we see the Apache2 Ubuntu Default Page.
 
-We can do Dirbuster if we do not find anything else. Time to find exploits!
-
-Let's see `apache 2.4.7` first.
+Time to find exploits! Let's see `apache 2.4.7` first.
 ```
 hippoeug@kali:~$ searchsploit apache 2.4.7
 ------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
@@ -223,3 +221,40 @@ Not Vulnerable to CVE-2017-12617
 Nope, not vulnerable. Let's move on to find another way in.
 
 ## 4. Attacking Port 22 OpenSSH 6.6.1p1
+Googling for "openssh 6.6.1 exploit", we don't see anything obvious that we could either.
+
+Hence let's just get our hands dirty. We will try both `Username Enumeration` exploits.
+```
+hippoeug@kali:~$ python 45233.py
+/home/hippoeug/.local/lib/python2.7/site-packages/paramiko/transport.py:33: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
+  from cryptography.hazmat.backends import default_backend
+Traceback (most recent call last):
+  File "45233.py", line 30, in <module>
+    old_parse_service_accept = paramiko.auth_handler.AuthHandler._handler_table[paramiko.common.MSG_SERVICE_ACCEPT]
+TypeError: 'property' object has no attribute '__getitem__'
+
+hippoeug@kali:~$ python 45210.py
+/home/hippoeug/.local/lib/python2.7/site-packages/paramiko/transport.py:33: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
+  from cryptography.hazmat.backends import default_backend
+Traceback (most recent call last):
+  File "45210.py", line 40, in <module>
+    paramiko.common.MSG_SERVICE_ACCEPT]
+TypeError: 'property' object has no attribute '__getitem__'
+```
+Both of them showed errors. 
+
+Since none of these exploits worked so far, we shall do Dirbuster!
+
+## 5. Further Enumeration with Dirbuster
+As we've done so in the [Beep](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Beep.md) exercise, we will use Gobuster and Dirbuster.
+
+Gobuster first, as with tradition.
+```
+hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7:443" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -k
+===============================================================
+Gobuster v3.0.1
+```
+
+Let's now use Dirbuster.
+```
+```
