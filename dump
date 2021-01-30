@@ -1,17 +1,1 @@
-hippoeug@kali:~$ python 45233.py
-/home/hippoeug/.local/lib/python2.7/site-packages/paramiko/transport.py:33: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
-  from cryptography.hazmat.backends import default_backend
-Traceback (most recent call last):
-  File "45233.py", line 30, in <module>
-    old_parse_service_accept = paramiko.auth_handler.AuthHandler._handler_table[paramiko.common.MSG_SERVICE_ACCEPT]
-TypeError: 'property' object has no attribute '__getitem__'
-
-
-hippoeug@kali:~$ python 45210.py
-/home/hippoeug/.local/lib/python2.7/site-packages/paramiko/transport.py:33: CryptographyDeprecationWarning: Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography, and will be removed in the next release.
-  from cryptography.hazmat.backends import default_backend
-Traceback (most recent call last):
-  File "45210.py", line 40, in <module>
-    paramiko.common.MSG_SERVICE_ACCEPT]
-TypeError: 'property' object has no attribute '__getitem__'
 
