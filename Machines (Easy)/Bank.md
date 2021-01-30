@@ -7,6 +7,10 @@
 
 ### 2. Enumeration
 
+### 3. Attacking Port 80 Apache 2.4.7
+
+### 4. Attacking Port 22 OpenSSH 6.6.1p1
+
 # Attack
 ## 1. NMAP
 This machine sounds fun. Let's go.
@@ -103,6 +107,10 @@ OpenSSH < 7.4 - 'UsePrivilegeSeparation Disabled' Forwarded Unix Domain Sockets 
 OpenSSH < 7.4 - agent Protocol Arbitrary Library Loading                                                                            | linux/remote/40963.txt
 OpenSSH < 7.7 - User Enumeration (2)                                                                                                | linux/remote/45939.py
 ------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+
+hippoeug@kali:~$ searchsploit 2ubuntu
+Exploits: No Results
 Shellcodes: No Results
 ```
 Interesting, couple exploits to KIV too.
@@ -212,3 +220,6 @@ hippoeug@kali:~$ python 42966.py -u http://10.129.29.200
 Poc Filename  Poc.jsp
 Not Vulnerable to CVE-2017-12617 
 ```
+Nope, not vulnerable. Let's move on to find another way in.
+
+## 4. Attacking Port 22 OpenSSH 6.6.1p1
