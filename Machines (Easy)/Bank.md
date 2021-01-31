@@ -1,6 +1,6 @@
 # References
-1. [Bank Writeup (x.com)]()
-2. [Bank Writeup (x.com)]()
+1. [Bank Writeup (mrsaighnal.github.io)](https://mrsaighnal.github.io/2019-04-26-bank-walkthrough/)
+2. [Bank Writeup (medium.com)](https://medium.com/@johnsonmatt/hackthebox-bank-walkthrough-8b637ec6a0df)
 
 # Summary
 ### 1. NMAP
@@ -10,6 +10,12 @@
 ### 3. Attacking Port 80 Apache 2.4.7
 
 ### 4. Attacking Port 22 OpenSSH 6.6.1p1
+
+### 5. Further Enumeration with Dirbuster
+
+### 6. Host Configuration
+
+### 7. Further Enumeration with Dirbuster Again
 
 # Attack
 ## 1. NMAP
@@ -250,11 +256,267 @@ As we've done so in the [Beep](https://github.com/HippoEug/HackTheBox/blob/main/
 
 Gobuster first, as with tradition.
 ```
-hippoeug@kali:~$ gobuster dir -u "https://10.10.10.7:443" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -k
+hippoeug@kali:~$ gobuster dir -u "http://10.129.41.103:80" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
 ===============================================================
 Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.129.41.103:80
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/01/31 04:27:05 Starting gobuster
+===============================================================
+/server-status (Status: 403)
+===============================================================
+2021/01/31 04:36:53 Finished
+===============================================================
 ```
+What the.. only 1 directory detected.
 
 Let's now use Dirbuster.
 ```
+hippoeug@kali:~$ dirbuster
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+Starting OWASP DirBuster 1.0-RC1
+Starting dir/file list based brute forcing
+Dir found: / - 200
+Dir found: /icons/ - 403
+Dir found: /icons/small/ - 403
+Dir found: /server-status/ - 403
+DirBuster Stopped
 ```
+What is going on!! I needed to look online for clues.
+
+After reading some walkthroughs, there was something that needed to be done. We had to add the domain into our `/etc/hosts` file.
+
+## 6. Host Configuration
+It turns out there is something called ["Virtual Hosts"](https://www.freeparking.co.nz/learning-hub/wiki/what-is-virtual-hosting) in Apache, allowing for multiple domain names to be hosted on a single server. Using the right domain name would allow us to connect to the web application.
+
+Let's configure our `/etc/hosts` file.
+```
+hippoeug@kali:~$ sudo nano /etc/hosts
+hippoeug@kali:~$ cat /etc/hosts
+127.0.0.1       localhost
+127.0.1.1       kali
+10.129.41.103 bank.htb
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+After adding this, we open our browser to "bank.htb" and get directed to "bank.htb/login.php", presenting a login page this time around.
+
+## 7. Further Enumeration with Dirbuster Again
+Let's run GoBuster first.
+```
+hippoeug@kali:~$ gobuster dir -u "http://bank.htb" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://bank.htb
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/01/31 15:10:21 Starting gobuster
+===============================================================
+/uploads (Status: 301)
+/assets (Status: 301)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/article: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/links: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/spacer: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/02: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/privacy: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/11: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/help: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/articles: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/events: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/logo: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/new: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/sitemap: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/content: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/archives: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/1: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/register: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/06: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/software: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/login: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/04: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/13: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/category: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/keygen: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/5: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/21: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/en: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/downloads: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/15: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/4: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/main: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/media: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/resources: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/services: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/16: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/docs: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/info: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/files: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/18: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/html: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/20: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/22: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/press: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/templates: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/icons: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/profile: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2004: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/contactus: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/features: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/page: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/09: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/01: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/08: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/07: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/support: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/05: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/03: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/archive: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/3: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/security: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/14: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/forum: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/9: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/6: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/misc: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/24: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/19: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/partners: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2007: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/26: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/top: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/23: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/terms: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/i: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/17: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/27: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/legal: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/30: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+/inc (Status: 301)
+/server-status (Status: 403)
+/balance-transfer (Status: 301)
+===============================================================
+2021/01/31 15:20:10 Finished
+===============================================================
+```
+Interesting. We now know there are `/uploads`, `/assets`, `/inc`, `/server-status`, as well as `/balance-transfer`.
+
+Now going to our browser, we are going to try each one of these extensions.
+```
+http://bank.htb/uploads/
+-> Forbidden
+You don't have permission to access /uploads/ on this server.
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
+
+http://bank.htb/assets/
+-> Index of /assets
+[ICO]	Name	Last modified	Size	Description
+[PARENTDIR]	Parent Directory	 	- 	 
+[DIR]	css/	2021-01-11 14:18 	- 	 
+[DIR]	font-awesome/	2021-01-11 14:18 	- 	 
+[DIR]	fonts/	2021-01-11 14:18 	- 	 
+[DIR]	img/	2021-01-11 14:18 	- 	 
+[DIR]	js/	2021-01-11 14:18 	- 	 
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
+
+http://bank.htb/inc/
+-> Index of /inc
+[ICO]	Name	Last modified	Size	Description
+[PARENTDIR]	Parent Directory	 	- 	 
+[ ]	footer.php	2017-05-28 20:54 	1.2K	 
+[ ]	header.php	2017-05-28 20:53 	2.8K	 
+[ ]	ticket.php	2017-05-29 13:16 	2.3K	 
+[ ]	user.php	2017-05-28 21:39 	2.8K	 
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
+
+http://bank.htb/server-status/
+-> Forbidden
+You don't have permission to access /server-status/ on this server.
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
+
+http://bank.htb/balance-transfer
+-> Index of /balance-transfer
+[ICO]	Name	Last modified	Size	Description
+[PARENTDIR]	Parent Directory	 	- 	 
+[ ]	0a0b2b566c723fce6c5dc9544d426688.acc	2017-06-15 09:50 	583 	 
+[ ]	0a0bc61850b221f20d9f356913fe0fe7.acc	2017-06-15 09:50 	585 	 
+[ ]	0a2f19f03367b83c54549e81edc2dd06.acc	2017-06-15 09:50 	584 	 
+[ ]	0a629f4d2a830c2ca6a744f6bab23707.acc	2017-06-15 09:50 	584 	 
+[ ]	0a9014d0cc1912d4bd93264466fd1fad.acc	2017-06-15 09:50 	584 	 
+[ ]	0ab1b48c05d1dbc484238cfb9e9267de.acc	2017-06-15 09:50 	585 	 
+[ ]	0abe2e8e5fa6e58cd9ce13037ff0e29b.acc	2017-06-15 09:50 	583 	 
+[ ]	0b6ad026ef67069a09e383501f47bfee.acc	2017-06-15 09:50 	585 	 
+[ ]	0b59b6f62b0bf2fb3c5a21ca83b79d0f.acc	2017-06-15 09:50 	584 	 
+[ ]	0b45913c924082d2c88a804a643a29c8.acc	2017-06-15 09:50 	584 	 
+[ ]	0be866bee5b0b4cff0e5beeaa5605b2e.acc	2017-06-15 09:50 	584 	 
+[ ]	0c04ca2346c45c28ecededb1cf62de4b.acc	2017-06-15 09:50 	585 	 
+[ ]	0c4c9639defcfe73f6ce86a17f830ec0.acc	2017-06-15 09:50 	584 	 
+[ ]	0ce1e50b4ee89c75489bd5e3ed54e003.acc	2017-06-15 09:50 	584 	 
+[ ]	0d3d24f24126789503b03d14c0467657.acc	2017-06-15 09:50 	584 	 
+[ ]	0d64f03e84187359907569a43c83bddc.acc	2017-06-15 09:50 	582 	 
+[ ]	0d76fac96613294c341261bd87ddcf33.acc	2017-06-15 09:50 	584 	 
+[ ]	0e5a884b0b23e98446c460b4dbafc3ee.acc	2017-06-15 09:50 	584 	 
+[ ]	0ec03beb3832b05908105342c0cc9b2f.acc	2017-06-15 09:50 	584 	 
+...	 
+[ ]	fabfd4cd599ac63c5699f456f2cf448e.acc	2017-06-15 09:50 	584 	 
+[ ]	fb3cb6734c832b14987f002c2dadae19.acc	2017-06-15 09:50 	585 	 
+[ ]	fb5a9d6ac0d2c781dffd73c470f23fe0.acc	2017-06-15 09:50 	583 	 
+[ ]	fb42d07220a996307df38ec7e6189b4c.acc	2017-06-15 09:50 	584 	 
+[ ]	fb73bed60d6dd4559860ea5f7f2f5a3c.acc	2017-06-15 09:50 	584 	 
+[ ]	fb891061321669dd0ef9d5114d476f3a.acc	2017-06-15 09:50 	585 	 
+[ ]	fbcbbd213f0a3e88ee84eea9a9d01b90.acc	2017-06-15 09:50 	584 	 
+[ ]	fc6cdd24cf81d66d12c97aa97a37fe33.acc	2017-06-15 09:50 	584 	 
+[ ]	fc87e5f87f8d7a8eedc4ee85b5b1c58e.acc	2017-06-15 09:50 	583 	 
+[ ]	fc73548dc690c238c5aff9cb9e440498.acc	2017-06-15 09:50 	584 	 
+[ ]	fcb78e263fc7d6e296494e5be897a394.acc	2017-06-15 09:50 	584 	 
+[ ]	fdce9437d341e154702af5863bc247a8.acc	2017-06-15 09:50 	585 	 
+[ ]	fe8a8b0081b6d606d6e85501064f1cc4.acc	2017-06-15 09:50 	585 	 
+[ ]	fe9ffc658690f0452cd08ab6775e62da.acc	2017-06-15 09:50 	582 	 
+[ ]	fe85ff58d546f676f0acd7558e19d6ce.acc	2017-06-15 09:50 	584 	 
+[ ]	fe426e8d4c7453a99ef7cd99cf72ac03.acc	2017-06-15 09:50 	584 	 
+[ ]	feac7aa0f309d8c6fa2ff2f624d2914b.acc	2017-06-15 09:50 	584 	 
+[ ]	fed62d2afc2793ac001a36f0092977d7.acc	2017-06-15 09:50 	584 	 
+[ ]	fedae4fd371fa7d7d4ba5c772e84d726.acc	2017-06-15 09:50 	585 	 
+[ ]	ff8a6012cf9c0b6e5957c2cc32edd0bf.acc	2017-06-15 09:50 	585 	 
+[ ]	ff39f4cf429a1daf5958998a7899f3ec.acc	2017-06-15 09:50 	584 	 
+[ ]	ffc3cab8b54397a12ca83d7322c016d4.acc	2017-06-15 09:50 	584 	 
+[ ]	ffdfb3dbd8a9947b21f79ad52c6ce455.acc	2017-06-15 09:50 	584 	 
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
+```
+Wow, there are so many files in `http://bank.htb/balance-transfer`.
+
+Let's inspect 1 file for example and see what we get.
+```
+http://bank.htb/balance-transfer/0a0b2b566c723fce6c5dc9544d426688.acc
+
+++OK ENCRYPT SUCCESS
++=================+
+| HTB Bank Report |
++=================+
+
+===UserAccount===
+Full Name: czeCv3jWYYljNI2mTedDWxNCF37ddRuqrJ2WNlTLje47X7tRlHvifiVUm27AUC0ll2i9ocUIqZPo6jfs0KLf3H9qJh0ET00f3josvjaWiZkpjARjkDyokIO3ZOITPI9T
+Email: 1xlwRvs9vMzOmq8H3G5npUroI9iySrrTZNpQiS0OFzD20LK4rPsRJTfs3y1VZsPYffOy7PnMo0PoLzsdpU49OkCSSDOR6DPmSEUZtiMSiCg3bJgAElKsFmlxZ9p5MfrE
+Password: TmEnErfX3w0fghQUCAniWIQWRf1DutioQWMvo2srytHOKxJn76G4Ow0GM2jgvCFmzrRXtkp2N6RyDAWLGCPv9PbVRvbn7RKGjBENW3PJaHiOhezYRpt0fEV797uhZfXi
+CreditCards: 5
+Transactions: 93
+Balance: 905948 .
+```
+Now, this is interesting. Encrypted credentials.
+
