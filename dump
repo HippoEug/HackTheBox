@@ -1,11 +1,107 @@
-hippoeug@kali:~$ sudo nano /etc/hosts
-hippoeug@kali:~$ cat /etc/hosts
-127.0.0.1       localhost
-127.0.1.1       kali
-10.129.41.103 bank.htb
+hippoeug@kali:~$ gobuster dir -u "http://bank.htb" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://bank.htb
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/01/31 15:10:21 Starting gobuster
+===============================================================
+/uploads (Status: 301)
+/assets (Status: 301)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/article: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/links: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/spacer: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/02: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/privacy: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/11: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/help: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/articles: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/events: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/logo: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/new: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/sitemap: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/content: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/archives: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/1: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/register: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/06: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/software: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/login: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/04: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/13: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/category: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/keygen: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/5: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/21: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/en: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/downloads: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/15: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/4: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/main: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/media: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/resources: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/services: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/16: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/docs: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/info: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/files: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/18: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/html: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/20: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/22: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/press: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/templates: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/icons: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/profile: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2004: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/contactus: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/features: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/page: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/09: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/01: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/08: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/07: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/support: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/05: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/03: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/archive: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/3: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/security: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/14: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/forum: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/9: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/6: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/misc: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/24: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/19: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/partners: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2007: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/26: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/top: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/23: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/terms: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/i: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/17: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/27: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/legal: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/30: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
+/inc (Status: 301)
+/server-status (Status: 403)
+/balance-transfer (Status: 301)
+===============================================================
+2021/01/31 15:20:10 Finished
+===============================================================
 
-# The following lines are desirable for IPv6 capable hosts
-::1     localhost ip6-localhost ip6-loopback
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
+
+
+
+
+
 
