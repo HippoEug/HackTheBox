@@ -1,1 +1,6 @@
+meterpreter > getsystem
+[-] Unknown command: getsystem.
+meterpreter > run post/multi/recon/local_exploit_suggester
 
+[*] 10.129.29.200 - Collecting local exploits for php/linux...
+[-] 10.129.29.200 - No suggestions available.
