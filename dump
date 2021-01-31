@@ -1,3 +1,10 @@
+meterpreter > cat user.txt
+45297b1116b94557e9af4033f4198615
+
+
+=======
+
+
 meterpreter > cd /var/htb
 meterpreter > ls
 Listing: /var/htb
