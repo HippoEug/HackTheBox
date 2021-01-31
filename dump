@@ -1,15 +1,135 @@
-http://bank.htb/balance-transfer/68576f20e9732f1b2edc4df5b8533230.acc
 
---ERR ENCRYPT FAILED
-+=================+
-| HTB Bank Report |
-+=================+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTB Bank - Support</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- styles -->
+    <link href="./assets/css/theme/styles.css" rel="stylesheet">
+    <!-- SweetAlert -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/sweetalert.css">
+  </head>
+  <body>
+  	<div class="header">
+	     <div class="container">
+	        <div class="row">
+	           <div class="col-md-5">
+	              <!-- Logo -->
+	              <div class="logo">
+	                 <h1><a href="index.html">HTB Bank</a></h1>
+	              </div>
+	           </div>
+	           <div class="col-md-7">
+	              <div class="navbar navbar-inverse" role="banner">
+	                  <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+	                    <ul class="nav navbar-nav">
+	                      <li class="dropdown">
+	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Christos Christopoulos <b class="caret"></b></a>
+	                        <ul class="dropdown-menu animated fadeInUp">
+	                          <li><a href="logout.php">Logout</a></li>
+	                        </ul>
+	                      </li>
+	                    </ul>
+	                  </nav>
+	              </div>
+	           </div>
+	        </div>
+	     </div>
+	</div>
 
-===UserAccount===
-Full Name: Christos Christopoulos
-Email: chris@bank.htb
-Password: !##HTBB4nkP4ssw0rd!##
-CreditCards: 5
-Transactions: 39
-Balance: 8842803 .
-===UserAccount===
+    <div class="page-content">
+    	<div class="row">
+		  <div class="col-md-2">
+		  	<div class="sidebar content-box" style="display: block;">
+                <ul class="nav">
+                    <!-- Main menu -->
+                    <li  ><a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
+                    <li class="current" ><a href="support.php"><i class="fa fa-support fa-fw"></i> Support</a></li>
+                </ul>
+             </div>
+		  </div>
+
+<div class="col-sm-5">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 style="font-size: 20px;">My Tickets</h3>
+        </div>
+        <div class="panel-body">
+		    <div class="content-box-large">
+		        <div class="panel-body">
+		            <table class="table table-bordered">
+		                <thead>
+		                    <tr>
+		                        <th>#</th>
+		                        <th>Title</th>
+		                        <th>Message</th>
+		                        <th>Attachment</th>
+                                        <th>Actions</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                    		                </tbody>
+		            </table>
+		        </div>
+		    </div>
+		</div>
+    </div>
+</div>
+<!-- New Ticket -->
+<div class="col-sm-5">
+    <section class="panel">
+
+        <div class="panel-body">
+            <form class="new_ticket" id="new_ticket" accept-charset="UTF-8" method="post" enctype="multipart/form-data">
+
+                <label>Title</label>
+                <input required placeholder="Title" class="form-control" type="text" name="title" id="ticket_title" style="background-repeat: repeat; background-image: none; background-position: 0% 0%;">
+                <br>
+
+                <label>Message</label>
+                <textarea required placeholder="Tell us your problem" class="form-control" style="height: 170px; background-repeat: repeat; background-image: none; background-position: 0% 0%;" name="message" id="ticket_message"></textarea>
+                <br>
+                <div style="position:relative;">
+                		<!-- [DEBUG] I added the file extension .htb to execute as php for debugging purposes only [DEBUG] -->
+				        <a class='btn btn-primary' href='javascript:;'>
+				            Choose File...
+				            <input type="file" required style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="fileToUpload" size="40"  onchange='$("#upload-file-info").html($(this).val().replace("C:\\fakepath\\", ""));'>
+				        </a>
+				        &nbsp;
+				        <span class='label label-info' id="upload-file-info"></span>
+				</div>
+				<br>
+                <button name="submitadd" type="submit" class="btn btn-primary mt20" data-disable-with="<div class=&quot;loading-o&quot; style=&quot;padding: 7px 21px;&quot;></div>">Submit</button>
+            </form>
+
+        </div>
+
+    </section>
+
+</div>
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="./assets/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./assets/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="./assets/js/plugins/morris/raphael.min.js"></script>
+    <script src="./assets/js/plugins/morris/morris.min.js"></script>
+    <script src="./assets/js/plugins/morris/morris-data.js"></script>
+
+    <!-- SweetAlert -->
+    <script src="./assets/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>
