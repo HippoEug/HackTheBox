@@ -1,107 +1,1043 @@
-hippoeug@kali:~$ gobuster dir -u "http://bank.htb" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
-===============================================================
-Gobuster v3.0.1
-by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
-===============================================================
-[+] Url:            http://bank.htb
-[+] Threads:        100
-[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
-[+] Status codes:   200,204,301,302,307,401,403
-[+] User Agent:     gobuster/3.0.1
-[+] Timeout:        10s
-===============================================================
-2021/01/31 15:10:21 Starting gobuster
-===============================================================
-/uploads (Status: 301)
-/assets (Status: 301)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/article: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/links: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/spacer: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/02: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/privacy: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/11: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/help: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/articles: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/events: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/logo: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/new: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/sitemap: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/content: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/archives: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/1: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/register: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/06: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/software: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/login: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/04: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/13: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/category: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/keygen: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/5: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/21: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/en: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/downloads: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/15: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/4: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/main: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/media: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/resources: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/services: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/16: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/docs: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/info: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/files: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/18: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/html: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/20: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/22: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/press: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/templates: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/icons: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/profile: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2004: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/contactus: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/features: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/page: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/09: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/01: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/08: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/07: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/support: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/05: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/03: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/archive: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/3: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/security: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/14: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/forum: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/9: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/6: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/misc: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/24: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/19: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/partners: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/2007: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/26: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/top: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/23: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/terms: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/i: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/17: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/27: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/legal: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-[ERROR] 2021/01/31 15:10:32 [!] Get http://bank.htb/30: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
-/inc (Status: 301)
-/server-status (Status: 403)
-/balance-transfer (Status: 301)
-===============================================================
-2021/01/31 15:20:10 Finished
-===============================================================
+Forbidden
+
+You don't have permission to access /uploads/ on this server.
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
+
+
+
+
+Index of /assets
+[ICO]	Name	Last modified	Size	Description
+[PARENTDIR]	Parent Directory	 	- 	 
+[DIR]	css/	2021-01-11 14:18 	- 	 
+[DIR]	font-awesome/	2021-01-11 14:18 	- 	 
+[DIR]	fonts/	2021-01-11 14:18 	- 	 
+[DIR]	img/	2021-01-11 14:18 	- 	 
+[DIR]	js/	2021-01-11 14:18 	- 	 
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
+
+
+Index of /inc
+[ICO]	Name	Last modified	Size	Description
+[PARENTDIR]	Parent Directory	 	- 	 
+[ ]	footer.php	2017-05-28 20:54 	1.2K	 
+[ ]	header.php	2017-05-28 20:53 	2.8K	 
+[ ]	ticket.php	2017-05-29 13:16 	2.3K	 
+[ ]	user.php	2017-05-28 21:39 	2.8K	 
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
+
+
+
+Forbidden
+
+You don't have permission to access /server-status/ on this server.
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
 
 
 
 
 
 
-
+Index of /balance-transfer
+[ICO]	Name	Last modified	Size	Description
+[PARENTDIR]	Parent Directory	 	- 	 
+[ ]	0a0b2b566c723fce6c5dc9544d426688.acc	2017-06-15 09:50 	583 	 
+[ ]	0a0bc61850b221f20d9f356913fe0fe7.acc	2017-06-15 09:50 	585 	 
+[ ]	0a2f19f03367b83c54549e81edc2dd06.acc	2017-06-15 09:50 	584 	 
+[ ]	0a629f4d2a830c2ca6a744f6bab23707.acc	2017-06-15 09:50 	584 	 
+[ ]	0a9014d0cc1912d4bd93264466fd1fad.acc	2017-06-15 09:50 	584 	 
+[ ]	0ab1b48c05d1dbc484238cfb9e9267de.acc	2017-06-15 09:50 	585 	 
+[ ]	0abe2e8e5fa6e58cd9ce13037ff0e29b.acc	2017-06-15 09:50 	583 	 
+[ ]	0b6ad026ef67069a09e383501f47bfee.acc	2017-06-15 09:50 	585 	 
+[ ]	0b59b6f62b0bf2fb3c5a21ca83b79d0f.acc	2017-06-15 09:50 	584 	 
+[ ]	0b45913c924082d2c88a804a643a29c8.acc	2017-06-15 09:50 	584 	 
+[ ]	0be866bee5b0b4cff0e5beeaa5605b2e.acc	2017-06-15 09:50 	584 	 
+[ ]	0c04ca2346c45c28ecededb1cf62de4b.acc	2017-06-15 09:50 	585 	 
+[ ]	0c4c9639defcfe73f6ce86a17f830ec0.acc	2017-06-15 09:50 	584 	 
+[ ]	0ce1e50b4ee89c75489bd5e3ed54e003.acc	2017-06-15 09:50 	584 	 
+[ ]	0d3d24f24126789503b03d14c0467657.acc	2017-06-15 09:50 	584 	 
+[ ]	0d64f03e84187359907569a43c83bddc.acc	2017-06-15 09:50 	582 	 
+[ ]	0d76fac96613294c341261bd87ddcf33.acc	2017-06-15 09:50 	584 	 
+[ ]	0e5a884b0b23e98446c460b4dbafc3ee.acc	2017-06-15 09:50 	584 	 
+[ ]	0ec03beb3832b05908105342c0cc9b2f.acc	2017-06-15 09:50 	584 	 
+[ ]	0ec280c07bff51e211f18118aaf110b4.acc	2017-06-15 09:50 	584 	 
+[ ]	0efa8fd313b2a59bb07e8a656dc91412.acc	2017-06-15 09:50 	584 	 
+[ ]	0f2b9dad0ad001b9b14d64112de3fbcb.acc	2017-06-15 09:50 	584 	 
+[ ]	0f6f890eddff9b4cf0deb3269ee0a358.acc	2017-06-15 09:50 	585 	 
+[ ]	0f8495f20c0711377b9d082d53280d3d.acc	2017-06-15 09:50 	584 	 
+[ ]	0fddb291b4c92a91d97d9f148dce4371.acc	2017-06-15 09:50 	585 	 
+[ ]	0fe47df5c5dd6fed071b81c5ccfd29e2.acc	2017-06-15 09:50 	584 	 
+[ ]	00a929b4f7ece04c5da8fac8da8370a0.acc	2017-06-15 09:50 	584 	 
+[ ]	0016a3b79e3926a08360499537c77e02.acc	2017-06-15 09:50 	584 	 
+[ ]	001957ef359d651fbb8f59f3a8504a2f.acc	2017-06-15 09:50 	584 	 
+[ ]	0026d872694cf17e69618437db0f5f83.acc	2017-06-15 09:50 	584 	 
+[ ]	003e8ffc123735afbcc7b219851d45c3.acc	2017-06-15 09:50 	583 	 
+[ ]	005953d5f1fcb53ed897063881a91e00.acc	2017-06-15 09:50 	584 	 
+[ ]	00895e6b8d2389faa6cf736388dd6907.acc	2017-06-15 09:50 	585 	 
+[ ]	01a13d9db1b513230047f8951f5ee426.acc	2017-06-15 09:50 	584 	 
+[ ]	01d537afce94cd70b6dc734db310d34f.acc	2017-06-15 09:50 	585 	 
+[ ]	012713bf9cfc1e5adfbdbc14dd32a1c6.acc	2017-06-15 09:50 	584 	 
+[ ]	013fc67de873fdc3f001a3c8fd6fb252.acc	2017-06-15 09:50 	584 	 
+[ ]	0130afdc7d28350eaa7018736d8e75af.acc	2017-06-15 09:50 	584 	 
+[ ]	02ab56265052fcbffa94aa8868955809.acc	2017-06-15 09:50 	583 	 
+[ ]	02e28c6da52d30a3d4029c4fee24a627.acc	2017-06-15 09:50 	584 	 
+[ ]	021d32498ed3715cf0cfa4cba3233de6.acc	2017-06-15 09:50 	584 	 
+[ ]	0278047e279b4b7affb284d5d27fff61.acc	2017-06-15 09:50 	585 	 
+[ ]	0285de4a0d1ae2cae6d4d2be03c71ad7.acc	2017-06-15 09:50 	584 	 
+[ ]	0298cb464791ff4a6c5447114fb4bc18.acc	2017-06-15 09:50 	585 	 
+[ ]	03a6a13a7c61cf6bc7753d4c2d41d6d8.acc	2017-06-15 09:50 	585 	 
+[ ]	03c158aca0eb3493b4730ba5ed0d3a80.acc	2017-06-15 09:50 	584 	 
+[ ]	03f08dbc9f58c93aea6413111787bdeb.acc	2017-06-15 09:50 	584 	 
+[ ]	030af0ec1428a8fe5a7eaf9e684941e8.acc	2017-06-15 09:50 	585 	 
+[ ]	03051d2fc082a4486cefc8e4f3aef886.acc	2017-06-15 09:50 	585 	 
+[ ]	03089964c6d31d512907f2fd2547d690.acc	2017-06-15 09:50 	584 	 
+[ ]	036aacee702e369846c184cdf374912b.acc	2017-06-15 09:50 	584 	 
+[ ]	04bb6e0356b43d31d25277a4fa56884f.acc	2017-06-15 09:50 	584 	 
+[ ]	040a56b78a97b8eb348b5f205d42de7f.acc	2017-06-15 09:50 	585 	 
+[ ]	04488e1db8e68fcf67684b78504f8f2e.acc	2017-06-15 09:50 	584 	 
+[ ]	04671617d7bd3af5683a770e02f9fd56.acc	2017-06-15 09:50 	584 	 
+[ ]	048ed94fee4e036472a1bdb8795a3aef.acc	2017-06-15 09:50 	584 	 
+[ ]	0493facd8932d18d6657c7dff0bc151c.acc	2017-06-15 09:50 	584 	 
+[ ]	05f064ba91479a01e1b9456afa6e9b2f.acc	2017-06-15 09:50 	585 	 
+[ ]	052a101eac01ccbf5120996cdc60e76d.acc	2017-06-15 09:50 	582 	 
+[ ]	0589423587b67002f0a64101e821ba18.acc	2017-06-15 09:50 	583 	 
+[ ]	06a0b516439755f9b849a2d060df6ce7.acc	2017-06-15 09:50 	585 	 
+[ ]	06a80cb247151573c2731863af1e0f3f.acc	2017-06-15 09:50 	585 	 
+[ ]	06cc59f58d34941d93a9f7daa54aeb30.acc	2017-06-15 09:50 	584 	 
+[ ]	06e5ed6835032cadeedd8cbc2525c1e8.acc	2017-06-15 09:50 	584 	 
+[ ]	0603c831aa543636b14c9047ab65ca73.acc	2017-06-15 09:50 	584 	 
+[ ]	07dbd94cf3a4b07d4ac13d0ed5573cfc.acc	2017-06-15 09:50 	584 	 
+[ ]	07df2d04959d3f89118a7994d52d002d.acc	2017-06-15 09:50 	585 	 
+[ ]	07fe9d5980ec8dd731bd1cc22efd6bd4.acc	2017-06-15 09:50 	585 	 
+[ ]	070a07a40fcc8c5f6dfbb0f16f6917b0.acc	2017-06-15 09:50 	584 	 
+[ ]	0765aa4c97f0857f49921bc32281f6e5.acc	2017-06-15 09:50 	585 	 
+[ ]	08cc112526d390bc424e7b4b01848e7b.acc	2017-06-15 09:50 	585 	 
+[ ]	082e4bdf27365d8205490fbe36bb8028.acc	2017-06-15 09:50 	585 	 
+[ ]	0832c922148dd0722d6da8d1f438da1a.acc	2017-06-15 09:50 	585 	 
+[ ]	085349be3fa3df64b0fc3f2c8a7b95b7.acc	2017-06-15 09:50 	584 	 
+[ ]	09ed7588d1cd47ffca297cc7dac22c52.acc	2017-06-15 09:50 	581 	 
+[ ]	098bab0276720c1c52abc420af43bd9d.acc	2017-06-15 09:50 	584 	 
+[ ]	1a419fd7740a76ba3124528ff0419624.acc	2017-06-15 09:50 	584 	 
+[ ]	1abdae025e433fb00a8c684a853c191a.acc	2017-06-15 09:50 	584 	 
+[ ]	1ac6533f614e99cb74d2aaf00cd1b1e5.acc	2017-06-15 09:50 	584 	 
+[ ]	1ae934f62a8e5dce095c4f5da019ce0f.acc	2017-06-15 09:50 	584 	 
+[ ]	1b6c33d239e59dc15e93559b7ee62475.acc	2017-06-15 09:50 	584 	 
+[ ]	1b7486f714169cae6ee7e61b8bf775c5.acc	2017-06-15 09:50 	585 	 
+[ ]	1bc66277954f4d50b50a831df74bdf65.acc	2017-06-15 09:50 	584 	 
+[ ]	1bd2ad5271b2ca76af9dd5d7f68425f3.acc	2017-06-15 09:50 	584 	 
+[ ]	1bd6e15ea2cb7a17782a9287c76023e0.acc	2017-06-15 09:50 	584 	 
+[ ]	1c3289e8d28be50af870b160732314c9.acc	2017-06-15 09:50 	584 	 
+[ ]	1cb73099b330049d199326b5e6148510.acc	2017-06-15 09:50 	584 	 
+[ ]	1cbcd839823f160b914752703a22567e.acc	2017-06-15 09:50 	584 	 
+[ ]	1cc7ceed882e806f92df160337e1cef6.acc	2017-06-15 09:50 	583 	 
+[ ]	1d9ec4f06b0b4f89bab1b559260108c6.acc	2017-06-15 09:50 	584 	 
+[ ]	1dd7e55cc130a4b6ea8ce6cb6d7564f5.acc	2017-06-15 09:50 	585 	 
+[ ]	1dfea613df52206550c8a254baae5bc6.acc	2017-06-15 09:50 	584 	 
+[ ]	1e4e8f4b7afc6067e531f5bde60d94fd.acc	2017-06-15 09:50 	585 	 
+[ ]	1e5e07a4a277061fe97106f08ff478de.acc	2017-06-15 09:50 	585 	 
+[ ]	1e32e4e412da54833e813bff5c8beb5d.acc	2017-06-15 09:50 	584 	 
+[ ]	1e98bdb0f10109ed73058fba9c5c1752.acc	2017-06-15 09:50 	584 	 
+[ ]	1e6784a6a1f6ca5030db8856cc512eb9.acc	2017-06-15 09:50 	583 	 
+[ ]	1ec19e69fed7d847bb7566f19e8f4050.acc	2017-06-15 09:50 	584 	 
+[ ]	1f4289c9c2d6999e9fd97bfe81a02ffc.acc	2017-06-15 09:50 	585 	 
+[ ]	1f83271fd1c62b4714abc3a00327b4e7.acc	2017-06-15 09:50 	584 	 
+[ ]	1fe096b278f292f3ae68280d7ffac179.acc	2017-06-15 09:50 	584 	 
+[ ]	2a0267dc11bdb1d6853b08335e9f030d.acc	2017-06-15 09:50 	584 	 
+[ ]	2a3d905e1abcf6d728dbb6f33e3b3093.acc	2017-06-15 09:50 	584 	 
+[ ]	2a87311fdee4da24b126bd114058b9e0.acc	2017-06-15 09:50 	585 	 
+[ ]	2acb388eebe1c2206052ac5ec3bd6edc.acc	2017-06-15 09:50 	584 	 
+[ ]	2b3be36d865a5a40250942b5c8f54dbf.acc	2017-06-15 09:50 	584 	 
+[ ]	2b132b6e7781da0ff92bcc4a186e7173.acc	2017-06-15 09:50 	584 	 
+[ ]	2bf7e04143696925b74ff2d58e48bb43.acc	2017-06-15 09:50 	584 	 
+[ ]	2c07b69f32dbd283b47b524edb0053ba.acc	2017-06-15 09:50 	584 	 
+[ ]	2c2fed06d94f69685882dac0d9ce9cc8.acc	2017-06-15 09:50 	584 	 
+[ ]	2c5b01899d473f77962df31812601294.acc	2017-06-15 09:50 	584 	 
+[ ]	2c7701c77068b9ca7244626133c2ec8d.acc	2017-06-15 09:50 	585 	 
+[ ]	2c46469b9fac25ad81268c1d2998cdd6.acc	2017-06-15 09:50 	585 	 
+[ ]	2c51591fcbda7b91ca9f56b586f3ca55.acc	2017-06-15 09:50 	584 	 
+[ ]	2ca3519fc00af7c9d63e58b9df82d4f8.acc	2017-06-15 09:50 	584 	 
+[ ]	2d07d6a5015dd654b4ca0f32a51906d5.acc	2017-06-15 09:50 	585 	 
+[ ]	2d2ef1d233841341c13d2d8938cae003.acc	2017-06-15 09:50 	585 	 
+[ ]	2d9e6682bb5f480978b1a8f61d375bd0.acc	2017-06-15 09:50 	585 	 
+[ ]	2db5f802521a622c4cd64c83eddc07d6.acc	2017-06-15 09:50 	584 	 
+[ ]	2e080ba377f32a78b84231e25673d519.acc	2017-06-15 09:50 	585 	 
+[ ]	2e5bc9bbaa7e60b1bc88c5ffa46b47a5.acc	2017-06-15 09:50 	584 	 
+[ ]	2e8b4d1333646e8ed98637bf1793c78e.acc	2017-06-15 09:50 	584 	 
+[ ]	2e8783c6f4ceba1ca5d9f091a7a3f319.acc	2017-06-15 09:50 	584 	 
+[ ]	2e5192979d89746230024fb2af498237.acc	2017-06-15 09:50 	585 	 
+[ ]	2ebac37c664663f382ddcf74c9295289.acc	2017-06-15 09:50 	584 	 
+[ ]	2f3cf398674340a1c3959e6ce1a4f902.acc	2017-06-15 09:50 	584 	 
+[ ]	2f6db9d426117b3921668d15c3667c7e.acc	2017-06-15 09:50 	583 	 
+[ ]	2fa45e4ec782cc8a067941b8a4e4eac1.acc	2017-06-15 09:50 	585 	 
+[ ]	2fb844630d50127f324bf0734046bc56.acc	2017-06-15 09:50 	584 	 
+[ ]	2fe3b2cc3fe0ed617e7650f7a09aa7e7.acc	2017-06-15 09:50 	583 	 
+[ ]	2ffe137ee7c65733590febfbfc5040ae.acc	2017-06-15 09:50 	584 	 
+[ ]	3a6cd651f5316bcc9794b1aedeabd72b.acc	2017-06-15 09:50 	584 	 
+[ ]	3a33c5bf7ef7abcf81c782a79a43d83c.acc	2017-06-15 09:50 	584 	 
+[ ]	3a682bcef6c37e5541e1fb543fa966b3.acc	2017-06-15 09:50 	584 	 
+[ ]	3ae7e40b423769e8829056053be4b770.acc	2017-06-15 09:50 	585 	 
+[ ]	3b0b0922fbcee3da3c6b7307bd1bb75e.acc	2017-06-15 09:50 	585 	 
+[ ]	3b44d9cbc04be9fb5f1a63e666203815.acc	2017-06-15 09:50 	584 	 
+[ ]	3b823513d5f5255facecc595b6c20c41.acc	2017-06-15 09:50 	584 	 
+[ ]	3bb925999bfe2f00e955e35ae5c45acf.acc	2017-06-15 09:50 	585 	 
+[ ]	3c03e292162c87b33e89e7c34a7a2d70.acc	2017-06-15 09:50 	584 	 
+[ ]	3c573c41d23c5c5b9ee8c2907d079697.acc	2017-06-15 09:50 	585 	 
+[ ]	3cc285ba7c9ab83973717b64f690d3e0.acc	2017-06-15 09:50 	585 	 
+[ ]	3cfe8573c12153ad69e3ebe9f2451783.acc	2017-06-15 09:50 	585 	 
+[ ]	3d3e2799ae9dab5057b9ef7dc66138fd.acc	2017-06-15 09:50 	584 	 
+[ ]	3d5e1f376f09b7704eb9309448db2320.acc	2017-06-15 09:50 	583 	 
+[ ]	3e4c7ee45bec4977653fa1ff687703a4.acc	2017-06-15 09:50 	585 	 
+[ ]	3e15fba8222b4257f517f73ffa6e8dbf.acc	2017-06-15 09:50 	585 	 
+[ ]	3e7269a8cbf32786733aa2073e29d867.acc	2017-06-15 09:50 	584 	 
+[ ]	3eab44115dce3fcadf150d7e98e2f456.acc	2017-06-15 09:50 	584 	 
+[ ]	3eb4295fbf0b2bac4aa20350246a6b9d.acc	2017-06-15 09:50 	584 	 
+[ ]	3ebc66c0b6e64c060e86daf2ce4c9a31.acc	2017-06-15 09:50 	585 	 
+[ ]	3edf797d706622fab4a57ba0a4af704c.acc	2017-06-15 09:50 	583 	 
+[ ]	3f3b9ba3a75e23bebe956760fff45a30.acc	2017-06-15 09:50 	584 	 
+[ ]	3f7dcbfa9956edfc1c680db5f56258ca.acc	2017-06-15 09:50 	585 	 
+[ ]	3f922da04764d314d9ad4ec29bd24ab7.acc	2017-06-15 09:50 	585 	 
+[ ]	3f5377ebb31e50606f0d2cef73f49130.acc	2017-06-15 09:50 	585 	 
+[ ]	3fc4b2d139b8ecbb0bec75345aeac132.acc	2017-06-15 09:50 	585 	 
+[ ]	3ff2509d974c2f4e36d87dcc7048b4d8.acc	2017-06-15 09:50 	585 	 
+[ ]	4a41cda86cb132771f2e51e480364173.acc	2017-06-15 09:50 	585 	 
+[ ]	4a66b3ce8466bf011adb1dd9d1814452.acc	2017-06-15 09:50 	584 	 
+[ ]	4abf8c9aa0f414abd9bfe187b72461e3.acc	2017-06-15 09:50 	585 	 
+[ ]	4ae6ee6e14e6de520567c8c82b6beded.acc	2017-06-15 09:50 	585 	 
+[ ]	4b00b1be8ef8c5f73901e50d4d09470f.acc	2017-06-15 09:50 	585 	 
+[ ]	4bc7b8db43830d6a4957836dc18bf34b.acc	2017-06-15 09:50 	584 	 
+[ ]	4bf0266486768e0fdcd383973f08227e.acc	2017-06-15 09:50 	585 	 
+[ ]	4c6dafa3f684f42869b718b251b292eb.acc	2017-06-15 09:50 	584 	 
+[ ]	4c13d888bd3ac3c2b1e84b50bf35a85a.acc	2017-06-15 09:50 	584 	 
+[ ]	4cad3a11b7963ebfc70f703dd4811b96.acc	2017-06-15 09:50 	585 	 
+[ ]	4cf44a4d89128da4127db0bec1048c51.acc	2017-06-15 09:50 	584 	 
+[ ]	4cfb2d50597e6ed2f74334d218e5d8d6.acc	2017-06-15 09:50 	584 	 
+[ ]	4d083a8cf8154cd657341344580196a0.acc	2017-06-15 09:50 	584 	 
+[ ]	4d6d527e8e87c5c6edcd5e189688e377.acc	2017-06-15 09:50 	584 	 
+[ ]	4d7a9044e957b9cb0dffd2f7369667ec.acc	2017-06-15 09:50 	584 	 
+[ ]	4d183c48bf0e826fe9f0248a2bd0ce1f.acc	2017-06-15 09:50 	584 	 
+[ ]	4e4d7e09dc5de2768b2f670616457f73.acc	2017-06-15 09:50 	584 	 
+[ ]	4e7da1c5f107c306f55bee851108c402.acc	2017-06-15 09:50 	584 	 
+[ ]	4ebcb090a219d941e56c032cdac43669.acc	2017-06-15 09:50 	584 	 
+[ ]	4ec2f8f0fb700e23fad05ee516540326.acc	2017-06-15 09:50 	584 	 
+[ ]	4f2ef432bf1238f085d4a4e519a1dfff.acc	2017-06-15 09:50 	583 	 
+[ ]	4f61cf16aa405cbd9562831b725166f3.acc	2017-06-15 09:50 	584 	 
+[ ]	4f1371b82592d1c8f92b91cf32509e5d.acc	2017-06-15 09:50 	584 	 
+[ ]	4f413171a5b4e0b82fd0a14edefcb175.acc	2017-06-15 09:50 	585 	 
+[ ]	5a06163947bacb35937b94976524b9e9.acc	2017-06-15 09:50 	585 	 
+[ ]	5a6f81da012f11f463df711758a7d98c.acc	2017-06-15 09:50 	583 	 
+[ ]	5a8ca8184c7d197a07716f3b239f5f30.acc	2017-06-15 09:50 	584 	 
+[ ]	5a62c5fb945007bed47e6e4c114d3be7.acc	2017-06-15 09:50 	584 	 
+[ ]	5a92190fa06db59ca8d12f761ef5df66.acc	2017-06-15 09:50 	584 	 
+[ ]	5b2fd16a5027dca9714596e1f1900ee1.acc	2017-06-15 09:50 	584 	 
+[ ]	5b275de0f3930d538d41d38012f9f99f.acc	2017-06-15 09:50 	584 	 
+[ ]	5bc9e0468db90310e045ee1cef02ae49.acc	2017-06-15 09:50 	584 	 
+[ ]	5be15dbd24aa31b6de43c69234a72c19.acc	2017-06-15 09:50 	584 	 
+[ ]	5be5196a9bfbf55be5322576b6cf2ec0.acc	2017-06-15 09:50 	584 	 
+[ ]	5c7fe7fa7cde31ec7f6460dcc866b2c5.acc	2017-06-15 09:50 	584 	 
+[ ]	5ccfc5c5060c6f7eaebc7b360bf1fb5c.acc	2017-06-15 09:50 	585 	 
+[ ]	5cf5a255a6ac6c51fce18b20de1fc6c3.acc	2017-06-15 09:50 	585 	 
+[ ]	5d20c77d44fa9054a4822b2cc42aaf6a.acc	2017-06-15 09:50 	583 	 
+[ ]	5d364c970049e9a1ddeab46685ee95c2.acc	2017-06-15 09:50 	584 	 
+[ ]	5da2cf0551e5d9a82e264b842e2fef39.acc	2017-06-15 09:50 	584 	 
+[ ]	5dcd2d4cc2f5ebf971da7b9577313fc6.acc	2017-06-15 09:50 	583 	 
+[ ]	5dde5175da535b073504fa6222da07af.acc	2017-06-15 09:50 	585 	 
+[ ]	5e80dca0989d5f4a076146f7aa859c20.acc	2017-06-15 09:50 	585 	 
+[ ]	5e496ac0ca6259ee6ddd18c7e784c4bd.acc	2017-06-15 09:50 	583 	 
+[ ]	5e2554c58bc13c6398bfc3bd3b8bea5a.acc	2017-06-15 09:50 	584 	 
+[ ]	5ee81d3848dc565d16f84b8023c78d35.acc	2017-06-15 09:50 	584 	 
+[ ]	5f9de9bd6cee286315cbe49e5d31c2d0.acc	2017-06-15 09:50 	585 	 
+[ ]	5f50c17e7e3ffccfd65721e30808a54d.acc	2017-06-15 09:50 	584 	 
+[ ]	5f60a464918c3d8d17940fdd31dd487b.acc	2017-06-15 09:50 	584 	 
+[ ]	5f83801c9d2788e006ac5878415aa113.acc	2017-06-15 09:50 	584 	 
+[ ]	5f632234377f9af6442ea29d8aff30de.acc	2017-06-15 09:50 	584 	 
+[ ]	5fbbd0af8aff8f966d119a7de8e123ac.acc	2017-06-15 09:50 	585 	 
+[ ]	6a02166c0d69d4f4a81f0e773923da2f.acc	2017-06-15 09:50 	584 	 
+[ ]	6a8727b0306a2efbd5eba6f4026fdf6b.acc	2017-06-15 09:50 	584 	 
+[ ]	6aeaa4873136f7d21a3ba00fe3a4bb40.acc	2017-06-15 09:50 	584 	 
+[ ]	6b5e880f00cb0a06cc7bb8883ca4246b.acc	2017-06-15 09:50 	584 	 
+[ ]	6b23ae70d9c694a8f43b0ea455f33223.acc	2017-06-15 09:50 	584 	 
+[ ]	6ba0c8a624ae32999847adb2b217017e.acc	2017-06-15 09:50 	584 	 
+[ ]	6bcd10214c86176e8c810b179f87ccf3.acc	2017-06-15 09:50 	584 	 
+[ ]	6c0925ad3a766771c79e7337e33a6d8c.acc	2017-06-15 09:50 	584 	 
+[ ]	6c2baf5043cac2a7bd0ec8ba8067b45b.acc	2017-06-15 09:50 	584 	 
+[ ]	6c4fec2702b25900b66379a02b54ae24.acc	2017-06-15 09:50 	585 	 
+[ ]	6ceca1d2b3c6a95ece973b660500db6a.acc	2017-06-15 09:50 	584 	 
+[ ]	6d0b2f0cd5a45ec822d779f9ffb1653a.acc	2017-06-15 09:50 	584 	 
+[ ]	6d5d247ebfc4795d2c83676a43e88d1f.acc	2017-06-15 09:50 	584 	 
+[ ]	6d50c71fb7435ebbece559a5a3b536a7.acc	2017-06-15 09:50 	584 	 
+[ ]	6d9666eac9b05c37d68cbcbcb24c7609.acc	2017-06-15 09:50 	585 	 
+[ ]	6e6c81b5d36cda27b14bf5bb52888625.acc	2017-06-15 09:50 	585 	 
+[ ]	6e742f8451c5ec6dc5f531a390c97b7b.acc	2017-06-15 09:50 	584 	 
+[ ]	6ed19aeaf42959eb8d96b7eb29e5d3e4.acc	2017-06-15 09:50 	584 	 
+[ ]	6eecbc937801fa028da31d0323077a86.acc	2017-06-15 09:50 	585 	 
+[ ]	6f3d197021dd9b9a089147483e317263.acc	2017-06-15 09:50 	584 	 
+[ ]	6f697ea29832716004b565b9e2a974bb.acc	2017-06-15 09:50 	584 	 
+[ ]	6ff05fe0459f5a96fc0f65ee6a70d5cf.acc	2017-06-15 09:50 	584 	 
+[ ]	7a2a9752443f4328dbb9a5f4431b1f94.acc	2017-06-15 09:50 	584 	 
+[ ]	7a6c81c0e6780f912586590a9bb3d4e9.acc	2017-06-15 09:50 	584 	 
+[ ]	7a7a849d65b57600abea91bb986bdee6.acc	2017-06-15 09:50 	584 	 
+[ ]	7a16f1be3e1cce885b855e888d413617.acc	2017-06-15 09:50 	584 	 
+[ ]	7a323fcd47afe7cc6248f2fe6e4f8802.acc	2017-06-15 09:50 	584 	 
+[ ]	7a3062ecd98719e7faac95a4efe188ee.acc	2017-06-15 09:50 	584 	 
+[ ]	7a747011ee218e9e45365c3169a24754.acc	2017-06-15 09:50 	584 	 
+[ ]	7aaeca9d4bb6725b0616597a393a3d7d.acc	2017-06-15 09:50 	585 	 
+[ ]	7ad216b66bbc8be33e71e9b75b974398.acc	2017-06-15 09:50 	584 	 
+[ ]	7af56b5821f745df33ba3a5fb0dd7009.acc	2017-06-15 09:50 	583 	 
+[ ]	7b7cc0505cee71ab02c533fd2db29cde.acc	2017-06-15 09:50 	584 	 
+[ ]	7b38a14ce39bdd4b91eb69ec02a81f84.acc	2017-06-15 09:50 	584 	 
+[ ]	7bd2b3a05795e2d216cac59bb405f079.acc	2017-06-15 09:50 	585 	 
+[ ]	7bee4f51ff23066e9e909ac84873e9c6.acc	2017-06-15 09:50 	585 	 
+[ ]	7c935e676daa9216ac53412b7a47c1f1.acc	2017-06-15 09:50 	583 	 
+[ ]	7c92466f303a24f50b2880870dea0610.acc	2017-06-15 09:50 	583 	 
+[ ]	7cc381a31b1252eb63067fef61319152.acc	2017-06-15 09:50 	584 	 
+[ ]	7ceed45c2f5a9b3d39155cc8099b1d4a.acc	2017-06-15 09:50 	583 	 
+[ ]	7d7dff306be634f864e92a6b038dea8b.acc	2017-06-15 09:50 	585 	 
+[ ]	7d882d79b353d4329ec6f61fdaf4dbfd.acc	2017-06-15 09:50 	584 	 
+[ ]	7d759940684fb5fdf8bb7c0749ca302f.acc	2017-06-15 09:50 	584 	 
+[ ]	7dc9403b60d10a21d8f44bf9948095dc.acc	2017-06-15 09:50 	584 	 
+[ ]	7dd19db14bcaff9c2ab24ceef3217014.acc	2017-06-15 09:50 	584 	 
+[ ]	7dece92a80bd61d390d0589b118234d1.acc	2017-06-15 09:50 	584 	 
+[ ]	7df22b5113da890e88705dde5b8a9871.acc	2017-06-15 09:50 	584 	 
+[ ]	7e4cf8e1c1950a8e1da8e937901ff657.acc	2017-06-15 09:50 	585 	 
+[ ]	7e65bc0bdba7609f0fb85f5411e79163.acc	2017-06-15 09:50 	584 	 
+[ ]	7e8730a34c228f96819155f5f29eeeb9.acc	2017-06-15 09:50 	583 	 
+[ ]	7e16990ea08e7d261645c60447ae412f.acc	2017-06-15 09:50 	584 	 
+[ ]	7ee435673a9a537131903ce74fe908f7.acc	2017-06-15 09:50 	584 	 
+[ ]	7f4d9c6e8a185bd54a2bb3266b239f35.acc	2017-06-15 09:50 	585 	 
+[ ]	7f44276326c185b7e8bf1cb2ae0c02e3.acc	2017-06-15 09:50 	583 	 
+[ ]	8a0c42c20d3cc111e294dd14d523b149.acc	2017-06-15 09:50 	584 	 
+[ ]	8a2b4b1782cbd4660ce40085d31317b7.acc	2017-06-15 09:50 	584 	 
+[ ]	8b91eedc4a7f3fa84360dca78e2ab618.acc	2017-06-15 09:50 	584 	 
+[ ]	8c5bc636a713df10a0b267dbdce15396.acc	2017-06-15 09:50 	584 	 
+[ ]	8c92082936170befc74bde36ed0507c8.acc	2017-06-15 09:50 	584 	 
+[ ]	8cd768d35008b86c017e341aa4b0bce8.acc	2017-06-15 09:50 	584 	 
+[ ]	8ce4aa658a58f13de583838f62ddc5ca.acc	2017-06-15 09:50 	584 	 
+[ ]	8cedbedfff70a3528fbebfee0fe0c4a3.acc	2017-06-15 09:50 	585 	 
+[ ]	8cf431f4c9ed8b09aeaa97b6da4eac57.acc	2017-06-15 09:50 	584 	 
+[ ]	8cfb0967df2394db4375ccc542fe2618.acc	2017-06-15 09:50 	585 	 
+[ ]	8d33eab2dc9fb1ba85fcbb9db580eb5f.acc	2017-06-15 09:50 	584 	 
+[ ]	8e6493afb68626079c3a153ecc2bc532.acc	2017-06-15 09:50 	585 	 
+[ ]	8e99440294d984f80beb6d5d9aa95637.acc	2017-06-15 09:50 	584 	 
+[ ]	8ef95b6bd6c84e5ea7b1c0c765f9e7b8.acc	2017-06-15 09:50 	584 	 
+[ ]	8f00e7f326d98a8f40b0db62a55c01d5.acc	2017-06-15 09:50 	585 	 
+[ ]	9a885af05f71935ae8fb9cbbc07f6c57.acc	2017-06-15 09:50 	584 	 
+[ ]	9b1b85b68b76774b9e97f12d4e685297.acc	2017-06-15 09:50 	584 	 
+[ ]	9b18bdcbae98a8fadfd7baadbbab92ac.acc	2017-06-15 09:50 	583 	 
+[ ]	9b38ac5ba7ca3e908bbc52656963ff1c.acc	2017-06-15 09:50 	584 	 
+[ ]	9cc34a3225e3d56ef6ca75d48d1bfeb8.acc	2017-06-15 09:50 	584 	 
+[ ]	9d1ccb2a318fe144d1787744870973ca.acc	2017-06-15 09:50 	584 	 
+[ ]	9d7bfd31b36dfb3819bfcd38d2a2a6da.acc	2017-06-15 09:50 	585 	 
+[ ]	9da8237625c9c0415c890bef3ba6ebc5.acc	2017-06-15 09:50 	583 	 
+[ ]	9de044238ee025b4a846affc64cc5233.acc	2017-06-15 09:50 	584 	 
+[ ]	9e91dd7524e1a9e54af255b02eb3f06a.acc	2017-06-15 09:50 	584 	 
+[ ]	9e714e03d30847b9faa6f7f34041a818.acc	2017-06-15 09:50 	584 	 
+[ ]	9e46683ea1755a3751709b04e37571e4.acc	2017-06-15 09:50 	585 	 
+[ ]	9e2946901fe6cb9fc604a12d18db1722.acc	2017-06-15 09:50 	584 	 
+[ ]	9eb94f160af437fe9df9da2416072508.acc	2017-06-15 09:50 	585 	 
+[ ]	9ecf16cf62123f6cd5b5cea0f5864497.acc	2017-06-15 09:50 	584 	 
+[ ]	9f0c5a3cc09e7a3cd0debffdee919bb8.acc	2017-06-15 09:50 	584 	 
+[ ]	9f07f9526589a189370b73a3b29a4d9b.acc	2017-06-15 09:50 	584 	 
+[ ]	9f3c06e35412753ec225c292b7cbc0f2.acc	2017-06-15 09:50 	584 	 
+[ ]	9f936f11fb62fc8b30e3d86ff7c0f8cf.acc	2017-06-15 09:50 	584 	 
+[ ]	9f6357464ddc2017fff1923f28835cf7.acc	2017-06-15 09:50 	584 	 
+[ ]	9fb8117ab5d757240cd6ef209f85471a.acc	2017-06-15 09:50 	585 	 
+[ ]	9fe63f9d1390025ee2e3c735c1a75082.acc	2017-06-15 09:50 	584 	 
+[ ]	10b8b7b1713f1dca5ad72ea3ebcab475.acc	2017-06-15 09:50 	585 	 
+[ ]	10df9dfe748997d7bbfb5d64cee284b9.acc	2017-06-15 09:50 	584 	 
+[ ]	11c1ad9b01c6654be1d995a09a9f2f3b.acc	2017-06-15 09:50 	583 	 
+[ ]	12c2d8fb0ed8df68972e2fe4dc5b4609.acc	2017-06-15 09:50 	584 	 
+[ ]	12e8afda9f95bb015ffa5c1ef3d503d0.acc	2017-06-15 09:50 	585 	 
+[ ]	12eb6b074fcf0adfcf0274fbf0947edb.acc	2017-06-15 09:50 	584 	 
+[ ]	13b790b817ceda1763f695cb4b1151b8.acc	2017-06-15 09:50 	584 	 
+[ ]	13c0e6b11cf2b1525d38143037cdcd51.acc	2017-06-15 09:50 	584 	 
+[ ]	13d91ebcbb1af4df0bf8a82fd3a71476.acc	2017-06-15 09:50 	585 	 
+[ ]	14e30bd14c29ccd86b16115784f405f5.acc	2017-06-15 09:50 	584 	 
+[ ]	15a9158ee078d8a058736267caf8b910.acc	2017-06-15 09:50 	584 	 
+[ ]	15baa7e6a3b477fc3d6b9567d2a71c56.acc	2017-06-15 09:50 	584 	 
+[ ]	15f5a217c839e4f6ef0cc46dc01e494c.acc	2017-06-15 09:50 	584 	 
+[ ]	16a2ff45c69de2df023ca9dfb2ce12bf.acc	2017-06-15 09:50 	584 	 
+[ ]	17d462006481467102be11a86832691d.acc	2017-06-15 09:50 	584 	 
+[ ]	18bf04910a0623a4c2d6287341b53ddb.acc	2017-06-15 09:50 	584 	 
+[ ]	19f06120f156391687ba9625de702836.acc	2017-06-15 09:50 	584 	 
+[ ]	20a2ec5aacbead218c3d170237debf5e.acc	2017-06-15 09:50 	585 	 
+[ ]	20b2090845b0563afc69c4e7fec1e497.acc	2017-06-15 09:50 	584 	 
+[ ]	20c7d56557313b26a07a08c4634634ca.acc	2017-06-15 09:50 	584 	 
+[ ]	20f4f2fa9b091725330e1b98c3d0edb3.acc	2017-06-15 09:50 	584 	 
+[ ]	20fd5f9690efca3dc465097376b31dd6.acc	2017-06-15 09:50 	582 	 
+[ ]	21c74f96797dbd154c54873c557f872d.acc	2017-06-15 09:50 	583 	 
+[ ]	21d5e879ab9135cbc4f54bfb4a12dfa8.acc	2017-06-15 09:50 	585 	 
+[ ]	21efa62f7f2e77c1993fb67c69abae22.acc	2017-06-15 09:50 	584 	 
+[ ]	21f29d019d2dbda1620ba49978d6c6ca.acc	2017-06-15 09:50 	584 	 
+[ ]	21f35deb6f99be95782b7d978d1bb66f.acc	2017-06-15 09:50 	584 	 
+[ ]	22c46b9ad0990cf7a73fad02a7731184.acc	2017-06-15 09:50 	585 	 
+[ ]	22fb78ab39db7a6c496838f594e377b6.acc	2017-06-15 09:50 	584 	 
+[ ]	23e1d6517c1a96557eb394a7969ec811.acc	2017-06-15 09:50 	585 	 
+[ ]	25ad3803118518c540b30e066e9f7a03.acc	2017-06-15 09:50 	584 	 
+[ ]	25ca010ecbb68e63f8f6e4df2dbc7a0a.acc	2017-06-15 09:50 	585 	 
+[ ]	25f38959dbf273accce1ca8957c69dd0.acc	2017-06-15 09:50 	584 	 
+[ ]	26ba609dea7477bcb7a17b0912ff0ab4.acc	2017-06-15 09:50 	585 	 
+[ ]	26ca8b69c7a1d37af08ede635b38ac25.acc	2017-06-15 09:50 	585 	 
+[ ]	28ae5f87693c37f5b43b93d6dcb192af.acc	2017-06-15 09:50 	584 	 
+[ ]	28c5858b4c1f3f5272b505af792a131a.acc	2017-06-15 09:50 	584 	 
+[ ]	29ab3224af5d2955eb9f6f9604b09b47.acc	2017-06-15 09:50 	585 	 
+[ ]	29ca4e8271e92fd18972da499d83faa9.acc	2017-06-15 09:50 	584 	 
+[ ]	29cb0f36e1b09fafd64dfc475cd154ee.acc	2017-06-15 09:50 	584 	 
+[ ]	29cf9851f990721b4078930a52371855.acc	2017-06-15 09:50 	584 	 
+[ ]	29e6bb8c09665df95fbf0c8ff5e184fd.acc	2017-06-15 09:50 	585 	 
+[ ]	29ee355c82a4bbe25787fc0b4d96dd45.acc	2017-06-15 09:50 	583 	 
+[ ]	30a392f1433bd45a4bba176dc97c9de4.acc	2017-06-15 09:50 	584 	 
+[ ]	30df9189d0b3eeeeac5f691bba0fc293.acc	2017-06-15 09:50 	585 	 
+[ ]	30f837801133d02bad7737387693fc77.acc	2017-06-15 09:50 	584 	 
+[ ]	31c0b98fc822defc124dbc16bfe44333.acc	2017-06-15 09:50 	585 	 
+[ ]	31d7f7440558b43d32b40a3927724fff.acc	2017-06-15 09:50 	584 	 
+[ ]	32bd197fe15d5ac657a7789f5adf672f.acc	2017-06-15 09:50 	585 	 
+[ ]	32e89b9885e8e2c7c3bd635bea89fd0a.acc	2017-06-15 09:50 	584 	 
+[ ]	32f6724fef117c0dc2de8e69180bc7e1.acc	2017-06-15 09:50 	584 	 
+[ ]	33baf312460423d88dc681c5aafc0b0a.acc	2017-06-15 09:50 	584 	 
+[ ]	34df994940887200e952babc211df6f3.acc	2017-06-15 09:50 	584 	 
+[ ]	34ef76485eadbb67f83a4fb1fef184f8.acc	2017-06-15 09:50 	585 	 
+[ ]	37eab7fc827b5398e708fc8d9bf96adf.acc	2017-06-15 09:50 	584 	 
+[ ]	39f65afc6e443a171c30bf66fae63db1.acc	2017-06-15 09:50 	583 	 
+[ ]	40e87fd7e03b66cbc81f8212c842d851.acc	2017-06-15 09:50 	584 	 
+[ ]	41bc81ccd65b5ae21f181bcdc60a6c62.acc	2017-06-15 09:50 	585 	 
+[ ]	42c5d406ee86e917bcf4cd83d254534b.acc	2017-06-15 09:50 	584 	 
+[ ]	43c8b7a50ddfde5aa5fc736406c72423.acc	2017-06-15 09:50 	585 	 
+[ ]	43cb4089654f49c1894024af1d79239c.acc	2017-06-15 09:50 	585 	 
+[ ]	45c816e15e480fef2ca867297921cae1.acc	2017-06-15 09:50 	584 	 
+[ ]	45fad7b2ebd71ee55663f9d4c25d1cb6.acc	2017-06-15 09:50 	585 	 
+[ ]	46fcd5bef075246c7d2fd444b41745cb.acc	2017-06-15 09:50 	584 	 
+[ ]	47a5b5d54b15c594b0d41ce20c8fb113.acc	2017-06-15 09:50 	584 	 
+[ ]	48b68e11c3d8416e5db820f8dce9a1cc.acc	2017-06-15 09:50 	584 	 
+[ ]	48d9698c1ebba40ba8c4c3bccd69c061.acc	2017-06-15 09:50 	584 	 
+[ ]	49ddeb6b6e65ce0c4fd7ac9d174e611d.acc	2017-06-15 09:50 	584 	 
+[ ]	50de687c0d3e1925c2e3e96b2a08b664.acc	2017-06-15 09:50 	584 	 
+[ ]	51e3753a2abd98a29f5344424b8a3db3.acc	2017-06-15 09:50 	583 	 
+[ ]	51e6542018c82a48cfe15db8954fbda8.acc	2017-06-15 09:50 	583 	 
+[ ]	52a6f94974c07bd49cd9dc9f89501751.acc	2017-06-15 09:50 	583 	 
+[ ]	53a7aa18611c1cf6bb13eccd34c8d2f9.acc	2017-06-15 09:50 	584 	 
+[ ]	53ee88051634f75d532271d10de0cc06.acc	2017-06-15 09:50 	584 	 
+[ ]	55fef9f64a6faf3ada69a9ae9d098017.acc	2017-06-15 09:50 	585 	 
+[ ]	56bca21e1e398d9e4ed8d35fcdd21312.acc	2017-06-15 09:50 	585 	 
+[ ]	56c314ff214498c70201785261a86e8b.acc	2017-06-15 09:50 	584 	 
+[ ]	56cf080080911de15d63db43a7c3c659.acc	2017-06-15 09:50 	585 	 
+[ ]	57aba757c2e288d93ebedeb80b7c0319.acc	2017-06-15 09:50 	585 	 
+[ ]	57e99d6f54ecdce53adcdd0efe8d00b0.acc	2017-06-15 09:50 	584 	 
+[ ]	58a69d5d011af16b12f0a81107be3d24.acc	2017-06-15 09:50 	585 	 
+[ ]	58e21d4294200a2754f190cd15b4cc27.acc	2017-06-15 09:50 	584 	 
+[ ]	58e63112be4258f4568ef480ef47da5b.acc	2017-06-15 09:50 	583 	 
+[ ]	59ce6c145b9ddfc95f0bed4baa6f9197.acc	2017-06-15 09:50 	584 	 
+[ ]	59fa74f31a724ab1383360e255a0e711.acc	2017-06-15 09:50 	584 	 
+[ ]	60ce46875da3a71989de7d5ff4aea73a.acc	2017-06-15 09:50 	584 	 
+[ ]	60de900180b1e32efcd6fddeeaebfdb7.acc	2017-06-15 09:50 	584 	 
+[ ]	61fbc3bd099c1b5bf6abe0df0246863d.acc	2017-06-15 09:50 	584 	 
+[ ]	62a7e0ad3a6040bd58bf74b27912aad3.acc	2017-06-15 09:50 	584 	 
+[ ]	63f56536ccbeb53f86180241feedb579.acc	2017-06-15 09:50 	584 	 
+[ ]	64cc0529536e5e6c7a99716743e8736f.acc	2017-06-15 09:50 	584 	 
+[ ]	64e321bd2ca29ce92f8794d070dc610a.acc	2017-06-15 09:50 	584 	 
+[ ]	65c2e22dfd5c3cd4ec160c641925aabd.acc	2017-06-15 09:50 	585 	 
+[ ]	65f00eed6eb9cc15e2bb8fdce2fb12cd.acc	2017-06-15 09:50 	585 	 
+[ ]	66c7b098bc08fc357766252f3f3e8051.acc	2017-06-15 09:50 	584 	 
+[ ]	67c1530e6d052befe61c27c7935f710e.acc	2017-06-15 09:50 	584 	 
+[ ]	68c3a3ac26417379fcc695e14aa36f51.acc	2017-06-15 09:50 	584 	 
+[ ]	68e1781b0492331302362108c6ceb81d.acc	2017-06-15 09:50 	584 	 
+[ ]	70adef1fa6974f1fc074f669b5f5228f.acc	2017-06-15 09:50 	583 	 
+[ ]	70b43acf0a3e285c423ee9267acaebb2.acc	2017-06-15 09:50 	582 	 
+[ ]	70f0b318435ade66c82d93bb770b6ced.acc	2017-06-15 09:50 	584 	 
+[ ]	70fb7ee7eb269c313db283def6ab7d09.acc	2017-06-15 09:50 	585 	 
+[ ]	71aae80069a4da7645691daa3d2c5377.acc	2017-06-15 09:50 	584 	 
+[ ]	71c6d088ffa6532bd971a94224142780.acc	2017-06-15 09:50 	585 	 
+[ ]	71c9fffe15fbafc620deace20b7c5eb6.acc	2017-06-15 09:50 	584 	 
+[ ]	71e11c0830a96debe4d53669c6cb6149.acc	2017-06-15 09:50 	583 	 
+[ ]	71fb6e8200897f051710b9eca09c1957.acc	2017-06-15 09:50 	583 	 
+[ ]	72b4c66c76496c6b042719aeb851f526.acc	2017-06-15 09:50 	584 	 
+[ ]	72d21e93a5b484619d0a6393ea54d76f.acc	2017-06-15 09:50 	583 	 
+[ ]	72f6e953d2eb1efacaef199dc21aacc1.acc	2017-06-15 09:50 	585 	 
+[ ]	73e4380e5ede97598e662531ed11a5fa.acc	2017-06-15 09:50 	584 	 
+[ ]	73eedfa54a99abf8c4223588741118f2.acc	2017-06-15 09:50 	584 	 
+[ ]	74a61a46248d4caa926e1938aecc6534.acc	2017-06-15 09:50 	584 	 
+[ ]	74a3863d401f4876b428bb498974a8bf.acc	2017-06-15 09:50 	584 	 
+[ ]	74dfe9c8d9defeac563057852db6c94d.acc	2017-06-15 09:50 	584 	 
+[ ]	74fe6e35b2588a89adfd936a8b458a53.acc	2017-06-15 09:50 	585 	 
+[ ]	77e580bfc95b1c0a89fe3b886dd961f9.acc	2017-06-15 09:50 	583 	 
+[ ]	78a312e0b1ac485db1b5a00393f55994.acc	2017-06-15 09:50 	584 	 
+[ ]	78e242e6d759c6e35520071b33f00e97.acc	2017-06-15 09:50 	585 	 
+[ ]	79b96225cc4705c9d7f4630f1482b6da.acc	2017-06-15 09:50 	585 	 
+[ ]	79d260a20a4bd04419979fddfbb490aa.acc	2017-06-15 09:50 	584 	 
+[ ]	79f06acb23f58e97899738c1b32e0968.acc	2017-06-15 09:50 	584 	 
+[ ]	80d73c3bbdc077edb98daec9ff26d933.acc	2017-06-15 09:50 	584 	 
+[ ]	82c3d67857c36d3f97535a6d211272e3.acc	2017-06-15 09:50 	585 	 
+[ ]	82c22539af6f7d928133b7b1f8abeeec.acc	2017-06-15 09:50 	584 	 
+[ ]	84cf9f79d28237d50c98ba165b000bab.acc	2017-06-15 09:50 	584 	 
+[ ]	84d39f534a1a7ce6f151c0a6d5c1e6c3.acc	2017-06-15 09:50 	583 	 
+[ ]	84f8b63a767058af39d96477fa557487.acc	2017-06-15 09:50 	585 	 
+[ ]	84f283b21104e9172dbf083a86cb1da9.acc	2017-06-15 09:50 	585 	 
+[ ]	85e9087a32f5f9ccf8eab9fe2acf9e7d.acc	2017-06-15 09:50 	584 	 
+[ ]	86afd07fd9b3e161d4110a05efbc4567.acc	2017-06-15 09:50 	585 	 
+[ ]	86d458e4636c5aaac4985f7521ee6639.acc	2017-06-15 09:50 	583 	 
+[ ]	87a3209fc8d2d8ebe98e40bac4ce78f0.acc	2017-06-15 09:50 	585 	 
+[ ]	87b0476d46f9b5bf71be14e4447e0ec1.acc	2017-06-15 09:50 	585 	 
+[ ]	87def2435b8b7dfbc1cb90e594b48a4c.acc	2017-06-15 09:50 	584 	 
+[ ]	87f2fd14ae5dd0b04fbf96d8e6768283.acc	2017-06-15 09:50 	585 	 
+[ ]	91ac85b6679b679cfcaec44e9e91db0f.acc	2017-06-15 09:50 	583 	 
+[ ]	91f56bdaaf319e141d7784413028d0fd.acc	2017-06-15 09:50 	585 	 
+[ ]	94b434c6fe64eb8f08f50bbcc4f4fb57.acc	2017-06-15 09:50 	584 	 
+[ ]	95a9ed9af4c22584f165f5b43520b377.acc	2017-06-15 09:50 	585 	 
+[ ]	97b93d510fb8e5946d975d81a53562de.acc	2017-06-15 09:50 	584 	 
+[ ]	97cb4404efbed5404dbd3c1023f226e9.acc	2017-06-15 09:50 	584 	 
+[ ]	97daa2d02c5a4c6a68f81f6e7196a9eb.acc	2017-06-15 09:50 	584 	 
+[ ]	98a9d9ac52319098a6ea778e6ec559ee.acc	2017-06-15 09:50 	584 	 
+[ ]	98fdde8e57f46c48d6f8eff627c7bd6d.acc	2017-06-15 09:50 	585 	 
+[ ]	99aad93853d637ada481588dfc223c56.acc	2017-06-15 09:50 	584 	 
+[ ]	99b73c36a3f627bca6cf01689505081d.acc	2017-06-15 09:50 	583 	 
+[ ]	99d49fb7fc00f549eb036dd473964ca5.acc	2017-06-15 09:50 	585 	 
+[ ]	99fca069a084b394d4a54401008c0651.acc	2017-06-15 09:50 	584 	 
+[ ]	124a5db27699c0e2a3480a7c091bc128.acc	2017-06-15 09:50 	583 	 
+[ ]	141d68e343b77ac020de3087e3efbf3e.acc	2017-06-15 09:50 	584 	 
+[ ]	146e50a62df35e5cc05f0e644f1b4c87.acc	2017-06-15 09:50 	585 	 
+[ ]	146e61f82b0174bf416c2cc895e27136.acc	2017-06-15 09:50 	584 	 
+[ ]	151b3d396f2e1f6f9bafd75e37fe90f8.acc	2017-06-15 09:50 	585 	 
+[ ]	164c1839f2d21dd77bff5a7933087f4b.acc	2017-06-15 09:50 	585 	 
+[ ]	172bf2c0394fce86f60e75170afc8f9f.acc	2017-06-15 09:50 	583 	 
+[ ]	194f2b25230c4cfcb7c2092a006502cd.acc	2017-06-15 09:50 	585 	 
+[ ]	221c5aa7f92fd53c68f85ba73f8935be.acc	2017-06-15 09:50 	584 	 
+[ ]	229b603e25630350619dc9b86a749c38.acc	2017-06-15 09:50 	584 	 
+[ ]	235f306703512e4e178edbfd427eb860.acc	2017-06-15 09:50 	583 	 
+[ ]	254c4a868ba0612edca14c19af07e30f.acc	2017-06-15 09:50 	584 	 
+[ ]	267ed1121ea6c0c9e2551620b10be6c9.acc	2017-06-15 09:50 	584 	 
+[ ]	279e838eea41bd10c7d57738361fba64.acc	2017-06-15 09:50 	584 	 
+[ ]	281a248eac5b77324ea4b0871ad071ce.acc	2017-06-15 09:50 	584 	 
+[ ]	290af0ac02bd7a0aefa440273a797520.acc	2017-06-15 09:50 	584 	 
+[ ]	311b41a1d40429482b14e395f56423cb.acc	2017-06-15 09:50 	585 	 
+[ ]	321d724386f8ab165f68fff922ee79c3.acc	2017-06-15 09:50 	585 	 
+[ ]	346bf50f208571cd9d4c4ec7f8d0b4df.acc	2017-06-15 09:50 	582 	 
+[ ]	346dfb647268bec0a6e05bd60647b6e6.acc	2017-06-15 09:50 	585 	 
+[ ]	347c3e55d7823a9758de01598aa33f2b.acc	2017-06-15 09:50 	585 	 
+[ ]	366d5953a9b993d1abec74d4bd4f47f5.acc	2017-06-15 09:50 	584 	 
+[ ]	377af4fb3c552283d364e04bdd45a2ab.acc	2017-06-15 09:50 	583 	 
+[ ]	378be8c1fedf59f60349f6bad4b7db95.acc	2017-06-15 09:50 	585 	 
+[ ]	385e8f506e4d16fcb3b4f04cb2134bd1.acc	2017-06-15 09:50 	585 	 
+[ ]	386fe978dd93c84898ffed478ddfc479.acc	2017-06-15 09:50 	585 	 
+[ ]	387aa6875b5e6c7225e120ef577bb484.acc	2017-06-15 09:50 	584 	 
+[ ]	387f8c91842b29f0596a433847400d68.acc	2017-06-15 09:50 	584 	 
+[ ]	388a6d78ca9a5677cfe6ac6333d10e54.acc	2017-06-15 09:50 	584 	 
+[ ]	388bd4708d5399f3b57f01b743d41be8.acc	2017-06-15 09:50 	584 	 
+[ ]	397bfae2d17164399945b7e8e5630a86.acc	2017-06-15 09:50 	585 	 
+[ ]	401c55932f8f4fbc27765e3b5dea3358.acc	2017-06-15 09:50 	584 	 
+[ ]	409a24500afa25affba8dab727925942.acc	2017-06-15 09:50 	584 	 
+[ ]	412c6df90bfa3a0d05fd7d8ab790d376.acc	2017-06-15 09:50 	584 	 
+[ ]	415e625085a1dcba383d97d16e9b2447.acc	2017-06-15 09:50 	585 	 
+[ ]	450c1b14e8b20b29b1fe9bc23b1f2878.acc	2017-06-15 09:50 	584 	 
+[ ]	476e02d55e6e34295af15309d47acc49.acc	2017-06-15 09:50 	585 	 
+[ ]	482e09bc32d62b29b51c9d21a173ec14.acc	2017-06-15 09:50 	584 	 
+[ ]	486d802595c5498539495b30b658a974.acc	2017-06-15 09:50 	584 	 
+[ ]	498f1ae1b09e6efbbd19097cdef6cc86.acc	2017-06-15 09:50 	585 	 
+[ ]	500b7e7e925fc1810c0081f49f9878aa.acc	2017-06-15 09:50 	584 	 
+[ ]	500f59a56cf27362df6df66852574348.acc	2017-06-15 09:50 	585 	 
+[ ]	508c160d0792912147bfb2f29b2bb136.acc	2017-06-15 09:50 	583 	 
+[ ]	530cd80ef0fc59616c7eeed85c147bf4.acc	2017-06-15 09:50 	584 	 
+[ ]	539fbd47a23717ee6a38e540e23e3c3b.acc	2017-06-15 09:50 	584 	 
+[ ]	544e693182b1b4ffab54bc0bdd1f216c.acc	2017-06-15 09:50 	584 	 
+[ ]	556c5bd821268a5bf9b26de19c644e8d.acc	2017-06-15 09:50 	583 	 
+[ ]	581e4dfc04729f53cb5b461a26b43175.acc	2017-06-15 09:50 	585 	 
+[ ]	587ca22ea47c6fb4c603e929d0456520.acc	2017-06-15 09:50 	584 	 
+[ ]	610fa1e1fd8a8a74b5da05a6c029473a.acc	2017-06-15 09:50 	584 	 
+[ ]	618a6cf12f8be23f4f425129f4487c53.acc	2017-06-15 09:50 	584 	 
+[ ]	624ab87c34e95964f842598d2a5af800.acc	2017-06-15 09:50 	585 	 
+[ ]	631a75b70b8724266b9c50b79a66f580.acc	2017-06-15 09:50 	583 	 
+[ ]	678e183b3178e7921df2a5a7a3a5778b.acc	2017-06-15 09:50 	584 	 
+[ ]	679d6fe1e0d242f848e3f919d8c00877.acc	2017-06-15 09:50 	584 	 
+[ ]	682bbcc46c90afb5e2aa6feb361ba771.acc	2017-06-15 09:50 	584 	 
+[ ]	695cc486245e700b16b43e258ce15ea7.acc	2017-06-15 09:50 	584 	 
+[ ]	726a000b87b8e3ae49e2d0039a216fc0.acc	2017-06-15 09:50 	585 	 
+[ ]	731d836d632dbe827ba83ed1dd904e46.acc	2017-06-15 09:50 	584 	 
+[ ]	758b39c317821013b180ae057bc16d83.acc	2017-06-15 09:50 	584 	 
+[ ]	779a7750a1723d388731bc20c6b05b35.acc	2017-06-15 09:50 	584 	 
+[ ]	780a84585b62356360a9495d9ff3a485.acc	2017-06-15 09:50 	582 	 
+[ ]	784e81b0f924ffc73318724185f5ba0c.acc	2017-06-15 09:50 	585 	 
+[ ]	797e1abe1c99424aa7856f6c9f136cfc.acc	2017-06-15 09:50 	585 	 
+[ ]	805c369e5114713021dbb49b374845c1.acc	2017-06-15 09:50 	585 	 
+[ ]	823e6084e33c3cbf609bcb946fbb5098.acc	2017-06-15 09:50 	584 	 
+[ ]	828bceeca877d2c73e5836d11e1d832b.acc	2017-06-15 09:50 	584 	 
+[ ]	844cebf2af0bfdde679e8e72d2337717.acc	2017-06-15 09:50 	584 	 
+[ ]	845b82de5081018fcbbd55e63cbd04c9.acc	2017-06-15 09:50 	583 	 
+[ ]	848e888aa97a6370a04b077d7de5a565.acc	2017-06-15 09:50 	585 	 
+[ ]	855b1ce8edf8b2e059444b290b678210.acc	2017-06-15 09:50 	584 	 
+[ ]	858a0d9ead484a5452940683dfe75356.acc	2017-06-15 09:50 	585 	 
+[ ]	858d42e024586e34cf961bcd8c52fc26.acc	2017-06-15 09:50 	584 	 
+[ ]	879f0957ad3ed3f46f2bef382fcde256.acc	2017-06-15 09:50 	585 	 
+[ ]	884f78f576290e70b234f68cc2b75565.acc	2017-06-15 09:50 	584 	 
+[ ]	897ffb89e0066d9cbb92666cd2e92960.acc	2017-06-15 09:50 	584 	 
+[ ]	905fe459c1ae841af1138abf7a49a960.acc	2017-06-15 09:50 	584 	 
+[ ]	911be9d5ece260e1789c21cc8997bbe9.acc	2017-06-15 09:50 	583 	 
+[ ]	916da122c11e2e240be7647d3943ac6b.acc	2017-06-15 09:50 	585 	 
+[ ]	922bb20268e664d4571a234836f68b7e.acc	2017-06-15 09:50 	584 	 
+[ ]	925a13e731e148e32a024d57905883cf.acc	2017-06-15 09:50 	584 	 
+[ ]	941e55bed0cb8052e7015e7133a5b9c7.acc	2017-06-15 09:50 	581 	 
+[ ]	973a3382433a21d7bdb1cc0f8f813f83.acc	2017-06-15 09:50 	583 	 
+[ ]	984c8ac0662b0368642ddadf106bd1aa.acc	2017-06-15 09:50 	584 	 
+[ ]	998dab6a74e39fc6d830d3569c9eea50.acc	2017-06-15 09:50 	584 	 
+[ ]	1005c4b820f30569e0a8e290f2893299.acc	2017-06-15 09:50 	585 	 
+[ ]	1308cb859a75a2b66d72b3a36ce87ace.acc	2017-06-15 09:50 	584 	 
+[ ]	1458d8c0b03eb55944f3928fe45c66d8.acc	2017-06-15 09:50 	584 	 
+[ ]	1557e069780d9eac7f88a6e10e7cd90b.acc	2017-06-15 09:50 	584 	 
+[ ]	1967bd76aaafed760132a851a3d7c8d6.acc	2017-06-15 09:50 	584 	 
+[ ]	2744c3aa5ea3c1e0c43ba0b07e6d7ab7.acc	2017-06-15 09:50 	584 	 
+[ ]	2839c1573b4e3e405f28b8e975d3f04a.acc	2017-06-15 09:50 	585 	 
+[ ]	2891c5f2cfce57c5d7ce5eb17711ad1e.acc	2017-06-15 09:50 	584 	 
+[ ]	2928dcb8005fec74d484f4a44d55866a.acc	2017-06-15 09:50 	585 	 
+[ ]	2946c98cb4e7da90b97c8a46f381e55f.acc	2017-06-15 09:50 	585 	 
+[ ]	3154e6528069850adc415ae29414f380.acc	2017-06-15 09:50 	584 	 
+[ ]	3293cf3299da33ed5e173453e98bab68.acc	2017-06-15 09:50 	584 	 
+[ ]	3313d744daa87043953a44fbb65b2981.acc	2017-06-15 09:50 	584 	 
+[ ]	3491e73a84a342b518cd7c7df3e5d6a2.acc	2017-06-15 09:50 	585 	 
+[ ]	3545c87f1008dbaf5d6e1faf365dc00b.acc	2017-06-15 09:50 	584 	 
+[ ]	3918cc808d11bb1c24df866cc0e2a69c.acc	2017-06-15 09:50 	585 	 
+[ ]	4176c547af366f716c6ae37755304425.acc	2017-06-15 09:50 	583 	 
+[ ]	4273dec45222434c96a4ebae56a3c840.acc	2017-06-15 09:50 	585 	 
+[ ]	4402cb07ed0509855526702a4ece80f7.acc	2017-06-15 09:50 	584 	 
+[ ]	4476ecd1835548a4ffcb4de3feb21035.acc	2017-06-15 09:50 	584 	 
+[ ]	4586e7414d7567f91f965d8eb2647a6e.acc	2017-06-15 09:50 	585 	 
+[ ]	4720f8f57866d9631d8d310093883175.acc	2017-06-15 09:50 	584 	 
+[ ]	4996ea3ca285adb12a03d3dd8cbb4ad0.acc	2017-06-15 09:50 	583 	 
+[ ]	5247cc2759787a72747c4376a88356e8.acc	2017-06-15 09:50 	585 	 
+[ ]	5313f2c7094ceabfc44a02f61643be18.acc	2017-06-15 09:50 	585 	 
+[ ]	5492f0f786cc84fb1aee7bc3b17d0d4f.acc	2017-06-15 09:50 	584 	 
+[ ]	5512bf5534e85f5365db45183a714a26.acc	2017-06-15 09:50 	584 	 
+[ ]	5703d0a083181849782ad1bbda821404.acc	2017-06-15 09:50 	584 	 
+[ ]	5814e18d74c311e709cab1ef69cb7b7e.acc	2017-06-15 09:50 	584 	 
+[ ]	5865c9a855bbc327b8a2fc6db3d86917.acc	2017-06-15 09:50 	584 	 
+[ ]	6218cd1ca8743a36fabfc189c4e3288c.acc	2017-06-15 09:50 	584 	 
+[ ]	6272e6fde32336fbd46ce0056234965b.acc	2017-06-15 09:50 	583 	 
+[ ]	6427c41c712d10bde42c5231a058261c.acc	2017-06-15 09:50 	584 	 
+[ ]	6700bd647e3c7f1a577ef7335b64e92e.acc	2017-06-15 09:50 	584 	 
+[ ]	7053af4bcb72fce3b093fd4847070f29.acc	2017-06-15 09:50 	585 	 
+[ ]	8116eebed5657173e44eac5f834c6dd7.acc	2017-06-15 09:50 	585 	 
+[ ]	8417fa43902ff7f26fb4cf87f0d428a1.acc	2017-06-15 09:50 	585 	 
+[ ]	8554f463517b7f7f70c2e0a8b3e72b64.acc	2017-06-15 09:50 	584 	 
+[ ]	8578a01a81a21685c098b08d4a3514a0.acc	2017-06-15 09:50 	584 	 
+[ ]	9281c329f634b4b2cd88a6defcb7bd86.acc	2017-06-15 09:50 	584 	 
+[ ]	9654eabf734023323c0fa3e8ed894c65.acc	2017-06-15 09:50 	583 	 
+[ ]	9829ce4147ce5ba39e4e95ddb7254b73.acc	2017-06-15 09:50 	584 	 
+[ ]	9833b80712e7a1e77e86a2dfbaba8278.acc	2017-06-15 09:50 	584 	 
+[ ]	10805eead8596309e32a6bfe102f7b2c.acc	2017-06-15 09:50 	582 	 
+[ ]	13394b7bf1e2ffb15c94045398826b52.acc	2017-06-15 09:50 	585 	 
+[ ]	17115b9167f94b0fc8de6a075f7a7c3c.acc	2017-06-15 09:50 	584 	 
+[ ]	20207ac92b72028c5b4abeb7287280ed.acc	2017-06-15 09:50 	585 	 
+[ ]	20762f2c75a18c8a0911495214989878.acc	2017-06-15 09:50 	585 	 
+[ ]	24618f7079b4f5956459c1a10abbba14.acc	2017-06-15 09:50 	584 	 
+[ ]	26678f1b6310e7619a2a39f4301fdeb1.acc	2017-06-15 09:50 	584 	 
+[ ]	28803c906e088ad88ec06e251c37db91.acc	2017-06-15 09:50 	585 	 
+[ ]	30033ed5c2aedb6b8e8babea24612974.acc	2017-06-15 09:50 	583 	 
+[ ]	31352ca79f8973c646dc89434f91080a.acc	2017-06-15 09:50 	585 	 
+[ ]	31553a37be725d7b5d1add5acae714f2.acc	2017-06-15 09:50 	583 	 
+[ ]	31586fb5ead11d90c96bbdbb463dee21.acc	2017-06-15 09:50 	585 	 
+[ ]	32203b71b000edd1b90258a14bf28a55.acc	2017-06-15 09:50 	583 	 
+[ ]	39095d3e086eb29355d37ed5d19a9ed0.acc	2017-06-15 09:50 	583 	 
+[ ]	42261debb6bdfc4d709d424616bc18cc.acc	2017-06-15 09:50 	583 	 
+[ ]	44987d36fe627d12501b25116c242318.acc	2017-06-15 09:50 	584 	 
+[ ]	45028a24c0a30864f94db632bca0a351.acc	2017-06-15 09:50 	585 	 
+[ ]	47171c38422e049e50532e6606fa932d.acc	2017-06-15 09:50 	584 	 
+[ ]	49206d1e18aa8eb1c64dae4741639b2f.acc	2017-06-15 09:50 	585 	 
+[ ]	50276beac1f014b64b19dbd0e7c6bb1a.acc	2017-06-15 09:50 	584 	 
+[ ]	54656a84fec49d5da07f25ee36b298bd.acc	2017-06-15 09:50 	584 	 
+[ ]	56215edb6917e27802904037da00a977.acc	2017-06-15 09:50 	584 	 
+[ ]	59829e0910101366d704a85f11cfdd15.acc	2017-06-15 09:50 	584 	 
+[ ]	66284d79b5caa9e6a3dd440607b3fdd7.acc	2017-06-15 09:50 	584 	 
+[ ]	68576f20e9732f1b2edc4df5b8533230.acc	2017-06-15 09:50 	257 	 
+[ ]	75942bd27ec22afd9bdc8826cc454c75.acc	2017-06-15 09:50 	584 	 
+[ ]	76123b5b589514bc2cb1c6adfb937d13.acc	2017-06-15 09:50 	584 	 
+[ ]	80416d8aaea6d6cf3dcec95780fda17d.acc	2017-06-15 09:50 	585 	 
+[ ]	85006f1266226e84efb919908d5f8333.acc	2017-06-15 09:50 	583 	 
+[ ]	87831b753b8530fddc74e73ca8515a50.acc	2017-06-15 09:50 	585 	 
+[ ]	91249b887c7bf3f6cb7becc0c0ab8ddd.acc	2017-06-15 09:50 	584 	 
+[ ]	94290d34dec7593ce7c5632150a063d2.acc	2017-06-15 09:50 	585 	 
+[ ]	301120b456a3b5981f5cdc9d484f1b3b.acc	2017-06-15 09:50 	585 	 
+[ ]	430547d637347d0da78509b774bb9fdf.acc	2017-06-15 09:50 	584 	 
+[ ]	453500e8ebb7e50f098068d998db0090.acc	2017-06-15 09:50 	583 	 
+[ ]	632416bbd8eb4a3480297ea3875ea568.acc	2017-06-15 09:50 	584 	 
+[ ]	640087eae263bd45eb444767ead7dd65.acc	2017-06-15 09:50 	585 	 
+[ ]	756431ad587f462168df5064b3b829a8.acc	2017-06-15 09:50 	584 	 
+[ ]	874792fab530aed50b38b26f2a8c1870.acc	2017-06-15 09:50 	584 	 
+[ ]	889298fbc7c3ed6d6487da1b725a3d06.acc	2017-06-15 09:50 	584 	 
+[ ]	958753e5d8c5896a5570dd1fba2c2f11.acc	2017-06-15 09:50 	585 	 
+[ ]	962607e2656d81d6dbf9d1a85142b144.acc	2017-06-15 09:50 	585 	 
+[ ]	976358d4677bd2938987d334bb6f283d.acc	2017-06-15 09:50 	584 	 
+[ ]	1385939e3f7c5d728fbb1a665e5fe26a.acc	2017-06-15 09:50 	585 	 
+[ ]	1634428ff1f73afb7db9df3e21a99b54.acc	2017-06-15 09:50 	585 	 
+[ ]	2045012eb38d171e1e24ba7ddc6fd11b.acc	2017-06-15 09:50 	584 	 
+[ ]	6575141b4812a7fef638ace04b19d0c7.acc	2017-06-15 09:50 	585 	 
+[ ]	7804840b63cad3132d2a222818e34766.acc	2017-06-15 09:50 	585 	 
+[ ]	8087166ea0cbc15e43de374cc4179424.acc	2017-06-15 09:50 	584 	 
+[ ]	8915138a77e6474ae29f6b06e109b7ff.acc	2017-06-15 09:50 	585 	 
+[ ]	9485920a1460f5b8a5ce891e19c321a1.acc	2017-06-15 09:50 	584 	 
+[ ]	34457654bf404f9419d68bc8c6f580bb.acc	2017-06-15 09:50 	584 	 
+[ ]	65733941cafa352d30dfbdc7580d023a.acc	2017-06-15 09:50 	585 	 
+[ ]	120456185fa840aad81c6ea38b9f70d7.acc	2017-06-15 09:50 	584 	 
+[ ]	198007304d3f3413936f9634ff44573b.acc	2017-06-15 09:50 	584 	 
+[ ]	254770162ed5902fbbaf2460e91bebb5.acc	2017-06-15 09:50 	584 	 
+[ ]	476845627ec5658e15864a7766fea705.acc	2017-06-15 09:50 	584 	 
+[ ]	563738597d410751acc3378aec0e860d.acc	2017-06-15 09:50 	585 	 
+[ ]	616058320a920bbc1078572b9f1b6b70.acc	2017-06-15 09:50 	584 	 
+[ ]	718772467ce8bd9c269aebb2e25ebd2f.acc	2017-06-15 09:50 	585 	 
+[ ]	860826651b3c5c5f11cbc9985b9c53e0.acc	2017-06-15 09:50 	584 	 
+[ ]	916462152b12cacd3b7a982c8fd1206b.acc	2017-06-15 09:50 	585 	 
+[ ]	2940290175b241c7fcf89c2abbfbfdfc.acc	2017-06-15 09:50 	585 	 
+[ ]	92579940417f9ae8d23f3274830ceeaa.acc	2017-06-15 09:50 	584 	 
+[ ]	245131960374afdfd3af75590d81ffad.acc	2017-06-15 09:50 	584 	 
+[ ]	a1a96ff9ea385289c05d16230b509aeb.acc	2017-06-15 09:50 	585 	 
+[ ]	a2a532abbf06c0e084f508b5f14de219.acc	2017-06-15 09:50 	584 	 
+[ ]	a2e24c98892ca93d1201c80f42c994e4.acc	2017-06-15 09:50 	584 	 
+[ ]	a2f5e3d1b3733a1a40ac6ac4bd7c2182.acc	2017-06-15 09:50 	585 	 
+[ ]	a4faa925a6f8d2c6027d5934cea9a103.acc	2017-06-15 09:50 	583 	 
+[ ]	a5ae203a96c1b48cc51f38e2113b51e2.acc	2017-06-15 09:50 	584 	 
+[ ]	a5beea9b526e1fa0916a2a1c2297ad14.acc	2017-06-15 09:50 	585 	 
+[ ]	a5d269a562c49d467a5102643bd35a8c.acc	2017-06-15 09:50 	585 	 
+[ ]	a5d757244998b2d9ec1d9b88da0c17c7.acc	2017-06-15 09:50 	584 	 
+[ ]	a5dd7a85f0c5aef27255defb4059cab6.acc	2017-06-15 09:50 	584 	 
+[ ]	a6a253ff3c0058a8218eba01acddaa38.acc	2017-06-15 09:50 	584 	 
+[ ]	a7c061a1de903c3498d4a96242d16244.acc	2017-06-15 09:50 	584 	 
+[ ]	a9bf73c62737a6c16b95651c046fe3f1.acc	2017-06-15 09:50 	585 	 
+[ ]	a19e0c370602300554e6a997b9dc91ad.acc	2017-06-15 09:50 	583 	 
+[ ]	a27d0aa5e218c89d734cd7c169f7f4f9.acc	2017-06-15 09:50 	584 	 
+[ ]	a53a4eaab8be6c4b8569fd407be54287.acc	2017-06-15 09:50 	585 	 
+[ ]	a75e327f24e14d77509c39cf53c2eb9d.acc	2017-06-15 09:50 	585 	 
+[ ]	a80f454ea328eeb74bc50e0c2af5c33a.acc	2017-06-15 09:50 	585 	 
+[ ]	a98fe279ce82b3e7566be14540cdfd87.acc	2017-06-15 09:50 	584 	 
+[ ]	a398fabe8a9cf8411e32841e10f64dd6.acc	2017-06-15 09:50 	584 	 
+[ ]	a465e6dcb80571d0c1a4c50656db1e3f.acc	2017-06-15 09:50 	585 	 
+[ ]	a648c7b7032a91bf38440a56b7f1bf26.acc	2017-06-15 09:50 	584 	 
+[ ]	a675e030fbf19a997ca2a03c096c7162.acc	2017-06-15 09:50 	583 	 
+[ ]	a676fde116361fca31ee46e2568e0ff8.acc	2017-06-15 09:50 	584 	 
+[ ]	a710f853274ebac3bbdfa39d1498b131.acc	2017-06-15 09:50 	584 	 
+[ ]	a909fd3d565cdc5e67c7b25563733b3a.acc	2017-06-15 09:50 	585 	 
+[ ]	a940beb305934c9e105340f21528b1e4.acc	2017-06-15 09:50 	584 	 
+[ ]	a2881d3dd5ee59e95e3ba1265b2a68a2.acc	2017-06-15 09:50 	585 	 
+[ ]	a3009c3a4e00b5c5c760f7b43643bc4f.acc	2017-06-15 09:50 	584 	 
+[ ]	a6012bfc5cbd982890ccd874df0acb63.acc	2017-06-15 09:50 	584 	 
+[ ]	a6566c5ba56c080595346fb4f75175f5.acc	2017-06-15 09:50 	585 	 
+[ ]	a9304d76fefb2a8b05e7e33bb96c5e0e.acc	2017-06-15 09:50 	584 	 
+[ ]	a19983a3444c9f01bb4afb8f985c92bc.acc	2017-06-15 09:50 	585 	 
+[ ]	a3692632944476a25b92d486c17c6962.acc	2017-06-15 09:50 	584 	 
+[ ]	aa1460476704c4ab045ba3583b34a319.acc	2017-06-15 09:50 	585 	 
+[ ]	ab4e2a922a7f3a3c8600276866e05a4e.acc	2017-06-15 09:50 	584 	 
+[ ]	ab184ebb41fd49201e47e6d9e7995c0f.acc	2017-06-15 09:50 	584 	 
+[ ]	abbdef22ad2cd61ce2b88efdc1fd4068.acc	2017-06-15 09:50 	584 	 
+[ ]	abcf40e21740a1c04a9a3566497c0892.acc	2017-06-15 09:50 	583 	 
+[ ]	abedece2083ec0ce5bfd9b8287073e1f.acc	2017-06-15 09:50 	585 	 
+[ ]	ac4f23bdb45a02602a6501e28993060e.acc	2017-06-15 09:50 	584 	 
+[ ]	ac4fd9384634602b2d74305a18648577.acc	2017-06-15 09:50 	585 	 
+[ ]	ac6d61e69c240fe11d6ca4b6acc35aff.acc	2017-06-15 09:50 	585 	 
+[ ]	ac2916a043bcbeb801691afed44274d8.acc	2017-06-15 09:50 	585 	 
+[ ]	acb4ccb8eeb778b614a993e7c3199e5b.acc	2017-06-15 09:50 	582 	 
+[ ]	ad4bd9527fb35490c3c8a2be078c2b3d.acc	2017-06-15 09:50 	584 	 
+[ ]	ad7cc6e79ce56c437a13246ed6c4d5f8.acc	2017-06-15 09:50 	584 	 
+[ ]	ad16aa80831b4fba1439ac9e5f0103c2.acc	2017-06-15 09:50 	585 	 
+[ ]	ad608d995d60e704cb2f8bb0c9c8e526.acc	2017-06-15 09:50 	585 	 
+[ ]	ad4704e9fd044a6961dc222624127732.acc	2017-06-15 09:50 	584 	 
+[ ]	ad363144b53172d66bd24dfa575d4915.acc	2017-06-15 09:50 	585 	 
+[ ]	ae7f70db2c5682cf9d232915fbe5120c.acc	2017-06-15 09:50 	584 	 
+[ ]	ae61679e003671db4ef71b3e08e51c6d.acc	2017-06-15 09:50 	584 	 
+[ ]	ae364452981dad5efa2bed11f58b67ec.acc	2017-06-15 09:50 	584 	 
+[ ]	aeaa050edd55f9acfdebbc6ec4565e06.acc	2017-06-15 09:50 	583 	 
+[ ]	aed357b751b161f2baa30f1a6ffa94d8.acc	2017-06-15 09:50 	584 	 
+[ ]	af03037070ba16f49629e8fceae67101.acc	2017-06-15 09:50 	584 	 
+[ ]	af506ba8430038b4c446610b7afeca02.acc	2017-06-15 09:50 	585 	 
+[ ]	b0ffc7ada9b79d0b507d99b67a3260f6.acc	2017-06-15 09:50 	584 	 
+[ ]	b086c5383d5ba5f9fe55bcf2879d4494.acc	2017-06-15 09:50 	584 	 
+[ ]	b1a06fa15fea8df052eb0efda06239fc.acc	2017-06-15 09:50 	584 	 
+[ ]	b1ab8c16c5300a1fc00907310fe6498d.acc	2017-06-15 09:50 	584 	 
+[ ]	b2b92a76037f5cedcbddb2cf8922b584.acc	2017-06-15 09:50 	583 	 
+[ ]	b2d9f5c9658426b86efd70046ee8471d.acc	2017-06-15 09:50 	584 	 
+[ ]	b2ec2c2d39477ab81eb74f185699e945.acc	2017-06-15 09:50 	584 	 
+[ ]	b2f462e0cef4ceac9341cd6ff3e0ed83.acc	2017-06-15 09:50 	585 	 
+[ ]	b3fa7845a431dcab7cac67fcfc6dd728.acc	2017-06-15 09:50 	584 	 
+[ ]	b4ed8dcdfcbc03a4f383956db555f674.acc	2017-06-15 09:50 	583 	 
+[ ]	b5dd07106c1b691c055f717c6267768a.acc	2017-06-15 09:50 	585 	 
+[ ]	b5fc8035406f2583cea97f92461bbcb0.acc	2017-06-15 09:50 	585 	 
+[ ]	b8e7b4cf45d8182f69a43dfea4c15007.acc	2017-06-15 09:50 	585 	 
+[ ]	b25d37c6adaa929438e2906e99c9bf10.acc	2017-06-15 09:50 	583 	 
+[ ]	b25f88734c195eac61678d0c1f9eaa4a.acc	2017-06-15 09:50 	584 	 
+[ ]	b30aff7167e8f8b78dcb22feca8754ad.acc	2017-06-15 09:50 	584 	 
+[ ]	b36b55a6b85410da8098d183b46e9814.acc	2017-06-15 09:50 	584 	 
+[ ]	b51b74fb4d0fffb13588c438327eb18f.acc	2017-06-15 09:50 	584 	 
+[ ]	b59e8e4197ddedcafa629a4015a652a5.acc	2017-06-15 09:50 	584 	 
+[ ]	b65b6105d8c1b7732bc0cbe395e5ff2d.acc	2017-06-15 09:50 	585 	 
+[ ]	b81a80f9bb4b1a04afa7097e23cbc76a.acc	2017-06-15 09:50 	584 	 
+[ ]	b85e39b33781a6d660ee25286c3ab5db.acc	2017-06-15 09:50 	585 	 
+[ ]	b91c776e5fc8ac78ef2b7ac7985c12e7.acc	2017-06-15 09:50 	584 	 
+[ ]	b117c5fddba8530b339c9a8da696ff0c.acc	2017-06-15 09:50 	584 	 
+[ ]	b155ec440c9934e68335882bf9bc87a4.acc	2017-06-15 09:50 	585 	 
+[ ]	b165bbdb365c838e73b1a2d667b6fccf.acc	2017-06-15 09:50 	585 	 
+[ ]	b244aedf4f40a73e2ba94ca019c11765.acc	2017-06-15 09:50 	583 	 
+[ ]	b461cb6730908268d5731c4d30696f23.acc	2017-06-15 09:50 	584 	 
+[ ]	b515f74731640dc9c2bcc5fbb155f0e2.acc	2017-06-15 09:50 	584 	 
+[ ]	b819d8a2eb68f65c47355b20fa1e3a42.acc	2017-06-15 09:50 	585 	 
+[ ]	b987c7121ca99f686fad591cd517c96a.acc	2017-06-15 09:50 	585 	 
+[ ]	b1732eb5066d19f0d4f2e4a2173b51d0.acc	2017-06-15 09:50 	585 	 
+[ ]	b4549c66b6529d2d366b0065722b4fab.acc	2017-06-15 09:50 	585 	 
+[ ]	b7640c209018067b376ae0832f66ebed.acc	2017-06-15 09:50 	584 	 
+[ ]	b7778d5081f949cedbb609c1792d376e.acc	2017-06-15 09:50 	584 	 
+[ ]	b8978edfe1f1e84b9157d147adb4a7b3.acc	2017-06-15 09:50 	584 	 
+[ ]	b54969a641bfeeb6a9daaf76b42bb629.acc	2017-06-15 09:50 	584 	 
+[ ]	b2007795fd0d31d65ec16d2cc03b62e2.acc	2017-06-15 09:50 	584 	 
+[ ]	b4006524aae0d82ce9ad65a8991e81b3.acc	2017-06-15 09:50 	584 	 
+[ ]	b6991119b60d52b191a97156374ec497.acc	2017-06-15 09:50 	585 	 
+[ ]	b2379715823c2d101d66b2b750d7729c.acc	2017-06-15 09:50 	584 	 
+[ ]	ba0c98a6b1b39df7395fbe53bb3d9416.acc	2017-06-15 09:50 	585 	 
+[ ]	ba3f33ae83f835337fc89c330c8c0b0b.acc	2017-06-15 09:50 	584 	 
+[ ]	ba4fb7e7c14fba8f12044868d0a2fb58.acc	2017-06-15 09:50 	584 	 
+[ ]	ba39ecb7f9e7c8ad01242ee2abfec51f.acc	2017-06-15 09:50 	585 	 
+[ ]	bb34a1ff313f2f6c04f276bc796972a1.acc	2017-06-15 09:50 	584 	 
+[ ]	bc1d7f1ae59272da503d8400021f1922.acc	2017-06-15 09:50 	584 	 
+[ ]	bc8f563356a47ba542004438ad25cfe1.acc	2017-06-15 09:50 	583 	 
+[ ]	bc77e74af430c6c199676bd28a7239db.acc	2017-06-15 09:50 	584 	 
+[ ]	bc79ed4105fa30d652540f01aefa1b86.acc	2017-06-15 09:50 	585 	 
+[ ]	bc86f3b2b74796989a2607e0c0c0d785.acc	2017-06-15 09:50 	584 	 
+[ ]	bc9767541db7363d22bd389262891376.acc	2017-06-15 09:50 	584 	 
+[ ]	bd5a6de2559b3b47989f6ed359df4b31.acc	2017-06-15 09:50 	583 	 
+[ ]	bd19ed634fca546c3a1ba5839cb38108.acc	2017-06-15 09:50 	584 	 
+[ ]	bd8201d9d272abc25ea846ba4f9ce151.acc	2017-06-15 09:50 	585 	 
+[ ]	bd6296924dc801f8c8a4cb8a21cacb6c.acc	2017-06-15 09:50 	585 	 
+[ ]	be68d0020eb8ca72d751561bfd379e0c.acc	2017-06-15 09:50 	584 	 
+[ ]	bf1db217197a8ca98e78546d06de0a78.acc	2017-06-15 09:50 	583 	 
+[ ]	bf97c1b37423d4d65a57dc14979310f3.acc	2017-06-15 09:50 	585 	 
+[ ]	bf263d614541baaaa541101f86af47b7.acc	2017-06-15 09:50 	585 	 
+[ ]	bfb8e73959a976e5abb32354299d919d.acc	2017-06-15 09:50 	584 	 
+[ ]	bfcf10c3db55bd6e8ee1fb1d1e1db80c.acc	2017-06-15 09:50 	585 	 
+[ ]	bff19337b2e4e2a93e29e98bd931dd19.acc	2017-06-15 09:50 	584 	 
+[ ]	c0449dc4695da9107356b7081eeaf548.acc	2017-06-15 09:50 	584 	 
+[ ]	c1e9c51654c980547d41a4e6b89a279e.acc	2017-06-15 09:50 	585 	 
+[ ]	c5fbe301fd23271c5587af536c490d4d.acc	2017-06-15 09:50 	584 	 
+[ ]	c6f3ea4d0d9050cdd89b3465cde1091c.acc	2017-06-15 09:50 	584 	 
+[ ]	c7c1aeb5d6174d9971083d5b0cc42d4d.acc	2017-06-15 09:50 	585 	 
+[ ]	c7e5018a4f1def3f9bb7e5845cef8520.acc	2017-06-15 09:50 	583 	 
+[ ]	c7eafce7ea1402a837a2876a4df6363c.acc	2017-06-15 09:50 	584 	 
+[ ]	c9aa1ec05c4655ff245a6cbf91987b9e.acc	2017-06-15 09:50 	584 	 
+[ ]	c19e88c3bb036819aa5b28cbdf9cfe27.acc	2017-06-15 09:50 	584 	 
+[ ]	c27e3b09f45c2e92b2d85f8ba84c2894.acc	2017-06-15 09:50 	585 	 
+[ ]	c58e81ac3538ce7bfdf724829e91cc1b.acc	2017-06-15 09:50 	585 	 
+[ ]	c59de74625806c5e1c0c76a2c744a57e.acc	2017-06-15 09:50 	584 	 
+[ ]	c86c13570b69c871145b9ee78c82cf1c.acc	2017-06-15 09:50 	584 	 
+[ ]	c88e9ce208f7a014f699c20e897c168d.acc	2017-06-15 09:50 	585 	 
+[ ]	c610afd0caaedeab71cac5163f952e5f.acc	2017-06-15 09:50 	585 	 
+[ ]	c1700a7bfe673062732771b823b0cd7b.acc	2017-06-15 09:50 	584 	 
+[ ]	c4442fa5d035928e507c1b7a3d58abc3.acc	2017-06-15 09:50 	583 	 
+[ ]	c5132ddff0d5dcb77af4ec902e3c34a7.acc	2017-06-15 09:50 	584 	 
+[ ]	c5664a8536412a94d5b109580070bd1c.acc	2017-06-15 09:50 	583 	 
+[ ]	c79000bbef5faef919233d06186a9460.acc	2017-06-15 09:50 	584 	 
+[ ]	c699054ac57388bc81a86e173a40380d.acc	2017-06-15 09:50 	584 	 
+[ ]	c809073b951d81730735cbddc4b05b4c.acc	2017-06-15 09:50 	584 	 
+[ ]	ca7050d298b7ed8426eeb5dd8fcfacda.acc	2017-06-15 09:50 	585 	 
+[ ]	caa00c3f2217fdc59be9764e1167ca39.acc	2017-06-15 09:50 	585 	 
+[ ]	cb2da876273338ead9c35ca591d1a74f.acc	2017-06-15 09:50 	584 	 
+[ ]	cb27ba5c7f50f33d3808eeccfe1c7271.acc	2017-06-15 09:50 	585 	 
+[ ]	cbeed458cd121a5a971a2578ff6a3a95.acc	2017-06-15 09:50 	584 	 
+[ ]	cc4b31bcc18c5883483f418ace7032cb.acc	2017-06-15 09:50 	584 	 
+[ ]	cc66fd1344a67960d78071e553f5325a.acc	2017-06-15 09:50 	584 	 
+[ ]	cccc89d995cb744980230163ff4bc2b7.acc	2017-06-15 09:50 	583 	 
+[ ]	cd0601603157ea5959e9920ce184a131.acc	2017-06-15 09:50 	584 	 
+[ ]	cd77ee6d8342e1c28b6ca56662319f09.acc	2017-06-15 09:50 	584 	 
+[ ]	cd247bc40733ce4e2acad1fa1d55581c.acc	2017-06-15 09:50 	584 	 
+[ ]	cde3efebc24ac5d927642eb91c120a0a.acc	2017-06-15 09:50 	584 	 
+[ ]	ce1c2ba769fbecf151783412d27b8f57.acc	2017-06-15 09:50 	583 	 
+[ ]	ce7a7abb6f1d6b0fef7e6528840f9215.acc	2017-06-15 09:50 	585 	 
+[ ]	ce11ae5a941985ee4365cfd8027a505b.acc	2017-06-15 09:50 	584 	 
+[ ]	ce761813354f67a658f53c621777bd84.acc	2017-06-15 09:50 	584 	 
+[ ]	cf011a47599e848a6be54aa867f37ec8.acc	2017-06-15 09:50 	584 	 
+[ ]	cf436be4e3d4d42361e1634e2fe7ffc3.acc	2017-06-15 09:50 	584 	 
+[ ]	cf17562e769f00fa2d4c9b06002ff565.acc	2017-06-15 09:50 	584 	 
+[ ]	cfd0c07d32c03e6fbe670975fd0f7fdb.acc	2017-06-15 09:50 	585 	 
+[ ]	cfe327744712bc2caae9328329112b34.acc	2017-06-15 09:50 	583 	 
+[ ]	d0bdf3f0e1cbd9a34ffe788c2fe58a3b.acc	2017-06-15 09:50 	585 	 
+[ ]	d0bf290f0f579a5517ee798f2ff342c1.acc	2017-06-15 09:50 	585 	 
+[ ]	d0149e8a6c8fc1b1283bc35287e43c16.acc	2017-06-15 09:50 	583 	 
+[ ]	d033c9d931824ff9e2c33961f02fd458.acc	2017-06-15 09:50 	584 	 
+[ ]	d0800a34462bed11d866ab5f06ba675d.acc	2017-06-15 09:50 	583 	 
+[ ]	d1a0513c49f6a3e5ac20be49f84d4366.acc	2017-06-15 09:50 	584 	 
+[ ]	d1a3a981955f9ca90f71169e2ed36f4a.acc	2017-06-15 09:50 	584 	 
+[ ]	d1ae912f2a39c387da14e93824a8dc55.acc	2017-06-15 09:50 	585 	 
+[ ]	d1c0337cacd04b40aa41ad9673ab6e18.acc	2017-06-15 09:50 	583 	 
+[ ]	d1edb87cf8ab7428f6516d4aa6d4f810.acc	2017-06-15 09:50 	584 	 
+[ ]	d3a36914dbbfc27be1850c9ff96782d4.acc	2017-06-15 09:50 	584 	 
+[ ]	d3b32d2462d7cc342c873eb5e446aecb.acc	2017-06-15 09:50 	584 	 
+[ ]	d3d8504e9030c7a62c9a753975edee61.acc	2017-06-15 09:50 	584 	 
+[ ]	d3f31422f7626f223f0566cff6aeb214.acc	2017-06-15 09:50 	584 	 
+[ ]	d5cb9f617e1a85d3b82222655d8b9745.acc	2017-06-15 09:50 	584 	 
+[ ]	d6e92e084ca622a793ed7dd522d5570e.acc	2017-06-15 09:50 	584 	 
+[ ]	d6f925ae367e2dbcd8b918ede84fa6ac.acc	2017-06-15 09:50 	584 	 
+[ ]	d7cd6ee61bf1652ea1cf0a34291edab7.acc	2017-06-15 09:50 	584 	 
+[ ]	d7da27efabd1420a998985b595a9e3e6.acc	2017-06-15 09:50 	584 	 
+[ ]	d9cfdd2f403feb188165f66e93f1f0ea.acc	2017-06-15 09:50 	584 	 
+[ ]	d12bce7535862f5cb291a7ce2c28a3c7.acc	2017-06-15 09:50 	585 	 
+[ ]	d47cf16a162cede027eff16290df4b41.acc	2017-06-15 09:50 	584 	 
+[ ]	d53b97a0d345159716ed03541ba999e8.acc	2017-06-15 09:50 	585 	 
+[ ]	d63d28ffe1c777e4039aaa44f38a9a80.acc	2017-06-15 09:50 	584 	 
+[ ]	d81ff44224e6f0af034c595cba2b9197.acc	2017-06-15 09:50 	583 	 
+[ ]	d88b183a0b7a477c5f7f38649aef54e4.acc	2017-06-15 09:50 	584 	 
+[ ]	d92f85304c616afc75cedc569ec95449.acc	2017-06-15 09:50 	584 	 
+[ ]	d202a0e5d499e5de951e2bd0f89c1561.acc	2017-06-15 09:50 	584 	 
+[ ]	d202e77cc1f248507e2762f3d94e7700.acc	2017-06-15 09:50 	584 	 
+[ ]	d441f15b2a3476a27e293baf3d0ec05a.acc	2017-06-15 09:50 	584 	 
+[ ]	d482e381c5eb43f1926cfb3a246e5bb0.acc	2017-06-15 09:50 	583 	 
+[ ]	d898f1f579e3c074ae703acbf1f7ca64.acc	2017-06-15 09:50 	584 	 
+[ ]	d54532bd2e68a899fff5dad8bd5db8e8.acc	2017-06-15 09:50 	584 	 
+[ ]	d64498c649d007c2550b893b875491bf.acc	2017-06-15 09:50 	584 	 
+[ ]	da91d518d1fecf7334ab95fc97930324.acc	2017-06-15 09:50 	585 	 
+[ ]	da792e19873be561b9410bec2e43cd0d.acc	2017-06-15 09:50 	584 	 
+[ ]	db89b8312d552ed200d5f232e929d226.acc	2017-06-15 09:50 	584 	 
+[ ]	dbb9aa3c08cf691b8c020742d28a5126.acc	2017-06-15 09:50 	584 	 
+[ ]	dc38c8982f3e8c33505fd71ebbb83493.acc	2017-06-15 09:50 	585 	 
+[ ]	dcbcee36c8e9921d457bef60536010fa.acc	2017-06-15 09:50 	584 	 
+[ ]	dd1ef498f9168afa3a998bf521c86bdf.acc	2017-06-15 09:50 	584 	 
+[ ]	dd8b35539e6e28b7fca7e16ed30346bc.acc	2017-06-15 09:50 	583 	 
+[ ]	dd72dfee0e8914682822bc675abc1c1b.acc	2017-06-15 09:50 	584 	 
+[ ]	dd98b8e773842caceb3dfd65807b96a6.acc	2017-06-15 09:50 	584 	 
+[ ]	dd441ff68ffdd5e483c54b22d6b9560c.acc	2017-06-15 09:50 	585 	 
+[ ]	dd764f1f57fc65256e254f9c0f34b11b.acc	2017-06-15 09:50 	582 	 
+[ ]	dda838ffa97c73f9b23635a3ea2af089.acc	2017-06-15 09:50 	584 	 
+[ ]	ddba1881bb08a67296da274255327295.acc	2017-06-15 09:50 	584 	 
+[ ]	de05536aaad7fcd48213d4514d4e86ec.acc	2017-06-15 09:50 	585 	 
+[ ]	de90b8a1ab02fc3057c6bcae023994dc.acc	2017-06-15 09:50 	583 	 
+[ ]	debb6ca8f8c2d3111b3075318baf47fc.acc	2017-06-15 09:50 	585 	 
+[ ]	df3bb08355a9cf43ebf38c0b56572f24.acc	2017-06-15 09:50 	584 	 
+[ ]	df6f4c539f4e65dbab41c8d859d716ef.acc	2017-06-15 09:50 	584 	 
+[ ]	df1868a53af00d00adcb968329cba2cf.acc	2017-06-15 09:50 	584 	 
+[ ]	dfba0fca0f256dced2045954d288dc5a.acc	2017-06-15 09:50 	585 	 
+[ ]	e0acada8ebe2e71f0f2fb11f46a615ca.acc	2017-06-15 09:50 	585 	 
+[ ]	e0f6f044cfa36d6e376e2c4d51e19c51.acc	2017-06-15 09:50 	584 	 
+[ ]	e00ecd8f4f080b2f004469ab977557a2.acc	2017-06-15 09:50 	584 	 
+[ ]	e0144aefd0efef77f6e22ccf0184be7a.acc	2017-06-15 09:50 	585 	 
+[ ]	e1c22573a63c4b2a458b50fe5952dfbe.acc	2017-06-15 09:50 	584 	 
+[ ]	e1f3df4623fdd06b5e73b0638e746d8c.acc	2017-06-15 09:50 	585 	 
+[ ]	e1fc90a1fcaf755f7d87642ee8435aff.acc	2017-06-15 09:50 	584 	 
+[ ]	e2dae8ebb3b4324ec60ea862147d86cf.acc	2017-06-15 09:50 	584 	 
+[ ]	e2e0c84c82bb1ec6e2ed2e47c4b613fa.acc	2017-06-15 09:50 	584 	 
+[ ]	e2e5811258574d046e14dcd3ac2c85bd.acc	2017-06-15 09:50 	584 	 
+[ ]	e3c644269174eb2836bc4fa382949bac.acc	2017-06-15 09:50 	585 	 
+[ ]	e5d105066394c76b47ef9b0c13d1e702.acc	2017-06-15 09:50 	585 	 
+[ ]	e5e37effa0bbb08e71244ea3fdbf135a.acc	2017-06-15 09:50 	585 	 
+[ ]	e7ceb9e11adb90e143e236cba4699893.acc	2017-06-15 09:50 	585 	 
+[ ]	e9c21e21078cca67470688fd9750e35b.acc	2017-06-15 09:50 	585 	 
+[ ]	e11afad2d397447c713765da5455284a.acc	2017-06-15 09:50 	584 	 
+[ ]	e21c913c872e02ae81887b8acc747d42.acc	2017-06-15 09:50 	585 	 
+[ ]	e51cd1e8e3b38e7491b3a2bf1d54cb85.acc	2017-06-15 09:50 	584 	 
+[ ]	e65e4788185b3d1ba4de7cdcd3f3a5e2.acc	2017-06-15 09:50 	584 	 
+[ ]	e90fc06918e95e2d0f4a32ea178f6f85.acc	2017-06-15 09:50 	584 	 
+[ ]	e96eb0496f9f3f2187a91d47cc789c5e.acc	2017-06-15 09:50 	585 	 
+[ ]	e131f1ebe2dd1c2e94bd520c453c6fba.acc	2017-06-15 09:50 	584 	 
+[ ]	e133d908180589eec9ccfbea70d741d1.acc	2017-06-15 09:50 	585 	 
+[ ]	e260b48878509a1e12abb7614b1dae46.acc	2017-06-15 09:50 	584 	 
+[ ]	e291abebd339260825783fb4c3a308ad.acc	2017-06-15 09:50 	584 	 
+[ ]	e515f0b553c041958bfefc737a7a9be7.acc	2017-06-15 09:50 	584 	 
+[ ]	e534ab97fa5fa6f90508261518af6761.acc	2017-06-15 09:50 	584 	 
+[ ]	e545f6be978e341ad0412d954c6f5181.acc	2017-06-15 09:50 	584 	 
+[ ]	e729ba75c2e61d75052983668155a494.acc	2017-06-15 09:50 	584 	 
+[ ]	e874f65408cc3005163954b8b31ffeb9.acc	2017-06-15 09:50 	584 	 
+[ ]	e876afc6545d55e0d1297fcd95b0d334.acc	2017-06-15 09:50 	584 	 
+[ ]	e2460b444421f0c740771fb06d3f5383.acc	2017-06-15 09:50 	585 	 
+[ ]	e5608acb3cdc61bf03e76ba0eec6f144.acc	2017-06-15 09:50 	583 	 
+[ ]	e9006b9e02ca5e2f64b4a6c1b88a6174.acc	2017-06-15 09:50 	585 	 
+[ ]	e48560adbad98be98b7ea385132daaa1.acc	2017-06-15 09:50 	584 	 
+[ ]	e321164b6a58b2bec20f5779cf81a035.acc	2017-06-15 09:50 	584 	 
+[ ]	e4939066a31bb3791e5090eaa126b578.acc	2017-06-15 09:50 	584 	 
+[ ]	ea664b6fac225604ad4a76956a84de4b.acc	2017-06-15 09:50 	585 	 
+[ ]	eb4d3f88032008b4c9e25b0c5410279d.acc	2017-06-15 09:50 	584 	 
+[ ]	eb439f0ed2edd4a1ca186ef9c868c547.acc	2017-06-15 09:50 	584 	 
+[ ]	eb6069bbcc072e4748cc76e564634cb3.acc	2017-06-15 09:50 	584 	 
+[ ]	eb9062859001f9d14e9d2aab827f27f6.acc	2017-06-15 09:50 	585 	 
+[ ]	ebb023e25c2d0714109c21850d514234.acc	2017-06-15 09:50 	584 	 
+[ ]	ebdf24181447b673a3bd7b10867cf8d3.acc	2017-06-15 09:50 	584 	 
+[ ]	ec4b903ebc21e5d0174d299a785b23d0.acc	2017-06-15 09:50 	584 	 
+[ ]	ec57cda985748265567eb5ce65cb6ead.acc	2017-06-15 09:50 	584 	 
+[ ]	ec60ca862555223fa6d3407485665ae1.acc	2017-06-15 09:50 	583 	 
+[ ]	ec1499b623c132d074c2d81071fedc51.acc	2017-06-15 09:50 	585 	 
+[ ]	ecf30d100c09f82894def7e49bbde2c8.acc	2017-06-15 09:50 	584 	 
+[ ]	ed7bb2476880c9f74fc6c84e9bae3d12.acc	2017-06-15 09:50 	584 	 
+[ ]	ed64d19c83fa8a673b9613f18d072095.acc	2017-06-15 09:50 	585 	 
+[ ]	ed78f0a148d4320566e799bc2b9bd6a9.acc	2017-06-15 09:50 	585 	 
+[ ]	ed8949614be8827cfcc3641f7cf6d84d.acc	2017-06-15 09:50 	584 	 
+[ ]	ee0e53c02d3af32a41b0b0db18110a71.acc	2017-06-15 09:50 	584 	 
+[ ]	ee9f97e5d90be90ee1cbdff5587cce31.acc	2017-06-15 09:50 	585 	 
+[ ]	ee55be0f23fd34553071bf41289545e7.acc	2017-06-15 09:50 	584 	 
+[ ]	eeac7e1e3b5c37b8b41210f2f3565b83.acc	2017-06-15 09:50 	585 	 
+[ ]	eed2a0d81e1c8014dcff0f1e2e4aa549.acc	2017-06-15 09:50 	584 	 
+[ ]	eee184159db774335325d1a3df5a8bbf.acc	2017-06-15 09:50 	585 	 
+[ ]	ef7d353ab64ce2f8649a2fe2e044d00a.acc	2017-06-15 09:50 	584 	 
+[ ]	ef8acec46fe90bacf21119059ee61db0.acc	2017-06-15 09:50 	584 	 
+[ ]	efada3bec9954bac04fe2778a974c9a0.acc	2017-06-15 09:50 	583 	 
+[ ]	efeb37c425e65acb60949b18d432327d.acc	2017-06-15 09:50 	585 	 
+[ ]	f0f1ee68fd1851d3174be51c80598aae.acc	2017-06-15 09:50 	584 	 
+[ ]	f0f4ce2ed7613415ccf81b274f76ad1e.acc	2017-06-15 09:50 	585 	 
+[ ]	f0f8ea272f091256230e5cbab19a951f.acc	2017-06-15 09:50 	583 	 
+[ ]	f09e4569207c33820d2be5ccb98a1879.acc	2017-06-15 09:50 	584 	 
+[ ]	f1baba483e8af22c333d241d44b03af7.acc	2017-06-15 09:50 	585 	 
+[ ]	f1fd45aaa2e9ebef30a2150276fa8c59.acc	2017-06-15 09:50 	585 	 
+[ ]	f2bfb6c3f7cbf65176e39105767b5fb7.acc	2017-06-15 09:50 	584 	 
+[ ]	f2cd9d9d2d57a8c9e97e427de36ced76.acc	2017-06-15 09:50 	583 	 
+[ ]	f2d6fc8ebdb1e9bb6874673419e0e870.acc	2017-06-15 09:50 	585 	 
+[ ]	f2d744aa3a27be76565cb900db0039f0.acc	2017-06-15 09:50 	584 	 
+[ ]	f3a0d4846c351a4c092c5c2d639e26ae.acc	2017-06-15 09:50 	585 	 
+[ ]	f4af6b16beb3dbb6468ecf0c959bd090.acc	2017-06-15 09:50 	582 	 
+[ ]	f4d4370f5f710441f928fbbc1493bb84.acc	2017-06-15 09:50 	584 	 
+[ ]	f5affad2f51f9413416019913e509be2.acc	2017-06-15 09:50 	584 	 
+[ ]	f5c8f951cc3aa1d66430e3dbf1027039.acc	2017-06-15 09:50 	584 	 
+[ ]	f7d83ce903d4c505552533c269c22778.acc	2017-06-15 09:50 	584 	 
+[ ]	f8f633fdff1ef33d238851f264bade56.acc	2017-06-15 09:50 	585 	 
+[ ]	f9c2c34471cfeb316881a2d97fa79c52.acc	2017-06-15 09:50 	584 	 
+[ ]	f9d12910695a055494dc254902131e12.acc	2017-06-15 09:50 	584 	 
+[ ]	f17b615f6ca6e6d0187d580c5d7bba6b.acc	2017-06-15 09:50 	585 	 
+[ ]	f22de8ab72b1fb0fc43eed85368b984b.acc	2017-06-15 09:50 	585 	 
+[ ]	f54e2b927d8fa8788744c6009d2a45ef.acc	2017-06-15 09:50 	584 	 
+[ ]	f77b61daae19f1fdf0331ae62d11b48f.acc	2017-06-15 09:50 	583 	 
+[ ]	f77b874da650efaa92c5c6a292bbba35.acc	2017-06-15 09:50 	584 	 
+[ ]	f77e102769baf3c03c855cef0f9f41de.acc	2017-06-15 09:50 	584 	 
+[ ]	f81c0e2e2ac1dc3c497421d901b05da3.acc	2017-06-15 09:50 	584 	 
+[ ]	f85f26eaa265dd6dbdc8c29061323bf9.acc	2017-06-15 09:50 	584 	 
+[ ]	f94b9157b5e291720bb13d62b9a9623f.acc	2017-06-15 09:50 	584 	 
+[ ]	f94dcf255199d565fc997fc6a91beed8.acc	2017-06-15 09:50 	585 	 
+[ ]	f125d4527679f54ac91915ace260e1bb.acc	2017-06-15 09:50 	585 	 
+[ ]	f199c163d1bc548b847a6fe85548035d.acc	2017-06-15 09:50 	584 	 
+[ ]	f497a39d8a83ef18916f40e4bd2c0ead.acc	2017-06-15 09:50 	584 	 
+[ ]	f510f991d80a817405fdea6aeefa0c5a.acc	2017-06-15 09:50 	584 	 
+[ ]	f533a1c44df699fdbb0835050f71cd1a.acc	2017-06-15 09:50 	585 	 
+[ ]	f676c085d2f8e218fc4272c348896c08.acc	2017-06-15 09:50 	584 	 
+[ ]	f4475acf00fd37263c0e1d67dfe79393.acc	2017-06-15 09:50 	584 	 
+[ ]	f6607b35d03c6ee905e831c4a00af2c0.acc	2017-06-15 09:50 	583 	 
+[ ]	f6748d363aff0cc8c7beaa04f1b2ab7e.acc	2017-06-15 09:50 	584 	 
+[ ]	f8875be5e4ee006df2228b3ff0a7bd68.acc	2017-06-15 09:50 	584 	 
+[ ]	f9270f8014a481617dbac28aa5ec7450.acc	2017-06-15 09:50 	584 	 
+[ ]	f9851c2e450f13261e020fcf7f0ed180.acc	2017-06-15 09:50 	584 	 
+[ ]	f16338fa71b5d1b2490f38a38496a2a3.acc	2017-06-15 09:50 	584 	 
+[ ]	f283190eb6180e1a5e27983e1ff63289.acc	2017-06-15 09:50 	584 	 
+[ ]	f456824eeebf1248ab0b21710eb7cd0c.acc	2017-06-15 09:50 	584 	 
+[ ]	f507318a91772b5bb04e2c4fcdf4b896.acc	2017-06-15 09:50 	585 	 
+[ ]	f8020700b091366a5e1343b5c0020f9d.acc	2017-06-15 09:50 	585 	 
+[ ]	f393628766266e2325b9d665ff375314.acc	2017-06-15 09:50 	584 	 
+[ ]	fa06f9a8d4672d4d739a99f310b3add0.acc	2017-06-15 09:50 	584 	 
+[ ]	fa4bf29c22b6e479c6c315ea15557ca2.acc	2017-06-15 09:50 	585 	 
+[ ]	fa34e37fb9b5153d44e8422b2ed95338.acc	2017-06-15 09:50 	584 	 
+[ ]	faba62033042fee10008e7cd3790ba2e.acc	2017-06-15 09:50 	583 	 
+[ ]	fabfd4cd599ac63c5699f456f2cf448e.acc	2017-06-15 09:50 	584 	 
+[ ]	fb3cb6734c832b14987f002c2dadae19.acc	2017-06-15 09:50 	585 	 
+[ ]	fb5a9d6ac0d2c781dffd73c470f23fe0.acc	2017-06-15 09:50 	583 	 
+[ ]	fb42d07220a996307df38ec7e6189b4c.acc	2017-06-15 09:50 	584 	 
+[ ]	fb73bed60d6dd4559860ea5f7f2f5a3c.acc	2017-06-15 09:50 	584 	 
+[ ]	fb891061321669dd0ef9d5114d476f3a.acc	2017-06-15 09:50 	585 	 
+[ ]	fbcbbd213f0a3e88ee84eea9a9d01b90.acc	2017-06-15 09:50 	584 	 
+[ ]	fc6cdd24cf81d66d12c97aa97a37fe33.acc	2017-06-15 09:50 	584 	 
+[ ]	fc87e5f87f8d7a8eedc4ee85b5b1c58e.acc	2017-06-15 09:50 	583 	 
+[ ]	fc73548dc690c238c5aff9cb9e440498.acc	2017-06-15 09:50 	584 	 
+[ ]	fcb78e263fc7d6e296494e5be897a394.acc	2017-06-15 09:50 	584 	 
+[ ]	fdce9437d341e154702af5863bc247a8.acc	2017-06-15 09:50 	585 	 
+[ ]	fe8a8b0081b6d606d6e85501064f1cc4.acc	2017-06-15 09:50 	585 	 
+[ ]	fe9ffc658690f0452cd08ab6775e62da.acc	2017-06-15 09:50 	582 	 
+[ ]	fe85ff58d546f676f0acd7558e19d6ce.acc	2017-06-15 09:50 	584 	 
+[ ]	fe426e8d4c7453a99ef7cd99cf72ac03.acc	2017-06-15 09:50 	584 	 
+[ ]	feac7aa0f309d8c6fa2ff2f624d2914b.acc	2017-06-15 09:50 	584 	 
+[ ]	fed62d2afc2793ac001a36f0092977d7.acc	2017-06-15 09:50 	584 	 
+[ ]	fedae4fd371fa7d7d4ba5c772e84d726.acc	2017-06-15 09:50 	585 	 
+[ ]	ff8a6012cf9c0b6e5957c2cc32edd0bf.acc	2017-06-15 09:50 	585 	 
+[ ]	ff39f4cf429a1daf5958998a7899f3ec.acc	2017-06-15 09:50 	584 	 
+[ ]	ffc3cab8b54397a12ca83d7322c016d4.acc	2017-06-15 09:50 	584 	 
+[ ]	ffdfb3dbd8a9947b21f79ad52c6ce455.acc	2017-06-15 09:50 	584 	 
+Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
