@@ -5,24 +5,44 @@
 
 # Summary
 ### 1. NMAP
+We find out this is a Linux machine, with 3 ports opened. SSH at Port 22, most probably DNS at Port 53, and HTTP at Port 80.
 
 ### 2. Enumeration
+Visiting `http://10.10.10.29:80` on our browser, we go to Apache2 Ubuntu Default Page. We also see some potential attacks when performing a searchsploit for `apache 2.4.7` & `openssh 6.6.1`.
 
 ### 3. Attacking Port 80 Apache 2.4.7
+Trying these exploits such as `Remote Code Execution + Scanner` & `JSP Upload Bypass / Remote Code Execution (2)` did not work, and we had to find another way in.
 
 ### 4. Attacking Port 22 OpenSSH 6.6.1p1
+We tried `Username Enumeration` exploits, but too did not work.
 
 ### 5. Further Enumeration with Dirbuster
+Intially, when performing both Gobuster & Dirbuster enumerations, not much directories were found. Primarily, they were `/`, `/icons/`, `/icons/small/` and `/server-status/`. After reading writeups, I realised we had to change a small config file.
 
 ### 6. Host Configuration
+As it turns out, there is something called "Virtual Hosts" in Apache, allowing for multiple domain names to be hosted on a single server. Using the right domain name would allow us to connect to the web application.
+
+Hence, we added the IP & domain `bank.htb` into our `/etc/hosts` file. Afterwards, when browsing to "bank.htb", we were presented with a login page.
 
 ### 7. Further Enumeration with Dirbuster Again
+Doing a Gobuster enumeration this time, we get far more directories. Of them, we see two interesting directories, `bank.htb/uploads/` and `bank.htb/balance-transfer`. Though we are forbidden to access `/uploads/`, we could access `/balance-transfer`, showing us many files with encrypted information of a bank account holder. 
+
+NOTE: There is an alternative method, bypassing balance-transfer altogether and utilizing a redirect flaw, gaining access to the support page.
 
 ### 8. Exploitating Unencrypted Credentials
+As it turns out, there is a smaller unencrypted file amongst all the other encrypted information of a bank account holder. Through the failed encryption, we have plaintext access to his credentials to his bank account. We were able to log in to `http://bank.htb/login.php` with these credentials.
 
 ### 9. PHP Payload
+Since there is a Support page where we could upload a payload, we took a look at the source page and see that the developer had forgotten to remove a comment. Because of this human-error, we could run a PHP reverse shell. 
+
+We used msfvenom to craft a PHP reverse shell and attempted to upload it through the Support page, but got an error. Reading the Developer comments once again, it seems that we had to wrap this PHP reverse shell with a `.htb` suffix instead. We recraft the payload using msfvenom once again, and was able to successfully upload it this time.
+
+Starting a Meterpreter listener, we execute this payload by navigating to `http://bank.htb/uploads/shell.htb`, and we got a Meterpreter reverse shell.
 
 ### 10. Privilege Escalation & Getting Flags
+Through navigating around, we got our first user flag. To get root flag, we try `getsystem` and `post/multi/recon/local_exploit_suggester` but both did not work. Googling for Linux Privilege Escalation, we see a solution we could attempt, where we check for SUID configurations.
+
+Doing `find / -perm -u=s -type f 2>/dev/null`, we see a file that did not belong there, `/var/htb/bin/emergency`. Upon analyzing the file, we see that the hard work has already been done, this file can get root privileges. Executing this file, we get root access and also the system flag.
 
 # Attack
 ## 1. NMAP
