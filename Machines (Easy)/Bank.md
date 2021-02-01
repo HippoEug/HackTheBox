@@ -1,6 +1,7 @@
 # References
 1. [Bank Writeup (mrsaighnal.github.io)](https://mrsaighnal.github.io/2019-04-26-bank-walkthrough/)
 2. [Bank Writeup (medium.com)](https://medium.com/@johnsonmatt/hackthebox-bank-walkthrough-8b637ec6a0df)
+3. [Bank Writeup (infosecinstitute.com)](https://resources.infosecinstitute.com/topic/hack-the-box-htb-machines-walkthrough-series-bank/)
 
 # Summary
 ### 1. NMAP
@@ -484,6 +485,9 @@ Transactions: 93
 Balance: 905948 .
 ```
 Now, this is interesting. Encrypted credentials.
+
+NOTE: There is an [alternative method](https://resources.infosecinstitute.com/topic/hack-the-box-htb-machines-walkthrough-series-bank/), bypassing `balance-transfer`
+altogether and utilizing a redirect flaw, gaining access to the support page.
 
 ## 8. Exploitating Unencrypted Credentials
 I got lost here yet again, and had to look up for writeups again.
