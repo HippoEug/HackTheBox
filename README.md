@@ -14,6 +14,7 @@ Sorted by HTB Difficulty Rating & Order
  9. [Bank](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Bank.md): Port 80 Unencrypted Credentials discovered through GoBuster, SUID Privilege Escalation
 10. [Blocky](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blocky.md): Port 80 Credentials discovered through GoBuster, SSH through Credential Reuse
 11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): MS17_010 EternalBlue
+12. [Mirai](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Mirai.md):
 
 ## Challenges
 ### Easy
