@@ -1,5 +1,5 @@
 # References
-1. [Block Writeup (medium.com)](https://medium.com/@fularam.prajapati/hack-the-box-blocky-walkthrough-writeup-oscp-63cd229e7ff3)
+1. [Blocky Writeup (medium.com)](https://medium.com/@fularam.prajapati/hack-the-box-blocky-walkthrough-writeup-oscp-63cd229e7ff3)
 
 # Summary
 ### 1. NMAP
