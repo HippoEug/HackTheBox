@@ -1,1 +1,148 @@
 
+hippoeug@kali:~$ nmap --script vuln 10.129.92.103 -sC -sV -Pn -v
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-06 18:06 +08
+NSE: Loaded 149 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 18:06
+Completed NSE at 18:06, 10.01s elapsed
+Initiating NSE at 18:06
+Completed NSE at 18:06, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 18:06
+Completed Parallel DNS resolution of 1 host. at 18:06, 0.01s elapsed
+Initiating Connect Scan at 18:06
+Scanning 10.129.92.103 [1000 ports]
+Discovered open port 80/tcp on 10.129.92.103
+Discovered open port 22/tcp on 10.129.92.103
+Discovered open port 53/tcp on 10.129.92.103
+Increasing send delay for 10.129.92.103 from 0 to 5 due to max_successful_tryno increase to 4
+Increasing send delay for 10.129.92.103 from 5 to 10 due to max_successful_tryno increase to 5
+Discovered open port 1075/tcp on 10.129.92.103
+Completed Connect Scan at 18:07, 43.10s elapsed (1000 total ports)
+Initiating Service scan at 18:07
+Scanning 4 services on 10.129.92.103
+Completed Service scan at 18:07, 11.79s elapsed (4 services on 1 host)
+NSE: Script scanning 10.129.92.103.
+Initiating NSE at 18:07
+NSE: [firewall-bypass] lacks privileges.
+Completed NSE at 18:08, 73.02s elapsed
+Initiating NSE at 18:08
+NSE: [tls-ticketbleed] Not running due to lack of privileges.
+Completed NSE at 18:08, 1.03s elapsed
+Nmap scan report for 10.129.92.103
+Host is up (0.26s latency).
+Not shown: 996 closed ports
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 6.7p1 Debian 5+deb8u3 (protocol 2.0)
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+53/tcp   open  domain  dnsmasq 2.76
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+80/tcp   open  http    lighttpd 1.4.35
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.                                                                                                                 
+|_http-server-header: lighttpd/1.4.35
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+|_      http://ha.ckers.org/slowloris/
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| vulners: 
+|   cpe:/a:lighttpd:lighttpd:1.4.35: 
+|       CVE-2019-11072  7.5     https://vulners.com/cve/CVE-2019-11072
+|       CVE-2018-19052  5.0     https://vulners.com/cve/CVE-2018-19052
+|_      CVE-2015-3200   5.0     https://vulners.com/cve/CVE-2015-3200
+1075/tcp open  upnp    Platinum UPnP 1.0.5.13 (UPnP/1.0 DLNADOC/1.50)
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+NSE: Script Post-scanning.
+Initiating NSE at 18:08
+Completed NSE at 18:08, 0.00s elapsed
+Initiating NSE at 18:08
+Completed NSE at 18:08, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 139.52 seconds
+hippoeug@kali:~$ 
+
+
+
+
+hippoeug@kali:~$ sudo nano /etc/hosts
+[sudo] password for hippoeug: 
+  GNU nano 4.9.3                                                                 /etc/hosts                                                                           
+127.0.0.1       localhost
+127.0.1.1       kali
+10.129.92.103 mirai.htb
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+
+
+
+http://mirai.htb
+
+Website Blocked
+Access to the following site has been blocked:
+mirai.htb
+If you have an ongoing use for this website, please ask the owner of the Pi-hole in your network to have it whitelisted.
+This page is blocked because it is explicitly contained within the following block list(s):
+Go back Whitelist this page Close window
+Generated Sat 10:10 AM, Feb 06 by Pi-hole v3.1.4
+
+
+
+
+
+
+hippoeug@kali:~$ gobuster dir -u "http://mirai.htb" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://mirai.htb
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/02/06 18:37:59 Starting gobuster
+===============================================================
+Error: the server returns a status code that matches the provided options for non existing urls. http://mirai.htb/bc6ce6e8-e7f1-4d73-a4ac-a817a2ba5835 => 200. To force processing of Wildcard responses, specify the '--wildcard' switch
+
+
+
+
+hippoeug@kali:~$ gobuster dir -u "http://10.129.92.103" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.129.92.103
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/02/06 18:44:36 Starting gobuster
+===============================================================
+/admin (Status: 301)
+/versions (Status: 200)
+===============================================================
+2021/02/06 18:54:14 Finished
+===============================================================
