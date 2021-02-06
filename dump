@@ -1,34 +1,8 @@
 
-hippoeug@kali:~/Downloads$ sudo dpkg -i jd-gui-1.6.6.deb
-[sudo] password for hippoeug: 
-Selecting previously unselected package jd-gui.
-(Reading database ... 311041 files and directories currently installed.)
-Preparing to unpack jd-gui-1.6.6.deb ...
-Unpacking jd-gui (1.6.6-0) ...
-Setting up jd-gui (1.6.6-0) ...
-hippoeug@kali:~/Downloads$ 
-
-
-BlockyCore.jar
-
-BlockyCore.class
-
-package com.myfirstplugin;
-
-public class BlockyCore {
-  public String sqlHost = "localhost";
   
   public String sqlUser = "root";
   
   public String sqlPass = "8YsqfCTnvxAUeduzjNSXe22";
-  
-  public void onServerStart() {}
-  
-  public void onServerStop() {}
-  
-  public void onPlayerJoin() {
-    sendMessage("TODO get username", "Welcome to the BlockyCraft!!!!!!!");
-  }
-  
-  public void sendMessage(String username, String message) {}
-}
+
+
+ERROR: Invalid username. Lost your password?
