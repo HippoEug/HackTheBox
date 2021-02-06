@@ -1,66 +1,158 @@
-
-hippoeug@kali:~$ nmap -sC -sV 10.129.1.53 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-06 14:23 +08
-NSE: Loaded 151 scripts for scanning.
+hippoeug@kali:~$ nmap --script vuln 10.129.1.53 -Pn -v -T insane
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-06 14:57 +08
+NSE: Loaded 105 scripts for scanning.
 NSE: Script Pre-scanning.
-Initiating NSE at 14:23
-Completed NSE at 14:23, 0.00s elapsed
-Initiating NSE at 14:23
-Completed NSE at 14:23, 0.00s elapsed
-Initiating NSE at 14:23
-Completed NSE at 14:23, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 14:23
-Completed Parallel DNS resolution of 1 host. at 14:23, 0.12s elapsed
-Initiating Connect Scan at 14:23
+Initiating NSE at 14:57
+Completed NSE at 14:57, 10.00s elapsed
+Initiating NSE at 14:57
+Completed NSE at 14:57, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 14:57
+Completed Parallel DNS resolution of 1 host. at 14:57, 0.12s elapsed
+Initiating Connect Scan at 14:57
 Scanning 10.129.1.53 [1000 ports]
-Discovered open port 80/tcp on 10.129.1.53
-Discovered open port 22/tcp on 10.129.1.53
 Discovered open port 21/tcp on 10.129.1.53
-Completed Connect Scan at 14:23, 14.34s elapsed (1000 total ports)
-Initiating Service scan at 14:23
-Scanning 3 services on 10.129.1.53
-Completed Service scan at 14:26, 163.55s elapsed (3 services on 1 host)
+Discovered open port 22/tcp on 10.129.1.53
+Discovered open port 80/tcp on 10.129.1.53
+Warning: 10.129.1.53 giving up on port because retransmission cap hit (2).
+Completed Connect Scan at 14:58, 20.57s elapsed (1000 total ports)
 NSE: Script scanning 10.129.1.53.
-Initiating NSE at 14:26
-Completed NSE at 14:26, 22.94s elapsed
-Initiating NSE at 14:26
-Completed NSE at 14:27, 24.79s elapsed
-Initiating NSE at 14:27
-Completed NSE at 14:27, 0.00s elapsed
+Initiating NSE at 14:58
+NSE: [tls-ticketbleed] Not running due to lack of privileges.
+NSE: [firewall-bypass] lacks privileges.
+Stats: 0:00:42 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 80 (80 waiting)
+NSE Timing: About 71.73% done; ETC: 14:58 (0:00:04 remaining)
+Stats: 0:00:55 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 33 (31 waiting)
+NSE Timing: About 88.66% done; ETC: 14:58 (0:00:03 remaining)
+Stats: 0:00:56 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 32 (27 waiting)
+NSE Timing: About 89.00% done; ETC: 14:58 (0:00:03 remaining)
+Stats: 0:00:57 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 31 (26 waiting)
+NSE Timing: About 89.35% done; ETC: 14:58 (0:00:03 remaining)
+Stats: 0:00:57 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 31 (29 waiting)
+NSE Timing: About 89.35% done; ETC: 14:58 (0:00:03 remaining)
+Stats: 0:01:09 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 28 (25 waiting)
+NSE Timing: About 90.38% done; ETC: 14:58 (0:00:04 remaining)
+Stats: 0:01:30 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 8 (7 waiting)                                                                                                                         
+NSE Timing: About 97.26% done; ETC: 14:59 (0:00:02 remaining)
+Stats: 0:01:40 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 8 (7 waiting)
+NSE Timing: About 97.26% done; ETC: 14:59 (0:00:02 remaining)
+Stats: 0:01:48 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 8 (8 waiting)
+NSE Timing: About 97.26% done; ETC: 14:59 (0:00:02 remaining)
+Stats: 0:02:41 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 3 (3 waiting)
+NSE Timing: About 98.97% done; ETC: 15:00 (0:00:01 remaining)
+Stats: 0:02:42 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 3 (3 waiting)
+NSE Timing: About 98.97% done; ETC: 15:00 (0:00:01 remaining)
+Stats: 0:02:42 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 3 (2 waiting)
+NSE Timing: About 98.97% done; ETC: 15:00 (0:00:01 remaining)
+Stats: 0:03:28 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 3 (2 waiting)
+NSE Timing: About 98.97% done; ETC: 15:01 (0:00:02 remaining)
+Stats: 0:05:31 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 3 (3 waiting)
+NSE Timing: About 98.97% done; ETC: 15:03 (0:00:03 remaining)
+Completed NSE at 15:03, 312.42s elapsed
+Initiating NSE at 15:03
+Completed NSE at 15:03, 4.09s elapsed
 Nmap scan report for 10.129.1.53
-Host is up (0.26s latency).
+Host is up (0.25s latency).
 Not shown: 996 filtered ports
-PORT     STATE  SERVICE VERSION
-21/tcp   open   ftp?
-22/tcp   open   ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.2 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   2048 d6:2b:99:b4:d5:e7:53:ce:2b:fc:b5:d7:9d:79:fb:a2 (RSA)
-|   256 5d:7f:38:95:70:c9:be:ac:67:a0:1e:86:e7:97:84:03 (ECDSA)
-|_  256 09:d5:c2:04:95:1a:90:ef:87:56:25:97:df:83:70:67 (ED25519)
-80/tcp   open   http    Apache httpd 2.4.18 ((Ubuntu))
-|_http-generator: WordPress 4.8
-| http-methods: 
-|_  Supported Methods: GET HEAD POST OPTIONS
-|_http-server-header: Apache/2.4.18 (Ubuntu)
-|_http-title: BlockyCraft &#8211; Under Construction!
+PORT     STATE  SERVICE
+21/tcp   open   ftp
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+|_sslv2-drown: 
+22/tcp   open   ssh
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+80/tcp   open   http
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+| http-csrf: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=10.129.1.53
+|   Found the following possible CSRF vulnerabilities: 
+|     
+|     Path: http://10.129.1.53:80/
+|     Form id: search-form-601e3e3ad6f2f
+|     Form action: http://10.129.1.53/
+|     
+|     Path: http://10.129.1.53:80/index.php/category/uncategorized/
+|     Form id: search-form-601e3e4006cef
+|     Form action: http://10.129.1.53/
+|     
+|     Path: http://10.129.1.53:80/index.php/2017/07/
+|     Form id: search-form-601e3e446d043
+|     Form action: http://10.129.1.53/
+|     
+|     Path: http://10.129.1.53:80/wp-login.php
+|     Form id: loginform
+|     Form action: http://10.129.1.53/wp-login.php
+|     
+|     Path: http://10.129.1.53:80/index.php/category/uncategorized/%5c%22
+|     Form id: search-form-601e3e4adde55
+|     Form action: http://10.129.1.53/
+|     
+|     Path: http://10.129.1.53:80/index.php/2017/07/%5c%22
+|     Form id: search-form-601e3e4d1be6d
+|     Form action: http://10.129.1.53/
+|     
+|     Path: http://10.129.1.53:80/wp-login.php?action=lostpassword
+|     Form id: lostpasswordform
+|_    Form action: http://10.129.1.53/wp-login.php?action=lostpassword
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+| http-enum: 
+|   /wiki/: Wiki
+|   /wp-login.php: Possible admin folder
+|   /phpmyadmin/: phpMyAdmin
+|   /readme.html: Wordpress version: 2 
+|   /: WordPress version: 4.8
+|   /wp-includes/images/rss.png: Wordpress version 2.2 found.
+|   /wp-includes/js/jquery/suggest.js: Wordpress version 2.5 found.
+|   /wp-includes/images/blank.gif: Wordpress version 2.6 found.
+|   /wp-includes/js/comment-reply.js: Wordpress version 2.7 found.
+|   /wp-login.php: Wordpress login page.
+|   /wp-admin/upgrade.php: Wordpress login page.
+|_  /readme.html: Interesting, a readme.
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       http://ha.ckers.org/slowloris/
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+| http-sql-injection: 
+|   Possible sqli for queries:
+|     http://10.129.1.53:80/wp-includes/js/jquery/?C=S%3bO%3dA%27%20OR%20sqlspider
+|     http://10.129.1.53:80/wp-includes/js/jquery/?C=M%3bO%3dA%27%20OR%20sqlspider
+|     http://10.129.1.53:80/wp-includes/js/jquery/?C=D%3bO%3dA%27%20OR%20sqlspider
+|_    http://10.129.1.53:80/wp-includes/js/jquery/?C=N%3bO%3dD%27%20OR%20sqlspider
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| http-wordpress-users: 
+| Username found: notch
+|_Search stopped at ID #25. Increase the upper limit if necessary with 'http-wordpress-users.limit'
 8192/tcp closed sophos
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 NSE: Script Post-scanning.
-Initiating NSE at 14:27
-Completed NSE at 14:27, 0.00s elapsed
-Initiating NSE at 14:27
-Completed NSE at 14:27, 0.00s elapsed
-Initiating NSE at 14:27
-Completed NSE at 14:27, 0.00s elapsed
+Initiating NSE at 15:03
+Completed NSE at 15:03, 0.00s elapsed
+Initiating NSE at 15:03
+Completed NSE at 15:03, 0.00s elapsed
 Read data files from: /usr/bin/../share/nmap
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 227.07 seconds
-
-
-
-
-
+Nmap done: 1 IP address (1 host up) scanned in 347.71 seconds
 
 
 
