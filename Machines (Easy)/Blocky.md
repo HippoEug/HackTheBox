@@ -167,7 +167,7 @@ PORT     STATE  SERVICE
 ```
 Now now, although this took longer than usual to run, it was very worth it. Let's see what information we got from Port 80 HTTP.
 
-Couple of READMEs found, potential login pages, maybe SQL Injection, and finally also a username `notch`. Very interestsing.
+Couple of potential login pages, maybe SQL Injection, and finally also a username `notch`. Very interestsing.
 
 ## 2. Enumeration on Port 80 HTTP
 Enumerating on `http://10.129.1.53`, we are presented with a BLOCKYCRAFT page which is apparently under construction.
@@ -464,5 +464,5 @@ http://10.129.1.53/server-status
 -> Forbidden
 You don't have permission to access /server-status on this server.
 Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
-
 ```
+That is quite a lot of things to go through. 
