@@ -3,14 +3,23 @@
 
 # Summary
 ### 1. NMAP
+Running NMAP, we see 3 ports opened, HTTP, FTP & SSH. Doing searchsploit for HTTP & SSH versions didn't show anything obvious we could use. NMAP's vuln script revealed a username `notch`.
 
 ### 2. Enumeration on Port 80 HTTP
+On Port 80 HTTP, we see a site BlockyCraft which is still in development. We run GoBuster, which revealed 8 directories.
 
 ### 3. Decompile .jar Files
+After going through things we saw from NMAP vuln script and the majority of the files in the directories we saw from GoBuster, it did not yield anything useful. The exception being `http://10.129.1.53/plugins/`, where there were 2 `.jar` files.
+
+We used JD-Gui, a Java decompiler to decompile the files. In the `.jarBlockyCore.jar` file, we see credentials where "root" is the username and "8YsqfCTnvxAUeduzjNSXe22" is the password.
 
 ### 4. Credential Reuse
+With these credentials, we were able to log into `http://10.129.1.53/phpmyadmin/`, but did not try anything further as we tried to use the same set of credentials for SSH for direct access.
+
+Trying to SSH with username "root" did not work, but SSH with username "notch" worked. We got into the system.
 
 ### 5. Getting Flags
+Getting user flag was relatively easy. Getting system flag was relatively easy, as doing `id` command revealed that `notch` user is a sudo-er. Running `sudo -i` command and supplying it with the password we found gave us root access, and subsequently the root flag.
 
 # Attack
 ## 1. NMAP
@@ -284,155 +293,7 @@ http://10.129.1.53/wp-includes/
 [ ]	class-json.php	2015-12-06 21:23 	40K	 
 [ ]	class-oembed.php	2017-05-11 18:18 	29K	 
 [ ]	class-phpass.php	2015-10-06 23:45 	7.1K	 
-[ ]	class-phpmailer.php	2017-01-11 01:23 	143K	 
-[ ]	class-pop3.php	2016-10-31 06:28 	20K	 
-[ ]	class-requests.php	2016-10-05 03:24 	29K	 
-[ ]	class-simplepie.php	2016-06-06 03:24 	87K	 
-[ ]	class-smtp.php	2017-01-11 01:23 	39K	 
-[ ]	class-snoopy.php	2016-07-06 12:40 	37K	 
-[ ]	class-walker-category-dropdown.php	2016-03-22 17:22 	2.1K	 
-[ ]	class-walker-category.php	2016-05-22 18:50 	6.6K	 
-[ ]	class-walker-comment.php	2016-08-23 23:33 	11K	 
-[ ]	class-walker-nav-menu.php	2017-05-14 03:38 	8.2K	 
-[ ]	class-walker-page-dropdown.php	2016-05-22 18:50 	2.3K	 
-[ ]	class-walker-page.php	2017-05-01 23:32 	6.7K	 
-[ ]	class-wp-admin-bar.php	2016-11-05 16:28 	16K	 
-[ ]	class-wp-ajax-response.php	2016-08-23 14:33 	4.9K	 
-[ ]	class-wp-comment-query.php	2016-12-07 15:52 	41K	 
-[ ]	class-wp-comment.php	2017-01-26 16:53 	9.2K	 
-[ ]	class-wp-customize-control.php	2017-05-19 20:25 	22K	 
-[ ]	class-wp-customize-manager.php	2017-05-19 20:25 	146K	 
-[ ]	class-wp-customize-nav-menus.php	2017-01-26 03:47 	48K	 
-[ ]	class-wp-customize-panel.php	2017-04-07 19:27 	9.7K	 
-[ ]	class-wp-customize-section.php	2016-10-19 18:15 	9.9K	 
-[ ]	class-wp-customize-setting.php	2017-05-19 20:25 	28K	 
-[ ]	class-wp-customize-widgets.php	2017-04-07 19:27 	66K	 
-[ ]	class-wp-dependency.php	2016-08-26 18:06 	1.6K	 
-[ ]	class-wp-editor.php	2017-05-31 22:04 	59K	 
-[ ]	class-wp-embed.php	2016-08-26 09:53 	12K	 
-[ ]	class-wp-error.php	2016-08-26 09:58 	4.6K	 
-[ ]	class-wp-feed-cache-transient.php	2016-08-25 18:18 	2.6K	 
-[ ]	class-wp-feed-cache.php	2016-08-25 18:18 	764 	 
-[ ]	class-wp-hook.php	2016-12-02 07:10 	14K	 
-[ ]	class-wp-http-cookie.php	2016-07-27 15:32 	6.4K	 
-[ ]	class-wp-http-curl.php	2016-05-22 18:15 	11K	 
-[ ]	class-wp-http-encoding.php	2016-06-10 04:50 	6.3K	 
-[ ]	class-wp-http-ixr-client.php	2016-05-22 18:15 	3.2K	 
-[ ]	class-wp-http-proxy.php	2016-05-22 18:15 	5.8K	 
-[ ]	class-wp-http-requests-hooks.php	2017-02-17 05:06 	1.8K	 
-[ ]	class-wp-http-requests-response.php	2016-10-05 03:51 	4.4K	 
-[ ]	class-wp-http-response.php	2016-08-22 21:28 	3.0K	 
-[ ]	class-wp-http-streams.php	2016-05-22 18:15 	15K	 
-[ ]	class-wp-image-editor-gd.php	2016-07-08 14:37 	13K	 
-[ ]	class-wp-image-editor-imagick.php	2017-02-27 04:22 	21K	 
-[ ]	class-wp-image-editor.php	2016-08-20 23:36 	12K	 
-[ ]	class-wp-list-util.php	2016-10-25 21:26 	6.3K	 
-[ ]	class-wp-locale-switcher.php	2016-11-21 16:07 	5.0K	 
-[ ]	class-wp-locale.php	2017-01-06 22:11 	14K	 
-[ ]	class-wp-matchesmapregex.php	2016-08-26 18:11 	1.9K	 
-[ ]	class-wp-meta-query.php	2016-10-10 06:38 	22K	 
-[ ]	class-wp-metadata-lazyloader.php	2016-05-23 18:54 	5.4K	 
-[ ]	class-wp-network-query.php	2016-10-21 02:54 	17K	 
-[ ]	class-wp-network.php	2017-02-22 10:42 	10K	 
-[ ]	class-wp-oembed-controller.php	2017-05-11 18:18 	5.2K	 
-[ ]	class-wp-post-type.php	2017-03-18 15:17 	19K	 
-[ ]	class-wp-post.php	2017-01-26 16:53 	5.7K	 
-[ ]	class-wp-query.php	2017-02-23 10:30 	120K	 
-[ ]	class-wp-rewrite.php	2016-10-07 19:44 	59K	 
-[ ]	class-wp-role.php	2016-05-22 18:15 	2.7K	 
-[ ]	class-wp-roles.php	2016-11-02 05:55 	6.4K	 
-[ ]	class-wp-session-tokens.php	2017-01-04 13:22 	7.4K	 
-[ ]	class-wp-simplepie-file.php	2016-08-25 18:18 	2.2K	 
-[ ]	class-wp-simplepie-sanitize-kses.php	2016-08-25 18:18 	1.8K	 
-[ ]	class-wp-site-query.php	2017-03-27 19:48 	23K	 
-[ ]	class-wp-site.php	2017-04-19 18:52 	7.5K	 
-[ ]	class-wp-tax-query.php	2017-01-02 19:40 	19K	 
-[ ]	class-wp-taxonomy.php	2017-03-18 15:25 	10K	 
-[ ]	class-wp-term-query.php	2017-03-16 02:04 	32K	 
-[ ]	class-wp-term.php	2017-01-26 16:53 	5.3K	 
-[ ]	class-wp-text-diff-renderer-inline.php	2016-08-25 17:37 	712 	 
-[ ]	class-wp-text-diff-renderer-table.php	2016-08-25 17:37 	14K	 
-[ ]	class-wp-theme.php	2017-03-18 03:54 	47K	 
-[ ]	class-wp-user-meta-session-tokens.php	2016-08-25 17:44 	3.0K	 
-[ ]	class-wp-user-query.php	2017-01-16 23:24 	29K	 
-[ ]	class-wp-user.php	2017-01-06 22:09 	19K	 
-[ ]	class-wp-walker.php	2017-01-06 22:14 	12K	 
-[ ]	class-wp-widget-factory.php	2016-07-20 16:57 	3.8K	 
-[ ]	class-wp-widget.php	2016-10-31 06:28 	18K	 
-[ ]	class-wp-xmlrpc-server.php	2017-05-16 08:46 	195K	 
-[ ]	class-wp.php	2016-10-25 20:48 	24K	 
-[ ]	class.wp-dependencies.php	2016-08-26 18:06 	11K	 
-[ ]	class.wp-scripts.php	2016-07-06 12:40 	14K	 
-[ ]	class.wp-styles.php	2016-05-22 18:50 	9.9K	 
-[ ]	comment-template.php	2017-05-14 03:50 	85K	 
-[ ]	comment.php	2017-05-14 04:20 	100K	 
-[ ]	compat.php	2016-08-10 16:10 	17K	 
-[ ]	cron.php	2016-08-26 09:22 	16K	 
-[DIR]	css/	2017-06-08 14:29 	- 	 
-[DIR]	customize/	2017-06-08 14:29 	- 	 
-[ ]	date.php	2017-01-04 13:26 	35K	 
-[ ]	default-constants.php	2017-03-23 19:01 	9.2K	 
-[ ]	default-filters.php	2017-05-18 14:34 	25K	 
-[ ]	default-widgets.php	2017-05-11 21:11 	2.0K	 
-[ ]	deprecated.php	2017-01-10 22:09 	109K	 
-[ ]	embed-template.php	2016-07-06 12:40 	344 	 
-[ ]	embed.php	2017-03-06 11:42 	43K	 
-[ ]	feed-atom-comments.php	2016-12-16 06:39 	5.2K	 
-[ ]	feed-atom.php	2016-12-16 06:39 	3.0K	 
-[ ]	feed-rdf.php	2016-10-25 20:48 	2.6K	 
-[ ]	feed-rss.php	2016-10-25 20:48 	1.2K	 
-[ ]	feed-rss2-comments.php	2016-12-16 06:39 	4.0K	 
-[ ]	feed-rss2.php	2016-12-16 06:42 	3.7K	 
-[ ]	feed.php	2017-01-05 03:06 	19K	 
-[DIR]	fonts/	2017-06-08 14:29 	- 	 
-[ ]	formatting.php	2017-05-29 03:21 	186K	 
-[ ]	functions.php	2017-04-09 22:44 	171K	 
-[ ]	functions.wp-scripts.php	2016-10-18 20:05 	11K	 
-[ ]	functions.wp-styles.php	2016-09-04 04:09 	7.9K	 
-[ ]	general-template.php	2017-05-25 07:18 	123K	 
-[ ]	http.php	2017-03-17 19:02 	22K	 
-[DIR]	images/	2017-06-08 14:29 	- 	 
-[DIR]	js/	2017-06-08 14:29 	- 	 
-[ ]	kses.php	2017-05-11 19:23 	49K	 
-[ ]	l10n.php	2017-04-01 14:26 	42K	 
-[ ]	link-template.php	2016-12-27 09:28 	132K	 
-[ ]	load.php	2017-05-11 19:54 	32K	 
-[ ]	locale.php	2016-12-03 04:16 	141 	 
-[ ]	media-template.php	2017-05-11 21:11 	45K	 
-[ ]	media.php	2017-05-26 23:10 	135K	 
-[ ]	meta.php	2017-05-10 06:10 	37K	 
-[ ]	ms-blogs.php	2017-03-30 04:36 	37K	 
-[ ]	ms-default-constants.php	2016-10-19 04:47 	4.6K	 
-[ ]	ms-default-filters.php	2017-05-09 17:15 	4.5K	 
-[ ]	ms-deprecated.php	2017-04-05 02:18 	14K	 
-[ ]	ms-files.php	2016-09-27 20:05 	2.6K	 
-[ ]	ms-functions.php	2017-05-10 23:22 	81K	 
-[ ]	ms-load.php	2016-10-26 03:39 	19K	 
-[ ]	ms-settings.php	2016-08-31 16:31 	3.3K	 
-[ ]	nav-menu-template.php	2017-05-12 20:35 	20K	 
-[ ]	nav-menu.php	2017-05-16 05:37 	32K	 
-[ ]	option.php	2017-05-10 06:10 	63K	 
-[ ]	pluggable-deprecated.php	2016-07-06 12:40 	6.1K	 
-[ ]	pluggable.php	2017-05-07 16:54 	86K	 
-[ ]	plugin.php	2016-09-12 01:50 	31K	 
-[DIR]	pomo/	2017-06-08 14:29 	- 	 
-[ ]	post-formats.php	2015-08-25 20:28 	6.8K	 
-[ ]	post-template.php	2017-04-06 18:01 	57K	 
-[ ]	post-thumbnail-template.php	2016-06-29 17:28 	7.9K	 
-[ ]	post.php	2017-04-22 14:17 	207K	 
-[ ]	query.php	2017-02-23 10:30 	23K	 
-[DIR]	random_compat/	2017-06-08 14:29 	- 	 
-[ ]	registration-functions.php	2016-07-06 12:40 	178 	 
-[ ]	registration.php	2016-07-06 12:40 	178 	 
-[ ]	rest-api.php	2017-05-25 18:02 	35K	 
-[DIR]	rest-api/	2017-06-08 14:29 	- 	 
-[ ]	revision.php	2016-11-09 23:00 	21K	 
-[ ]	rewrite.php	2016-05-23 19:02 	17K	 
-[ ]	rss-functions.php	2016-07-06 12:40 	191 	 
-[ ]	rss.php	2016-10-31 06:28 	23K	 
-[ ]	script-loader.php	2017-06-01 09:49 	68K	 
-[ ]	session.php	2016-12-03 03:51 	242 	 
-[ ]	shortcodes.php	2017-01-03 04:00 	20K	 
+...
 [ ]	taxonomy.php	2017-04-21 19:14 	142K	 
 [ ]	template-loader.php	2016-10-07 21:03 	2.8K	 
 [ ]	template.php	2017-02-12 21:25 	19K	 
