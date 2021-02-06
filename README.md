@@ -12,7 +12,7 @@ Sorted by HTB Difficulty Rating & Order
  7. [Grandpa](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Grandpa.md): Port 80 Microsoft IIS WebDav ScStoragePathFromUrl Overflow
  8. [Granny](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Granny.md): Port 80 Microsoft IIS WebDav ScStoragePathFromUrl Overflow
  9. [Bank](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Bank.md): Port 80 Unencrypted Credentials discovered through Gobuster, SUID Privilege Escalation
-10. Blocky:
+10. [Blocky](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blocky.md):
 11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): MS17_010 EternalBlue
 
 ## Challenges
