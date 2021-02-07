@@ -379,4 +379,4 @@ cat user.txt
 05e59c0dba62dcb1bf331f88e92dcd16
 ```
 
-### 6. Privilege Escalation
+## 6. Privilege Escalation
