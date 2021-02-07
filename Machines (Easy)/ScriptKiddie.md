@@ -437,3 +437,43 @@ drwxr-xr-x 11 kid kid 4096 Feb  7 09:41 ..
 -rw-rw-r--  1 kid pwn    0 Feb  7 05:54 hackers
 ```
 This `hackers` file's group owner is `pwn`! 
+
+Since the script reads from `$log` which is `log=/home/kid/logs/hackers`, we try write something to it.
+```
+ls -la
+total 8
+drwxrwxrwx  2 kid kid 4096 Feb  7 13:31 .
+drwxr-xr-x 11 kid kid 4096 Feb  7 09:41 ..
+-rw-rw-r--  1 kid pwn    0 Feb  7 13:38 hackers
+
+echo "test" >> hackers
+
+ls -la
+total 8
+drwxrwxrwx  2 kid kid 4096 Feb  7 13:31 .
+drwxr-xr-x 11 kid kid 4096 Feb  7 09:41 ..
+-rw-rw-r--  1 kid pwn    0 Feb  7 13:46 hackers
+```
+Even though the file size is still 0, the modified date changes.
+
+I created my own version of the script to see what it does on my local machine.
+```
+cat test.sh
+#!/bin/bash
+
+log=/home/hippoeug/hackers
+
+cd /home/hippoeug
+cat $log | cut -d' ' -f3- | sort -u | while read ip; do
+    sh -c "nmap --top-ports 10 -oN recon/${ip}.nmap ${ip} 2>&1 >/dev/null" &
+done
+
+if [[ $(wc -l < $log) -gt 0 ]]; then echo -n > $log; fi
+```
+Running it, I get an error.
+```
+hippoeug@kali:~$ ./test.sh
+hippoeug@kali:~$ Failed to open normal output file recon/hello.nmap for writing
+QUITTING!
+```
+What exactly is in the recon directory?
