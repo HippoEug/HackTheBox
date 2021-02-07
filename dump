@@ -1,155 +1,17 @@
-http://10.129.72.251:5000/
-
-
-k1d'5 h4ck3r t00l5
-nmap
-scan top 100 ports on an ip
-ip:
-
-payloads
-venom it up - gen rev tcp meterpreter bins
-os:
-
-
-lhost:
-
-template file (optional):
-
-sploits
-searchsploit FTW
-search:
-
-
-=======
-
-
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-07 04:43 UTC
-Nmap scan report for 10.129.72.251
-Host is up (0.00019s latency).
-Not shown: 98 closed ports
-PORT     STATE SERVICE
-22/tcp   open  ssh
-5000/tcp open  upnp
-
-Nmap done: 1 IP address (1 host up) scanned in 10.71 seconds
-
-
-
-======
-
-
-hippoeug@kali:~$ nmap --script vuln 10.129.72.251 -sC -sV -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-07 12:40 +08
-NSE: Loaded 149 scripts for scanning.
-NSE: Script Pre-scanning.
-Initiating NSE at 12:40
-Completed NSE at 12:40, 10.01s elapsed
-Initiating NSE at 12:40
-Completed NSE at 12:40, 0.00s elapsed
-Initiating Parallel DNS resolution of 1 host. at 12:40
-Completed Parallel DNS resolution of 1 host. at 12:40, 0.03s elapsed
-Initiating Connect Scan at 12:40
-Scanning 10.129.72.251 [1000 ports]
-Discovered open port 22/tcp on 10.129.72.251
-Increasing send delay for 10.129.72.251 from 0 to 5 due to 31 out of 101 dropped probes since last increase.
-Discovered open port 5000/tcp on 10.129.72.251
-Completed Connect Scan at 12:40, 33.74s elapsed (1000 total ports)
-Initiating Service scan at 12:40
-Scanning 2 services on 10.129.72.251
-Completed Service scan at 12:41, 7.04s elapsed (2 services on 1 host)
-NSE: Script scanning 10.129.72.251.
-Initiating NSE at 12:41
-NSE: [firewall-bypass] lacks privileges.
-Stats: 0:09:42 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
-NSE: Active NSE Script Threads: 1 (1 waiting)
-NSE Timing: About 99.63% done; ETC: 12:49 (0:00:02 remaining)
-Stats: 0:14:48 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
-NSE: Active NSE Script Threads: 1 (0 waiting)
-NSE Timing: About 99.63% done; ETC: 12:55 (0:00:03 remaining)
-Stats: 0:17:15 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
-NSE: Active NSE Script Threads: 1 (1 waiting)
-NSE Timing: About 99.63% done; ETC: 12:57 (0:00:04 remaining)
-Completed NSE at 13:00, 1185.34s elapsed
-Initiating NSE at 13:00
-NSE: [tls-ticketbleed] Not running due to lack of privileges.
-Completed NSE at 13:00, 1.02s elapsed
-Nmap scan report for 10.129.72.251
-Host is up (0.25s latency).
-Not shown: 998 closed ports
-PORT     STATE SERVICE VERSION
-22/tcp   open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.1 (Ubuntu Linux; protocol 2.0)
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-| vulners: 
-|   cpe:/a:openbsd:openssh:8.2p1: 
-|       CVE-2020-15778  6.8     https://vulners.com/cve/CVE-2020-15778
-|       CVE-2020-12062  5.0     https://vulners.com/cve/CVE-2020-12062
-|_      CVE-2020-14145  4.3     https://vulners.com/cve/CVE-2020-14145
-5000/tcp open  http    Werkzeug httpd 0.16.1 (Python 3.8.5)
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-| http-csrf: 
-| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=10.129.72.251
-|   Found the following possible CSRF vulnerabilities: 
-|     
-|     Path: http://10.129.72.251:5000/
-|     Form id: ip
-|     Form action: /
-|     
-|     Path: http://10.129.72.251:5000/
-|     Form id: os
-|     Form action: /
-|     
-|     Path: http://10.129.72.251:5000/
-|     Form id: search
-|_    Form action: /
-|_http-dombased-xss: Couldn't find any DOM based XSS.
-| http-fileupload-exploiter: 
-|   
-|     Failed to upload and execute a payload.
-|   
-|_    Failed to upload and execute a payload.
-|_http-server-header: Werkzeug/0.16.1 Python/3.8.5
-| http-slowloris-check: 
-|   VULNERABLE:
-|   Slowloris DOS attack
-|     State: LIKELY VULNERABLE
-|     IDs:  CVE:CVE-2007-6750
-|       Slowloris tries to keep many connections to the target web server open and hold
-|       them open as long as possible.  It accomplishes this by opening connections to
-|       the target web server and sending a partial request. By doing so, it starves
-|       the http server's resources causing Denial Of Service.
-|       
-|     Disclosure date: 2009-09-17
-|     References:
-|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
-|_      http://ha.ckers.org/slowloris/
-|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
-| vulners: 
-|   cpe:/a:python:python:3.8.5: 
-|       CVE-2021-3177   7.5     https://vulners.com/cve/CVE-2021-3177
-|       CVE-2020-27619  7.5     https://vulners.com/cve/CVE-2020-27619
-|       MSF:PAYLOAD/PYTHON/SHELL_REVERSE_UDP/   0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/SHELL_REVERSE_UDP/    *EXPLOIT*
-|       MSF:PAYLOAD/PYTHON/SHELL_REVERSE_TCP_SSL/       0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/SHELL_REVERSE_TCP_SSL/        *EXPLOIT*
-|       MSF:PAYLOAD/PYTHON/SHELL_REVERSE_TCP/   0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/SHELL_REVERSE_TCP/    *EXPLOIT*
-|       MSF:PAYLOAD/PYTHON/PINGBACK_REVERSE_TCP/        0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/PINGBACK_REVERSE_TCP/ *EXPLOIT*
-|       MSF:PAYLOAD/PYTHON/METERPRETER_REVERSE_HTTPS/   0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/METERPRETER_REVERSE_HTTPS/    *EXPLOIT*
-|       MSF:PAYLOAD/PYTHON/METERPRETER_REVERSE_HTTP/    0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/METERPRETER_REVERSE_HTTP/     *EXPLOIT*
-|       MSF:PAYLOAD/PYTHON/METERPRETER_BIND_TCP/        0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/METERPRETER_BIND_TCP/ *EXPLOIT*
-|       MSF:PAYLOAD/PYTHON/METERPRETER/REVERSE_HTTP/    0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/METERPRETER/REVERSE_HTTP/     *EXPLOIT*
-|       MSF:PAYLOAD/PYTHON/METERPRETER/BIND_TCP_UUID/   0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/METERPRETER/BIND_TCP_UUID/    *EXPLOIT*
-|_      MSF:PAYLOAD/PYTHON/METERPRETER/BIND_TCP/        0.0     https://vulners.com/metasploit/MSF:PAYLOAD/PYTHON/METERPRETER/BIND_TCP/ *EXPLOIT*
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-NSE: Script Post-scanning.
-Initiating NSE at 13:00
-Completed NSE at 13:00, 0.00s elapsed
-Initiating NSE at 13:00
-Completed NSE at 13:00, 0.00s elapsed
-Read data files from: /usr/bin/../share/nmap
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 1238.13 seconds
-hippoeug@kali:~$ 
-
-
-
-
-
+hippoeug@kali:~$ gobuster dir -u "http://10.129.72.251:5000" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.129.72.251:5000
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/02/07 12:51:30 Starting gobuster
+===============================================================
+===============================================================
+2021/02/07 13:10:26 Finished
+===============================================================
