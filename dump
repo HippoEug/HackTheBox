@@ -9,6 +9,54 @@ drwxr-xr-x 11 kid kid 4096 Feb  7 09:41 ..
 
 
 
+crontab -l
+no crontab for kid
+
+
+crontab -u pwn -l
+must be privileged to use -u
+
+
+
+ls -la
+total 8
+drwxrwxrwx  2 kid kid 4096 Feb  7 13:31 .
+drwxr-xr-x 11 kid kid 4096 Feb  7 09:41 ..
+-rw-rw-r--  1 kid pwn    0 Feb  7 13:38 hackers
+echo test >> hackers
+ls -la
+total 8
+drwxrwxrwx  2 kid kid 4096 Feb  7 13:31 .
+drwxr-xr-x 11 kid kid 4096 Feb  7 09:41 ..
+-rw-rw-r--  1 kid pwn    0 Feb  7 13:46 hackers
+
+
+
+
+
+hippoeug@kali:~$ ./test.sh
+hippoeug@kali:~$ Failed to open normal output file recon/hello.nmap for writing
+QUITTING!
+
+
+cat test.sh
+#!/bin/bash
+
+log=/home/hippoeug/hackers
+
+cd /home/hippoeug
+cat $log | cut -d' ' -f3- | sort -u | while read ip; do
+    sh -c "nmap --top-ports 10 -oN recon/${ip}.nmap ${ip} 2>&1 >/dev/null" &
+done
+
+if [[ $(wc -l < $log) -gt 0 ]]; then echo -n > $log; fi
+
+
+
+
+
+
+
 
 
 
