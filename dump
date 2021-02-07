@@ -22,6 +22,15 @@ hippoeug@kali:~/recon$
 
 
 
+hippoeug@kali:~$ sh -c "whoami;pwd"
+hippoeug
+/home/hippoeug
+
+
+
+echo "1.2.3.4;/bin/sh -i;" >> hackers
+
+
 
 
 
