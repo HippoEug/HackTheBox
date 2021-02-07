@@ -39,6 +39,7 @@ msf6 exploit(multi/handler) >
 
 
 
+echo "1.2.3.4;bin/sh -i #" >> hackers
 
 
 
