@@ -1,15 +1,27 @@
 # Summary
 ### 1. NMAP
+This is my first time attempting a live machine. Anyways, NMAP revealed two ports, Port 22 SSH and Port 5000 HTTP (Werkzeug httpd 0.16.1) port.
 
 ### 2. Port 5000 HTTP Enumeration
+Visiting `http://10.129.72.251:5000/`, we see a site that acted as an interface to a Kali machine. The site could run NMAP, MSFVenom, & SearchSploit.
+
+GoBuster didn't yield anything, and the Werkzeug exploit for Port 5000 HTTP did not work as we run a newer version of Werkzeug.
 
 ### 3. Port 5000 HTTP Attack Attempt 1
+We try to use Burpsuite by modifying requests to the site. For example, the original data that was sent was `ip=127.0.0.1&action=scan` to do NMAP, and I tried to add an additional command at the back. Modifying with Burpsuite, a new command `ip=127.0.0.1%3Bpwd&action=scan` was sent, to emulate the command `nmap 127.0.0.1;pwd`. This did not work.
 
 ### 4. Port 5000 HTTP Attack Attempt 2
+We got a clue from other HTB users that we need to focus more on exploits. We failed to find exploits when performing `searchsploit nmap`, `searchsploit searchsploit`, but `searchsploit msf` showed a potential exploit called `msfd' Remote Code Execution (Metasploit)`.
+
+We try it out, but again did not work.
 
 ### 5. Port 5000 HTTP Attack Attempt 3
+This time however, we get a clue to look at a more recent CVE. We find one from Googling called `Metasploit Framework 6.0.11 - msfvenom APK template command injection`. Googling is indeed a skill. To use this Metasploit module, we needed to also update our Msfconsole.
+
+The exploit `use exploit/unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection` gave us a `.apk` file, which we then used to upload onto `http://10.129.72.251:5000/`, providing the `.apk` as a template. After running a listener and sending the file on the webpage, we get a shell and our user flag.
 
 ### 6. Privilege Escalation
+Bwoah, this one is tough. From enumerating, we find that there are three users, `kid` which we compromised, `pwn` & `root`.
 
 # Attack
 ## 1. NMAP
