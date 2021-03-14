@@ -21,10 +21,12 @@ This time however, we get a clue to look at a more recent CVE. We find one from 
 The exploit `use exploit/unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection` gave us a `.apk` file, which we then used to upload onto `http://10.129.72.251:5000/`, providing the `.apk` as a template. After running a listener and sending the file on the webpage, we get a shell and our user flag.
 
 ### 6. Privilege Escalation
-Bwoah, this one is tough. From enumerating, we find that there are three users, `kid` which we compromised, `pwn` & `root`.
+Bwoah, this one is tough. From enumerating, we find that there are three users, `kid` which we compromised, and the two other users `pwn` & `root`.
+
+We found an interesting file owned by user `pwn`, `scanlosers.sh`. In the file, we see that it reads from another file called `hackers`, and uses that information to execute a `NMAP` command. We hijack the `scanlosers.sh` script by manipulating the `hackers` file and getting a reverse shell to execute. Through this successful move, we got into user `pwn`.
 
 ### 7. Final Privilege Escalation & Getting Root Flag
-x
+Running `sudo -l`, we see that `msfconsole` can be run as a `sudo-er` without authentication. Exploiting this, we get root flags.
 
 # Attack
 ## 1. NMAP
