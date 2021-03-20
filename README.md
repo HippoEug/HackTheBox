@@ -15,7 +15,7 @@ Sorted by HTB Difficulty Rating & Order
 10. [Blocky](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blocky.md): Port 80 Credentials discovered through GoBuster, SSH through Credential Reuse
 11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): MS17_010 EternalBlue
 12. [Mirai](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Mirai.md):
-13. [ScriptKiddie](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/ScriptKiddie.md): Metasploit APK Template Command Injection, sh -c Command Execution 
+13. [ScriptKiddie](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/ScriptKiddie.md): Metasploit APK Template Command Injection, sh -c Command Execution (TO REVIEW OFFICIAL WALKTHROUGH)
 
 ## Challenges
 ### Easy
