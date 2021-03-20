@@ -16,6 +16,7 @@ Sorted by HTB Difficulty Rating & Order
 11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): MS17_010 EternalBlue
 12. [Mirai](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Mirai.md):
 13. [ScriptKiddie](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/ScriptKiddie.md): Metasploit APK Template Command Injection, sh -c Command Execution (TO REVIEW OFFICIAL WALKTHROUGH)
+14. [Delivery](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Delivery.md): (TO REVIEW OFFICIAL WALKTHROUGH)
 
 ## Challenges
 ### Easy
