@@ -1,1 +1,23 @@
+hippoeug@kali:~$ searchsploit platinum upnp
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Genexis Platinum 4410 Router 2.1 - UPnP Credential Exposure                                                                         | hardware/remote/49075.py
+Platinum SDK Library - POST UPnP 'sscanf' Buffer Overflow (PoC)                                                                     | multiple/dos/15346.c
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+
+
+hippoeug@kali:~$ searchsploit pi-hole
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Pi-Hole - heisenbergCompensator Blocklist OS Command Execution (Metasploit)                                                         | php/remote/48491.rb
+Pi-hole 4.3.2 - Remote Code Execution (Authenticated)                                                                               | python/webapps/48727.py
+Pi-hole 4.4.0 - Remote Code Execution (Authenticated)                                                                               | linux/webapps/48519.py
+Pi-hole < 4.4 - Authenticated Remote Code Execution                                                                                 | linux/webapps/48442.py
+Pi-hole < 4.4 - Authenticated Remote Code Execution / Privileges Escalation                                                         | linux/webapps/48443.py
+Pi-Hole Web Interface 2.8.1 - Persistent Cross-Site Scripting in Whitelist/Blacklist                                                | linux/webapps/40249.txt
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
 
