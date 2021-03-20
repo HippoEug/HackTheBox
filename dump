@@ -121,3 +121,15 @@ Do you know if there is any way to get them back?
 root@raspberrypi:/media/usbstick# 
 
 
+
+pi@raspberrypi:/ $ sudo -l
+Matching Defaults entries for pi on localhost:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User pi may run the following commands on localhost:
+    (ALL : ALL) ALL
+    (ALL) NOPASSWD: ALL
+pi@raspberrypi:/ $ sudo id
+uid=0(root) gid=0(root) groups=0(root)
+
+
