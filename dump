@@ -1,1 +1,100 @@
+hippoeug@kali:~$ searchsploit mattermost
+Exploits: No Results
+Shellcodes: No Results
+hippoeug@kali:~$ searchsploit osticket
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+osTicket - 'l.php?url' Arbitrary Site Redirect                                                                                      | php/webapps/38161.txt
+osTicket - 'tickets.php?status' Cross-Site Scripting                                                                                | php/webapps/38162.txt
+osTicket 1.10 - SQL Injection (PoC)                                                                                                 | php/webapps/42660.txt
+osTicket 1.10.1 - Arbitrary File Upload                                                                                             | windows/webapps/45169.txt
+osTicket 1.11 - Cross-Site Scripting / Local File Inclusion                                                                         | php/webapps/46753.txt
+osTicket 1.12 - Formula Injection                                                                                                   | php/webapps/47225.txt
+osTicket 1.12 - Persistent Cross-Site Scripting                                                                                     | php/webapps/47226.txt
+osTicket 1.12 - Persistent Cross-Site Scripting via File Upload                                                                     | php/webapps/47224.txt
+osTicket 1.14.1 - 'Saved Search' Persistent Cross-Site Scripting                                                                    | php/webapps/48525.txt
+osTicket 1.14.1 - 'Ticket Queue' Persistent Cross-Site Scripting                                                                    | php/webapps/48524.txt
+osTicket 1.14.1 - Persistent Authenticated Cross-Site Scripting                                                                     | php/webapps/48413.txt
+osTicket 1.14.2 - SSRF                                                                                                              | php/webapps/49441.txt
+osTicket 1.2/1.3 - 'view.php?inc' Arbitrary Local File Inclusion                                                                    | php/webapps/25926.txt
+osTicket 1.2/1.3 - Multiple Input Validation / Remote Code Injection Vulnerabilities                                                | php/webapps/25590.txt
+osTicket 1.2/1.3 Support Cards - 'view.php' Cross-Site Scripting                                                                    | php/webapps/29298.txt
+osTicket 1.6 RC4 - Admin Login Blind SQL Injection                                                                                  | php/webapps/9032.txt
+osTicket 1.6 RC5 - Multiple Vulnerabilities                                                                                         | php/webapps/11380.txt
+osTicket 1.9.14 - 'X-Forwarded-For' Cross-Site Scripting                                                                            | php/webapps/40826.py
+osTicket 1.x - 'Open_form.php' Remote File Inclusion                                                                                | php/webapps/27928.txt
+osTicket STS 1.2 - Attachment Remote Command Execution                                                                              | php/webapps/24225.php
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
 
+
+
+
+
+
+
+
+
+
+Guest User | Sign In
+
+delivery
+
+    Support Center Home Open a New Ticket Check Ticket Status 
+
+Open a New Ticket
+
+Please fill in the form below to open a new ticket.
+Contact Information
+Email Address alibaba@pizza.com
+Full Name Ali Baba
+Phone Number 98987676
+Ext: 65
+Help Topic Contact Us
+
+Ticket Details
+Please Describe Your Issue
+Issue Summary *
+My pizza is not boneless
+﻿Read the title
+
+    all changes saved
+
+linpeas.sh313kB
+Drop files here or choose them
+CAPTCHA Text: 	   Enter the text shown on the image. 6CD18
+ 
+
+Copyright © 2021 delivery - All rights reserved.
+Helpdesk software - powered by osTicket
+
+
+
+
+
+
+
+
+
+
+Guest User | Sign In
+
+delivery
+
+    Support Center Home Open a New Ticket Check Ticket Status 
+
+Support ticket request created
+
+Ali Baba, 
+
+You may check the status of your ticket, by navigating to the Check Status page using ticket id: 4009396.
+
+If you want to add more information to your ticket, just email 4009396@delivery.htb.
+
+Thanks,
+
+Support Team
+
+Copyright © 2021 delivery - All rights reserved.
+Helpdesk software - powered by osTicket
