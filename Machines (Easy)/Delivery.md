@@ -6,7 +6,13 @@
 
 ### 2. Port 80 HTTP Enumeration
 
-### 3. X
+### 3. Port 80 Helpdesk Enumeration
+
+### 4. Port 8065 MatterMost Enumeration
+
+### 5. Discovering MatterMost
+
+### 6. SSH with Credentials
 
 # Attack
 ## 1. NMAP
@@ -71,6 +77,7 @@ PORT   STATE SERVICE VERSION
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ...
 ```
+Okay cool, Linux machine running Port 22 SSH and Port 80 HTTP. Lots of other stuff which we're just gonna ignore for now.
 
 ## 2. Port 80 HTTP Enumeration
 Let's visit `10.129.116.248` first.
@@ -84,7 +91,7 @@ For an account check out our helpdesk
 
 © Untitled. Design: HTML5 UP.
 ```
-Click on `helpdesk` redirects to `http://helpdesk.delivery.htb/`, which shows `Server Not Found` error.
+Clicking on `helpdesk` redirects to `http://helpdesk.delivery.htb/`, which shows `Server Not Found` error.
 
 Moving on, we click on `Contact Us` button.
 ```
@@ -93,9 +100,7 @@ Contact Us
 For unregistered users, please use our HelpDesk to get in touch with our team. 
 Once you have an @delivery.htb email address, you'll be able to have access to our MatterMost server.
 ```
-Once again, clicking on `helpdesk` redirects to `http://helpdesk.delivery.htb/`, which shows `Server Not Found` error.
-
-But we are also able to click on `MatterMost server`, which brings us to `http://delivery.htb:8065/`, which also shows `Server Not Found` error.
+Once again, clicking on `helpdesk` redirects to `http://helpdesk.delivery.htb/`, which shows `Server Not Found` error. But we are also able to click on `MatterMost server`, which brings us to `http://delivery.htb:8065/`, which also shows `Server Not Found` error. At least now we know there's Port 8065 also, which NMAP did not get to scan.
 
 No sweat, easy fix as we seen on many machines now. Let's just add to our `/etc/hosts` file.
 ```
@@ -177,7 +182,7 @@ I forgot my password.
 Mattermost
 © 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
 ```
-Ah, a Mattermost login page. I've used Mattermost in my training before, it's just like another internal Discord server. We also do a quick Searchsploit.
+Ah, turns out Port 8065 is running MatterMost, and we are on the login page. I've used MatterMost in my training before, it's just like another internal Discord server. We also do a quick Searchsploit.
 ```
 hippoeug@kali:~$ searchsploit mattermost
 Exploits: No Results
@@ -245,3 +250,200 @@ Support Team
 Copyright © 2021 delivery - All rights reserved.
 Helpdesk software - powered by osTicket
 ```
+Cool! We got a email now, `4009396@delivery.htb` and our ticket id is `4009396`.
+
+What can we do now? Maybe we can check the status of our ticket we just created.
+```
+Check Ticket Status
+
+Please provide your email address and a ticket number. This will sign you in to view your ticket.
+Email Address: 4009396@delivery.htb
+Ticket Number: 4009396
+
+Have an account with us? Sign In or register for an account to access all your tickets.
+
+If this is your first time contacting us or you've lost the ticket number, please open a new ticket
+
+Copyright © 2021 delivery - All rights reserved.
+Helpdesk software - powered by osTicket
+```
+Entering the Email Address we just got as well as a Ticket Number, we got an error `Access denied`. Hmm.
+
+## 4. Port 8065 MatterMost Enumeration
+Let's move on first. From the Contact Us botton earlier, we see the interesting message.
+```
+Contact Us
+
+For unregistered users, please use our HelpDesk to get in touch with our team. 
+Once you have an @delivery.htb email address, you'll be able to have access to our MatterMost server.
+```
+With the `@delivery.htb` email address, we would be able to access the MatterMost server, theoretically.
+
+We cannot sign in, because we do not have a MatterMost account.
+```
+Mattermost
+All team communication in one place, searchable and accessible anywhere
+
+Email or Username: 4009396@delivery.htb
+Password:
+
+Don't have an account? Create one now.
+I forgot my password.
+
+Mattermost
+© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
+```
+We don't have a password.
+
+Let's create an account then.
+```
+Mattermost
+All team communication in one place, searchable and accessible anywhere
+
+Let's create your account
+Already have an account? Click here to sign in.
+
+What's your email address?: 4009396@delivery.htb
+Valid email required for sign-up
+Choose your username: delivery
+You can use lowercase letters, numbers, periods, dashes, and underscores.
+Choose your password: Delivery69!
+
+By proceeding to create your account and use Mattermost, you agree to our Terms of Service and Privacy Policy. If you do not agree, you cannot use Mattermost.
+
+Mattermost
+© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
+```
+And finally a verification email.
+```
+Back
+Mattermost: You are almost done
+
+Please verify your email address. Check your inbox for an email.
+Mattermost
+© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
+```
+How are we going to access the email `4009396@delivery.htb` to verify?
+
+## 5. Discovering MatterMost
+Here is where I got stuck again and had to get some clues. Quoting my reference from drt.sh (link above), "This is very common of ticketing systems. Allowing the customer to reply directly to an email, and it will show up in the Customer Service Portal.". There, we need to go to the Customer Service Portal, which is we can find in the `Check Ticket Status` page.
+
+We go back to checking the status of our ticket we created. This time, we use our original `@pizza.com` email address, not the `@delivery.htb` one that was provided. That was why our first attempt did not work.
+```
+Check Ticket Status
+
+Please provide your email address and a ticket number. This will sign you in to view your ticket.
+Email Address: alibaba@pizza.com
+Ticket Number: 4009396
+
+Have an account with us? Sign In or register for an account to access all your tickets.
+
+If this is your first time contacting us or you've lost the ticket number, please open a new ticket
+
+Copyright © 2021 delivery - All rights reserved.
+Helpdesk software - powered by osTicket
+```
+Let's click `View Ticket`, and see what we get.
+```
+Looking for your other tickets?
+Sign In or register for an account for the best experience on our help desk.
+
+My pizza is not boneless #4009396
+Print Edit
+Basic Ticket Information
+Ticket Status: 	Open
+Department: 	Support
+Create Date: 	3/21/21 2:56 AM
+	
+User Information
+Name: 	Ali Baba
+Email: 	alibaba@pizza.com
+Phone: 	98987676 x65
+
+Avatar
+Ali Baba posted 3/21/21 2:56 AM
+---- Registration Successful ---- Please activate your email by going to: 
+http://delivery.htb:8065/do_verify_email?token=pgct5wqwt7ki7ffsh4fdo8pr9dqtfzmsriwkkqyym93icdpan5pxnqx5odm6ggca&email=4009396%40delivery.htb )
+--------------------- You can sign in from: --------------------- 
+Mattermost lets you share messages and files from your PC or phone, with instant search and archiving. 
+For the best experience, download the apps for PC, Mac, iOS and Android from: https://mattermost.com/download/#mattermostApps ( https://mattermost.com/download/#mattermostApps
+
+linpeas.sh312.5 kb
+Created by AvatarAli Baba 3/21/21 2:56 AM
+Post a Reply
+
+To best assist you, we request that you be specific and detailed * 
+
+Drop files here or choose them
+
+Copyright © 2021 delivery - All rights reserved.
+Helpdesk software - powered by osTicket
+```
+Fantastic! Now all we do is go to the verification link `http://delivery.htb:8065/do_verify_email?token=pgct5wqwt7ki7ffsh4fdo8pr9dqtfzmsriwkkqyym93icdpan5pxnqx5odm6ggca&email=4009396%40delivery.htb`.
+
+Let's create an account.
+```
+Mattermost
+All team communication in one place, searchable and accessible anywhere
+
+Email Verified
+Email or Username: 4009396@delivery.htb
+Password: Delivery69!
+
+Don't have an account? Create one now.
+I forgot my password.
+
+Mattermost
+© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
+```
+Okay, great. Few more buttons to click.
+```
+Preview Mode: Email notifications have not been configured.
+Back
+
+Mattermost
+All team communication in one place, searchable and accessible anywhere
+
+Teams you can join:
+Internal
+Create a team
+
+Mattermost
+© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
+```
+Let's join Internal team.
+
+We can read the chat.
+```
+Beginning of Internal
+
+Welcome to Internal!
+Post messages here that you want everyone to see. Everyone automatically becomes a permanent member of this channel when they join the team.
+
+December 26, 2020
+System
+10:25 PM
+@root joined the team.
+
+System
+10:28 PM
+@root updated the channel display name from: Town Square to: Internal
+
+root
+10:29 PM
+@developers Please update theme to the OSTicket before we go live.  Credentials to the server are maildeliverer:Youve_G0t_Mail! 
+Also please create a program to help us stop re-using the same passwords everywhere.... Especially those that are a variant of "PleaseSubscribe!"
+
+root
+11:58 PM
+PleaseSubscribe! may not be in RockYou but if any hacker manages to get our hashes, they can use hashcat rules to easily crack all variations of common words or phrases.
+
+Today
+System
+3:23 PM
+You joined the team.
+```
+Interesting.. user `root` mentioned credentials, `Credentials to the server are maildeliverer:Youve_G0t_Mail!`. So username `maildeliverer` and password `Youve_G0t_Mail!`?
+
+## 6. SSH with Credentials
+With credentials username `maildeliverer` and password `Youve_G0t_Mail!`, we were not able to access Mattermost or an existing View Ticket Thread. That only leaves us with SSH.
