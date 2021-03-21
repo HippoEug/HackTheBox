@@ -1,11 +1,1 @@
 
-pi@raspberrypi:~ $ sudo -i
-
-SSH is enabled and the default password for the 'pi' user has not been changed.
-This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
-
-
-SSH is enabled and the default password for the 'pi' user has not been changed.
-This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
-
-root@raspberrypi:~# back
