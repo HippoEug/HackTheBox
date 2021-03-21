@@ -3,12 +3,19 @@
 
 # Summary
 ### 1. NMAP
+NMAP revealed a couple of ports, Port 22 SSH, Port 53 DNS, Port 80 HTTP and Port 1075 UPNP. Port 1075 is some sort of IoT device, the most interesting of them all.
 
 ### 2. Port 80 HTTP Enumeration
+Upon adding the IP to `/etc/hosts` file, we see an error on the page, but also know that Pi-hole is running. Dirbuster also revealed an admin page that we could visit.
 
 ### 3. Port 1075 UPNP Enumeration
+Port 1075 did not have a UI, and searchsploits on `platinum upnp` or `pi-hole` did not reveal anything that we could potentially use.
 
-### 4. 
+### 4. Port 22 SSH Enumeration
+Since we have not gotten any credentials, we check for default passwords. Indeed, the default password for SSH into the pi-hole worked.
+
+### 5. Getting Flags
+We find our user flag easily. Privilege escalation to root was also easy as we are basically root. Unforunately, the flag wasn't as straightforward, and the creator mentioned that the flag could be saved in a USB drive. Doing `df -h`, we see the USB drive but the flag was no where to be found. However, performing string on the filesystem mount reveals the root flag.
 
 # Attack
 ## 1. NMAP
@@ -246,8 +253,21 @@ User pi may run the following commands on localhost:
 pi@raspberrypi:/ $ sudo id
 uid=0(root) gid=0(root) groups=0(root)
 
+pi@raspberrypi:~ $ sudo -i
+
+SSH is enabled and the default password for the 'pi' user has not been changed.
+This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
+
+
+SSH is enabled and the default password for the 'pi' user has not been changed.
+This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
+
+root@raspberrypi:~#
+```
+Or just switching user, but not as cool or efficient.
+```
 pi@raspberrypi:/ $ su root
-Password: 
+Password: (raspberry)
 root@raspberrypi:/# 
 ```
 We're root now.
@@ -263,7 +283,7 @@ I lost my original root.txt! I think I may have a backup on my USB stick...
 ```
 Ooh, this is special.
 
-Let's look for the USB deevice.
+Let's look for the USB device with `df -h`. Alternatively, we could use something like `lsusb` as well.
 ```
 root@raspberrypi:/# df -h
 Filesystem      Size  Used Avail Use% Mounted on
