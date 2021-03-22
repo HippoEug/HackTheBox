@@ -1,1 +1,906 @@
+maildeliverer@Delivery:~$ pwd
+/home/maildeliverer
+
+maildeliverer@Delivery:~$ ls
+user.txt
+
+
+
+
+maildeliverer@Delivery:/home$ ls
+maildeliverer
+
+
+maildeliverer@Delivery:~$ uname -a
+Linux Delivery 4.19.0-13-amd64 #1 SMP Debian 4.19.160-2 (2020-11-28) x86_64 GNU/Linux
+
+
+
+maildeliverer@Delivery:~$ find / -perm -u=s -type f 2>/dev/null
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/bin/pkexec
+/usr/bin/newgrp
+/usr/bin/sudo
+/usr/bin/gpasswd
+/usr/bin/su
+/usr/bin/chfn
+/usr/bin/mount
+/usr/bin/passwd
+/usr/bin/chsh
+/usr/bin/umount
+/usr/bin/fusermount
+
+
+
+
+
+
+
+
+System Settings and Preferences — osTicket (v1.15.1)
+
+
+
+
+
+
+Welcome, Delivery. | Admin Panel | Profile | Log Out
+osTicket — Customer Support System
+
+    Dashboard
+    Users
+    Tasks
+    Tickets
+    Knowledgebase
+
+    Open
+    My Tickets
+    Closed
+    Search New Ticket 
+
+[advanced]
+Open
+	
+Ticket
+	
+Last Updated
+	
+Subject
+	
+From
+	
+Priority
+	
+Assigned To
+	
+431466
+	12/26/20 9:14 AM	
+osTicket Installed!
+	osTicket Support	
+Normal
+	
+	
+6092593
+	3/22/21 4:29 PM	
+my file broke
+	alknd	
+Low
+	
+	
+7466068
+	1/5/21 6:06 AM	
+test
+	5b785171bfb34762a933e127630c4860	
+Low
+	
+	
+9122359
+	1/5/21 6:06 AM	
+test
+	ff0a21fc6fc2488195e16ea854c963ee	
+Low
+	
+	
+4120849
+	1/5/21 6:06 AM	
+test
+	c3ecacacc7b94f909d04dbfd308a9b93	
+Low
+	
+	
+5056505
+	1/5/21 6:06 AM	
+test
+	9ecfb4be145d47fda0724f697f35ffaf	
+Low
+	
+	
+5677901
+	1/5/21 3:26 AM	
+noiss
+	bob	
+Low
+	
+Select:  All   None   Toggle  
+Showing 1 - 7 of about 7 Page: [1]  Export
+Copyright © 2006-2021 delivery All Rights Reserved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Welcome, Delivery. | Admin Panel | Profile | Log Out
+osTicket — Customer Support System
+
+    Dashboard
+    Users
+    Tasks
+    Tickets
+    Knowledgebase
+
+    Open
+    My Tickets
+    Closed
+    Search New Ticket 
+
+Ticket #6092593
+my file broke
+Status: 	Open
+Priority: 	Low
+Department: 	Support
+Create Date: 	3/22/21 4:29 PM
+	
+User: 	alknd (1) ( Manage Collaborators)
+Email: 	aldwkn@ndlak.com
+Source: 	Web    (10.10.14.41)
+
+Assigned To: 	— Unassigned —
+SLA Plan: 	Default SLA
+Update
+Due Date: 	3/24/21 4:29 PM 	
+	
+Help Topic: 	Contact Us
+Last Message: 	3/22/21 4:29 PM
+Last Response: 	
+
+    Ticket Thread (1)
+    Tasks
+
+Avatar
+alknd posted 3/22/21 4:29 PM
+
+kjbkjb
+linpeas.sh312.5 kb
+Created by Avataralknd 3/22/21 4:29 PM
+
+    Post Reply
+    Post Internal Note
+
+From: 	
+Recipients: 	"alknd" <aldwkn@ndlak.com>
+  	
+ Collaborators  
+Reply To: 	
+ 
+Response: 	
+
+Drop files here or choose them
+Signature: 	None Department Signature (Support)
+Ticket Status: 	
+Copyright © 2006-2021 delivery All Rights Reserved.
+
+
+
+
+
+
+
+
+
+
+http://delivery.htb:8065/do_verify_email?token=a5k53o185tdu7pb93gfgwr9umfsn1fcsn5xwwzibpez8hr8khj3sruguxjogqpcm&email=7466068%40delivery.htb
+http://delivery.htb:8065/do_verify_email?token=yu1wegyh8ua7ehk3a1eg56bmd471c6nwo3qy5hkarow6y5kp97x6iw6oodoko37w&email=9122359%40delivery.htb
+http://delivery.htb:8065/do_verify_email?token=8mj7g7ey59a9wrgfxd9a1jfnoqa7rezbeexhgc4mywckeeze77ibb179qeisigjd&email=4120849%40delivery.htb
+http://delivery.htb:8065/do_verify_email?token=sxjww9mxbokgr1fqu63iqitkiodimputhe9gi6zmhn7mhd3tyksub4zxiiukdef9&email=5056505%40delivery.htb
+
+Back
+Mattermost
+All team communication in one place, searchable and accessible anywhere
+The invite link was invalid. Please speak with your Administrator to receive an invitation.
+Mattermost
+© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
+
+
+maildeliverer@Delivery:/$ cd srv
+maildeliverer@Delivery:/srv$ ls
+
+
+maildeliverer@Delivery:/$ cd opt
+maildeliverer@Delivery:/opt$ ls
+mattermost
+maildeliverer@Delivery:/opt/mattermost$ ls
+bin  client  config  data  ENTERPRISE-EDITION-LICENSE.txt  fonts  i18n  logs  manifest.txt  NOTICE.txt  plugins  prepackaged_plugins  README.md  templates
+
+
+
+
+
+maildeliverer@Delivery:/opt/mattermost$ ls
+bin  client  config  data  ENTERPRISE-EDITION-LICENSE.txt  fonts  i18n  logs  manifest.txt  NOTICE.txt  plugins  prepackaged_plugins  README.md  templates
+maildeliverer@Delivery:/opt/mattermost$ cd config
+maildeliverer@Delivery:/opt/mattermost/config$ ls
+cloud_defaults.json  config.json  README.md
+maildeliverer@Delivery:/opt/mattermost/config$ cat cloud_defaults.json
+{
+    "ServiceSettings": {
+        "EnableEmailInvitations": true,
+        "EnableCustomEmoji": true,
+        "ExperimentalChannelSidebarOrganization": "default_on",
+        "EnableBotAccountCreation": true
+    },
+    "TeamSettings": {
+        "MaxUsersPerTeam": 1000,
+        "ExperimentalViewArchivedChannels": true,
+        "TeammateNameDisplay": "full_name"
+    },
+    "EmailSettings": {
+        "RequireEmailVerification": true,
+        "FeedbackEmail": "feedback@mattermost.com",
+        "ReplyToAddress": "noreply@mattermost.com",
+        "ConnectionSecurity": "TLS"
+    },
+    "GuestAccountsSettings": {
+        "Enable": true
+    },
+    "SqlSettings": {
+        "MaxIdleConns": 10,
+        "MaxOpenConns": 100
+    },
+    "ClusterSettings": {
+        "UseExperimentalGossip": true,
+        "EnableExperimentalGossipEncryption": true
+    },
+    "ExperimentalSettings": {
+        "RestrictSystemAdmin": true
+    }
+}
+maildeliverer@Delivery:/opt/mattermost/config$ cat config.json
+{
+    "ServiceSettings": {
+        "SiteURL": "",
+        "WebsocketURL": "",
+        "LicenseFileLocation": "",
+        "ListenAddress": ":8065",
+        "ConnectionSecurity": "",
+        "TLSCertFile": "",
+        "TLSKeyFile": "",
+        "TLSMinVer": "1.2",
+        "TLSStrictTransport": false,
+        "TLSStrictTransportMaxAge": 63072000,
+        "TLSOverwriteCiphers": [],
+        "UseLetsEncrypt": false,
+        "LetsEncryptCertificateCacheFile": "./config/letsencrypt.cache",
+        "Forward80To443": false,
+        "TrustedProxyIPHeader": [],
+        "ReadTimeout": 300,
+        "WriteTimeout": 300,
+        "IdleTimeout": 60,
+        "MaximumLoginAttempts": 10,
+        "GoroutineHealthThreshold": -1,
+        "GoogleDeveloperKey": "",
+        "EnableOAuthServiceProvider": false,
+        "EnableIncomingWebhooks": true,
+        "EnableOutgoingWebhooks": true,
+        "EnableCommands": true,
+        "EnableOnlyAdminIntegrations": true,
+        "EnablePostUsernameOverride": false,
+        "EnablePostIconOverride": false,
+        "EnableLinkPreviews": true,
+        "EnableTesting": false,
+        "EnableDeveloper": false,
+        "EnableOpenTracing": false,
+        "EnableSecurityFixAlert": true,
+        "EnableInsecureOutgoingConnections": false,
+        "AllowedUntrustedInternalConnections": "",
+        "EnableMultifactorAuthentication": false,
+        "EnforceMultifactorAuthentication": false,
+        "EnableUserAccessTokens": false,
+        "AllowCorsFrom": "",
+        "CorsExposedHeaders": "",
+        "CorsAllowCredentials": false,
+        "CorsDebug": false,
+        "AllowCookiesForSubdomains": false,
+        "ExtendSessionLengthWithActivity": true,
+        "SessionLengthWebInDays": 30,
+        "SessionLengthMobileInDays": 30,
+        "SessionLengthSSOInDays": 30,
+        "SessionCacheInMinutes": 10,
+        "SessionIdleTimeoutInMinutes": 43200,
+        "WebsocketSecurePort": 443,
+        "WebsocketPort": 80,
+        "WebserverMode": "gzip",
+        "EnableCustomEmoji": true,
+        "EnableEmojiPicker": true,
+        "EnableGifPicker": true,
+        "GfycatApiKey": "2_KtH_W5",
+        "GfycatApiSecret": "3wLVZPiswc3DnaiaFoLkDvB4X0IV6CpMkj4tf2inJRsBY6-FnkT08zGmppWFgeof",
+        "RestrictCustomEmojiCreation": "all",
+        "RestrictPostDelete": "all",
+        "AllowEditPost": "always",
+        "PostEditTimeLimit": -1,
+        "TimeBetweenUserTypingUpdatesMilliseconds": 5000,
+        "EnablePostSearch": true,
+        "MinimumHashtagLength": 3,
+        "EnableUserTypingMessages": true,
+        "EnableChannelViewedMessages": true,
+        "EnableUserStatuses": true,
+        "ExperimentalEnableAuthenticationTransfer": true,
+        "ClusterLogTimeoutMilliseconds": 2000,
+        "CloseUnusedDirectMessages": false,
+        "EnablePreviewFeatures": true,
+        "EnableTutorial": true,
+        "ExperimentalEnableDefaultChannelLeaveJoinMessages": true,
+        "ExperimentalGroupUnreadChannels": "disabled",
+        "ExperimentalChannelOrganization": false,
+        "ExperimentalChannelSidebarOrganization": "disabled",
+        "ExperimentalDataPrefetch": true,
+        "ImageProxyType": "",
+        "ImageProxyURL": "",
+        "ImageProxyOptions": "",
+        "EnableAPITeamDeletion": false,
+        "EnableAPIUserDeletion": false,
+        "ExperimentalEnableHardenedMode": false,
+        "DisableLegacyMFA": true,
+        "ExperimentalStrictCSRFEnforcement": false,
+        "EnableEmailInvitations": false,
+        "DisableBotsWhenOwnerIsDeactivated": true,
+        "EnableBotAccountCreation": false,
+        "EnableSVGs": false,
+        "EnableLatex": false,
+        "EnableAPIChannelDeletion": false,
+        "EnableLocalMode": false,
+        "LocalModeSocketLocation": "/var/tmp/mattermost_local.socket",
+        "EnableAWSMetering": false,
+        "SplitKey": "",
+        "FeatureFlagSyncIntervalSeconds": 30,
+        "DebugSplit": false,
+        "ThreadAutoFollow": true,
+        "ManagedResourcePaths": ""
+    },
+    "TeamSettings": {
+        "SiteName": "Mattermost",
+        "MaxUsersPerTeam": 5000,
+        "EnableTeamCreation": true,
+        "EnableUserCreation": true,
+        "EnableOpenServer": true,
+        "EnableUserDeactivation": false,
+        "RestrictCreationToDomains": "",
+        "EnableCustomBrand": false,
+        "CustomBrandText": "",
+        "CustomDescriptionText": "",
+        "RestrictDirectMessage": "any",
+        "RestrictTeamInvite": "all",
+        "RestrictPublicChannelManagement": "all",
+        "RestrictPrivateChannelManagement": "all",
+        "RestrictPublicChannelCreation": "all",
+        "RestrictPrivateChannelCreation": "all",
+        "RestrictPublicChannelDeletion": "all",
+        "RestrictPrivateChannelDeletion": "all",
+        "RestrictPrivateChannelManageMembers": "all",
+        "EnableXToLeaveChannelsFromLHS": false,
+        "UserStatusAwayTimeout": 300,
+        "MaxChannelsPerTeam": 2000,
+        "MaxNotificationsPerChannel": 1000000,
+        "EnableConfirmNotificationsToChannel": true,
+        "TeammateNameDisplay": "username",
+        "ExperimentalViewArchivedChannels": true,
+        "ExperimentalEnableAutomaticReplies": false,
+        "ExperimentalHideTownSquareinLHS": false,
+        "ExperimentalTownSquareIsReadOnly": false,
+        "LockTeammateNameDisplay": false,
+        "ExperimentalPrimaryTeam": "",
+        "ExperimentalDefaultChannels": []
+    },
+    "ClientRequirements": {
+        "AndroidLatestVersion": "",
+        "AndroidMinVersion": "",
+        "DesktopLatestVersion": "",
+        "DesktopMinVersion": "",
+        "IosLatestVersion": "",
+        "IosMinVersion": ""
+    },
+    "SqlSettings": {
+        "DriverName": "mysql",
+        "DataSource": "mmuser:Crack_The_MM_Admin_PW@tcp(127.0.0.1:3306)/mattermost?charset=utf8mb4,utf8\u0026readTimeout=30s\u0026writeTimeout=30s",
+        "DataSourceReplicas": [],
+        "DataSourceSearchReplicas": [],
+        "MaxIdleConns": 20,
+        "ConnMaxLifetimeMilliseconds": 3600000,
+        "MaxOpenConns": 300,
+        "Trace": false,
+        "AtRestEncryptKey": "n5uax3d4f919obtsp1pw1k5xetq1enez",
+        "QueryTimeout": 30,
+        "DisableDatabaseSearch": false
+    },
+    "LogSettings": {
+        "EnableConsole": true,
+        "ConsoleLevel": "INFO",
+        "ConsoleJson": true,
+        "EnableFile": true,
+        "FileLevel": "INFO",
+        "FileJson": true,
+        "FileLocation": "",
+        "EnableWebhookDebugging": true,
+        "EnableDiagnostics": true,
+        "EnableSentry": true,
+        "AdvancedLoggingConfig": ""
+    },
+    "ExperimentalAuditSettings": {
+        "FileEnabled": false,
+        "FileName": "",
+        "FileMaxSizeMB": 100,
+        "FileMaxAgeDays": 0,
+        "FileMaxBackups": 0,
+        "FileCompress": false,
+        "FileMaxQueueSize": 1000,
+        "AdvancedLoggingConfig": ""
+    },
+    "NotificationLogSettings": {
+        "EnableConsole": true,
+        "ConsoleLevel": "INFO",
+        "ConsoleJson": true,
+        "EnableFile": true,
+        "FileLevel": "INFO",
+        "FileJson": true,
+        "FileLocation": "",
+        "AdvancedLoggingConfig": ""
+    },
+    "PasswordSettings": {
+        "MinimumLength": 10,
+        "Lowercase": true,
+        "Number": true,
+        "Uppercase": true,
+        "Symbol": true
+    },
+    "FileSettings": {
+        "EnableFileAttachments": true,
+        "EnableMobileUpload": true,
+        "EnableMobileDownload": true,
+        "MaxFileSize": 52428800,
+        "DriverName": "local",
+        "Directory": "./data/",
+        "EnablePublicLink": false,
+        "PublicLinkSalt": "8818u8uiz1n9rykuwgiqttfzgu6iixhz",
+        "InitialFont": "nunito-bold.ttf",
+        "AmazonS3AccessKeyId": "",
+        "AmazonS3SecretAccessKey": "",
+        "AmazonS3Bucket": "",
+        "AmazonS3PathPrefix": "",
+        "AmazonS3Region": "",
+        "AmazonS3Endpoint": "s3.amazonaws.com",
+        "AmazonS3SSL": true,
+        "AmazonS3SignV2": false,
+        "AmazonS3SSE": false,
+        "AmazonS3Trace": false
+    },
+    "EmailSettings": {
+        "EnableSignUpWithEmail": true,
+        "EnableSignInWithEmail": true,
+        "EnableSignInWithUsername": true,
+        "SendEmailNotifications": false,
+        "UseChannelInEmailNotifications": false,
+        "RequireEmailVerification": true,
+        "FeedbackName": "",
+        "FeedbackEmail": "",
+        "ReplyToAddress": "",
+        "FeedbackOrganization": "",
+        "EnableSMTPAuth": false,
+        "SMTPUsername": "",
+        "SMTPPassword": "",
+        "SMTPServer": "localhost",
+        "SMTPPort": "1025",
+        "SMTPServerTimeout": 10,
+        "ConnectionSecurity": "",
+        "SendPushNotifications": true,
+        "PushNotificationServer": "https://push-test.mattermost.com",
+        "PushNotificationContents": "full",
+        "PushNotificationBuffer": 1000,
+        "EnableEmailBatching": false,
+        "EmailBatchingBufferSize": 256,
+        "EmailBatchingInterval": 30,
+        "EnablePreviewModeBanner": true,
+        "SkipServerCertificateVerification": false,
+        "EmailNotificationContentsType": "full",
+        "LoginButtonColor": "#0000",
+        "LoginButtonBorderColor": "#2389D7",
+        "LoginButtonTextColor": "#2389D7"
+    },
+    "RateLimitSettings": {
+        "Enable": false,
+        "PerSec": 10,
+        "MaxBurst": 100,
+        "MemoryStoreSize": 10000,
+        "VaryByRemoteAddr": true,
+        "VaryByUser": false,
+        "VaryByHeader": ""
+    },
+    "PrivacySettings": {
+        "ShowEmailAddress": true,
+        "ShowFullName": true
+    },
+    "SupportSettings": {
+        "TermsOfServiceLink": "https://about.mattermost.com/default-terms/",
+        "PrivacyPolicyLink": "https://about.mattermost.com/default-privacy-policy/",
+        "AboutLink": "https://about.mattermost.com/default-about/",
+        "HelpLink": "https://about.mattermost.com/default-help/",
+        "ReportAProblemLink": "https://about.mattermost.com/default-report-a-problem/",
+        "SupportEmail": "feedback@mattermost.com",
+        "CustomTermsOfServiceEnabled": false,
+        "CustomTermsOfServiceReAcceptancePeriod": 365,
+        "EnableAskCommunityLink": true
+    },
+    "AnnouncementSettings": {
+        "EnableBanner": false,
+        "BannerText": "",
+        "BannerColor": "#f2a93b",
+        "BannerTextColor": "#333333",
+        "AllowBannerDismissal": true,
+        "AdminNoticesEnabled": true,
+        "UserNoticesEnabled": true,
+        "NoticesURL": "https://notices.mattermost.com/",
+        "NoticesFetchFrequency": 3600,
+        "NoticesSkipCache": false
+    },
+    "ThemeSettings": {
+        "EnableThemeSelection": true,
+        "DefaultTheme": "default",
+        "AllowCustomThemes": true,
+        "AllowedThemes": []
+    },
+    "GitLabSettings": {
+        "Enable": false,
+        "Secret": "",
+        "Id": "",
+        "Scope": "",
+        "AuthEndpoint": "",
+        "TokenEndpoint": "",
+        "UserApiEndpoint": ""
+    },
+    "GoogleSettings": {
+        "Enable": false,
+        "Secret": "",
+        "Id": "",
+        "Scope": "profile email",
+        "AuthEndpoint": "https://accounts.google.com/o/oauth2/v2/auth",
+        "TokenEndpoint": "https://www.googleapis.com/oauth2/v4/token",
+        "UserApiEndpoint": "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,nicknames,metadata"
+    },
+    "Office365Settings": {
+        "Enable": false,
+        "Secret": "",
+        "Id": "",
+        "Scope": "User.Read",
+        "AuthEndpoint": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        "TokenEndpoint": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+        "UserApiEndpoint": "https://graph.microsoft.com/v1.0/me",
+        "DirectoryId": ""
+    },
+    "LdapSettings": {
+        "Enable": false,
+        "EnableSync": false,
+        "LdapServer": "",
+        "LdapPort": 389,
+        "ConnectionSecurity": "",
+        "BaseDN": "",
+        "BindUsername": "",
+        "BindPassword": "",
+        "UserFilter": "",
+        "GroupFilter": "",
+        "GuestFilter": "",
+        "EnableAdminFilter": false,
+        "AdminFilter": "",
+        "GroupDisplayNameAttribute": "",
+        "GroupIdAttribute": "",
+        "FirstNameAttribute": "",
+        "LastNameAttribute": "",
+        "EmailAttribute": "",
+        "UsernameAttribute": "",
+        "NicknameAttribute": "",
+        "IdAttribute": "",
+        "PositionAttribute": "",
+        "LoginIdAttribute": "",
+        "PictureAttribute": "",
+        "SyncIntervalMinutes": 60,
+        "SkipCertificateVerification": false,
+        "PublicCertificateFile": "",
+        "PrivateKeyFile": "",
+        "QueryTimeout": 60,
+        "MaxPageSize": 0,
+        "LoginFieldName": "",
+        "LoginButtonColor": "#0000",
+        "LoginButtonBorderColor": "#2389D7",
+        "LoginButtonTextColor": "#2389D7",
+        "Trace": false
+    },
+    "ComplianceSettings": {
+        "Enable": false,
+        "Directory": "./data/",
+        "EnableDaily": false
+    },
+    "LocalizationSettings": {
+        "DefaultServerLocale": "en",
+        "DefaultClientLocale": "en",
+        "AvailableLocales": ""
+    },
+    "SamlSettings": {
+        "Enable": false,
+        "EnableSyncWithLdap": false,
+        "EnableSyncWithLdapIncludeAuth": false,
+        "IgnoreGuestsLdapSync": false,
+        "Verify": true,
+        "Encrypt": true,
+        "SignRequest": false,
+        "IdpUrl": "",
+        "IdpDescriptorUrl": "",
+        "IdpMetadataUrl": "",
+        "ServiceProviderIdentifier": "",
+        "AssertionConsumerServiceURL": "",
+        "SignatureAlgorithm": "RSAwithSHA1",
+        "CanonicalAlgorithm": "Canonical1.0",
+        "ScopingIDPProviderId": "",
+        "ScopingIDPName": "",
+        "IdpCertificateFile": "",
+        "PublicCertificateFile": "",
+        "PrivateKeyFile": "",
+        "IdAttribute": "",
+        "GuestAttribute": "",
+        "EnableAdminAttribute": false,
+        "AdminAttribute": "",
+        "FirstNameAttribute": "",
+        "LastNameAttribute": "",
+        "EmailAttribute": "",
+        "UsernameAttribute": "",
+        "NicknameAttribute": "",
+        "LocaleAttribute": "",
+        "PositionAttribute": "",
+        "LoginButtonText": "SAML",
+        "LoginButtonColor": "#34a28b",
+        "LoginButtonBorderColor": "#2389D7",
+        "LoginButtonTextColor": "#ffffff"
+    },
+    "NativeAppSettings": {
+        "AppDownloadLink": "https://mattermost.com/download/#mattermostApps",
+        "AndroidAppDownloadLink": "https://about.mattermost.com/mattermost-android-app/",
+        "IosAppDownloadLink": "https://about.mattermost.com/mattermost-ios-app/"
+    },
+    "ClusterSettings": {
+        "Enable": false,
+        "ClusterName": "",
+        "OverrideHostname": "",
+        "NetworkInterface": "",
+        "BindAddress": "",
+        "AdvertiseAddress": "",
+        "UseIpAddress": true,
+        "UseExperimentalGossip": false,
+        "EnableExperimentalGossipEncryption": false,
+        "ReadOnlyConfig": true,
+        "GossipPort": 8074,
+        "StreamingPort": 8075,
+        "MaxIdleConns": 100,
+        "MaxIdleConnsPerHost": 128,
+        "IdleConnTimeoutMilliseconds": 90000
+    },
+    "MetricsSettings": {
+        "Enable": false,
+        "BlockProfileRate": 0,
+        "ListenAddress": ":8067"
+    },
+    "ExperimentalSettings": {
+        "ClientSideCertEnable": false,
+        "ClientSideCertCheck": "secondary",
+        "EnableClickToReply": false,
+        "LinkMetadataTimeoutMilliseconds": 5000,
+        "RestrictSystemAdmin": false,
+        "UseNewSAMLLibrary": false,
+        "CloudUserLimit": 0,
+        "CloudBilling": false,
+        "EnableSharedChannels": false
+    },
+    "AnalyticsSettings": {
+        "MaxUsersForStatistics": 2500
+    },
+    "ElasticsearchSettings": {
+        "ConnectionUrl": "http://localhost:9200",
+        "Username": "elastic",
+        "Password": "changeme",
+        "EnableIndexing": false,
+        "EnableSearching": false,
+        "EnableAutocomplete": false,
+        "Sniff": true,
+        "PostIndexReplicas": 1,
+        "PostIndexShards": 1,
+        "ChannelIndexReplicas": 1,
+        "ChannelIndexShards": 1,
+        "UserIndexReplicas": 1,
+        "UserIndexShards": 1,
+        "AggregatePostsAfterDays": 365,
+        "PostsAggregatorJobStartTime": "03:00",
+        "IndexPrefix": "",
+        "LiveIndexingBatchSize": 1,
+        "BulkIndexingTimeWindowSeconds": 3600,
+        "RequestTimeoutSeconds": 30,
+        "SkipTLSVerification": false,
+        "Trace": ""
+    },
+    "BleveSettings": {
+        "IndexDir": "",
+        "EnableIndexing": false,
+        "EnableSearching": false,
+        "EnableAutocomplete": false,
+        "BulkIndexingTimeWindowSeconds": 3600
+    },
+    "DataRetentionSettings": {
+        "EnableMessageDeletion": false,
+        "EnableFileDeletion": false,
+        "MessageRetentionDays": 365,
+        "FileRetentionDays": 365,
+        "DeletionJobStartTime": "02:00"
+    },
+    "MessageExportSettings": {
+        "EnableExport": false,
+        "ExportFormat": "actiance",
+        "DailyRunTime": "01:00",
+        "ExportFromTimestamp": 0,
+        "BatchSize": 10000,
+        "DownloadExportResults": false,
+        "GlobalRelaySettings": {
+            "CustomerType": "A9",
+            "SmtpUsername": "",
+            "SmtpPassword": "",
+            "EmailAddress": "",
+            "SMTPServerTimeout": 1800
+        }
+    },
+    "JobSettings": {
+        "RunJobs": true,
+        "RunScheduler": true
+    },
+    "PluginSettings": {
+        "Enable": true,
+        "EnableUploads": false,
+        "AllowInsecureDownloadUrl": false,
+        "EnableHealthCheck": true,
+        "Directory": "./plugins",
+        "ClientDirectory": "./client/plugins",
+        "Plugins": {},
+        "PluginStates": {
+            "com.mattermost.nps": {
+                "Enable": true
+            },
+            "com.mattermost.plugin-channel-export": {
+                "Enable": true
+            },
+            "com.mattermost.plugin-incident-management": {
+                "Enable": true
+            }
+        },
+        "EnableMarketplace": true,
+        "EnableRemoteMarketplace": true,
+        "AutomaticPrepackagedPlugins": true,
+        "RequirePluginSignature": false,
+        "MarketplaceUrl": "https://api.integrations.mattermost.com",
+        "SignaturePublicKeyFiles": []
+    },
+    "DisplaySettings": {
+        "CustomUrlSchemes": [],
+        "ExperimentalTimezone": true
+    },
+    "GuestAccountsSettings": {
+        "Enable": false,
+        "AllowEmailAccounts": true,
+        "EnforceMultifactorAuthentication": false,
+        "RestrictCreationToDomains": ""
+    },
+    "ImageProxySettings": {
+        "Enable": false,
+        "ImageProxyType": "local",
+        "RemoteImageProxyURL": "",
+        "RemoteImageProxyOptions": ""
+    },
+    "CloudSettings": {
+        "CWSUrl": "https://customers.mattermost.com"
+    }
+}maildeliverer@Delivery:/opt/mattermost/config$ cat readme.md
+cat: readme.md: No such file or directory
+maildeliverer@Delivery:/opt/mattermost/config$ cat README.md
+# config.json
+
+This is the system configuration file for your Mattermost server. Settings are specific to different editions of Mattermost. Please read the documentation before making changes: https://about.mattermost.com/default-config-docs/
+
+
+
+
+
+maildeliverer@Delivery:~$ systemctl --type=service --state=running
+UNIT                      LOAD   ACTIVE SUB     DESCRIPTION                                                 
+avahi-daemon.service      loaded active running Avahi mDNS/DNS-SD Stack                                     
+cron.service              loaded active running Regular background program processing daemon                
+cups-browsed.service      loaded active running Make remote CUPS printers available locally                 
+cups.service              loaded active running CUPS Scheduler                                              
+dbus.service              loaded active running D-Bus System Message Bus                                    
+getty@tty1.service        loaded active running Getty on tty1                                               
+mariadb.service           loaded active running MariaDB 10.3.27 database server                             
+mattermost.service        loaded active running Mattermost                                                  
+nginx.service             loaded active running A high performance web server and a reverse proxy server    
+open-vm-tools.service     loaded active running Service for virtual machines hosted on VMware               
+php7.3-fpm.service        loaded active running The PHP 7.3 FastCGI Process Manager                         
+rsyslog.service           loaded active running System Logging Service                                      
+ssh.service               loaded active running OpenBSD Secure Shell server                                 
+systemd-journald.service  loaded active running Journal Service                                             
+systemd-logind.service    loaded active running Login Service                                               
+systemd-timesyncd.service loaded active running Network Time Synchronization                                
+systemd-udevd.service     loaded active running udev Kernel Device Manager                                  
+user@1000.service         loaded active running User Manager for UID 1000                                   
+vgauth.service            loaded active running Authentication service for virtual machines hosted on VMware
+
+
+
+
+
+
+
+maildeliverer@Delivery:~$ find / -name "mattermost*" > mattermost.txt
+maildeliverer@Delivery:~$ cat mattermost.txt
+/etc/systemd/system/multi-user.target.wants/mattermost.service
+/opt/mattermost
+/opt/mattermost/client/images/mattermost-cloud.svg
+/opt/mattermost/client/emoji/mattermost.png
+/opt/mattermost/logs/mattermost.log
+/opt/mattermost/bin/mattermost
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-github-v0.14.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-aws-SNS-v1.0.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-nps-v1.1.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-custom-attributes-v1.2.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-gitlab-v1.1.0-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-welcomebot-v1.1.1-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-custom-attributes-v1.2.0-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-incident-management-v1.1.1-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-jenkins-v1.0.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-jira-v2.3.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-incident-management-v1.1.1-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-jira-v2.3.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-gitlab-v1.1.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-channel-export-v0.2.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-welcomebot-v1.1.1-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-zoom-v1.3.1-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-github-v0.14.0-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-antivirus-v0.1.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-autolink-v1.1.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-channel-export-v0.2.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-autolink-v1.1.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-aws-SNS-v1.0.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-zoom-v1.3.1-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-nps-v1.1.0-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-antivirus-v0.1.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-jenkins-v1.0.0-linux-amd64.tar.gz.sig
+/usr/lib/systemd/system/mattermost.service
+/home/maildeliverer/mattermost.txt
+/var/lib/mysql/mattermost
+/sys/fs/cgroup/memory/system.slice/mattermost.service
+/sys/fs/cgroup/pids/system.slice/mattermost.service
+/sys/fs/cgroup/devices/system.slice/mattermost.service
+/sys/fs/cgroup/systemd/system.slice/mattermost.service
+/sys/fs/cgroup/unified/system.slice/mattermost.service
 
