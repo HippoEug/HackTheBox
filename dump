@@ -4,143 +4,9 @@ maildeliverer@Delivery:/home$ ls
 maildeliverer
 
 
-maildeliverer@Delivery:~$ uname -a
-Linux Delivery 4.19.0-13-amd64 #1 SMP Debian 4.19.160-2 (2020-11-28) x86_64 GNU/Linux
 
 
 
-maildeliverer@Delivery:~$ find / -perm -u=s -type f 2>/dev/null
-/usr/lib/dbus-1.0/dbus-daemon-launch-helper
-/usr/lib/policykit-1/polkit-agent-helper-1
-/usr/lib/eject/dmcrypt-get-device
-/usr/lib/openssh/ssh-keysign
-/usr/bin/pkexec
-/usr/bin/newgrp
-/usr/bin/sudo
-/usr/bin/gpasswd
-/usr/bin/su
-/usr/bin/chfn
-/usr/bin/mount
-/usr/bin/passwd
-/usr/bin/chsh
-/usr/bin/umount
-/usr/bin/fusermount
-
-
-
-
-
-
-
-
-System Settings and Preferences — osTicket (v1.15.1)
-
-
-
-
-
-Welcome, Delivery. | Admin Panel | Profile | Log Out
-osTicket — Customer Support System
-
-    Dashboard
-    Users
-    Tasks
-    Tickets
-    Knowledgebase
-
-    Open
-    My Tickets
-    Closed
-    Search New Ticket 
-
-[advanced]
-Open
-	
-Ticket
-	
-Last Updated
-	
-Subject
-	
-From
-	
-Priority
-	
-Assigned To
-	
-431466
-	12/26/20 9:14 AM	
-osTicket Installed!
-	osTicket Support	
-Normal
-	
-	
-6281753
-	4/3/21 4:47 AM	
-My pizza is not boneless
-	Ali Baba	
-Low
-	
-	
-7466068
-	1/5/21 6:06 AM	
-test
-	5b785171bfb34762a933e127630c4860	
-Low
-	
-	
-9122359
-	1/5/21 6:06 AM	
-test
-	ff0a21fc6fc2488195e16ea854c963ee	
-Low
-	
-	
-4120849
-	1/5/21 6:06 AM	
-test
-	c3ecacacc7b94f909d04dbfd308a9b93	
-Low
-	
-	
-5056505
-	1/5/21 6:06 AM	
-test
-	9ecfb4be145d47fda0724f697f35ffaf	
-Low
-	
-	
-5677901
-	1/5/21 3:26 AM	
-noiss
-	bob	
-Low
-	
-Select:  All   None   Toggle  
-Showing 1 - 7 of about 7 Page: [1]  Export
-Copyright © 2006-2021 delivery All Rights Reserved.
-
-
-
-
-
-
-
-
-
-
-
-http://delivery.htb:8065/do_verify_email?token=a5k53o185tdu7pb93gfgwr9umfsn1fcsn5xwwzibpez8hr8khj3sruguxjogqpcm&email=7466068%40delivery.htb
-http://delivery.htb:8065/do_verify_email?token=yu1wegyh8ua7ehk3a1eg56bmd471c6nwo3qy5hkarow6y5kp97x6iw6oodoko37w&email=9122359%40delivery.htb
-http://delivery.htb:8065/do_verify_email?token=8mj7g7ey59a9wrgfxd9a1jfnoqa7rezbeexhgc4mywckeeze77ibb179qeisigjd&email=4120849%40delivery.htb
-http://delivery.htb:8065/do_verify_email?token=sxjww9mxbokgr1fqu63iqitkiodimputhe9gi6zmhn7mhd3tyksub4zxiiukdef9&email=5056505%40delivery.htb
-
-Back
-Mattermost
-All team communication in one place, searchable and accessible anywhere
-The invite link was invalid. Please speak with your Administrator to receive an invitation.
-Mattermost
-© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
 
 
 maildeliverer@Delivery:/$ cd srv
@@ -753,27 +619,7 @@ This is the system configuration file for your Mattermost server. Settings are s
 
 
 
-maildeliverer@Delivery:~$ systemctl --type=service --state=running
-UNIT                      LOAD   ACTIVE SUB     DESCRIPTION                                                 
-avahi-daemon.service      loaded active running Avahi mDNS/DNS-SD Stack                                     
-cron.service              loaded active running Regular background program processing daemon                
-cups-browsed.service      loaded active running Make remote CUPS printers available locally                 
-cups.service              loaded active running CUPS Scheduler                                              
-dbus.service              loaded active running D-Bus System Message Bus                                    
-getty@tty1.service        loaded active running Getty on tty1                                               
-mariadb.service           loaded active running MariaDB 10.3.27 database server                             
-mattermost.service        loaded active running Mattermost                                                  
-nginx.service             loaded active running A high performance web server and a reverse proxy server    
-open-vm-tools.service     loaded active running Service for virtual machines hosted on VMware               
-php7.3-fpm.service        loaded active running The PHP 7.3 FastCGI Process Manager                         
-rsyslog.service           loaded active running System Logging Service                                      
-ssh.service               loaded active running OpenBSD Secure Shell server                                 
-systemd-journald.service  loaded active running Journal Service                                             
-systemd-logind.service    loaded active running Login Service                                               
-systemd-timesyncd.service loaded active running Network Time Synchronization                                
-systemd-udevd.service     loaded active running udev Kernel Device Manager                                  
-user@1000.service         loaded active running User Manager for UID 1000                                   
-vgauth.service            loaded active running Authentication service for virtual machines hosted on VMware
+
 
 
 
