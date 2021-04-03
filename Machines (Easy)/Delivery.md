@@ -16,6 +16,10 @@
 
 ### 6. SSH with Credentials
 
+### 7. Privilege Escalation Enumeration
+
+### 8. Actual Privilege Escalation
+
 # Attack
 ## 1. NMAP
 Once upon a time...
@@ -414,3 +418,6 @@ maildeliverer@Delivery:~$ crontab -l
 no crontab for maildeliverer
 ```
 Nevermind.
+
+## 8. Actual Privilege Escalation
+Here is where I got stuck again, and had to search for answers. 
