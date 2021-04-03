@@ -7,46 +7,4 @@ maildeliverer
 
 
 
-maildeliverer@Delivery:~$ find / -name "mattermost*" > mattermost.txt
-maildeliverer@Delivery:~$ cat mattermost.txt
-/etc/systemd/system/multi-user.target.wants/mattermost.service
-/opt/mattermost
-/opt/mattermost/client/images/mattermost-cloud.svg
-/opt/mattermost/client/emoji/mattermost.png
-/opt/mattermost/logs/mattermost.log
-/opt/mattermost/bin/mattermost
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-github-v0.14.0-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-aws-SNS-v1.0.2-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-nps-v1.1.0-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-custom-attributes-v1.2.0-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-gitlab-v1.1.0-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-welcomebot-v1.1.1-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-custom-attributes-v1.2.0-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-incident-management-v1.1.1-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-jenkins-v1.0.0-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-jira-v2.3.2-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-incident-management-v1.1.1-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-jira-v2.3.2-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-gitlab-v1.1.0-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-channel-export-v0.2.2-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-welcomebot-v1.1.1-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-zoom-v1.3.1-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-github-v0.14.0-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-antivirus-v0.1.2-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-autolink-v1.1.2-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-channel-export-v0.2.2-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-autolink-v1.1.2-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-aws-SNS-v1.0.2-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-zoom-v1.3.1-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-nps-v1.1.0-linux-amd64.tar.gz.sig
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-antivirus-v0.1.2-linux-amd64.tar.gz
-/opt/mattermost/prepackaged_plugins/mattermost-plugin-jenkins-v1.0.0-linux-amd64.tar.gz.sig
-/usr/lib/systemd/system/mattermost.service
-/home/maildeliverer/mattermost.txt
-/var/lib/mysql/mattermost
-/sys/fs/cgroup/memory/system.slice/mattermost.service
-/sys/fs/cgroup/pids/system.slice/mattermost.service
-/sys/fs/cgroup/devices/system.slice/mattermost.service
-/sys/fs/cgroup/systemd/system.slice/mattermost.service
-/sys/fs/cgroup/unified/system.slice/mattermost.service
 
