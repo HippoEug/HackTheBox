@@ -269,6 +269,8 @@ Helpdesk software - powered by osTicket
 ```
 Entering the Email Address we just got as well as a Ticket Number, we got an error `Access denied`. Hmm.
 
+As it turns out, those were the wrong credentials. We needed to enter our original Email Address used in the ticket, which was `alibaba@pizza.com`. We will fix this issue below.
+
 ## 4. Port 8065 MatterMost Enumeration
 Let's move on first. From the Contact Us botton earlier, we see the interesting message.
 ```
@@ -445,6 +447,78 @@ You joined the team.
 ```
 Interesting.. user `root` mentioned credentials, `Credentials to the server are maildeliverer:Youve_G0t_Mail!`. So username `maildeliverer` and password `Youve_G0t_Mail!`?
 
+Extra information which isn't required, the Support Center Ticket System login page `http://helpdesk.delivery.htb/login.php` has an option for `I'm an agent - sign in here`.
+Using the credentials username `maildeliverer` and password `Youve_G0t_Mail!` on the osTicket Log In page at `helpdesk.delivery.htb/scp/login.php`, were able to sign in successfully.
+
+Under the dashboard, we see a total of 7 Open tickets, and one of which is the ticket which we created, `My pizza is not boneless`.
+```
+Welcome, Delivery. | Admin Panel | Profile | Log Out
+osTicket — Customer Support System
+
+Dashboard  Users  Tasks  Tickets  Knowledgebase
+Open  My Tickets  Closed  Search  New Ticket
+
+Open
+	
+Ticket  Last Updated  Subject  From  Priority  Assigned To
+	
+431466
+12/26/20 9:14 AM	
+osTicket Installed!
+osTicket Support	
+Normal
+	
+6281753
+4/3/21 4:47 AM	
+My pizza is not boneless
+Ali Baba	
+Low
+
+7466068
+1/5/21 6:06 AM	
+test
+5b785171bfb34762a933e127630c4860	
+Low
+
+9122359
+1/5/21 6:06 AM	
+test
+ff0a21fc6fc2488195e16ea854c963ee	
+Low
+
+4120849
+1/5/21 6:06 AM	
+test
+c3ecacacc7b94f909d04dbfd308a9b93	
+Low
+
+5056505
+1/5/21 6:06 AM	
+test
+9ecfb4be145d47fda0724f697f35ffaf	
+Low
+
+5677901
+1/5/21 3:26 AM	
+noiss
+bob	
+Low
+	
+Select:  All   None   Toggle  
+Showing 1 - 7 of about 7 Page: [1]  Export
+Copyright © 2006-2021 delivery All Rights Reserved.
+```
+Going through each of these tickets, we find various Mattermost verification email links.
+```
+http://delivery.htb:8065/do_verify_email?token=a5k53o185tdu7pb93gfgwr9umfsn1fcsn5xwwzibpez8hr8khj3sruguxjogqpcm&email=7466068%40delivery.htb
+http://delivery.htb:8065/do_verify_email?token=yu1wegyh8ua7ehk3a1eg56bmd471c6nwo3qy5hkarow6y5kp97x6iw6oodoko37w&email=9122359%40delivery.htb
+http://delivery.htb:8065/do_verify_email?token=8mj7g7ey59a9wrgfxd9a1jfnoqa7rezbeexhgc4mywckeeze77ibb179qeisigjd&email=4120849%40delivery.htb
+http://delivery.htb:8065/do_verify_email?token=sxjww9mxbokgr1fqu63iqitkiodimputhe9gi6zmhn7mhd3tyksub4zxiiukdef9&email=5056505%40delivery.htb
+```
+However, these links are all expired with the message `The invite link was invalid. Please speak with your Administrator to receive an invitation.`.
+
+Additionally, we take a look around this admin page, and under settings we see the version `System Settings and Preferences — osTicket (v1.15.1)`.
+
 ## 6. SSH with Credentials
 With credentials username `maildeliverer` and password `Youve_G0t_Mail!`, we were not able to access Mattermost or an existing View Ticket Thread. That only leaves us with SSH.
 ```
@@ -467,6 +541,10 @@ maildeliverer@Delivery:~$
 ```
 And indeed, into the system. We can get flags now.
 ```
+maildeliverer@Delivery:~$ pwd
+/home/maildeliverer
+maildeliverer@Delivery:~$ ls
+user.txt
 maildeliverer@Delivery:~$ cat user.txt
 dd0d904a2962b49b64e5360dc90dd766
 ```
