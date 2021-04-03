@@ -571,4 +571,55 @@ Sorry, user maildeliverer may not run sudo on Delivery.
 ```
 Unfortunately not.
 
-## 7. Privilege Escalation
+## 7. Privilege Escalation Enumeration
+Let's do some enumeration.
+```
+maildeliverer@Delivery:~$ uname -a
+Linux Delivery 4.19.0-13-amd64 #1 SMP Debian 4.19.160-2 (2020-11-28) x86_64 GNU/Linux
+```
+And the SUID configuration which we've seen in other previous boxes.
+```
+maildeliverer@Delivery:~$ find / -perm -u=s -type f 2>/dev/null
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/bin/pkexec
+/usr/bin/newgrp
+/usr/bin/sudo
+/usr/bin/gpasswd
+/usr/bin/su
+/usr/bin/chfn
+/usr/bin/mount
+/usr/bin/passwd
+/usr/bin/chsh
+/usr/bin/umount
+/usr/bin/fusermount
+```
+Nothing out of the ordinary.
+
+What about services?
+```
+maildeliverer@Delivery:~$ systemctl --type=service --state=running
+UNIT                      LOAD   ACTIVE SUB     DESCRIPTION                                                 
+avahi-daemon.service      loaded active running Avahi mDNS/DNS-SD Stack                                     
+cron.service              loaded active running Regular background program processing daemon                
+cups-browsed.service      loaded active running Make remote CUPS printers available locally                 
+cups.service              loaded active running CUPS Scheduler                                              
+dbus.service              loaded active running D-Bus System Message Bus                                    
+getty@tty1.service        loaded active running Getty on tty1                                               
+mariadb.service           loaded active running MariaDB 10.3.27 database server                             
+mattermost.service        loaded active running Mattermost                                                  
+nginx.service             loaded active running A high performance web server and a reverse proxy server    
+open-vm-tools.service     loaded active running Service for virtual machines hosted on VMware               
+php7.3-fpm.service        loaded active running The PHP 7.3 FastCGI Process Manager                         
+rsyslog.service           loaded active running System Logging Service                                      
+ssh.service               loaded active running OpenBSD Secure Shell server                                 
+systemd-journald.service  loaded active running Journal Service                                             
+systemd-logind.service    loaded active running Login Service                                               
+systemd-timesyncd.service loaded active running Network Time Synchronization                                
+systemd-udevd.service     loaded active running udev Kernel Device Manager                                  
+user@1000.service         loaded active running User Manager for UID 1000                                   
+vgauth.service            loaded active running Authentication service for virtual machines hosted on VMware
+```
+The `mattermost.service` is interesting, but it is expected as we have seen the Mattermost running. Another interesting one is the `MariaDB 10.3.27 database server`.
