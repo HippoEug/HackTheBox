@@ -149,14 +149,9 @@ Shellcodes: No Results
 However, we don't see any version numbers whatsoever from page source, so we don't have a clear target. Let's KIV this, we can try some of these exploits if we are stuck in the end.
 
 Visiting `http://delivery.htb:8065/`, we get redirected to `http://delivery.htb:8065/login`.
-```
-Mattermost
-All team communication in one place, searchable and accessible anywhere
-Don't have an account? Create one now.
-I forgot my password.
-Mattermost
-© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
-```
+
+![Mattermost](https://user-images.githubusercontent.com/21957042/113477915-085ae500-94b8-11eb-82ca-0cb6dd6361fb.png)
+
 Ah, turns out Port 8065 is running MatterMost, and we are on the login page. I've used MatterMost in my training before, it's just like another internal Discord server. We also do a quick Searchsploit.
 ```
 hippoeug@kali:~$ searchsploit mattermost
@@ -168,20 +163,13 @@ Finally, if we don't see anything interesting we will Dirbuster this site.
 
 ## 3. Port 80 Helpdesk Enumeration
 As we've seen earlier, let's revisit `http://helpdesk.delivery.htb/`.
-```
-Support Center Home Open a New Ticket Check Ticket Status 
 
-Open a New Ticket
-Check Ticket Status
+![Support Center](https://user-images.githubusercontent.com/21957042/113477917-08f37b80-94b8-11eb-8207-4c46c8f1ead8.png)
 
-Welcome to the Support Center
-
-In order to streamline support requests and better serve you, we utilize a support ticket system. 
-Every support request is assigned a unique ticket number which you can use to track the progress and responses online. 
-For your reference we provide complete archives and history of all your support requests. 
-A valid email address is required to submit a ticket.
-```
 Hmm, a valid email address is required to submit a ticket. Let's try submitting a ticket anyhow.
+
+![OpenTicket](https://user-images.githubusercontent.com/21957042/113477916-08f37b80-94b8-11eb-8cbf-4ebd0df1f202.png)
+
 ```
 Open a New Ticket
 Please fill in the form below to open a new ticket.
