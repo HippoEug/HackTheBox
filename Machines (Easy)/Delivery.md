@@ -198,38 +198,15 @@ Copyright © 2021 delivery - All rights reserved.
 Helpdesk software - powered by osTicket
 ```
 Filled this up, and it's interesting we can upload a file. Potentially, we could upload a reverse shell or something. Let's Create Ticket.
-```
-Support Center Home Open a New Ticket Check Ticket Status 
 
-Support ticket request created
+![Ticket Created](https://user-images.githubusercontent.com/21957042/113478281-8a4c0d80-94ba-11eb-8d05-35906ce074ee.png)
 
-Ali Baba, 
-You may check the status of your ticket, by navigating to the Check Status page using ticket id: 4009396.
-If you want to add more information to your ticket, just email 4009396@delivery.htb.
-
-Thanks,
-Support Team
-
-Copyright © 2021 delivery - All rights reserved.
-Helpdesk software - powered by osTicket
-```
-Cool! We got a email now, `4009396@delivery.htb` and our ticket id is `4009396`.
+Cool! We got a email now, `40314246@delivery.htb` and our ticket id is `4031424`.
 
 What can we do now? Maybe we can check the status of our ticket we just created.
-```
-Check Ticket Status
 
-Please provide your email address and a ticket number. This will sign you in to view your ticket.
-Email Address: 4009396@delivery.htb
-Ticket Number: 4009396
+![Access Denied](https://user-images.githubusercontent.com/21957042/113478278-87e9b380-94ba-11eb-8922-d4da78fce25d.png)
 
-Have an account with us? Sign In or register for an account to access all your tickets.
-
-If this is your first time contacting us or you've lost the ticket number, please open a new ticket
-
-Copyright © 2021 delivery - All rights reserved.
-Helpdesk software - powered by osTicket
-```
 Entering the Email Address we just got as well as a Ticket Number, we got an error `Access denied`. Hmm.
 
 As it turns out, those were the wrong credentials. We needed to enter our original Email Address used in the ticket, which was `alibaba@pizza.com`. We will fix this issue below.
@@ -245,22 +222,15 @@ Once you have an @delivery.htb email address, you'll be able to have access to o
 With the `@delivery.htb` email address, we would be able to access the MatterMost server, theoretically.
 
 We cannot sign in, because we do not have a MatterMost account.
-```
-Mattermost
-All team communication in one place, searchable and accessible anywhere
 
-Email or Username: 4009396@delivery.htb
-Password:
+![No Password](https://user-images.githubusercontent.com/21957042/113478280-89b37700-94ba-11eb-9cb7-5eba24867f6f.png)
 
-Don't have an account? Create one now.
-I forgot my password.
-
-Mattermost
-© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
-```
 We don't have a password.
 
 Let's create an account then.
+
+![Create Account](https://user-images.githubusercontent.com/21957042/113478279-891ae080-94ba-11eb-9ee2-76782ff26bc0.png)
+
 ```
 Mattermost
 All team communication in one place, searchable and accessible anywhere
@@ -268,7 +238,7 @@ All team communication in one place, searchable and accessible anywhere
 Let's create your account
 Already have an account? Click here to sign in.
 
-What's your email address?: 4009396@delivery.htb
+What's your email address?: 4031424@delivery.htb
 Valid email required for sign-up
 Choose your username: delivery
 You can use lowercase letters, numbers, periods, dashes, and underscores.
@@ -280,15 +250,10 @@ Mattermost
 © 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
 ```
 And finally a verification email.
-```
-Back
-Mattermost: You are almost done
 
-Please verify your email address. Check your inbox for an email.
-Mattermost
-© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
-```
-How are we going to access the email `4009396@delivery.htb` to verify?
+![Verificiation Email](https://user-images.githubusercontent.com/21957042/113478282-8ae4a400-94ba-11eb-8831-c1592992c835.png)
+
+How are we going to access the email `40314246@delivery.htb` to verify?
 
 ## 5. Discovering MatterMost
 Here is where I got stuck again and had to get some clues. Quoting my reference from drt.sh (link above), "This is very common of ticketing systems. Allowing the customer to reply directly to an email, and it will show up in the Customer Service Portal.". There, we need to go to the Customer Service Portal, which is we can find in the `Check Ticket Status` page.
