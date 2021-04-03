@@ -259,183 +259,39 @@ How are we going to access the email `40314246@delivery.htb` to verify?
 Here is where I got stuck again and had to get some clues. Quoting my reference from drt.sh (link above), "This is very common of ticketing systems. Allowing the customer to reply directly to an email, and it will show up in the Customer Service Portal.". There, we need to go to the Customer Service Portal, which is we can find in the `Check Ticket Status` page.
 
 We go back to checking the status of our ticket we created. This time, we use our original `@pizza.com` email address, not the `@delivery.htb` one that was provided. That was why our first attempt did not work.
-```
-Check Ticket Status
 
-Please provide your email address and a ticket number. This will sign you in to view your ticket.
-Email Address: alibaba@pizza.com
-Ticket Number: 4009396
+![View Ticket](https://user-images.githubusercontent.com/21957042/113479299-d306c500-94c0-11eb-9f5a-075a9f5fa747.png)
 
-Have an account with us? Sign In or register for an account to access all your tickets.
-
-If this is your first time contacting us or you've lost the ticket number, please open a new ticket
-
-Copyright © 2021 delivery - All rights reserved.
-Helpdesk software - powered by osTicket
-```
 Let's click `View Ticket`, and see what we get.
-```
-Looking for your other tickets?
-Sign In or register for an account for the best experience on our help desk.
 
-My pizza is not boneless #4009396
-Print Edit
-Basic Ticket Information
-Ticket Status: 	Open
-Department: 	Support
-Create Date: 	3/21/21 2:56 AM
-	
-User Information
-Name: 	Ali Baba
-Email: 	alibaba@pizza.com
-Phone: 	98987676 x65
+![View Ticket 2](https://user-images.githubusercontent.com/21957042/113479301-d306c500-94c0-11eb-8b48-9812065abd32.png)
 
-Avatar
-Ali Baba posted 3/21/21 2:56 AM
----- Registration Successful ---- Please activate your email by going to: 
-http://delivery.htb:8065/do_verify_email?token=pgct5wqwt7ki7ffsh4fdo8pr9dqtfzmsriwkkqyym93icdpan5pxnqx5odm6ggca&email=4009396%40delivery.htb )
---------------------- You can sign in from: --------------------- 
-Mattermost lets you share messages and files from your PC or phone, with instant search and archiving. 
-For the best experience, download the apps for PC, Mac, iOS and Android from: https://mattermost.com/download/#mattermostApps ( https://mattermost.com/download/#mattermostApps
-
-linpeas.sh312.5 kb
-Created by AvatarAli Baba 3/21/21 2:56 AM
-Post a Reply
-
-To best assist you, we request that you be specific and detailed * 
-
-Drop files here or choose them
-
-Copyright © 2021 delivery - All rights reserved.
-Helpdesk software - powered by osTicket
-```
-Fantastic! Now all we do is go to the verification link `http://delivery.htb:8065/do_verify_email?token=pgct5wqwt7ki7ffsh4fdo8pr9dqtfzmsriwkkqyym93icdpan5pxnqx5odm6ggca&email=4009396%40delivery.htb`.
+Fantastic! Now all we do is go to the verification link `http://delivery.htb:8065/do_verify_email?token=sowizixm4iuikchfpddpu45pm7f4yqe3k8m3nj4r8iixjp3or7f3d4g7b8swqzx5&email=4031424%40delivery.htb`.
 
 Let's create an account.
-```
-Mattermost
-All team communication in one place, searchable and accessible anywhere
 
-Email Verified
-Email or Username: 4009396@delivery.htb
-Password: Delivery69!
+![Mattermost](https://user-images.githubusercontent.com/21957042/113479296-d1d59800-94c0-11eb-97ff-5c884d942be4.png)
 
-Don't have an account? Create one now.
-I forgot my password.
-
-Mattermost
-© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
-```
 Okay, great. Few more buttons to click.
-```
-Preview Mode: Email notifications have not been configured.
-Back
 
-Mattermost
-All team communication in one place, searchable and accessible anywhere
+![Teams Join](https://user-images.githubusercontent.com/21957042/113479298-d26e2e80-94c0-11eb-8834-cd3e8eeb6313.png)
 
-Teams you can join:
-Internal
-Create a team
-
-Mattermost
-© 2015-2021 Mattermost, Inc.AboutPrivacyTermsHelp
-```
 Let's join Internal team.
 
 We can read the chat.
-```
-Beginning of Internal
 
-Welcome to Internal!
-Post messages here that you want everyone to see. Everyone automatically becomes a permanent member of this channel when they join the team.
+![Chat Messages](https://user-images.githubusercontent.com/21957042/113479295-d13d0180-94c0-11eb-8b1b-ac5bc0552b18.png)
 
-December 26, 2020
-System
-10:25 PM
-@root joined the team.
-
-System
-10:28 PM
-@root updated the channel display name from: Town Square to: Internal
-
-root
-10:29 PM
-@developers Please update theme to the OSTicket before we go live.  Credentials to the server are maildeliverer:Youve_G0t_Mail! 
-Also please create a program to help us stop re-using the same passwords everywhere.... Especially those that are a variant of "PleaseSubscribe!"
-
-root
-11:58 PM
-PleaseSubscribe! may not be in RockYou but if any hacker manages to get our hashes, they can use hashcat rules to easily crack all variations of common words or phrases.
-
-Today
-System
-3:23 PM
-You joined the team.
-```
 Interesting.. user `root` mentioned credentials, `Credentials to the server are maildeliverer:Youve_G0t_Mail!`. So username `maildeliverer` and password `Youve_G0t_Mail!`?
 
 Extra information which isn't required, the Support Center Ticket System login page `http://helpdesk.delivery.htb/login.php` has an option for `I'm an agent - sign in here`.
 Using the credentials username `maildeliverer` and password `Youve_G0t_Mail!` on the osTicket Log In page at `helpdesk.delivery.htb/scp/login.php`, were able to sign in successfully.
 
 Under the dashboard, we see a total of 7 Open tickets, and one of which is the ticket which we created, `My pizza is not boneless`.
-```
-Welcome, Delivery. | Admin Panel | Profile | Log Out
-osTicket — Customer Support System
 
-Dashboard  Users  Tasks  Tickets  Knowledgebase
-Open  My Tickets  Closed  Search  New Ticket
+![AdminProfile](https://user-images.githubusercontent.com/21957042/113479294-d0a46b00-94c0-11eb-8954-eeb3eec81a8f.png)
+![7Tickets](https://user-images.githubusercontent.com/21957042/113479291-cf733e00-94c0-11eb-80c7-e464b98bfd82.png)
 
-Open
-	
-Ticket  Last Updated  Subject  From  Priority  Assigned To
-	
-431466
-12/26/20 9:14 AM	
-osTicket Installed!
-osTicket Support	
-Normal
-	
-6281753
-4/3/21 4:47 AM	
-My pizza is not boneless
-Ali Baba	
-Low
-
-7466068
-1/5/21 6:06 AM	
-test
-5b785171bfb34762a933e127630c4860	
-Low
-
-9122359
-1/5/21 6:06 AM	
-test
-ff0a21fc6fc2488195e16ea854c963ee	
-Low
-
-4120849
-1/5/21 6:06 AM	
-test
-c3ecacacc7b94f909d04dbfd308a9b93	
-Low
-
-5056505
-1/5/21 6:06 AM	
-test
-9ecfb4be145d47fda0724f697f35ffaf	
-Low
-
-5677901
-1/5/21 3:26 AM	
-noiss
-bob	
-Low
-	
-Select:  All   None   Toggle  
-Showing 1 - 7 of about 7 Page: [1]  Export
-Copyright © 2006-2021 delivery All Rights Reserved.
-```
 Going through each of these tickets, we find various Mattermost verification email links.
 ```
 http://delivery.htb:8065/do_verify_email?token=a5k53o185tdu7pb93gfgwr9umfsn1fcsn5xwwzibpez8hr8khj3sruguxjogqpcm&email=7466068%40delivery.htb
