@@ -4,6 +4,9 @@ maildeliverer@Delivery:/home$ ls
 maildeliverer
 
 
+maildeliverer@Delivery:/$ ls
+bin   dev  home        initrd.img.old  lib32  libx32      media  opt   root  sbin  sys  usr  vmlinuz
+boot  etc  initrd.img  lib             lib64  lost+found  mnt    proc  run   srv   tmp  var  vmlinuz.old
 
 
 
