@@ -824,3 +824,54 @@ Inside this configuration file, we only need to focus on a single thing.
         "DisableDatabaseSearch": false
     },
 ```
+This is our entry to getting the root flag.
+
+Before we continue, there is an alternative method to discovering this config file goldmine. Since we know a MatterMost server exists, we can use it to find configuration files. Also, since the ticketing system needs a way to store data, MatterMost might need a database of sorts on the back end as well. We can look for the config files by searching it up.
+```
+maildeliverer@Delivery:~$ find / -name "mattermost*" > mattermost.txt
+
+maildeliverer@Delivery:~$ cat mattermost.txt
+/etc/systemd/system/multi-user.target.wants/mattermost.service
+/opt/mattermost
+/opt/mattermost/client/images/mattermost-cloud.svg
+/opt/mattermost/client/emoji/mattermost.png
+/opt/mattermost/logs/mattermost.log
+/opt/mattermost/bin/mattermost
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-github-v0.14.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-aws-SNS-v1.0.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-nps-v1.1.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-custom-attributes-v1.2.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-gitlab-v1.1.0-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-welcomebot-v1.1.1-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-custom-attributes-v1.2.0-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-incident-management-v1.1.1-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-jenkins-v1.0.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-jira-v2.3.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-incident-management-v1.1.1-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-jira-v2.3.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-gitlab-v1.1.0-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-channel-export-v0.2.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-welcomebot-v1.1.1-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-zoom-v1.3.1-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-github-v0.14.0-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-antivirus-v0.1.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-autolink-v1.1.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-channel-export-v0.2.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-autolink-v1.1.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-aws-SNS-v1.0.2-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-zoom-v1.3.1-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-nps-v1.1.0-linux-amd64.tar.gz.sig
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-antivirus-v0.1.2-linux-amd64.tar.gz
+/opt/mattermost/prepackaged_plugins/mattermost-plugin-jenkins-v1.0.0-linux-amd64.tar.gz.sig
+/usr/lib/systemd/system/mattermost.service
+/home/maildeliverer/mattermost.txt
+/var/lib/mysql/mattermost
+/sys/fs/cgroup/memory/system.slice/mattermost.service
+/sys/fs/cgroup/pids/system.slice/mattermost.service
+/sys/fs/cgroup/devices/system.slice/mattermost.service
+/sys/fs/cgroup/systemd/system.slice/mattermost.service
+/sys/fs/cgroup/unified/system.slice/mattermost.service
+```
+This search revealed that the MatterMost files are in `/opt/mattermost/` directory.
+
+With this `SqlSettings` information obtained, let's try using it. We know it is `mysql`, with username `mmuser` and password `Crack_The_MM_Admin_PW`.
