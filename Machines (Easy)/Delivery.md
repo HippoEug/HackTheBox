@@ -18,7 +18,9 @@
 
 ### 7. Privilege Escalation Enumeration
 
-### 8. Actual Privilege Escalation
+### 8. Privilege Escalation Attempt
+
+### 9. Password Cracking & Root Flag
 
 # Attack
 ## 1. NMAP
@@ -421,7 +423,7 @@ no crontab for maildeliverer
 ```
 Nevermind.
 
-## 8. Actual Privilege Escalation
+## 8. Privilege Escalation Attempt
 Here is where I got stuck again, and had to search for answers. 
 
 As it turns out, there is an interesting directory, `\opt`, in Linux OS. I quote the usage of this directory; "A directory for installing unbundled packages (i.e. packages not part of the Operating System distribution, but provided by an independent source), each one in its own subdirectory. They are already built whole packages provided by an independent third party software distributor."
@@ -918,3 +920,8 @@ MariaDB [mattermost]> SELECT Username,Password,Email from Users;
 8 rows in set (0.001 sec)
 ```
 Very interesting, the Username `root` has a Password hash of `$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO`.
+
+## 9. Password Cracking & Root Flag
+We need to identify this hash type.
+```
+```
