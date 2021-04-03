@@ -1,5 +1,7 @@
 # References
 1. [Delivery Writeup (drt.sh)](https://drt.sh/posts/htb-delivery/)
+2. [Delivery Writeup (medium.com)](https://psychovik.medium.com/htb-delivery-walk-through-a2cdd4e3f9cb)
+3. [Delivery Writeup (dylanpoelstra.nl)](https://dylanpoelstra.nl/delivery.html)
 
 # Summary
 ### 1. NMAP
@@ -81,25 +83,15 @@ Okay cool, Linux machine running Port 22 SSH and Port 80 HTTP. Lots of other stu
 
 ## 2. Port 80 HTTP Enumeration
 Let's visit `10.129.116.248` first.
-```
-Delivery
 
-The best place to get all your email related support
-For an account check out our helpdesk
+![10 129 123 240](https://user-images.githubusercontent.com/21957042/113474520-09cde280-94a3-11eb-80f0-27be3d5d401e.png)
 
-    Contact Us
-
-© Untitled. Design: HTML5 UP.
-```
 Clicking on `helpdesk` redirects to `http://helpdesk.delivery.htb/`, which shows `Server Not Found` error.
 
 Moving on, we click on `Contact Us` button.
-```
-Contact Us
 
-For unregistered users, please use our HelpDesk to get in touch with our team. 
-Once you have an @delivery.htb email address, you'll be able to have access to our MatterMost server.
-```
+![Contact Us](https://user-images.githubusercontent.com/21957042/113474525-0b97a600-94a3-11eb-8afe-b9a99974cd2f.png)
+
 Once again, clicking on `helpdesk` redirects to `http://helpdesk.delivery.htb/`, which shows `Server Not Found` error. But we are also able to click on `MatterMost server`, which brings us to `http://delivery.htb:8065/`, which also shows `Server Not Found` error. At least now we know there's Port 8065 also, which NMAP did not get to scan.
 
 No sweat, easy fix as we seen on many machines now. Let's just add to our `/etc/hosts` file.
@@ -120,26 +112,9 @@ ff02::2 ip6-allrouters
 With this added, we can now visit the 2 sites.
 
 Visiting `http://helpdesk.delivery.htb/` first.
-```
-Guest User | Sign In
 
-delivery
+![helpdesk delivery htb](https://user-images.githubusercontent.com/21957042/113474526-0cc8d300-94a3-11eb-93ff-091d198b85f5.png)
 
-    Support Center Home Open a New Ticket Check Ticket Status 
-
-Open a New Ticket
-
-Check Ticket Status
-Welcome to the Support Center
-
-In order to streamline support requests and better serve you, we utilize a support ticket system. 
-Every support request is assigned a unique ticket number which you can use to track the progress and responses online. 
-For your reference we provide complete archives and history of all your support requests. 
-A valid email address is required to submit a ticket.
-
-Copyright © 2021 delivery - All rights reserved.
-Helpdesk software - powered by osTicket
-```
 Interesting, we are able to sign in or be a guest user, and then open a new ticket and check the ticket status after. 
 
 We can see this Ticket Support system uses is powered by osTicket. Let's do a quick Searchsploit.
@@ -623,3 +598,10 @@ user@1000.service         loaded active running User Manager for UID 1000
 vgauth.service            loaded active running Authentication service for virtual machines hosted on VMware
 ```
 The `mattermost.service` is interesting, but it is expected as we have seen the Mattermost running. Another interesting one is the `MariaDB 10.3.27 database server`.
+
+What about scheduled tasks? Maybe we can take advantage of something here potentially.
+```
+maildeliverer@Delivery:~$ crontab -l
+no crontab for maildeliverer
+```
+Nevermind.
