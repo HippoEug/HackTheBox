@@ -281,7 +281,6 @@ Let's enumerate them and list them out!
 [ ]	wp-diff.php	2016-08-31 16:31 	661 	 
 Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
 ```
-```
 
 `http://10.129.1.53/javascript/`
 ![javascript](https://user-images.githubusercontent.com/21957042/113508378-53d9c580-9582-11eb-9b70-8e4efb4a7e41.png)
