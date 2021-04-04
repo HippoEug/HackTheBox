@@ -98,6 +98,8 @@ PORT   STATE SERVICE
 ## 2. Enumeration
 Let's visit the webpage. Navigating to `http://10.10.10.29:80` on our browser, we see the Apache2 Ubuntu Default Page.
 
+![UbuntuDefaultPage](https://user-images.githubusercontent.com/21957042/113509933-b1721000-958a-11eb-9e47-f2fe3d0a4526.png)
+
 Time to find exploits! Let's see `apache 2.4.7` first.
 ```
 hippoeug@kali:~$ searchsploit apache 2.4.7
@@ -338,6 +340,8 @@ ff02::2 ip6-allrouters
 ```
 After adding this, we open our browser to "bank.htb" and get directed to "bank.htb/login.php", presenting a login page this time around.
 
+![BankLogin](https://user-images.githubusercontent.com/21957042/113509926-ae771f80-958a-11eb-8d23-ebc14970e483.png)
+
 ## 7. Further Enumeration with Dirbuster Again
 Let's run GoBuster first.
 ```
@@ -393,39 +397,22 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 Interesting. We now know there are `/uploads`, `/assets`, `/inc`, `/server-status`, as well as `/balance-transfer`.
 
 Now going to our browser, we are going to try each one of these extensions.
+
+`http://bank.htb/uploads/`
+![Uploads](https://user-images.githubusercontent.com/21957042/113509934-b1721000-958a-11eb-9941-d75e846bff83.png)
+
+`http://bank.htb/assets/`
+![Assets](https://user-images.githubusercontent.com/21957042/113509923-acad5c00-958a-11eb-99d0-0b51267b0e2c.png)
+
+`http://bank.htb/inc/`
+![Inc](https://user-images.githubusercontent.com/21957042/113509927-ae771f80-958a-11eb-9785-978f229f9414.png)
+
+`http://bank.htb/server-status/`
+![ServerStatus](https://user-images.githubusercontent.com/21957042/113509931-b040e300-958a-11eb-9e94-a8d97a39011a.png)
+
+`http://bank.htb/balance-transfer`
+![balance_transfer](https://user-images.githubusercontent.com/21957042/113509924-adde8900-958a-11eb-86e6-aa33de0a0fa5.png)
 ```
-http://bank.htb/uploads/
--> Forbidden
-You don't have permission to access /uploads/ on this server.
-Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
-
-http://bank.htb/assets/
--> Index of /assets
-[ICO]	Name	Last modified	Size	Description
-[PARENTDIR]	Parent Directory	 	- 	 
-[DIR]	css/	2021-01-11 14:18 	- 	 
-[DIR]	font-awesome/	2021-01-11 14:18 	- 	 
-[DIR]	fonts/	2021-01-11 14:18 	- 	 
-[DIR]	img/	2021-01-11 14:18 	- 	 
-[DIR]	js/	2021-01-11 14:18 	- 	 
-Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
-
-http://bank.htb/inc/
--> Index of /inc
-[ICO]	Name	Last modified	Size	Description
-[PARENTDIR]	Parent Directory	 	- 	 
-[ ]	footer.php	2017-05-28 20:54 	1.2K	 
-[ ]	header.php	2017-05-28 20:53 	2.8K	 
-[ ]	ticket.php	2017-05-29 13:16 	2.3K	 
-[ ]	user.php	2017-05-28 21:39 	2.8K	 
-Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
-
-http://bank.htb/server-status/
--> Forbidden
-You don't have permission to access /server-status/ on this server.
-Apache/2.4.7 (Ubuntu) Server at bank.htb Port 80
-
-http://bank.htb/balance-transfer
 -> Index of /balance-transfer
 [ICO]	Name	Last modified	Size	Description
 [PARENTDIR]	Parent Directory	 	- 	 
@@ -512,7 +499,7 @@ altogether and utilizing a redirect flaw, gaining access to the support page.
 ## 8. Exploitating Unencrypted Credentials
 I got lost here yet again, and had to look up for writeups again.
 
-Turns out, one of these files is not like the other. Instead of having a size of either 583 or 584, it is much smaller and has a size of 257 due to failed encryption.
+Turns out, one of these files is not like the other. Instead of having a size of either 583 or 584, it is much smaller and has a size of 257 due to failed encryption. We can sort by size to find this file.
 ```
 [ ]	68576f20e9732f1b2edc4df5b8533230.acc	2017-06-15 09:50 	257 	 
 
@@ -534,14 +521,22 @@ Balance: 8842803 .
 ```
 We shall use these credentials to log in to `http://bank.htb/login.php`.
 
-Upon logging in successfully, we can see his balance, transactions, and credit cards. More importantly, we are able to see a Support page which we can upload files. However, since we were unable to access `http://bank.htb/uploads/`, it'd be useless since we would not be able to execute our payload.
+Upon logging in successfully, we can see his balance, transactions, and credit cards.
+
+![LoggedIn](https://user-images.githubusercontent.com/21957042/113509929-af0fb600-958a-11eb-8a05-25b33c00c4e5.png)
+
+More importantly, we are able to see a Support page which we can upload files. However, since we were unable to access `http://bank.htb/uploads/`, it'd be useless since we would not be able to execute our payload.
+
+![SupportPage](https://user-images.githubusercontent.com/21957042/113509932-b0d97980-958a-11eb-88fc-6ab0d2a33178.png)
 
 Yet again, I am lost since this is the first exercise where we do not use known exploits.
 
 ## 9. PHP Payload
 The clue was to look at the page source of the support page.
-```
 
+![PageSource](https://user-images.githubusercontent.com/21957042/113509930-afa84c80-958a-11eb-92af-58388c6b531d.png)
+
+```
 <!DOCTYPE html>
 <html>
   <head>
