@@ -236,8 +236,9 @@ Let's enumerate them and list them out!
 `http://10.129.1.53/plugins/`
 ![Plugins](https://user-images.githubusercontent.com/21957042/113508382-55a38900-9582-11eb-96b4-d27ec1001d79.png)
 
+`http://10.129.1.53/wp-includes/`
+![wp-includes](https://user-images.githubusercontent.com/21957042/113508396-5b00d380-9582-11eb-933d-b877e7246aef.png)
 ```
-http://10.129.1.53/wp-includes/
 -> Index of /wp-includes
 [ICO]	Name	Last modified	Size	Description
 [PARENTDIR]	Parent Directory	 	- 	 
@@ -279,29 +280,20 @@ http://10.129.1.53/wp-includes/
 [ ]	wp-db.php	2016-11-21 01:22 	93K	 
 [ ]	wp-diff.php	2016-08-31 16:31 	661 	 
 Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
-
-http://10.129.1.53/javascript/
--> Forbidden
-You don't have permission to access /javascript/ on this server.
-Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
-
-http://10.129.1.53/wp-admin/
-http://10.129.1.53/wp-login.php?redirect_to=http%3A%2F%2F10.129.1.53%2Fwp-admin%2F&reauth=1
--> Wordpress Login
-
-http://10.129.1.53/phpmyadmin/
--> phpMyAdmin
-Welcome to phpMyAdmin
-Language
-Log inDocumentation
-Username:
-Password:
-
-http://10.129.1.53/server-status
--> Forbidden
-You don't have permission to access /server-status on this server.
-Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
 ```
+
+`http://10.129.1.53/javascript/`
+![javascript](https://user-images.githubusercontent.com/21957042/113508378-53d9c580-9582-11eb-9b70-8e4efb4a7e41.png)
+
+`http://10.129.1.53/wp-admin/` is redirected to `http://10.129.1.53/wp-login.php?redirect_to=http%3A%2F%2F10.129.1.53%2Fwp-admin%2F&reauth=1`
+![wp-admin](https://user-images.githubusercontent.com/21957042/113508394-59cfa680-9582-11eb-8a65-a0931c6cd6f3.png)
+
+`http://10.129.1.53/phpmyadmin/`
+![phpmyadmin](https://user-images.githubusercontent.com/21957042/113508381-550af280-9582-11eb-97fc-dc808d7fac35.png)
+
+`http://10.129.1.53/server-status`
+![server_status](https://user-images.githubusercontent.com/21957042/113508385-563c1f80-9582-11eb-993b-b161a7d93a3e.png)
+
 That is quite a lot of things to go through. 
 
 ## 3. Decompile .jar Files
