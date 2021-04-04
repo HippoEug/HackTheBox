@@ -12,24 +12,24 @@ Simply finding flags within the system.
 ## 1. NMAP
 As usual, we do our first NMAP scan to get an idea of the environment we're attacking.
 ```
-hippoeug@kali:~$ nmap -sC -sV 10.10.10.40 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-02 19:09 +08
+hippoeug@kali:~$ nmap --script vuln 10.129.124.123 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-04 19:47 +08
 ...
-Scanning 10.10.10.40 [1000 ports]
-Discovered open port 139/tcp on 10.10.10.40
-Discovered open port 445/tcp on 10.10.10.40
-Discovered open port 135/tcp on 10.10.10.40
-Discovered open port 49156/tcp on 10.10.10.40
-Discovered open port 49157/tcp on 10.10.10.40
-Discovered open port 49153/tcp on 10.10.10.40
-Discovered open port 49155/tcp on 10.10.10.40
-Discovered open port 49154/tcp on 10.10.10.40
-Discovered open port 49152/tcp on 10.10.10.40
+Scanning 10.129.124.123 [1000 ports]
+Discovered open port 445/tcp on 10.129.124.123
+Discovered open port 135/tcp on 10.129.124.123
+Discovered open port 139/tcp on 10.129.124.123
+Discovered open port 49155/tcp on 10.129.124.123
+Discovered open port 49157/tcp on 10.129.124.123
+Discovered open port 49154/tcp on 10.129.124.123
+Discovered open port 49153/tcp on 10.129.124.123
+Discovered open port 49156/tcp on 10.129.124.123
 ...
 PORT      STATE SERVICE      VERSION
 135/tcp   open  msrpc        Microsoft Windows RPC
 139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
-445/tcp   open  microsoft-ds Windows 7 Professional 7601 Service Pack 1 microsoft-ds (workgroup: WORKGROUP)
+445/tcp   open  microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
 49152/tcp open  msrpc        Microsoft Windows RPC
 49153/tcp open  msrpc        Microsoft Windows RPC
 49154/tcp open  msrpc        Microsoft Windows RPC
@@ -37,66 +37,6 @@ PORT      STATE SERVICE      VERSION
 49156/tcp open  msrpc        Microsoft Windows RPC
 49157/tcp open  msrpc        Microsoft Windows RPC
 Service Info: Host: HARIS-PC; OS: Windows; CPE: cpe:/o:microsoft:windows
-
-Host script results:
-|_clock-skew: mean: -1s, deviation: 0s, median: -2s
-| smb-os-discovery: 
-|   OS: Windows 7 Professional 7601 Service Pack 1 (Windows 7 Professional 6.1)
-|   OS CPE: cpe:/o:microsoft:windows_7::sp1:professional
-|   Computer name: haris-PC
-|   NetBIOS computer name: HARIS-PC\x00
-|   Workgroup: WORKGROUP\x00
-|_  System time: 2021-01-02T11:10:50+00:00
-| smb-security-mode: 
-|   account_used: guest
-|   authentication_level: user
-|   challenge_response: supported
-|_  message_signing: disabled (dangerous, but default)
-| smb2-security-mode: 
-|   2.02: 
-|_    Message signing enabled but not required
-| smb2-time: 
-|   date: 2021-01-02T11:10:53
-|_  start_date: 2021-01-02T11:09:15
-...
-```
-Ah, Windows 7 SP1, unpatched and vulnerable!
-
-Let's do some vulnerabiltiy scans.
-```
-hippoeug@kali:~$ nmap --script vuln 10.10.10.40 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-02 20:06 +08
-...
-Scanning 10.10.10.40 [1000 ports]
-Discovered open port 135/tcp on 10.10.10.40
-Discovered open port 445/tcp on 10.10.10.40
-Discovered open port 139/tcp on 10.10.10.40
-Discovered open port 49155/tcp on 10.10.10.40
-Discovered open port 49157/tcp on 10.10.10.40
-Discovered open port 49156/tcp on 10.10.10.40
-Discovered open port 49152/tcp on 10.10.10.40
-Discovered open port 49153/tcp on 10.10.10.40
-Discovered open port 49154/tcp on 10.10.10.40
-...
-PORT      STATE SERVICE
-135/tcp   open  msrpc
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-139/tcp   open  netbios-ssn
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-445/tcp   open  microsoft-ds
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-49152/tcp open  unknown
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-49153/tcp open  unknown
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-49154/tcp open  unknown
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-49155/tcp open  unknown
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-49156/tcp open  unknown
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-49157/tcp open  unknown
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
 
 Host script results:
 |_smb-vuln-ms10-054: false
@@ -113,11 +53,19 @@ Host script results:
 |     Disclosure date: 2017-03-14
 |     References:
 |       https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
-|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
-|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
-...
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
+|_      https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+
+NSE: Script Post-scanning.
+Initiating NSE at 19:49
+Completed NSE at 19:49, 0.00s elapsed
+Initiating NSE at 19:49
+Completed NSE at 19:49, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 144.62 seconds
 ```
-Fantastica, it is vulnerable to ms17-010, EternalBlue.
+Ah, Windows 7 SP1, unpatched and vulnerable! Fantastica, it is vulnerable to ms17-010, EternalBlue.
 
 ## 2. Metasploit
 Let's launch metasploit and attack using EternalBlue.
