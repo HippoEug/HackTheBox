@@ -11,7 +11,7 @@ GoBuster didn't yield anything, and the Werkzeug exploit for Port 5000 HTTP did 
 We try to use Burpsuite by modifying requests to the site. For example, the original data that was sent was `ip=127.0.0.1&action=scan` to do NMAP, and I tried to add an additional command at the back. Modifying with Burpsuite, a new command `ip=127.0.0.1%3Bpwd&action=scan` was sent, to emulate the command `nmap 127.0.0.1;pwd`. This did not work.
 
 ### 4. Port 5000 HTTP Attack Attempt 2
-We got a clue from other HTB users that we need to focus more on exploits. We failed to find exploits when performing `searchsploit nmap`, `searchsploit searchsploit`, but `searchsploit msf` showed a potential exploit called `msfd' Remote Code Execution (Metasploit)`.
+We got a clue from other HTB users that we need to focus more on exploits. We failed to find exploits when performing `searchsploit nmap`, `searchsploit searchsploit`, but `searchsploit msf` showed a potential exploit called `'msfd' Remote Code Execution (Metasploit)`.
 
 We try it out, but again did not work.
 
