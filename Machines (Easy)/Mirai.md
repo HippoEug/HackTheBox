@@ -132,7 +132,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ```
 Interesting, two directories, `/admin` & `/versions`.
 
-Let's visit `http://10.129.92.103/admin` first. It is a Pi-hole admin console page.
+Let's visit `http://10.129.92.103/admin` first. It is a Pi-hole admin console page. This took a long time to load as well.
 ```
 Pi-hole
 
