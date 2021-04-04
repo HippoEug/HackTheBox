@@ -186,33 +186,10 @@ Couple of potential login pages, maybe SQL Injection, and finally also a usernam
 
 ## 2. Enumeration on Port 80 HTTP
 Enumerating on `http://10.129.1.53`, we are presented with a BLOCKYCRAFT page which is apparently under construction.
-```
-BlockyCraft
-Under Construction!
 
-Posts
-Posted on July 2, 2017
-Welcome to BlockyCraft!
-Welcome everyone. The site and server are still under construction so don’t expect too much right now!
-We are currently developing a wiki system for the server and a core plugin to track player stats and stuff. Lots of great stuff planned for the future 🙂
+![Site1](https://user-images.githubusercontent.com/21957042/113508387-56d4b600-9582-11eb-9fee-0fce77a1c0da.png)
+![Site2](https://user-images.githubusercontent.com/21957042/113508388-5805e300-9582-11eb-9ae1-085c503fe13e.png)
 
-Search...
-
-Recent Posts
-    Welcome to BlockyCraft!
-Recent Comments
-Archives
-    July 2017
-Categories
-    Uncategorized
-Meta
-    Log in
-    Entries RSS
-    Comments RSS
-    WordPress.org
-
-Proudly powered by WordPress
-```
 Okay, nothing interesting so far. Looking at the source page, we don't find anything interesting as well.
 
 Let's run a GoBuster!
@@ -261,12 +238,13 @@ http://10.129.1.53/wp-content/uploads/
 [PARENTDIR]	Parent Directory	 	- 	 
 [DIR]	2017/	2017-07-02 19:43 	- 	 
 Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
+```
 
-http://10.129.1.53/plugins/
--> files
-    .jarBlockyCore.jar 883 Bytes
-    .jargriefprevention-1.11.2-3.1.1.298.jar 520 KB
-    
+`http://10.129.1.53/plugins/`
+
+![Plugins](https://user-images.githubusercontent.com/21957042/113508382-55a38900-9582-11eb-96b4-d27ec1001d79.png)
+
+```
 http://10.129.1.53/wp-includes/
 -> Index of /wp-includes
 [ICO]	Name	Last modified	Size	Description
@@ -340,12 +318,9 @@ As we've seen in the previous machine [Bank](https://github.com/HippoEug/HackThe
 After going through the things from `nmap --script vuln`, we got nothing.
 
 The files and directories that surfaced in GoBuster did not show any interesting config files as well, except 2.
-```
-http://10.129.1.53/plugins/
--> files
-    .jarBlockyCore.jar 883 Bytes
-    .jargriefprevention-1.11.2-3.1.1.298.jar 520 KB
-```
+
+![Plugins](https://user-images.githubusercontent.com/21957042/113508382-55a38900-9582-11eb-96b4-d27ec1001d79.png)
+
 I know from my short Cyber Security course that .NET is relatively easy to decompile and reverse engineer, and IIRC same with Java. Let's reverse engineer these files.
 
 Looking for a Java Decompiler, we come across one that looks decent, JD-Gui. Let's install that.
@@ -361,31 +336,13 @@ hippoeug@kali:~/Downloads$
 ```
 
 Upon opening the `.jarBlockyCore.jar` file, we see a file, `BlockyCore.class`. Let's see what's inside that file.
-```
-package com.myfirstplugin;
 
-public class BlockyCore {
-  public String sqlHost = "localhost";
-  
-  public String sqlUser = "root";
-  
-  public String sqlPass = "8YsqfCTnvxAUeduzjNSXe22";
-  
-  public void onServerStart() {}
-  
-  public void onServerStop() {}
-  
-  public void onPlayerJoin() {
-    sendMessage("TODO get username", "Welcome to the BlockyCraft!!!!!!!");
-  }
-  
-  public void sendMessage(String username, String message) {}
-}
-```
+![Decompiled](https://user-images.githubusercontent.com/21957042/113508377-52a89880-9582-11eb-8279-5a8abfd61332.png)
+
 Interesting, a username and password! Now this reminds me of two exercises we did previously, [Beep](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Beep.md) & [Bank](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Bank.md) where we utilized the reuse of credentials found.
 
 ## 4. Credential Reuse
-Now that we know that a username is "root" & password is "8YsqfCTnvxAUeduzjNSXe22", we can start using these to log onto the different sites.
+Now that we know that a username is `root` & password is `8YsqfCTnvxAUeduzjNSXe22`, we can start using these to log onto the different sites.
 
 Let's try `http://10.129.1.53/phpmyadmin/` first. I was able to successfully log into this phpMyAdmin page! Potentially, if I need to upload a reverse shell, I could attempt to do it from here.
 
