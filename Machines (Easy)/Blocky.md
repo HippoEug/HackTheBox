@@ -25,27 +25,189 @@ Getting user flag was relatively easy. Getting system flag was relatively easy, 
 ## 1. NMAP
 Same old. 
 ```
-hippoeug@kali:~$ nmap -sC -sV 10.129.1.53 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-06 14:23 +08
+hippoeug@kali:~$ nmap --script vuln 10.129.124.124 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-04 19:55 +08
+...
+Scanning 10.129.124.124 [1000 ports]
+Discovered open port 80/tcp on 10.129.124.124
+Discovered open port 22/tcp on 10.129.124.124
+Discovered open port 21/tcp on 10.129.124.124
 ...
 PORT     STATE  SERVICE VERSION
 21/tcp   open   ftp?
+|_sslv2-drown: 
 22/tcp   open   ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.2 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   2048 d6:2b:99:b4:d5:e7:53:ce:2b:fc:b5:d7:9d:79:fb:a2 (RSA)
-|   256 5d:7f:38:95:70:c9:be:ac:67:a0:1e:86:e7:97:84:03 (ECDSA)
-|_  256 09:d5:c2:04:95:1a:90:ef:87:56:25:97:df:83:70:67 (ED25519)
+| vulners: 
+|   cpe:/a:openbsd:openssh:7.2p2: 
+|       PACKETSTORM:140070      7.8     https://vulners.com/packetstorm/PACKETSTORM:140070      *EXPLOIT*
+|       EXPLOITPACK:5BCA798C6BA71FAE29334297EC0B6A09    7.8     https://vulners.com/exploitpack/EXPLOITPACK:5BCA798C6BA71FAE29334297EC0B6A09    *EXPLOIT*
+|       EDB-ID:40888    7.8     https://vulners.com/exploitdb/EDB-ID:40888      *EXPLOIT*
+|       CVE-2016-8858   7.8     https://vulners.com/cve/CVE-2016-8858
+|       CVE-2016-6515   7.8     https://vulners.com/cve/CVE-2016-6515
+|       1337DAY-ID-26494        7.8     https://vulners.com/zdt/1337DAY-ID-26494        *EXPLOIT*
+|       SSV:92579       7.5     https://vulners.com/seebug/SSV:92579    *EXPLOIT*
+|       CVE-2016-10009  7.5     https://vulners.com/cve/CVE-2016-10009
+|       1337DAY-ID-26576        7.5     https://vulners.com/zdt/1337DAY-ID-26576        *EXPLOIT*
+|       SSV:92582       7.2     https://vulners.com/seebug/SSV:92582    *EXPLOIT*
+|       CVE-2016-10012  7.2     https://vulners.com/cve/CVE-2016-10012
+|       CVE-2015-8325   7.2     https://vulners.com/cve/CVE-2015-8325
+|       SSV:92580       6.9     https://vulners.com/seebug/SSV:92580    *EXPLOIT*
+|       CVE-2016-10010  6.9     https://vulners.com/cve/CVE-2016-10010
+|       1337DAY-ID-26577        6.9     https://vulners.com/zdt/1337DAY-ID-26577        *EXPLOIT*
+|       EXPLOITPACK:98FE96309F9524B8C84C508837551A19    5.8     https://vulners.com/exploitpack/EXPLOITPACK:98FE96309F9524B8C84C508837551A19    *EXPLOIT*
+|       EXPLOITPACK:5330EA02EBDE345BFC9D6DDDD97F9E97    5.8     https://vulners.com/exploitpack/EXPLOITPACK:5330EA02EBDE345BFC9D6DDDD97F9E97    *EXPLOIT*
+|       EDB-ID:46516    5.8     https://vulners.com/exploitdb/EDB-ID:46516      *EXPLOIT*
+|       CVE-2019-6111   5.8     https://vulners.com/cve/CVE-2019-6111
+|       SSV:91041       5.5     https://vulners.com/seebug/SSV:91041    *EXPLOIT*
+|       PACKETSTORM:140019      5.5     https://vulners.com/packetstorm/PACKETSTORM:140019      *EXPLOIT*
+|       PACKETSTORM:136234      5.5     https://vulners.com/packetstorm/PACKETSTORM:136234      *EXPLOIT*
+|       EXPLOITPACK:F92411A645D85F05BDBD274FD222226F    5.5     https://vulners.com/exploitpack/EXPLOITPACK:F92411A645D85F05BDBD274FD222226F    *EXPLOIT*
+|       EXPLOITPACK:9F2E746846C3C623A27A441281EAD138    5.5     https://vulners.com/exploitpack/EXPLOITPACK:9F2E746846C3C623A27A441281EAD138    *EXPLOIT*
+|       EXPLOITPACK:1902C998CBF9154396911926B4C3B330    5.5     https://vulners.com/exploitpack/EXPLOITPACK:1902C998CBF9154396911926B4C3B330    *EXPLOIT*
+|       EDB-ID:40858    5.5     https://vulners.com/exploitdb/EDB-ID:40858      *EXPLOIT*
+|       CVE-2016-3115   5.5     https://vulners.com/cve/CVE-2016-3115
+|       SSH_ENUM        5.0     https://vulners.com/canvas/SSH_ENUM     *EXPLOIT*
+|       PACKETSTORM:150621      5.0     https://vulners.com/packetstorm/PACKETSTORM:150621      *EXPLOIT*
+|       MSF:AUXILIARY/SCANNER/SSH/SSH_ENUMUSERS 5.0     https://vulners.com/metasploit/MSF:AUXILIARY/SCANNER/SSH/SSH_ENUMUSERS  *EXPLOIT*
+|       EXPLOITPACK:F957D7E8A0CC1E23C3C649B764E13FB0    5.0     https://vulners.com/exploitpack/EXPLOITPACK:F957D7E8A0CC1E23C3C649B764E13FB0    *EXPLOIT*
+|       EXPLOITPACK:EBDBC5685E3276D648B4D14B75563283    5.0     https://vulners.com/exploitpack/EXPLOITPACK:EBDBC5685E3276D648B4D14B75563283    *EXPLOIT*
+|       EDB-ID:45939    5.0     https://vulners.com/exploitdb/EDB-ID:45939      *EXPLOIT*
+|       CVE-2018-15919  5.0     https://vulners.com/cve/CVE-2018-15919
+|       CVE-2018-15473  5.0     https://vulners.com/cve/CVE-2018-15473
+|       CVE-2017-15906  5.0     https://vulners.com/cve/CVE-2017-15906
+|       CVE-2016-10708  5.0     https://vulners.com/cve/CVE-2016-10708
+|       1337DAY-ID-31730        5.0     https://vulners.com/zdt/1337DAY-ID-31730        *EXPLOIT*
+|       EDB-ID:45233    4.6     https://vulners.com/exploitdb/EDB-ID:45233      *EXPLOIT*
+|       EDB-ID:40963    4.6     https://vulners.com/exploitdb/EDB-ID:40963      *EXPLOIT*
+|       EDB-ID:40962    4.6     https://vulners.com/exploitdb/EDB-ID:40962      *EXPLOIT*
+|       EXPLOITPACK:802AF3229492E147A5F09C7F2B27C6DF    4.3     https://vulners.com/exploitpack/EXPLOITPACK:802AF3229492E147A5F09C7F2B27C6DF    *EXPLOIT*
+|       EXPLOITPACK:5652DDAA7FE452E19AC0DC1CD97BA3EF    4.3     https://vulners.com/exploitpack/EXPLOITPACK:5652DDAA7FE452E19AC0DC1CD97BA3EF    *EXPLOIT*
+|       CVE-2020-14145  4.3     https://vulners.com/cve/CVE-2020-14145
+|       CVE-2016-6210   4.3     https://vulners.com/cve/CVE-2016-6210
+|       1337DAY-ID-25440        4.3     https://vulners.com/zdt/1337DAY-ID-25440        *EXPLOIT*
+|       1337DAY-ID-25438        4.3     https://vulners.com/zdt/1337DAY-ID-25438        *EXPLOIT*
+|       CVE-2019-6110   4.0     https://vulners.com/cve/CVE-2019-6110
+|       CVE-2019-6109   4.0     https://vulners.com/cve/CVE-2019-6109
+|       CVE-2018-20685  2.6     https://vulners.com/cve/CVE-2018-20685
+|       SSV:92581       2.1     https://vulners.com/seebug/SSV:92581    *EXPLOIT*
+|       CVE-2016-10011  2.1     https://vulners.com/cve/CVE-2016-10011
+|       PACKETSTORM:151227      0.0     https://vulners.com/packetstorm/PACKETSTORM:151227      *EXPLOIT*
+|       PACKETSTORM:140261      0.0     https://vulners.com/packetstorm/PACKETSTORM:140261      *EXPLOIT*
+|       PACKETSTORM:138006      0.0     https://vulners.com/packetstorm/PACKETSTORM:138006      *EXPLOIT*
+|       PACKETSTORM:137942      0.0     https://vulners.com/packetstorm/PACKETSTORM:137942      *EXPLOIT*
+|       EDB-ID:46193    0.0     https://vulners.com/exploitdb/EDB-ID:46193      *EXPLOIT*
+|       EDB-ID:40136    0.0     https://vulners.com/exploitdb/EDB-ID:40136      *EXPLOIT*
+|       EDB-ID:40113    0.0     https://vulners.com/exploitdb/EDB-ID:40113      *EXPLOIT*
+|       EDB-ID:39569    0.0     https://vulners.com/exploitdb/EDB-ID:39569      *EXPLOIT*
+|       1337DAY-ID-32009        0.0     https://vulners.com/zdt/1337DAY-ID-32009        *EXPLOIT*
+|       1337DAY-ID-30937        0.0     https://vulners.com/zdt/1337DAY-ID-30937        *EXPLOIT*
+|_      1337DAY-ID-10010        0.0     https://vulners.com/zdt/1337DAY-ID-10010        *EXPLOIT*
 80/tcp   open   http    Apache httpd 2.4.18 ((Ubuntu))
-|_http-generator: WordPress 4.8
-| http-methods: 
-|_  Supported Methods: GET HEAD POST OPTIONS
+| http-csrf: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=10.129.124.124
+|   Found the following possible CSRF vulnerabilities: 
+|     
+|     Path: http://10.129.124.124:80/
+|     Form id: search-form-6069aa3550886
+|_    Form action: http://blocky.htb/
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+| http-enum: 
+|   /wiki/: Wiki
+|   /wp-login.php: Possible admin folder
+|   /phpmyadmin/: phpMyAdmin
+|   /readme.html: Wordpress version: 2 
+|   /: WordPress version: 4.8
+|   /wp-includes/images/rss.png: Wordpress version 2.2 found.
+|   /wp-includes/js/jquery/suggest.js: Wordpress version 2.5 found.
+|   /wp-includes/images/blank.gif: Wordpress version 2.6 found.
+|   /wp-includes/js/comment-reply.js: Wordpress version 2.7 found.
+|   /wp-login.php: Wordpress login page.
+|   /wp-admin/upgrade.php: Wordpress login page.
+|_  /readme.html: Interesting, a readme.
 |_http-server-header: Apache/2.4.18 (Ubuntu)
-|_http-title: BlockyCraft &#8211; Under Construction!
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+|_      http://ha.ckers.org/slowloris/
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| http-wordpress-users: 
+| Username found: notch
+|_Search stopped at ID #25. Increase the upper limit if necessary with 'http-wordpress-users.limit'
+| vulners: 
+|   cpe:/a:apache:http_server:2.4.18: 
+|       CVE-2017-7679   7.5     https://vulners.com/cve/CVE-2017-7679
+|       CVE-2017-7668   7.5     https://vulners.com/cve/CVE-2017-7668
+|       CVE-2017-3169   7.5     https://vulners.com/cve/CVE-2017-3169
+|       CVE-2017-3167   7.5     https://vulners.com/cve/CVE-2017-3167
+|       EXPLOITPACK:44C5118F831D55FAF4259C41D8BDA0AB    7.2     https://vulners.com/exploitpack/EXPLOITPACK:44C5118F831D55FAF4259C41D8BDA0AB    *EXPLOIT*
+|       CVE-2019-0211   7.2     https://vulners.com/cve/CVE-2019-0211
+|       1337DAY-ID-32502        7.2     https://vulners.com/zdt/1337DAY-ID-32502        *EXPLOIT*
+|       CVE-2018-1312   6.8     https://vulners.com/cve/CVE-2018-1312
+|       CVE-2017-15715  6.8     https://vulners.com/cve/CVE-2017-15715
+|       CVE-2019-10082  6.4     https://vulners.com/cve/CVE-2019-10082
+|       CVE-2017-9788   6.4     https://vulners.com/cve/CVE-2017-9788
+|       CVE-2019-0217   6.0     https://vulners.com/cve/CVE-2019-0217
+|       EDB-ID:47689    5.8     https://vulners.com/exploitdb/EDB-ID:47689      *EXPLOIT*
+|       CVE-2020-1927   5.8     https://vulners.com/cve/CVE-2020-1927
+|       CVE-2019-10098  5.8     https://vulners.com/cve/CVE-2019-10098
+|       1337DAY-ID-33577        5.8     https://vulners.com/zdt/1337DAY-ID-33577        *EXPLOIT*
+|       CVE-2016-5387   5.1     https://vulners.com/cve/CVE-2016-5387
+|       SSV:96537       5.0     https://vulners.com/seebug/SSV:96537    *EXPLOIT*
+|       MSF:AUXILIARY/SCANNER/HTTP/APACHE_OPTIONSBLEED  5.0     https://vulners.com/metasploit/MSF:AUXILIARY/SCANNER/HTTP/APACHE_OPTIONSBLEED   *EXPLOIT*
+|       EXPLOITPACK:C8C256BE0BFF5FE1C0405CB0AA9C075D    5.0     https://vulners.com/exploitpack/EXPLOITPACK:C8C256BE0BFF5FE1C0405CB0AA9C075D    *EXPLOIT*
+|       EXPLOITPACK:2666FB0676B4B582D689921651A30355    5.0     https://vulners.com/exploitpack/EXPLOITPACK:2666FB0676B4B582D689921651A30355    *EXPLOIT*
+|       EDB-ID:40909    5.0     https://vulners.com/exploitdb/EDB-ID:40909      *EXPLOIT*
+|       CVE-2020-1934   5.0     https://vulners.com/cve/CVE-2020-1934
+|       CVE-2019-0220   5.0     https://vulners.com/cve/CVE-2019-0220
+|       CVE-2019-0196   5.0     https://vulners.com/cve/CVE-2019-0196
+|       CVE-2018-17199  5.0     https://vulners.com/cve/CVE-2018-17199
+|       CVE-2018-17189  5.0     https://vulners.com/cve/CVE-2018-17189
+|       CVE-2018-1333   5.0     https://vulners.com/cve/CVE-2018-1333
+|       CVE-2018-1303   5.0     https://vulners.com/cve/CVE-2018-1303
+|       CVE-2017-9798   5.0     https://vulners.com/cve/CVE-2017-9798
+|       CVE-2017-15710  5.0     https://vulners.com/cve/CVE-2017-15710
+|       CVE-2016-8743   5.0     https://vulners.com/cve/CVE-2016-8743
+|       CVE-2016-8740   5.0     https://vulners.com/cve/CVE-2016-8740
+|       CVE-2016-4979   5.0     https://vulners.com/cve/CVE-2016-4979
+|       1337DAY-ID-28573        5.0     https://vulners.com/zdt/1337DAY-ID-28573        *EXPLOIT*
+|       CVE-2019-0197   4.9     https://vulners.com/cve/CVE-2019-0197
+|       EDB-ID:47688    4.3     https://vulners.com/exploitdb/EDB-ID:47688      *EXPLOIT*
+|       CVE-2020-11985  4.3     https://vulners.com/cve/CVE-2020-11985
+|       CVE-2019-10092  4.3     https://vulners.com/cve/CVE-2019-10092
+|       CVE-2018-1302   4.3     https://vulners.com/cve/CVE-2018-1302
+|       CVE-2018-1301   4.3     https://vulners.com/cve/CVE-2018-1301
+|       CVE-2018-11763  4.3     https://vulners.com/cve/CVE-2018-11763
+|       CVE-2016-4975   4.3     https://vulners.com/cve/CVE-2016-4975
+|       CVE-2016-1546   4.3     https://vulners.com/cve/CVE-2016-1546
+|       1337DAY-ID-33575        4.3     https://vulners.com/zdt/1337DAY-ID-33575        *EXPLOIT*
+|       CVE-2018-1283   3.5     https://vulners.com/cve/CVE-2018-1283
+|       CVE-2016-8612   3.3     https://vulners.com/cve/CVE-2016-8612
+|       PACKETSTORM:152441      0.0     https://vulners.com/packetstorm/PACKETSTORM:152441      *EXPLOIT*
+|       EDB-ID:46676    0.0     https://vulners.com/exploitdb/EDB-ID:46676      *EXPLOIT*
+|       EDB-ID:42745    0.0     https://vulners.com/exploitdb/EDB-ID:42745      *EXPLOIT*
+|       1337DAY-ID-663  0.0     https://vulners.com/zdt/1337DAY-ID-663  *EXPLOIT*
+|       1337DAY-ID-601  0.0     https://vulners.com/zdt/1337DAY-ID-601  *EXPLOIT*
+|       1337DAY-ID-4533 0.0     https://vulners.com/zdt/1337DAY-ID-4533 *EXPLOIT*
+|       1337DAY-ID-3109 0.0     https://vulners.com/zdt/1337DAY-ID-3109 *EXPLOIT*
+|_      1337DAY-ID-2237 0.0     https://vulners.com/zdt/1337DAY-ID-2237 *EXPLOIT*
 8192/tcp closed sophos
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ...
 ```
-Interesting, 3 opened ports. We will enumerate Port 80 first. But good to know that there is FTP & SSH we could potentially attack from as well.
+Interesting, 3 opened ports. We will enumerate Port 80 first. Couple of potential login pages, maybe SQL Injection, and finally also a username `notch`. Very interestsing.
+
+But good to know that there is FTP & SSH we could potentially attack from as well.
 
 Since we're here and already know the versions of the applications running, we might as well do a searchsploit.
 ```
@@ -94,95 +256,6 @@ Webfroot Shoutbox < 2.32 (Apache) - Local File Inclusion / Remote Code Execution
 Shellcodes: No Results
 ```
 Nothing interesting at the moment we can use, so let's KIV and only find an exploit to use later should we need it.
-
-Now for the other script which took longer than usual to run, hence we just ran it full force without a care for OpSec.
-```
-hippoeug@kali:~$ nmap --script vuln 10.129.1.53 -Pn -v -T insane
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-06 14:57 +08
-...
-PORT     STATE  SERVICE
-21/tcp   open   ftp
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-|_sslv2-drown: 
-22/tcp   open   ssh
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-80/tcp   open   http
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-| http-csrf: 
-| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=10.129.1.53
-|   Found the following possible CSRF vulnerabilities: 
-|     
-|     Path: http://10.129.1.53:80/
-|     Form id: search-form-601e3e3ad6f2f
-|     Form action: http://10.129.1.53/
-|     
-|     Path: http://10.129.1.53:80/index.php/category/uncategorized/
-|     Form id: search-form-601e3e4006cef
-|     Form action: http://10.129.1.53/
-|     
-|     Path: http://10.129.1.53:80/index.php/2017/07/
-|     Form id: search-form-601e3e446d043
-|     Form action: http://10.129.1.53/
-|     
-|     Path: http://10.129.1.53:80/wp-login.php
-|     Form id: loginform
-|     Form action: http://10.129.1.53/wp-login.php
-|     
-|     Path: http://10.129.1.53:80/index.php/category/uncategorized/%5c%22
-|     Form id: search-form-601e3e4adde55
-|     Form action: http://10.129.1.53/
-|     
-|     Path: http://10.129.1.53:80/index.php/2017/07/%5c%22
-|     Form id: search-form-601e3e4d1be6d
-|     Form action: http://10.129.1.53/
-|     
-|     Path: http://10.129.1.53:80/wp-login.php?action=lostpassword
-|     Form id: lostpasswordform
-|_    Form action: http://10.129.1.53/wp-login.php?action=lostpassword
-|_http-dombased-xss: Couldn't find any DOM based XSS.
-| http-enum: 
-|   /wiki/: Wiki
-|   /wp-login.php: Possible admin folder
-|   /phpmyadmin/: phpMyAdmin
-|   /readme.html: Wordpress version: 2 
-|   /: WordPress version: 4.8
-|   /wp-includes/images/rss.png: Wordpress version 2.2 found.
-|   /wp-includes/js/jquery/suggest.js: Wordpress version 2.5 found.
-|   /wp-includes/images/blank.gif: Wordpress version 2.6 found.
-|   /wp-includes/js/comment-reply.js: Wordpress version 2.7 found.
-|   /wp-login.php: Wordpress login page.
-|   /wp-admin/upgrade.php: Wordpress login page.
-|_  /readme.html: Interesting, a readme.
-| http-slowloris-check: 
-|   VULNERABLE:
-|   Slowloris DOS attack
-|     State: LIKELY VULNERABLE
-|     IDs:  CVE:CVE-2007-6750
-|       Slowloris tries to keep many connections to the target web server open and hold
-|       them open as long as possible.  It accomplishes this by opening connections to
-|       the target web server and sending a partial request. By doing so, it starves
-|       the http server's resources causing Denial Of Service.
-|       
-|     Disclosure date: 2009-09-17
-|     References:
-|       http://ha.ckers.org/slowloris/
-|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
-| http-sql-injection: 
-|   Possible sqli for queries:
-|     http://10.129.1.53:80/wp-includes/js/jquery/?C=S%3bO%3dA%27%20OR%20sqlspider
-|     http://10.129.1.53:80/wp-includes/js/jquery/?C=M%3bO%3dA%27%20OR%20sqlspider
-|     http://10.129.1.53:80/wp-includes/js/jquery/?C=D%3bO%3dA%27%20OR%20sqlspider
-|_    http://10.129.1.53:80/wp-includes/js/jquery/?C=N%3bO%3dD%27%20OR%20sqlspider
-|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
-| http-wordpress-users: 
-| Username found: notch
-|_Search stopped at ID #25. Increase the upper limit if necessary with 'http-wordpress-users.limit'
-8192/tcp closed sophos
-...
-```
-Now now, although this took longer than usual to run, it was very worth it. Let's see what information we got from Port 80 HTTP.
-
-Couple of potential login pages, maybe SQL Injection, and finally also a username `notch`. Very interestsing.
 
 ## 2. Enumeration on Port 80 HTTP
 Enumerating on `http://10.129.1.53`, we are presented with a BLOCKYCRAFT page which is apparently under construction.
