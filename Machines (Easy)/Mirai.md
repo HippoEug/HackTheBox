@@ -79,15 +79,9 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
 Visiting `http://mirai.htb` now, the page loads but we get an error message.
-```
-Website Blocked
-Access to the following site has been blocked:
-mirai.htb
-If you have an ongoing use for this website, please ask the owner of the Pi-hole in your network to have it whitelisted.
-This page is blocked because it is explicitly contained within the following block list(s):
-Go back Whitelist this page Close window
-Generated Sat 10:10 AM, Feb 06 by Pi-hole v3.1.4
-```
+
+![WebsiteBlocked](https://user-images.githubusercontent.com/21957042/113502758-e4071300-9560-11eb-818d-157fd515dcd4.png)
+
 At least this is progress! We know there is a `Pi-hole v3.1.4` running.
 
 Time for some GoBuster!
@@ -133,37 +127,13 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 Interesting, two directories, `/admin` & `/versions`.
 
 Let's visit `http://10.129.92.103/admin` first. It is a Pi-hole admin console page. This took a long time to load as well.
-```
-Pi-hole
 
-Status
-Active
-Load:  0  0.04  0.04
-Memory usage:  39.7 %
+![Admin](https://user-images.githubusercontent.com/21957042/113502754-e1a4b900-9560-11eb-9b73-ddeaaa16c790.png)
 
-    MAIN NAVIGATION
-    Dashboard
-    Login
-    Donate
-
-Queries over last 24 hours
-Pi-hole Version v3.1.4 Web Interface Version v3.1 FTL Version v2.10
-Donate if you found this useful.
-```
 Nothing interesting here, except the Login page. Let's visit that.
-```
-Pi-hole
 
-Sign in to start your session
+![Login](https://user-images.githubusercontent.com/21957042/113502756-e2d5e600-9560-11eb-81e1-38ee94c6e5c4.png)
 
-    Return → Log in and go to requested page (login)
-    Ctrl+Return → Log in and go to Settings page
-
-
-Forgot password
-Pi-hole Version v3.1.4 Web Interface Version v3.1 FTL Version v2.10
-Donate if you found this useful.
-```
 Interesting. However, the password for the dashboard web interface is randomized and there isn't a default password we could try. We will have to look into this again.
 
 Next to `http://10.129.92.103/versions`. Navigating here prompts us to download a file, `application/octet-stream (13 bytes)`. In the file which we downloaded, we see a weird string. What's this cryptic shit?
