@@ -223,12 +223,10 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 Cool, couple of directories.
 
 Let's enumerate them and list them out!
-```
-http://10.129.1.53/wiki/
--> Under Construction
-Please check back later! We will start publishing wiki articles after we have finished the main server plugin!
-The new core plugin will store your playtime and other information in our database, so you can see your own stats!
+`http://10.129.1.53/wiki/`
+![Wiki](https://user-images.githubusercontent.com/21957042/113508392-59cfa680-9582-11eb-99f2-d937f950fbd6.png)
 
+```
 http://10.129.1.53/wp-content/
 -> 
 
