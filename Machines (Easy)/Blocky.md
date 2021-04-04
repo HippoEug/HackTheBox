@@ -223,23 +223,17 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 Cool, couple of directories.
 
 Let's enumerate them and list them out!
+
 `http://10.129.1.53/wiki/`
 ![Wiki](https://user-images.githubusercontent.com/21957042/113508392-59cfa680-9582-11eb-99f2-d937f950fbd6.png)
 
-```
-http://10.129.1.53/wp-content/
--> 
+`http://10.129.1.53/wp-content/`
+![wp-content](https://user-images.githubusercontent.com/21957042/113508395-5a683d00-9582-11eb-82ce-cad6ab574257.png)
 
-http://10.129.1.53/wp-content/uploads/
--> Index of /wp-content/uploads
-[ICO]	Name	Last modified	Size	Description
-[PARENTDIR]	Parent Directory	 	- 	 
-[DIR]	2017/	2017-07-02 19:43 	- 	 
-Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
-```
+`http://10.129.1.53/wp-content/uploads/`
+![uploads](https://user-images.githubusercontent.com/21957042/113508391-59371000-9582-11eb-9421-0df45b2f429c.png)
 
 `http://10.129.1.53/plugins/`
-
 ![Plugins](https://user-images.githubusercontent.com/21957042/113508382-55a38900-9582-11eb-96b4-d27ec1001d79.png)
 
 ```
@@ -344,7 +338,11 @@ Now that we know that a username is `root` & password is `8YsqfCTnvxAUeduzjNSXe2
 
 Let's try `http://10.129.1.53/phpmyadmin/` first. I was able to successfully log into this phpMyAdmin page! Potentially, if I need to upload a reverse shell, I could attempt to do it from here.
 
+![LOGGEDIN](https://user-images.githubusercontent.com/21957042/113508380-54725c00-9582-11eb-8c12-792e8c03243d.png)
+
 Followed by `http://10.129.1.53/wp-admin/`. Attempt to use these credentials were unsucessful, as we got a `ERROR: Invalid username. Lost your password?` error.
+
+![UnableLOGIN](https://user-images.githubusercontent.com/21957042/113508389-589e7980-9582-11eb-910a-fe6028dc28ed.png)
 
 Since we also saw the existence of Port 21 SSH, we try to login with the credentials.
 ```
