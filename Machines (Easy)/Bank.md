@@ -48,38 +48,77 @@ Doing `find / -perm -u=s -type f 2>/dev/null`, we see a file that did not belong
 ## 1. NMAP
 This machine sounds fun. Let's go.
 ```
-hippoeug@kali:~$ nmap -sC -sV 10.10.10.29 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-26 22:42 +08
+hippoeug@kali:~$ nmap --script vuln 10.129.29.200 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-04 20:52 +08
+...
+Scanning 10.129.29.200 [1000 ports]
+Discovered open port 22/tcp on 10.129.29.200
+Discovered open port 53/tcp on 10.129.29.200
+Discovered open port 80/tcp on 10.129.29.200
 ...
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.8 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|_  256 2d:79:44:30:c8:bb:5e:8f:07:cf:5b:72:ef:a1:6d:67 (ED25519)
-53/tcp open  domain?
-80/tcp open  http    Apache/2.4.7 (Ubuntu)
-|_http-server-header: Apache/2.4.7 (Ubuntu)                                                                                                                           
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-...
-```
-Ooh, a Linux machine. SSH, mystery port, and HTTP!
-
-Let's do the obligatory vuln script too.
-```
-hippoeug@kali:~$ nmap --script vuln 10.10.10.29 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-26 22:44 +08
-...
-PORT   STATE SERVICE
-22/tcp open  ssh
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-53/tcp open  domain
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-80/tcp open  http
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+| vulners: 
+|   cpe:/a:openbsd:openssh:6.6.1p1: 
+|       CVE-2015-5600   8.5     https://vulners.com/cve/CVE-2015-5600
+|       CVE-2015-6564   6.9     https://vulners.com/cve/CVE-2015-6564
+|       CVE-2018-15919  5.0     https://vulners.com/cve/CVE-2018-15919
+|       CVE-2020-14145  4.3     https://vulners.com/cve/CVE-2020-14145
+|       CVE-2015-5352   4.3     https://vulners.com/cve/CVE-2015-5352
+|_      CVE-2015-6563   1.9     https://vulners.com/cve/CVE-2015-6563
+53/tcp open  domain  ISC BIND 9.9.5-3ubuntu0.14 (Ubuntu Linux)
+| vulners: 
+|   cpe:/a:isc:bind:9.9.5-3ubuntu0.14: 
+|       PACKETSTORM:138960      7.8     https://vulners.com/packetstorm/PACKETSTORM:138960      *EXPLOIT*
+|       PACKETSTORM:132926      7.8     https://vulners.com/packetstorm/PACKETSTORM:132926      *EXPLOIT*
+|       MSF:AUXILIARY/DOS/DNS/BIND_TSIG 7.8     https://vulners.com/metasploit/MSF:AUXILIARY/DOS/DNS/BIND_TSIG  *EXPLOIT*
+|       MSF:AUXILIARY/DOS/DNS/BIND_TKEY 7.8     https://vulners.com/metasploit/MSF:AUXILIARY/DOS/DNS/BIND_TKEY  *EXPLOIT*
+|       EXPLOITPACK:BE4F638B632EA0754155A27ECC4B3D3F    7.8     https://vulners.com/exploitpack/EXPLOITPACK:BE4F638B632EA0754155A27ECC4B3D3F    *EXPLOIT*
+|       EXPLOITPACK:46DEBFAC850194C04C54F93E0DFF5F4F    7.8     https://vulners.com/exploitpack/EXPLOITPACK:46DEBFAC850194C04C54F93E0DFF5F4F    *EXPLOIT*
+|       EXPLOITPACK:09762DB0197BBAAAB6FC79F24F0D2A74    7.8     https://vulners.com/exploitpack/EXPLOITPACK:09762DB0197BBAAAB6FC79F24F0D2A74    *EXPLOIT*
+|       EDB-ID:40453    7.8     https://vulners.com/exploitdb/EDB-ID:40453      *EXPLOIT*
+|       EDB-ID:37723    7.8     https://vulners.com/exploitdb/EDB-ID:37723      *EXPLOIT*
+|       EDB-ID:37721    7.8     https://vulners.com/exploitdb/EDB-ID:37721      *EXPLOIT*
+|       CVE-2016-2776   7.8     https://vulners.com/cve/CVE-2016-2776
+|       CVE-2015-5722   7.8     https://vulners.com/cve/CVE-2015-5722
+|       CVE-2015-5477   7.8     https://vulners.com/cve/CVE-2015-5477
+|       1337DAY-ID-25325        7.8     https://vulners.com/zdt/1337DAY-ID-25325        *EXPLOIT*
+|       1337DAY-ID-23970        7.8     https://vulners.com/zdt/1337DAY-ID-23970        *EXPLOIT*
+|       1337DAY-ID-23960        7.8     https://vulners.com/zdt/1337DAY-ID-23960        *EXPLOIT*
+|       1337DAY-ID-23948        7.8     https://vulners.com/zdt/1337DAY-ID-23948        *EXPLOIT*
+|       EXPLOITPACK:D6DDF5E24DE171DAAD71FD95FC1B67F2    7.2     https://vulners.com/exploitpack/EXPLOITPACK:D6DDF5E24DE171DAAD71FD95FC1B67F2    *EXPLOIT*
+|       CVE-2017-3141   7.2     https://vulners.com/cve/CVE-2017-3141
+|       CVE-2015-5986   7.1     https://vulners.com/cve/CVE-2015-5986
+|       CVE-2020-8625   6.8     https://vulners.com/cve/CVE-2020-8625
+|       PACKETSTORM:157836      5.0     https://vulners.com/packetstorm/PACKETSTORM:157836      *EXPLOIT*
+|       EDB-ID:48521    5.0     https://vulners.com/exploitdb/EDB-ID:48521      *EXPLOIT*
+|       CVE-2020-8617   5.0     https://vulners.com/cve/CVE-2020-8617
+|       CVE-2020-8616   5.0     https://vulners.com/cve/CVE-2020-8616
+|       CVE-2018-5740   5.0     https://vulners.com/cve/CVE-2018-5740
+|       CVE-2017-3145   5.0     https://vulners.com/cve/CVE-2017-3145
+|       CVE-2016-9131   5.0     https://vulners.com/cve/CVE-2016-9131
+|       CVE-2016-8864   5.0     https://vulners.com/cve/CVE-2016-8864
+|       1337DAY-ID-34485        5.0     https://vulners.com/zdt/1337DAY-ID-34485        *EXPLOIT*
+|       CVE-2019-6465   4.3     https://vulners.com/cve/CVE-2019-6465
+|       CVE-2018-5743   4.3     https://vulners.com/cve/CVE-2018-5743
+|       CVE-2017-3143   4.3     https://vulners.com/cve/CVE-2017-3143
+|       CVE-2017-3142   4.3     https://vulners.com/cve/CVE-2017-3142
+|       CVE-2017-3136   4.3     https://vulners.com/cve/CVE-2017-3136
+|       CVE-2016-2775   4.3     https://vulners.com/cve/CVE-2016-2775
+|       CVE-2020-8622   4.0     https://vulners.com/cve/CVE-2020-8622
+|       CVE-2016-6170   4.0     https://vulners.com/cve/CVE-2016-6170
+|       CVE-2018-5745   3.5     https://vulners.com/cve/CVE-2018-5745
+|       PACKETSTORM:142800      0.0     https://vulners.com/packetstorm/PACKETSTORM:142800      *EXPLOIT*
+|       EDB-ID:42121    0.0     https://vulners.com/exploitdb/EDB-ID:42121      *EXPLOIT*
+|_      1337DAY-ID-27896        0.0     https://vulners.com/zdt/1337DAY-ID-27896        *EXPLOIT*
+80/tcp open  http    Apache httpd 2.4.7 ((Ubuntu))
 |_http-csrf: Couldn't find any CSRF vulnerabilities.
 |_http-dombased-xss: Couldn't find any DOM based XSS.
+|_http-server-header: Apache/2.4.7 (Ubuntu)
 | http-slowloris-check: 
 |   VULNERABLE:
-|   Slowloris DOS attack                                                                                                                                              
+|   Slowloris DOS attack
 |     State: LIKELY VULNERABLE
 |     IDs:  CVE:CVE-2007-6750
 |       Slowloris tries to keep many connections to the target web server open and hold
@@ -92,8 +131,71 @@ PORT   STATE SERVICE
 |       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
 |_      http://ha.ckers.org/slowloris/
 |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| vulners: 
+|   cpe:/a:apache:http_server:2.4.7: 
+|       CVE-2017-7679   7.5     https://vulners.com/cve/CVE-2017-7679
+|       PACKETSTORM:127546      6.8     https://vulners.com/packetstorm/PACKETSTORM:127546      *EXPLOIT*
+|       EDB-ID:34133    6.8     https://vulners.com/exploitdb/EDB-ID:34133      *EXPLOIT*
+|       CVE-2018-1312   6.8     https://vulners.com/cve/CVE-2018-1312
+|       CVE-2017-15715  6.8     https://vulners.com/cve/CVE-2017-15715
+|       CVE-2014-0226   6.8     https://vulners.com/cve/CVE-2014-0226
+|       1337DAY-ID-22451        6.8     https://vulners.com/zdt/1337DAY-ID-22451        *EXPLOIT*
+|       CVE-2017-9788   6.4     https://vulners.com/cve/CVE-2017-9788
+|       CVE-2019-0217   6.0     https://vulners.com/cve/CVE-2019-0217
+|       EDB-ID:47689    5.8     https://vulners.com/exploitdb/EDB-ID:47689      *EXPLOIT*
+|       CVE-2020-1927   5.8     https://vulners.com/cve/CVE-2020-1927
+|       CVE-2019-10098  5.8     https://vulners.com/cve/CVE-2019-10098
+|       1337DAY-ID-33577        5.8     https://vulners.com/zdt/1337DAY-ID-33577        *EXPLOIT*
+|       CVE-2016-5387   5.1     https://vulners.com/cve/CVE-2016-5387
+|       SSV:96537       5.0     https://vulners.com/seebug/SSV:96537    *EXPLOIT*
+|       SSV:61874       5.0     https://vulners.com/seebug/SSV:61874    *EXPLOIT*
+|       MSF:AUXILIARY/SCANNER/HTTP/APACHE_OPTIONSBLEED  5.0     https://vulners.com/metasploit/MSF:AUXILIARY/SCANNER/HTTP/APACHE_OPTIONSBLEED   *EXPLOIT*
+|       EXPLOITPACK:DAED9B9E8D259B28BF72FC7FDC4755A7    5.0     https://vulners.com/exploitpack/EXPLOITPACK:DAED9B9E8D259B28BF72FC7FDC4755A7    *EXPLOIT*
+|       EXPLOITPACK:C8C256BE0BFF5FE1C0405CB0AA9C075D    5.0     https://vulners.com/exploitpack/EXPLOITPACK:C8C256BE0BFF5FE1C0405CB0AA9C075D    *EXPLOIT*
+|       CVE-2020-1934   5.0     https://vulners.com/cve/CVE-2020-1934
+|       CVE-2019-0220   5.0     https://vulners.com/cve/CVE-2019-0220
+|       CVE-2018-17199  5.0     https://vulners.com/cve/CVE-2018-17199
+|       CVE-2018-17189  5.0     https://vulners.com/cve/CVE-2018-17189
+|       CVE-2018-1303   5.0     https://vulners.com/cve/CVE-2018-1303
+|       CVE-2017-9798   5.0     https://vulners.com/cve/CVE-2017-9798
+|       CVE-2017-15710  5.0     https://vulners.com/cve/CVE-2017-15710
+|       CVE-2016-8743   5.0     https://vulners.com/cve/CVE-2016-8743
+|       CVE-2016-2161   5.0     https://vulners.com/cve/CVE-2016-2161
+|       CVE-2016-0736   5.0     https://vulners.com/cve/CVE-2016-0736
+|       CVE-2015-3183   5.0     https://vulners.com/cve/CVE-2015-3183
+|       CVE-2015-0228   5.0     https://vulners.com/cve/CVE-2015-0228
+|       CVE-2014-3523   5.0     https://vulners.com/cve/CVE-2014-3523
+|       CVE-2014-0231   5.0     https://vulners.com/cve/CVE-2014-0231
+|       CVE-2014-0098   5.0     https://vulners.com/cve/CVE-2014-0098
+|       CVE-2013-6438   5.0     https://vulners.com/cve/CVE-2013-6438
+|       1337DAY-ID-28573        5.0     https://vulners.com/zdt/1337DAY-ID-28573        *EXPLOIT*
+|       1337DAY-ID-26574        5.0     https://vulners.com/zdt/1337DAY-ID-26574        *EXPLOIT*
+|       SSV:87152       4.3     https://vulners.com/seebug/SSV:87152    *EXPLOIT*
+|       PACKETSTORM:127563      4.3     https://vulners.com/packetstorm/PACKETSTORM:127563      *EXPLOIT*
+|       EDB-ID:47688    4.3     https://vulners.com/exploitdb/EDB-ID:47688      *EXPLOIT*
+|       CVE-2020-11985  4.3     https://vulners.com/cve/CVE-2020-11985
+|       CVE-2019-10092  4.3     https://vulners.com/cve/CVE-2019-10092
+|       CVE-2018-1302   4.3     https://vulners.com/cve/CVE-2018-1302
+|       CVE-2018-1301   4.3     https://vulners.com/cve/CVE-2018-1301
+|       CVE-2016-4975   4.3     https://vulners.com/cve/CVE-2016-4975
+|       CVE-2015-3185   4.3     https://vulners.com/cve/CVE-2015-3185
+|       CVE-2014-8109   4.3     https://vulners.com/cve/CVE-2014-8109
+|       CVE-2014-0118   4.3     https://vulners.com/cve/CVE-2014-0118
+|       CVE-2014-0117   4.3     https://vulners.com/cve/CVE-2014-0117
+|       1337DAY-ID-33575        4.3     https://vulners.com/zdt/1337DAY-ID-33575        *EXPLOIT*
+|       CVE-2018-1283   3.5     https://vulners.com/cve/CVE-2018-1283
+|       CVE-2016-8612   3.3     https://vulners.com/cve/CVE-2016-8612
+|       PACKETSTORM:140265      0.0     https://vulners.com/packetstorm/PACKETSTORM:140265      *EXPLOIT*
+|       EDB-ID:42745    0.0     https://vulners.com/exploitdb/EDB-ID:42745      *EXPLOIT*
+|       EDB-ID:40961    0.0     https://vulners.com/exploitdb/EDB-ID:40961      *EXPLOIT*
+|       1337DAY-ID-601  0.0     https://vulners.com/zdt/1337DAY-ID-601  *EXPLOIT*
+|       1337DAY-ID-2237 0.0     https://vulners.com/zdt/1337DAY-ID-2237 *EXPLOIT*
+|       1337DAY-ID-1415 0.0     https://vulners.com/zdt/1337DAY-ID-1415 *EXPLOIT*
+|_      1337DAY-ID-1161 0.0     https://vulners.com/zdt/1337DAY-ID-1161 *EXPLOIT*
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ...
 ```
+Ooh, a Linux machine. SSH, mystery port, and HTTP!
 
 ## 2. Enumeration
 Let's visit the webpage. Navigating to `http://10.10.10.29:80` on our browser, we see the Apache2 Ubuntu Default Page.
