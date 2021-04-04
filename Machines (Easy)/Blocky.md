@@ -236,8 +236,9 @@ Let's enumerate them and list them out!
 `http://10.129.1.53/plugins/`
 ![Plugins](https://user-images.githubusercontent.com/21957042/113508382-55a38900-9582-11eb-96b4-d27ec1001d79.png)
 
+`http://10.129.1.53/wp-includes/`
+![wp-includes](https://user-images.githubusercontent.com/21957042/113508396-5b00d380-9582-11eb-933d-b877e7246aef.png)
 ```
-http://10.129.1.53/wp-includes/
 -> Index of /wp-includes
 [ICO]	Name	Last modified	Size	Description
 [PARENTDIR]	Parent Directory	 	- 	 
@@ -280,7 +281,7 @@ http://10.129.1.53/wp-includes/
 [ ]	wp-diff.php	2016-08-31 16:31 	661 	 
 Apache/2.4.18 (Ubuntu) Server at 10.129.1.53 Port 80
 ```
-![wp-includes](https://user-images.githubusercontent.com/21957042/113508396-5b00d380-9582-11eb-933d-b877e7246aef.png)
+```
 
 `http://10.129.1.53/javascript/`
 ![javascript](https://user-images.githubusercontent.com/21957042/113508378-53d9c580-9582-11eb-9b70-8e4efb4a7e41.png)
