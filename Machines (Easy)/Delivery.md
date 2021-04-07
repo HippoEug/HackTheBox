@@ -28,7 +28,7 @@ Going back to `http://helpdesk.delivery.htb/view.php` to check our ticket status
 Navigating to the link, we verified our MatterMost account and got access to the Internal Team chatgroup, which contained credentials, username `maildeliverer` and password `Youve_G0t_Mail!`.
 
 ### 6. SSH with Credentials
-Without much usefulness of the credentials on Port 80 HTTP, we are left with trying the credentials on Port 22 SSH. Doing SSH with `ssh maildeliverer@10.129.116.248`, we successfully logged in and and got the user flag. We did not have root access and had to privilege escalate.
+Without much usefulness of the credentials on Port 80 HTTP, we are left with trying the credentials on Port 22 SSH. Doing SSH with `ssh maildeliverer@10.129.116.248`, we successfully logged in and and got the user flag. Privilege escalation to root user was required to get root flags.
 
 ### 7. Enumeration for Privilege Escalation
 Doing some enumeration, we did not any bad configurations on SUID or services.
