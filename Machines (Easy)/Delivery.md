@@ -20,7 +20,7 @@ Upon submitting the Ticket, we get a confirmation and another email address `403
 ### 4. Port 8065 MatterMost Enumeration
 Under the `Contact Us` page, we see a message `Once you have an @delivery.htb email address, you'll be able to have access to our MatterMost server.`. This was a big clue, so we proceeded to try create an account on MatterMost, `http://delivery.htb:8065/`. We created an account with the provided email address `40314246@delivery.htb`.
 
-A account creation verification link was then sent to the email `40314246@delivery.htb`. We need this link.
+A account creation verification link was then sent to the email `40314246@delivery.htb`. This link is required.
 
 ### 5. Discovering MatterMost
 Going back to `http://helpdesk.delivery.htb/view.php` to check our ticket status, we provide the original email `alibaba@pizza.com` and the ticket ID `4031424` this time. We successfully logged in and saw the MatterMost account creation verification email with the link.
