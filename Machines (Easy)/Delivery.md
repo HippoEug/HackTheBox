@@ -23,13 +23,22 @@ Under the `Contact Us` page, we see a message `Once you have an @delivery.htb em
 A account creation verification link was then sent to the email `40314246@delivery.htb`. We needed this link.
 
 ### 5. Discovering MatterMost
-Going back to `http://helpdesk.delivery.htb/view.php` to check our ticket status, we provide the original email `alibaba@pizza.com` and the ticket ID `4031424` this time. We successfully logged in and saw the MatterMost accoutnt
+Going back to `http://helpdesk.delivery.htb/view.php` to check our ticket status, we provide the original email `alibaba@pizza.com` and the ticket ID `4031424` this time. We successfully logged in and saw the MatterMost account creation verification email with the link.
+
+Navigating to the link, we verified our MatterMost account and got access to the Internal Team chatgroup, which contained credentials, username `maildeliverer` and password `Youve_G0t_Mail!`.
 
 ### 6. SSH with Credentials
+Without much usefulness of the credentials on Port 80 HTTP, we are left with trying the credentials on Port 22 SSH. Doing SSH with `ssh maildeliverer@10.129.116.248`, we successfully logged in and and got the user flag. We did not have root access and had to privilege escalate.
 
-### 7. Privilege Escalation Enumeration
+### 7. Enumeration for Privilege Escalation
+Doing some enumeration, we did not any bad configurations on SUID or services.
 
-### 8. Privilege Escalation Attempt
+### 8. Privilege Escalation
+Since we know a MatterMost server exists, we can use it to find configuration files. Also, since the ticketing system needs a way to store data, MatterMost might need a database of sorts on the back end as well. We can look for the config files by doing `find / -name "mattermost*" > mattermost.txt`.
+
+Turns out, there is an interesting directory `/opt/mattermost/config/`, with the file `config.json` that contained MySQL credentials, username `mmuser` and password `Crack_The_MM_Admin_PW`
+
+We queried the database with `mysql -u mmuser -pCrack_The_MM_Admin_PW -D mattermost` to extract another set of privileged user credentials. We got Username `root` and Password hash of `$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO`
 
 ### 9. Password Cracking & Root Flag
 
@@ -374,7 +383,7 @@ Sorry, user maildeliverer may not run sudo on Delivery.
 ```
 Unfortunately not.
 
-## 7. Privilege Escalation Enumeration
+## 7. Enumeration for Privilege Escalation
 Let's do some enumeration.
 ```
 maildeliverer@Delivery:~$ uname -a
@@ -434,10 +443,10 @@ no crontab for maildeliverer
 ```
 Nevermind.
 
-## 8. Privilege Escalation Attempt
+## 8. Privilege Escalation
 Here is where I got stuck again, and had to search for answers. 
 
-As it turns out, there is an interesting directory, `\opt`, in Linux OS. I quote the usage of this directory; "A directory for installing unbundled packages (i.e. packages not part of the Operating System distribution, but provided by an independent source), each one in its own subdirectory. They are already built whole packages provided by an independent third party software distributor."
+As it turns out, there is an interesting directory, `/opt`, in Linux OS. I quote the usage of this directory; "A directory for installing unbundled packages (i.e. packages not part of the Operating System distribution, but provided by an independent source), each one in its own subdirectory. They are already built whole packages provided by an independent third party software distributor."
 
 Let's visit this directory.
 ```
