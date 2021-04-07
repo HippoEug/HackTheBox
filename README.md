@@ -4,7 +4,7 @@ Sorted by HTB Difficulty Rating & Order
 ## Machines
 ### Easy (Active)
  1. [ScriptKiddie](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/ScriptKiddie.md): Metasploit APK Template Command Injection, sh -c Command Execution (TO REVIEW OFFICIAL WALKTHROUGH)
- 2. [Delivery](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Delivery.md): (TO REVIEW OFFICIAL WALKTHROUGH)
+ 2. [Delivery](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Delivery.md): Credentials through Bad Email Configuration, Privilege Escalation using HashCat (TO REVIEW OFFICIAL WALKTHROUGH)
 
 ### Easy (Retired)
  1. [Lame](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Lame.md): Port 445 Netbios Samba Username Map Script Command Execution
