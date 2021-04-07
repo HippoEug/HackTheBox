@@ -10,7 +10,7 @@ Running NMAP, we see a Linux machine with Port 22 SSH and Port 80 HTTP opened.
 ### 2. Port 80 HTTP Enumeration
 Visiting the site `10.129.116.248`, we see a Delivery webpage with Support Center Ticket System, and access to a Mattermost chat page.
 
-Since we saw osTicket, we do a `searchsploit osticket` but do not see any easy or obvious methods of entry. We also do a `searchsploit mattermost` but that yielded no results.
+Since we saw osTicket, we do a `searchsploit osticket` but do not see any easy or obvious methods of entry, especially without knowing the version number. We also do a `searchsploit mattermost` but that yielded no results.
 
 ### 3. Port 80 Helpdesk Enumeration
 
