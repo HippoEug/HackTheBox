@@ -21,35 +21,15 @@ We had to migrate to a process running under NT AUTHORITY\NETWORK SERVICE, and i
 ## 1. NMAP
 Hi!
 ```
-hippoeug@kali:~$ nmap -sC -sV 10.10.10.15 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-26 21:37 +08
+hippoeug@kali:~$ nmap --script vuln 10.129.2.63 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-04 22:28 +08
+...
+Scanning 10.129.2.63 [1000 ports]
+Discovered open port 80/tcp on 10.129.2.63
 ...
 PORT   STATE SERVICE VERSION
 80/tcp open  http    Microsoft IIS httpd 6.0
-| http-methods: 
-|   Supported Methods: OPTIONS TRACE GET HEAD DELETE COPY MOVE PROPFIND PROPPATCH SEARCH MKCOL LOCK UNLOCK PUT POST
-|_  Potentially risky methods: TRACE DELETE COPY MOVE PROPFIND PROPPATCH SEARCH MKCOL LOCK UNLOCK PUT
-|_http-server-header: Microsoft-IIS/6.0
-|_http-title: Under Construction
-| http-webdav-scan: 
-|   Allowed Methods: OPTIONS, TRACE, GET, HEAD, DELETE, COPY, MOVE, PROPFIND, PROPPATCH, SEARCH, MKCOL, LOCK, UNLOCK
-|   WebDAV type: Unknown
-|   Public Options: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH
-|   Server Date: Tue, 26 Jan 2021 13:38:16 GMT                                                                                                                        
-|_  Server Type: Microsoft-IIS/6.0
-Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
-...
-```
-Now, this seriously looks like a carbon copy of [Grandpa](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Grandpa.md) machine.
-
-What about the vulnerability script?
-```
-hippoeug@kali:~$ nmap --script vuln 10.10.10.15 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-26 21:38 +08
-...
-PORT   STATE SERVICE
-80/tcp open  http
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
 |_http-csrf: Couldn't find any CSRF vulnerabilities.
 |_http-dombased-xss: Couldn't find any DOM based XSS.
 | http-enum: 
@@ -60,7 +40,7 @@ PORT   STATE SERVICE
 |   /_vti_bin/_vti_aut/author.exe: Frontpage file or folder
 |   /_vti_bin/_vti_adm/admin.dll: Frontpage file or folder
 |   /_vti_bin/_vti_adm/admin.exe: Frontpage file or folder
-|   /_vti_bin/fpcount.exe?Page=default.asp|Image=3: Frontpage file or folder                                                                                          
+|   /_vti_bin/fpcount.exe?Page=default.asp|Image=3: Frontpage file or folder
 |   /_vti_bin/shtml.dll: Frontpage file or folder
 |   /_vti_bin/shtml.exe: Frontpage file or folder
 |   /images/: Potentially interesting folder
@@ -74,13 +54,70 @@ PORT   STATE SERVICE
 |     References:
 |_      http://insecure.org/sploits/Microsoft.frontpage.insecurities.html
 |_http-iis-webdav-vuln: WebDAV is ENABLED. No protected folder found; check not run. If you know a protected folder, add --script-args=webdavfolder=<path>
+|_http-server-header: Microsoft-IIS/6.0
 |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| vulners: 
+|   cpe:/a:microsoft:internet_information_server:6.0: 
+|       SSV:92834       10.0    https://vulners.com/seebug/SSV:92834    *EXPLOIT*
+|       SSV:2903        10.0    https://vulners.com/seebug/SSV:2903     *EXPLOIT*
+|       PACKETSTORM:82956       10.0    https://vulners.com/packetstorm/PACKETSTORM:82956       *EXPLOIT*
+|       PACKETSTORM:142471      10.0    https://vulners.com/packetstorm/PACKETSTORM:142471      *EXPLOIT*
+|       PACKETSTORM:142060      10.0    https://vulners.com/packetstorm/PACKETSTORM:142060      *EXPLOIT*
+|       PACKETSTORM:141997      10.0    https://vulners.com/packetstorm/PACKETSTORM:141997      *EXPLOIT*
+|       MSF:EXPLOIT/WINDOWS/IIS/MS01_033_IDQ    10.0    https://vulners.com/metasploit/MSF:EXPLOIT/WINDOWS/IIS/MS01_033_IDQ     *EXPLOIT*
+|       MSF:EXPLOIT/WINDOWS/IIS/IIS_WEBDAV_SCSTORAGEPATHFROMURL 10.0    https://vulners.com/metasploit/MSF:EXPLOIT/WINDOWS/IIS/IIS_WEBDAV_SCSTORAGEPATHFROMURL  *EXPLOIT*
+|       MS01_033        10.0    https://vulners.com/canvas/MS01_033     *EXPLOIT*
+|       IIS6_PROPFIND   10.0    https://vulners.com/canvas/IIS6_PROPFIND        *EXPLOIT*
+|       EDB-ID:41992    10.0    https://vulners.com/exploitdb/EDB-ID:41992      *EXPLOIT*
+|       EDB-ID:20933    10.0    https://vulners.com/exploitdb/EDB-ID:20933      *EXPLOIT*
+|       EDB-ID:20932    10.0    https://vulners.com/exploitdb/EDB-ID:20932      *EXPLOIT*
+|       EDB-ID:20931    10.0    https://vulners.com/exploitdb/EDB-ID:20931      *EXPLOIT*
+|       EDB-ID:20930    10.0    https://vulners.com/exploitdb/EDB-ID:20930      *EXPLOIT*
+|       EDB-ID:16472    10.0    https://vulners.com/exploitdb/EDB-ID:16472      *EXPLOIT*
+|       CVE-2017-7269   10.0    https://vulners.com/cve/CVE-2017-7269
+|       CVE-2008-0075   10.0    https://vulners.com/cve/CVE-2008-0075
+|       CVE-2001-0500   10.0    https://vulners.com/cve/CVE-2001-0500
+|       1337DAY-ID-27757        10.0    https://vulners.com/zdt/1337DAY-ID-27757        *EXPLOIT*
+|       1337DAY-ID-27446        10.0    https://vulners.com/zdt/1337DAY-ID-27446        *EXPLOIT*
+|       SSV:12476       9.3     https://vulners.com/seebug/SSV:12476    *EXPLOIT*
+|       SSV:12175       9.3     https://vulners.com/seebug/SSV:12175    *EXPLOIT*
+|       SAINT:38542AFE78DE33F6BB0AF7E6A3C90956  9.3     https://vulners.com/saint/SAINT:38542AFE78DE33F6BB0AF7E6A3C90956        *EXPLOIT*
+|       PACKETSTORM:94532       9.3     https://vulners.com/packetstorm/PACKETSTORM:94532       *EXPLOIT*
+|       MSF:EXPLOIT/WINDOWS/FTP/MS09_053_FTPD_NLST      9.3     https://vulners.com/metasploit/MSF:EXPLOIT/WINDOWS/FTP/MS09_053_FTPD_NLST       *EXPLOIT*
+|       EDB-ID:9559     9.3     https://vulners.com/exploitdb/EDB-ID:9559       *EXPLOIT*
+|       EDB-ID:9541     9.3     https://vulners.com/exploitdb/EDB-ID:9541       *EXPLOIT*
+|       EDB-ID:16740    9.3     https://vulners.com/exploitdb/EDB-ID:16740      *EXPLOIT*
+|       SAINT:54344E071A068774A374DCE7F7795E80  9.0     https://vulners.com/saint/SAINT:54344E071A068774A374DCE7F7795E80        *EXPLOIT*
+|       SAINT:4EB4CF34422D02BCBF715C4ACFAC8C99  9.0     https://vulners.com/saint/SAINT:4EB4CF34422D02BCBF715C4ACFAC8C99        *EXPLOIT*
+|       IISFTP_NLST     9.0     https://vulners.com/canvas/IISFTP_NLST  *EXPLOIT*
+|       CVE-2009-3023   9.0     https://vulners.com/cve/CVE-2009-3023
+|       CVE-2010-1256   8.5     https://vulners.com/cve/CVE-2010-1256
+|       SSV:30067       7.5     https://vulners.com/seebug/SSV:30067    *EXPLOIT*
+|       CVE-2007-2897   7.5     https://vulners.com/cve/CVE-2007-2897
+|       SSV:2902        7.2     https://vulners.com/seebug/SSV:2902     *EXPLOIT*
+|       CVE-2008-0074   7.2     https://vulners.com/cve/CVE-2008-0074
+|       EDB-ID:2056     6.5     https://vulners.com/exploitdb/EDB-ID:2056       *EXPLOIT*
+|       CVE-2006-0026   6.5     https://vulners.com/cve/CVE-2006-0026
+|       EDB-ID:585      5.0     https://vulners.com/exploitdb/EDB-ID:585        *EXPLOIT*
+|       CVE-2005-2678   5.0     https://vulners.com/cve/CVE-2005-2678
+|       CVE-2003-0718   5.0     https://vulners.com/cve/CVE-2003-0718
+|       SSV:20121       4.3     https://vulners.com/seebug/SSV:20121    *EXPLOIT*
+|       MSF:AUXILIARY/DOS/WINDOWS/HTTP/MS10_065_II6_ASP_DOS     4.3     https://vulners.com/metasploit/MSF:AUXILIARY/DOS/WINDOWS/HTTP/MS10_065_II6_ASP_DOS      *EXPLOIT*
+|       EDB-ID:15167    4.3     https://vulners.com/exploitdb/EDB-ID:15167      *EXPLOIT*
+|       CVE-2010-1899   4.3     https://vulners.com/cve/CVE-2010-1899
+|       CVE-2005-2089   4.3     https://vulners.com/cve/CVE-2005-2089
+|       CVE-2003-1582   2.6     https://vulners.com/cve/CVE-2003-1582
+|_      EDB-ID:41738    0.0     https://vulners.com/exploitdb/EDB-ID:41738      *EXPLOIT*
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 ...
 ```
-This is similar too, except the addition of `/images/: Potentially interesting folder` & `/_private/: Potentially interesting folder`.
+Now, this seriously looks like a carbon copy of [Grandpa](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Grandpa.md) machine.
+Except the addition of `/images/: Potentially interesting folder` & `/_private/: Potentially interesting folder`.
 
 ## 2. Enumeration
 Visiting http://10.10.10.15:80 on our browser, we get an "Under Construction" page.
+
+![UnderConstruction](https://user-images.githubusercontent.com/21957042/113512055-7d501c80-9595-11eb-86e1-b26d811ac2c1.png)
 
 Let's do some searches for `Microsoft IIS httpd 6.0`. If we end up not being able to find any exploits, we can try Dirbuster.
 ```
