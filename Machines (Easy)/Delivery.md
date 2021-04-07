@@ -13,6 +13,9 @@ Visiting the site `10.129.116.248`, we see a Delivery webpage with Support Cente
 Since we saw osTicket, we do a `searchsploit osticket` but do not see any easy or obvious methods of entry, especially without knowing the version number. We also do a `searchsploit mattermost` but that yielded no results.
 
 ### 3. Port 80 Helpdesk Enumeration
+Visiting the Support Center Ticket System at `http://helpdesk.delivery.htb/`, we submit a Ticket with the email address `alibaba@pizza.com`, and also attached a file that could potentially be our payload.
+
+Upon submitting the Ticket, we get a confirmation and another email address `40314246@delivery.htb` with a ticket ID `4031424`. We try to check our ticket status by providing the ticket number, and the email `40314246@delivery.htb`, but we got a `Access denied` error. Turns out, in order to check the ticket status, we needed to provide our original email `alibaba@pizza.com` instead.
 
 ### 4. Port 8065 MatterMost Enumeration
 
