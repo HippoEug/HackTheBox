@@ -38,9 +38,12 @@ Since we know a MatterMost server exists, we can use it to find configuration fi
 
 Turns out, there is an interesting directory `/opt/mattermost/config/`, with the file `config.json` that contained MySQL credentials, username `mmuser` and password `Crack_The_MM_Admin_PW`
 
-We queried the database with `mysql -u mmuser -pCrack_The_MM_Admin_PW -D mattermost` to extract another set of privileged user credentials. We got Username `root` and Password hash of `$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO`
+We queried the database with `mysql -u mmuser -pCrack_The_MM_Admin_PW -D mattermost` to extract another set of privileged user credentials. We got Username `root` and Password hash of `$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO`.
 
 ### 9. Password Cracking & Root Flag
+Performing `hashid`, we see that the hash `$2a$10$VM6EeymRxJ29r8Wjkr8Dtev0O.1STWb4.4ScG.anuu7v0EFJwgjjO` is in fact generated with `bcrypt` algorithm. Earlier on in the MatterMost chat, we saw a interesting message that the message is a variant of `PleaseSubscribe!`. We generated a wordlist that revolved around the password `PleaseSubscribe!` by doing `hashcat -r /usr/share/hashcat/rules/best64.rule --stdout rule > wordlist.txt`, and got to cracking the hash with `HashCat`.
+
+By doing `hashcat -m 3200 -a 0 hash wordlist.txt -o cracked.txt`, `HashCat` successfully cracked the password `PleaseSubscribe!21`. We were able to switch user to `root` with the new password `PleaseSubscribe!21` and obtain the root flag.
 
 # Attack
 ## 1. NMAP
