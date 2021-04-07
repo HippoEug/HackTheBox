@@ -18,8 +18,12 @@ Visiting the Support Center Ticket System at `http://helpdesk.delivery.htb/`, we
 Upon submitting the Ticket, we get a confirmation and another email address `40314246@delivery.htb` with a ticket ID `4031424`. We try to check our ticket status by providing the ticket number, and the email `40314246@delivery.htb`, but we got a `Access denied` error. Turns out, in order to check the ticket status, we needed to provide our original email `alibaba@pizza.com` instead.
 
 ### 4. Port 8065 MatterMost Enumeration
+Under the `Contact Us` page, we see a message `Once you have an @delivery.htb email address, you'll be able to have access to our MatterMost server.`. This was a big clue, so we proceeded to try create an account on MatterMost, `http://delivery.htb:8065/`. We created an account with the provided email address `40314246@delivery.htb`.
+
+A account creation verification link was then sent to the email `40314246@delivery.htb`. We needed this link.
 
 ### 5. Discovering MatterMost
+Going back to `http://helpdesk.delivery.htb/view.php` to check our ticket status, we provide the original email `alibaba@pizza.com` and the ticket ID `4031424` this time. We successfully logged in and saw the MatterMost accoutnt
 
 ### 6. SSH with Credentials
 
@@ -281,7 +285,7 @@ Let's click `View Ticket`, and see what we get.
 
 Fantastic! Now all we do is go to the verification link `http://delivery.htb:8065/do_verify_email?token=sowizixm4iuikchfpddpu45pm7f4yqe3k8m3nj4r8iixjp3or7f3d4g7b8swqzx5&email=4031424%40delivery.htb`.
 
-Let's create an account.
+Let's log in.
 
 ![Mattermost](https://user-images.githubusercontent.com/21957042/113479296-d1d59800-94c0-11eb-97ff-5c884d942be4.png)
 
