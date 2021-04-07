@@ -5,8 +5,12 @@
 
 # Summary
 ### 1. NMAP
+Running NMAP, we see a Linux machine with Port 22 SSH and Port 80 HTTP opened.
 
 ### 2. Port 80 HTTP Enumeration
+Visiting the site `10.129.116.248`, we see a Delivery webpage with Support Center Ticket System, and access to a Mattermost chat page.
+
+Since we saw osTicket, we do a `searchsploit osticket` but do not see any easy or obvious methods of entry. We also do a `searchsploit mattermost` but that yielded no results.
 
 ### 3. Port 80 Helpdesk Enumeration
 
@@ -98,7 +102,7 @@ Moving on, we click on `Contact Us` button.
 
 ![Contact Us](https://user-images.githubusercontent.com/21957042/113474525-0b97a600-94a3-11eb-8afe-b9a99974cd2f.png)
 
-Once again, clicking on `helpdesk` redirects to `http://helpdesk.delivery.htb/`, which shows `Server Not Found` error. But we are also able to click on `MatterMost server`, which brings us to `http://delivery.htb:8065/`, which also shows `Server Not Found` error. At least now we know there's Port 8065 also, which NMAP did not get to scan.
+We are also able to click on `MatterMost server`, which brings us to `http://delivery.htb:8065/`, which also shows `Server Not Found` error. At least now we know there's Port 8065 also, which NMAP did not get to scan.
 
 No sweat, easy fix as we seen on many machines now. Let's just add to our `/etc/hosts` file.
 ```
