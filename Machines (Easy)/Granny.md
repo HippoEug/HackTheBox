@@ -121,6 +121,25 @@ Visiting http://10.10.10.15:80 on our browser, we get an "Under Construction" pa
 
 ![UnderConstruction](https://user-images.githubusercontent.com/21957042/113512055-7d501c80-9595-11eb-86e1-b26d811ac2c1.png)
 
+As usual, we'll add it to `/etc/hosts` and see what we get.
+```
+hippoeug@kali:~$ sudo nano /etc/hosts
+[sudo] password for hippoeug: 
+  GNU nano 5.4                                                                  /etc/hosts *                                                                          
+127.0.0.1       localhost
+127.0.1.1       kali
+10.129.2.63 granny.htb
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+
+![granny](https://user-images.githubusercontent.com/21957042/114212164-187d3380-9994-11eb-8d66-f5ae32fcd9b4.png)
+
+Still the same, let's move on.
+
 Let's do some searches for `Microsoft IIS httpd 6.0`. If we end up not being able to find any exploits, we can try Dirbuster.
 ```
 hippoeug@kali:~$ searchsploit iis 6.0
