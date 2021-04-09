@@ -1,4 +1,13 @@
-
-TODO: On Delivery, add screenshot of invalid page without adding to /etc/hosts
-
 On grandpa, grandma, try adding to /etc/hosts 
+
+
+hippoeug@kali:~$ sudo nano /etc/hosts
+127.0.0.1       localhost
+127.0.1.1       kali
+10.129.127.112 grandpa.htb
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
