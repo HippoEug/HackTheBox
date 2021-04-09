@@ -117,11 +117,15 @@ Let's visit `10.129.116.248` first.
 
 Clicking on `helpdesk` redirects to `http://helpdesk.delivery.htb/`, which shows `Server Not Found` error.
 
+![HelpDesk](https://user-images.githubusercontent.com/21957042/114194258-e06cf500-9981-11eb-898e-46b368f7352e.png)
+
 Moving on, we click on `Contact Us` button.
 
 ![Contact Us](https://user-images.githubusercontent.com/21957042/113474525-0b97a600-94a3-11eb-8afe-b9a99974cd2f.png)
 
 We are also able to click on `MatterMost server`, which brings us to `http://delivery.htb:8065/`, which also shows `Server Not Found` error. At least now we know there's Port 8065 also, which NMAP did not get to scan.
+
+![MatterMost](https://user-images.githubusercontent.com/21957042/114194261-e19e2200-9981-11eb-9374-ba314f063098.png)
 
 No sweat, easy fix as we seen on many machines now. Let's just add to our `/etc/hosts` file.
 ```
