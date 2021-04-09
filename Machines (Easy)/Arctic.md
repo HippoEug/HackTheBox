@@ -1,6 +1,6 @@
 # References
-1. [Optimum Writeup (absolomb.com)](https://www.absolomb.com/2017-12-29-HackTheBox-Arctic-Writeup/)
-2. [Optimum Writeup (medium.com)](https://medium.com/@Rehman.Beg/hackthebox-arctic-writeup-442d2b268833)
+1. [Arctic Writeup (absolomb.com)](https://www.absolomb.com/2017-12-29-HackTheBox-Arctic-Writeup/)
+2. [Arctic Writeup (medium.com)](https://medium.com/@Rehman.Beg/hackthebox-arctic-writeup-442d2b268833)
 
 # Summary
 ### 1. NMAP
