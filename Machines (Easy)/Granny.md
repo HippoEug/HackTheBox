@@ -125,7 +125,7 @@ As usual, we'll add it to `/etc/hosts` and see what we get.
 ```
 hippoeug@kali:~$ sudo nano /etc/hosts
 [sudo] password for hippoeug: 
-  GNU nano 5.4                                                                  /etc/hosts *                                                                          
+  GNU nano 5.4                                                                  /etc/hosts *
 127.0.0.1       localhost
 127.0.1.1       kali
 10.129.2.63 granny.htb
