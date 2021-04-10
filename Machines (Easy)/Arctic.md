@@ -484,6 +484,8 @@ listening on [any] 4545 ...
 
 Upon pressing the "Run Scheduled Task" button, it ran successfully with the message "This scheduled task was completed successfully.".
 
+![Success](https://user-images.githubusercontent.com/21957042/114263515-823f2100-9a18-11eb-8cf1-dece21b94138.png)
+
 However, we are not able to execute this `meterpreter.exe` we just placed, as we do not have access to the file path.
 Getting the payload in the location user Tolis directory isn't an issue, but running it is.
 
