@@ -523,6 +523,8 @@ This task was scheduled successfully.
 
 Upon pressing the "Run Scheduled Task" button, it ran successfully with the message "This scheduled task was completed successfully.".
 
+![Success](https://user-images.githubusercontent.com/21957042/114263515-823f2100-9a18-11eb-8cf1-dece21b94138.png)
+
 To execute the payload we just placed, we need to go to the browser and navigate to `10.10.10.11:8500/CFIDE/meterpreter.exe`. However instead of running it, our browser attempts to download the `meterpreter.exe` payload instead. 
 
 ![Download](https://user-images.githubusercontent.com/21957042/114264349-f2e83c80-9a1c-11eb-9021-b4cebf127213.png)
