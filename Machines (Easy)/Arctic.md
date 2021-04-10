@@ -507,7 +507,7 @@ Server Settings
 
 ![Mapping](https://user-images.githubusercontent.com/21957042/114263507-7eab9a00-9a18-11eb-96dc-0989120b3fa5.png)
 
-Let's Schedule New Task again.
+We will place our payload in `/CFIDE`, `C:\ColdFusion8\wwwroot\CFIDE\`. Let's Schedule New Task again. 
 
 ![meterpreter](https://user-images.githubusercontent.com/21957042/114263513-810df400-9a18-11eb-975b-2f3a2de2c065.png)
 
