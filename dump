@@ -1,1 +1,53 @@
+hippoeug@kali:~$ nmap --script vuln 10.129.127.126 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-10 03:17 +08
+NSE: Loaded 149 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 03:17
+Completed NSE at 03:17, 10.00s elapsed
+Initiating NSE at 03:17
+Completed NSE at 03:17, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 03:17
+Completed Parallel DNS resolution of 1 host. at 03:17, 0.43s elapsed
+Initiating Connect Scan at 03:17
+Scanning 10.129.127.126 [1000 ports]
+Discovered open port 135/tcp on 10.129.127.126
+Discovered open port 8500/tcp on 10.129.127.126
+Discovered open port 49154/tcp on 10.129.127.126
+Completed Connect Scan at 03:18, 17.34s elapsed (1000 total ports)
+Initiating Service scan at 03:18
+Scanning 3 services on 10.129.127.126
+Service scan Timing: About 66.67% done; ETC: 03:19 (0:00:30 remaining)
+Completed Service scan at 03:20, 136.48s elapsed (3 services on 1 host)
+NSE: Script scanning 10.129.127.126.
+Initiating NSE at 03:20
+NSE: [firewall-bypass] lacks privileges.
+Completed NSE at 03:20, 1.32s elapsed
+Initiating NSE at 03:20
+NSE: [tls-ticketbleed] Not running due to lack of privileges.
+Completed NSE at 03:20, 1.38s elapsed
+Nmap scan report for 10.129.127.126
+Host is up (0.33s latency).
+Not shown: 997 filtered ports
+PORT      STATE SERVICE VERSION
+135/tcp   open  msrpc   Microsoft Windows RPC
+8500/tcp  open  fmtp?
+49154/tcp open  msrpc   Microsoft Windows RPC
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+NSE: Script Post-scanning.
+Initiating NSE at 03:20
+Completed NSE at 03:20, 0.00s elapsed
+Initiating NSE at 03:20
+Completed NSE at 03:20, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 167.88 seconds
+hippoeug@kali:~$ 
+
+
+
+
+
+
 
