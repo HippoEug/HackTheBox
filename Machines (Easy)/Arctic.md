@@ -42,29 +42,23 @@ Trying `ms10_092_schelevator` worked, we got system rights and the system flag.
 ## 1. NMAP
 Start.
 ```
-hippoeug@kali:~$ nmap -sC -sV 10.10.10.11 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-17 16:39 +08
+hippoeug@kali:~$ nmap --script vuln 10.129.127.126 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-10 03:17 +08
+...
+Scanning 10.129.127.126 [1000 ports]
+Discovered open port 135/tcp on 10.129.127.126
+Discovered open port 8500/tcp on 10.129.127.126
+Discovered open port 49154/tcp on 10.129.127.126
 ...
 PORT      STATE SERVICE VERSION
 135/tcp   open  msrpc   Microsoft Windows RPC
 8500/tcp  open  fmtp?
 49154/tcp open  msrpc   Microsoft Windows RPC
 Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
-```
-Windows OS, with three ports. Okay. Let's see the vulnerability script.
-```
-hippoeug@kali:~$ nmap --script vuln 10.10.10.11 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-17 16:44 +08
 ...
-PORT      STATE SERVICE
-135/tcp   open  msrpc
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-8500/tcp  open  fmtp
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-49154/tcp open  unknown
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
 ```
-Nevermind, let's move on.
+Windows OS with three ports, let's move on.
 
 ## 2. Enumeration & Attack Attempt 1: MSRPC
 Let's start finding some possible vulnerabilities.
