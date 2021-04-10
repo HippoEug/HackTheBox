@@ -523,7 +523,11 @@ This task was scheduled successfully.
 
 Upon pressing the "Run Scheduled Task" button, it ran successfully with the message "This scheduled task was completed successfully.".
 
-To execute the payload we just placed, we need to go to the browser and navigate to `10.10.10.11:8500/CFIDE/meterpreter.exe`. However instead of running it, our browser attempts to download the `meterpreter.exe` payload instead. We need to find a file extension that Adobe ColdFusion is willing to run. Upon some research, we found that ColdFusion will execute [`.cfm`](https://reboare.gitbooks.io/security/content/webshell.html) & `.jsp` files.
+To execute the payload we just placed, we need to go to the browser and navigate to `10.10.10.11:8500/CFIDE/meterpreter.exe`. However instead of running it, our browser attempts to download the `meterpreter.exe` payload instead. 
+
+![Download](https://user-images.githubusercontent.com/21957042/114264349-f2e83c80-9a1c-11eb-9021-b4cebf127213.png)
+
+We need to find a file extension that Adobe ColdFusion is willing to run. Upon some research, we found that ColdFusion will execute [`.cfm`](https://reboare.gitbooks.io/security/content/webshell.html) & `.jsp` files.
 
 Since msfvenom allows for creation of `.jsp` webshell easily, we'll create a `.jsp` instead of `.cfm` payload.
 ```
