@@ -114,56 +114,24 @@ Crap. DoS is not what we need. We were also unable to find any potential attacks
 Honestly at this point, I was stuck and had to look for some clues online. Turns out, I simply "forgotten" one of the fundamentals, which is to try accessing these ports on a web browser. Port 80 (HTTP) & port 443 (HTTPS) aren't the only ports available on a web browser!
 
 Navigating to `http://10.10.10.11:8500`, which takes forever to load, we see what seems to be a listing of a file system.
-```
-Index of /
 
-CFIDE/               dir   03/22/17 08:52 μμ
-cfdocs/              dir   03/22/17 08:55 μμ
-```
+![index](https://user-images.githubusercontent.com/21957042/114262157-0c838700-9a11-11eb-877b-9ab18112a892.png)
+
 Very cool, let's see `CFIDE/` first.
-```
-Index of /CFIDE/
 
-Parent ..                                              dir   03/22/17 08:52 μμ
-Application.cfm                                       1151   03/18/08 11:06 πμ
-adminapi/                                              dir   03/22/17 08:53 μμ
-administrator/                                         dir   03/22/17 08:55 μμ
-classes/                                               dir   03/22/17 08:52 μμ
-componentutils/                                        dir   03/22/17 08:52 μμ
-debug/                                                 dir   03/22/17 08:52 μμ
-images/                                                dir   03/22/17 08:52 μμ
-install.cfm                                          12077   03/18/08 11:06 πμ
-multiservermonitor-access-policy.xml                   278   03/18/08 11:07 πμ
-probe.cfm                                            30778   03/18/08 11:06 πμ
-scripts/                                               dir   03/22/17 08:52 μμ
-wizards/                                               dir   03/22/17 08:52 μμ
-```
+![CFIDE](https://user-images.githubusercontent.com/21957042/114262158-0e4d4a80-9a11-11eb-8e81-3d8708d545de.png)
+
 Hmm, doing some Googling, we see `.cfm` is a Cold Fusion Markup file, which are web pages made up of specific code that enables scripts and applications to run on a ColdFusion web server. Let's KIV this.
 
 Going top down, we enumerate `adminapi/` next.
-```
-Index of /CFIDE/adminapi/
 
-Parent ..                                       dir   03/22/17 08:53 μμ
-Application.cfm                                2602   03/18/08 11:06 πμ
-_datasource/                                    dir   03/22/17 08:52 μμ
-accessmanager.cfc                             20553   03/18/08 11:06 πμ
-administrator.cfc                            164570   03/18/08 11:06 πμ
-base.cfc                                      56505   03/18/08 11:06 πμ
-customtags/                                     dir   03/22/17 08:52 μμ
-datasource.cfc                               382660   03/18/08 11:06 πμ
-debugging.cfc                                101130   03/18/08 11:06 πμ
-eventgateway.cfc                              95781   03/18/08 11:06 πμ
-extensions.cfc                               130902   03/18/08 11:06 πμ
-flex.cfc                                      13731   03/18/08 11:06 πμ
-mail.cfc                                      48694   03/18/08 11:06 πμ
-runtime.cfc                                  212558   03/18/08 11:06 πμ
-security.cfc                                 299192   03/18/08 11:06 πμ
-servermonitoring.cfc                         451021   03/18/08 11:06 πμ
-```
+![CFIDE adminapi](https://user-images.githubusercontent.com/21957042/114262159-0ee5e100-9a11-11eb-8d4a-e905652f3288.png)
+
 Ah, looks like more config files of sorts. Let's move to the next one, `administrator/`.
 
 Enumerating to `http://10.10.10.11:8500/CFIDE/administrator/`, we see a that it is not a directory, but instead a Adobe ColdFusion 8 Administrator login page, with a Username `admin` that cannot be changed.
+
+![CFIDE administrator](https://user-images.githubusercontent.com/21957042/114262161-0f7e7780-9a11-11eb-9514-5638655b5486.png)
 
 We got a few ways to continue this, either looking for a password to login, search for vulnerabities with searchsploit etc, dirbuster this, or something.
 
@@ -175,90 +143,23 @@ Inspecting the source page of the `CFIDE/administrator/` login page, we see some
 From this, we know that the salted password is encrypted with SHA1.
 
 Let's enumerate a little more down the list of directories.
-```
-Index of /CFIDE/classes/
 
-Parent ..                                 dir   03/22/17 08:52 μμ
-cf-j2re-win.cab                       5073487   03/18/08 11:06 πμ
-cfapplets.jar                           87810   03/18/08 11:06 πμ
-images/                                   dir   03/22/17 08:52 μμ
-```
-```
-Index of /CFIDE/componentutils/
+![CFIDE classes](https://user-images.githubusercontent.com/21957042/114262162-10170e00-9a11-11eb-84fd-d6efb01b2d21.png)
 
-Parent ..                                                 dir   03/22/17 08:52 μμ
-Application.cfm                                          2477   03/18/08 11:07 πμ
-_component_cfcToHTML.cfm                                 8560   03/18/08 11:07 πμ
-_component_cfcToMCDL.cfm                                 2643   03/18/08 11:07 πμ
-_component_style.cfm                                      462   03/18/08 11:07 πμ
-_component_utils.cfm                                     7247   03/18/08 11:07 πμ
-cfcexplorer.cfc                                         11121   03/18/08 11:07 πμ
-cfcexplorer_utils.cfm                                    6557   03/18/08 11:07 πμ
-componentdetail.cfm                                      1215   03/18/08 11:07 πμ
-componentdoc.cfm                                          629   03/18/08 11:07 πμ
-componentlist.cfm                                        1212   03/18/08 11:07 πμ
-gatewaymenu/                                              dir   03/22/17 08:52 μμ
-login.cfm                                               19984   03/18/08 11:06 πμ
-packagelist.cfm                                          1286   03/18/08 11:07 πμ
-utils.cfc                                                1180   03/18/08 11:07 πμ
-```
-```
-Index of /CFIDE/debug/
+![CFIDE componentutil](https://user-images.githubusercontent.com/21957042/114262163-10170e00-9a11-11eb-9284-87f4d52541b3.png)
 
-Parent ..                              dir   03/22/17 08:52 μμ
-blank.html                              78   03/18/08 11:06 πμ
-cf_debugFr.cfm                        2843   03/18/08 11:06 πμ
-images/                                dir   03/22/17 08:52 μμ
-includes/                              dir   03/22/17 08:52 μμ
-```
-```
-Index of /CFIDE/debug/includes/
+![CFIDE debug](https://user-images.githubusercontent.com/21957042/114262164-11483b00-9a11-11eb-84c0-df9f5513174e.png)
 
-Parent ..                                         dir   03/22/17 08:52 μμ
-cf_debug_main.js                                 1195   03/18/08 11:06 πμ
-```
-```
-Index of /CFIDE/images/
+![CFIDE debug includes](https://user-images.githubusercontent.com/21957042/114262165-11e0d180-9a11-11eb-9c91-135a3baa9e7e.png)
 
-Parent ..                             dir   03/22/17 08:52 μμ
-required.gif                           94   03/18/08 11:07 πμ
-skins/                                dir   03/22/17 08:52 μμ
-```
-```
-Index of /CFIDE/scripts/
+![CFIDE images](https://user-images.githubusercontent.com/21957042/114262172-1907df80-9a11-11eb-81c4-14bb1a42fc53.png)
 
-Parent ..                                        dir   03/22/17 08:52 μμ
-CF_RunActiveContent.js                           116   03/18/08 11:07 πμ
-ajax/                                            dir   03/22/17 08:52 μμ
-cfform-src.js                                  22480   03/18/08 11:07 πμ
-cfform.js                                      10617   03/18/08 11:07 πμ
-cfform.swc                                    424916   03/18/08 11:07 πμ
-cfformhistory.cfm                               4120   03/18/08 11:06 πμ
-cfformhistory.js                                1616   03/18/08 11:07 πμ
-cfformhistory.swf                               2656   03/18/08 11:07 πμ
-css/                                             dir   03/22/17 08:52 μμ
-dump.js                                         5142   03/18/08 11:07 πμ
-fpwrapper.fla                                 165376   03/18/08 11:07 πμ
-fpwrapper.swf                                  27476   03/18/08 11:07 πμ
-masks-src.js                                    9393   03/18/08 11:07 πμ
-masks.js                                        3897   03/18/08 11:07 πμ
-wddx.js                                        22617   03/18/08 11:07 πμ
-xsl/                                             dir   03/22/17 08:52 μμ
-```
-```
-Index of /CFIDE/wizards/
+![CFIDE scripts](https://user-images.githubusercontent.com/21957042/114262173-1a390c80-9a11-11eb-8dfe-ff9880d0d9dd.png)
 
-Parent ..                         dir   03/22/17 08:52 μμ
-common/                           dir   03/22/17 08:52 μμ
-```
-```
-Index of /CFIDE/wizards/common/
+![CFIDE wizards](https://user-images.githubusercontent.com/21957042/114262174-1ad1a300-9a11-11eb-892b-bd420c364b6a.png)
 
-Parent ..                                                    dir   03/22/17 08:52 μμ
-_authenticatewizarduser.cfm                                 1585   03/18/08 11:07 πμ
-_logintowizard.cfm                                          7135   03/18/08 11:07 πμ
-utils.cfc                                                   1596   03/18/08 11:07 πμ
-```
+![CFIDE wizards common](https://user-images.githubusercontent.com/21957042/114262175-1b6a3980-9a11-11eb-94bd-ef560b231422.png)
+
 Ah, we cannot find a file that we can use to our advantage.
 
 ## 5. Finding & Attacking with Adobe ColdFusion 8 Exploits
