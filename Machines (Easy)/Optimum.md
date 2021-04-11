@@ -31,29 +31,15 @@ Through this, we got a meterpreter shell successfully. We try `exploit/windows/l
 ## 1. NMAP
 Business as usual.
 ```
-hippoeug@kali:~$ nmap -sC -sV 10.10.10.8 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-03 13:54 +08
+hippoeug@kali:~$ nmap --script vuln 10.129.1.127 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-11 02:25 +08
+...
+Scanning 10.129.1.127 [1000 ports]
+Discovered open port 80/tcp on 10.129.1.127
 ...
 PORT   STATE SERVICE VERSION
 80/tcp open  http    HttpFileServer httpd 2.3
-|_http-favicon: Unknown favicon MD5: 759792EDD4EF8E6BC2D1877D27153CB1
-| http-methods: 
-|_  Supported Methods: GET HEAD POST
-|_http-server-header: HFS 2.3
-|_http-title: HFS /
-Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
-...
-```
-Wow, only Port 80, a HttpFileServer is open.
-
-Let's see another vulnerability NMAP script.
-```
-hippoeug@kali:~$ nmap --script vuln 10.10.10.8 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-03 14:01 +08
-...
-PORT   STATE SERVICE
-80/tcp open  http
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
 |_http-csrf: Couldn't find any CSRF vulnerabilities.
 |_http-dombased-xss: Couldn't find any DOM based XSS.
 | http-fileupload-exploiter: 
@@ -73,41 +59,31 @@ PORT   STATE SERVICE
 |     /~login [GENERIC]
 |   
 |     References:
-|       https://www.owasp.org/index.php/Testing_for_HTTP_Methods_and_XST_%28OWASP-CM-008%29
-|       http://capec.mitre.org/data/definitions/274.html
 |       http://www.imperva.com/resources/glossary/http_verb_tampering.html
-|_      http://www.mkit.com.ar/labs/htexploit/
-| http-slowloris-check: 
-|   VULNERABLE:
-|   Slowloris DOS attack
-|     State: LIKELY VULNERABLE
-|     IDs:  CVE:CVE-2007-6750
-|       Slowloris tries to keep many connections to the target web server open and hold
-|       them open as long as possible.  It accomplishes this by opening connections to
-|       the target web server and sending a partial request. By doing so, it starves
-|       the http server's resources causing Denial Of Service.
-|       
-|     Disclosure date: 2009-09-17
-|     References:
-|       http://ha.ckers.org/slowloris/
-|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+|       http://www.mkit.com.ar/labs/htexploit/
+|       http://capec.mitre.org/data/definitions/274.html
+|_      https://www.owasp.org/index.php/Testing_for_HTTP_Methods_and_XST_%28OWASP-CM-008%29
+|_http-server-header: HFS 2.3
 |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
 | http-vuln-cve2011-3192: 
 |   VULNERABLE:
 |   Apache byterange filter DoS
 |     State: VULNERABLE
-|     IDs:  BID:49303  CVE:CVE-2011-3192
+|     IDs:  CVE:CVE-2011-3192  BID:49303
 |       The Apache web server is vulnerable to a denial of service attack when numerous
 |       overlapping byte ranges are requested.
 |     Disclosure date: 2011-08-19
 |     References:
-|       https://seclists.org/fulldisclosure/2011/Aug/175
-|       https://www.securityfocus.com/bid/49303
+|       https://www.tenable.com/plugins/nessus/55976
 |       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192
-|_      https://www.tenable.com/plugins/nessus/55976
+|       https://seclists.org/fulldisclosure/2011/Aug/175
+|_      https://www.securityfocus.com/bid/49303
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 ...
 ```
-Wow, a couple of vulnerabilities it seems. but mainly for DoS. Let's take a quick look at `http-method-tamper` links and try something.
+Only Port 80, a HttpFileServer is open on this Windows machine.
+
+A couple of vulnerabilities it seems, but mainly for DoS. Let's take a quick look at `http-method-tamper` links and try something.
 ```
 hippoeug@kali:~$ nmap -p 80 --script http-methods 10.10.10.8
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-03 14:37 +08
