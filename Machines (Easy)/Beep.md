@@ -221,9 +221,21 @@ Holy shit, that is a lotta open ports!
 ## 2. Finding Attack Vector
 Let's find out more on the http servers.
 
-`Port 80 & Port 443`: Going to `https://10.10.10.7`, we see an expired certificate. We can KIV this. Accepting the risk, we see it is a login page for "Elastix". We also get automatically redirected to `https` despite trying to go `http`. We know from the scans this is Apache httpd 2.2.3.
+`Port 80 & Port 443`: Going to `https://10.10.10.7`, we see an expired certificate. We can KIV this. 
 
-`Port 10000`: We see a Webmin webpage with another login page. We know from the scans this is MiniServ 1.570 (Webmin httpd). We also see something interesting.
+![443](https://user-images.githubusercontent.com/21957042/114298234-f694c580-9ae7-11eb-8fbd-4cacf3195f7e.png)
+![Warning](https://user-images.githubusercontent.com/21957042/114298235-f7c5f280-9ae7-11eb-91c3-ad36646c2dc4.png)
+
+Accepting the risk, we see it is a login page for "Elastix". We also get automatically redirected to `https` despite trying to go `http`. We know from the scans this is Apache httpd 2.2.3.
+
+![Elastix](https://user-images.githubusercontent.com/21957042/114298236-f85e8900-9ae7-11eb-969f-0509cf460651.png)
+
+`Port 10000`: We see a Webmin webpage with another login page. 
+
+![10000](https://user-images.githubusercontent.com/21957042/114298238-f8f71f80-9ae7-11eb-8083-c1a771a84b35.png)
+![Webmin](https://user-images.githubusercontent.com/21957042/114298240-f98fb600-9ae7-11eb-9162-bf68e747f502.png)
+
+We know from the scans this is MiniServ 1.570 (Webmin httpd). We also see something interesting.
 ```
 http-vuln-cve2006-3392: 
 |   VULNERABLE:
