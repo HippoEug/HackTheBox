@@ -7,7 +7,7 @@ Since we saw the existence of a webserver on Port 80 & Port 443, we view it firs
 
 We also see "Webmin" on Port 1000, and NMAP revealed that it was vulnerable to an File Disclosure exploit. Finally, we also do Gobuster but got a invalid certificate error.
 
-### 3. Attack Attempt 1: Attacking Webmin (Port 10000)
+### 3. Attack Attempt 1: Attacking Port 10000 Webmin
 NOTE: Unnecessary Step
 
 Since the Webmin File Disclosure exploit had a Metasploit module pre-written, `auxiliary/admin/webmin/file_disclosure`, we run it but were unable to get any files. All the searches returned with `404 File not found` errors.
@@ -17,7 +17,7 @@ NOTE: Unnecessary Step
 
 More enumeration performed for openssh, apache httpd, pop3d and webmin. We see a couple of exploits from `searchsploit webmin` though!
 
-### 5. Attack Attempt 2: Attempt to Attack Webmin Again!
+### 5. Attack Attempt 2: Attempt to Attack Port 10000 Webmin Again!
 NOTE: Unnecessary Step
 
 We perform two attacks on Webmin, both happen to have Metasploit modules written for it. However to use them, credentials are needed.
@@ -29,7 +29,7 @@ Turns out, the Gobuster that was performed in step 2 was a correct step, and a `
 
 We do a `searchsploit vtigercrm`, with no results, followed by a `searchsploit elastix` and see a few interesting possible attacks, but unfortuantely nothing supported by Metasploit. We had to step out of our comfort zone and try to attack it the harder way.
 
-### 7. Attack Attempt 3: Attacking Elastix on Port 443 (Method 1: VTigerCRM)
+### 7. Attack Attempt 3: Attacking Elastix on Port 443 (VTigerCRM)
 We try to find the version of Elastix through viewing of the page source as well as enumerating from Gobuster/Dirbuster, but all did not reveal the version of Elastix.
 
 The first attack we try is `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, with the underlying attack exploiting file access through `/vtigercrm` directory through a web browser. 
@@ -319,7 +319,7 @@ Error: error on running goubster: unable to connect to https://10.10.10.7/: inva
 ```
 Some errors as we can see. Let's move on first!
 
-## 3. Attack Attempt 1: Attacking Webmin (Port 10000)
+## 3. Attack Attempt 1: Attacking Port 10000 Webmin
 Let's run this `auxiliary/admin/webmin/file_disclosure` exploit.
 ```
 msf5 > use auxiliary/admin/webmin/file_disclosure
@@ -494,7 +494,7 @@ Shellcodes: No Results
 ```
 There might be something we can use here, since compatible with our webmin, `MiniServ 1.570 (Webmin httpd)`.
 
-## 5. Attack Attempt 2: Attempt to Attack Webmin Again!
+## 5. Attack Attempt 2: Attempt to Attack Port 10000 Webmin Again!
 Since we saw a few interesting things from using `searchsploit`, we do more [research](https://www.cvedetails.com/metasploit-modules/vendor-358/Webmin.html). We see that we can use two attacks supported by Metasploit, first being `CVE-2019-9624  Webmin Upload Authenticated RCE` and second being `CVE-2019-12840  Webmin Package Updates Remote Command Execution`.
 
 We try both Metasploit modules, first being [`use exploit/unix/webapp/webmin_upload_exec`](https://www.rapid7.com/db/modules/exploit/unix/webapp/webmin_upload_exec/) of `Webmin Upload Authenticated RCE`, and second being [`use exploit/linux/http/webmin_packageup_rce`](https://www.rapid7.com/db/modules/exploit/linux/http/webmin_packageup_rce/) of `Webmin Package Updates Remote Command Execution`. However, both modules required credentials to the Webmin, USERNAME & PASSWORD.
@@ -566,7 +566,7 @@ Shellcodes: No Results
 ```
 Nothing. Let's focus on Elastix exploits.
 
-## 7. Attack Attempt 3: Attacking Elastix on Port 443 (Method 1: VTigerCRM)
+## 7. Attack Attempt 3: Attacking Elastix on Port 443 (VTigerCRM)
 Since we are looking for a Elastix exploit, we try to get the version of Elastix being ran.
 However, neither the landing page nor Gobuster/Dirbuster revealed the version of Elastix. Viewing Elastix page source on 443 didn't reveal the version either. Using Burp to intercept a response from Elastix, we still do not find any version numbers. Let's just try using some of the exploits we saw from doing `searchsploit elastix`.
 
