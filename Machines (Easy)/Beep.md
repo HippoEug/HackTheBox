@@ -25,12 +25,14 @@ We perform two attacks on Webmin, both happen to have Metasploit modules written
 ### 6. Finding another Attack Vector, More Enumeration
 At this point, I am not too sure on what else I could try and had to look online for some clues.
 
-Turns out, the Gobuster that was performed in step 2 was a correct step, and a `-k` flag could be added to disable the checking of certificate. From the HTTPS (Port 443), we see an interesting directory, `/vtigercrm`. Running the GUI Dirbuster, we see more interesting directories, with many of them relating to `Elastix` as we saw when we visited `https://10.10.10.7:443`.
+Turns out, the Gobuster that was performed in step 2 was a correct step, and a `-k` flag could be added to disable the checking of certificate. From the HTTPS (Port 443), we see an interesting directory, `/vtigercrm`.
 
-We do a `searchsploit vtigercrm`, with no results, followed by a `searchsploit elastix` and see a few interesting possible attacks, but unfortuantely nothing supported by Metasploit. We had to step out of our comfort zone and try to attack it the harder way.
+We observe some primary softwares that are hosted. They are: Elastix, Roundcube, FreePBX and VTigerCRM.
+
+We do a `searchsploit vtigercrm`, with no results, as well as a `searchsploit elastix` and see a few interesting possible attacks, but unfortuantely nothing supported by Metasploit. We had to step out of our comfort zone and try to attack it the harder way.
 
 ### 7. Attack Attempt 3: Attacking Elastix on Port 443 (VTigerCRM)
-We try to find the version of Elastix through viewing of the page source as well as enumerating from Gobuster/Dirbuster, but all did not reveal the version of Elastix.
+We try to find the version of Elastix through viewing of the page source as well as enumerating from Gobuster, but all did not reveal the version of Elastix.
 
 The first attack we try is `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, with the underlying attack exploiting file access through `/vtigercrm` directory through a web browser. 
 
@@ -496,6 +498,8 @@ Let's visit each of these directories.
 ![configs](https://user-images.githubusercontent.com/21957042/114298269-1c21cf00-9ae8-11eb-93b0-af9dcba53118.png)
 ![vtigercrm](https://user-images.githubusercontent.com/21957042/114298270-1cba6580-9ae8-11eb-8af3-0759a0581d96.png)
 
+From these, we can see some primary softwares that are hosted. They are: Elastix, Roundcube, FreePBX and VTigerCRM.
+
 We could now look at finding vulnerabilities in VTigerCRM as we've seen `/vtigercrm` in the Gobuster. Let's also look up Elastix, why didn't we think of that before?
 
 Let's do some SearchSploits.
@@ -526,7 +530,7 @@ Nothing. Let's focus on Elastix exploits.
 
 ## 7. Attack Attempt 3: Attacking Elastix on Port 443 (VTigerCRM)
 Since we are looking for a Elastix exploit, we try to get the version of Elastix being ran.
-However, neither the landing page nor Gobuster/Dirbuster revealed the version of Elastix. Viewing Elastix page source on 443 didn't reveal the version either. Using Burp to intercept a response from Elastix, we still do not find any version numbers. Let's just try using some of the exploits we saw from doing `searchsploit elastix`.
+However, neither the landing page nor Gobuster revealed the version of Elastix. Viewing Elastix page source on 443 didn't reveal the version either. Using Burp to intercept a response from Elastix, we still do not find any version numbers. Let's just try using some of the exploits we saw from doing `searchsploit elastix`.
 
 Trying the first one, `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, we examine it first.
 ```
@@ -591,7 +595,7 @@ print "\n[-] not successful\n";
 ```
 Primarily, we are interested in `#LFI Exploit: /vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action`.
 
-From our earlier Dirbuster search, we've already seen a directory `/vtigercrm`.
+From our earlier Gobuster search, we've already seen a directory `/vtigercrm`.
 
 Going to our web browser, we go to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action)`, but somehow got redirected to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%2500&module=Accounts&action)`, with the error message: `Sorry! Attempt to access restricted file.` displayed. 
 
