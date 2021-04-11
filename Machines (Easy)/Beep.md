@@ -479,9 +479,26 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 2020/12/08 23:36:08 Finished
 ===============================================================
 ```
-We actually see `/vtigercrm`!
+Let's visit each of these directories.
 
-We could now look at finding vulnerabilities in Elastix and VTigerCRM as we've seen in the directories. Let's do some SearchSploits.
+![images](https://user-images.githubusercontent.com/21957042/114298241-fa284c80-9ae7-11eb-801a-044462baf440.png)
+![help](https://user-images.githubusercontent.com/21957042/114298243-fac0e300-9ae7-11eb-975e-c73a34ffcd80.png)
+![themes](https://user-images.githubusercontent.com/21957042/114298246-fb597980-9ae7-11eb-9f12-e6cd27b7874f.png)
+![modules](https://user-images.githubusercontent.com/21957042/114298249-06aca500-9ae8-11eb-9898-66ef41de4f30.png)
+![mail](https://user-images.githubusercontent.com/21957042/114298250-07ddd200-9ae8-11eb-8ac0-7ee095c78e12.png)
+![admin](https://user-images.githubusercontent.com/21957042/114298251-08766880-9ae8-11eb-885e-a4e2998833fd.png)
+![static](https://user-images.githubusercontent.com/21957042/114298252-090eff00-9ae8-11eb-81a7-b62ef98e157a.png)
+![lang](https://user-images.githubusercontent.com/21957042/114298253-09a79580-9ae8-11eb-96a3-3064a3e2d720.png)
+![var](https://user-images.githubusercontent.com/21957042/114298254-0a402c00-9ae8-11eb-9b66-528328d04a47.png)
+![panel](https://user-images.githubusercontent.com/21957042/114298256-0ad8c280-9ae8-11eb-8f96-8d07c3ae0e3a.png)
+![libs](https://user-images.githubusercontent.com/21957042/114298257-0ad8c280-9ae8-11eb-9fa4-550f9662aac9.png)
+![recordings](https://user-images.githubusercontent.com/21957042/114298268-1b893880-9ae8-11eb-8ff4-bbe33e3d494c.png)
+![configs](https://user-images.githubusercontent.com/21957042/114298269-1c21cf00-9ae8-11eb-93b0-af9dcba53118.png)
+![vtigercrm](https://user-images.githubusercontent.com/21957042/114298270-1cba6580-9ae8-11eb-8af3-0759a0581d96.png)
+
+We could now look at finding vulnerabilities in VTigerCRM as we've seen `/vtigercrm` in the Gobuster. Let's also look up Elastix, why didn't we think of that before?
+
+Let's do some SearchSploits.
 ```
 hippoeug@kali:~$ searchsploit elastix
 ------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
