@@ -538,56 +538,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 2020/12/08 23:36:08 Finished
 ===============================================================
 ```
-We actually see `/vtigercrm`! Using the same wordlist but doing it on the GUI Dirbuster `OWASP Dirbuster 1.0-RC1`, we see way more directories, but mainly related to `Elastix` which we saw when we visited `https://10.10.10.7` with our web browser.
-```
-hippoeug@kali:~$ dirbuster
-Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
-Starting OWASP DirBuster 1.0-RC1
-Starting dir/file list based brute forcing
-File found: /index.php - 200
-Dir found: / - 200
-Dir found: /images/ - 200
-File found: /register.php - 200
-Dir found: /cgi-bin/ - 403
-Dir found: /help/ - 200
-Dir found: /themes/ - 200
-Dir found: /icons/ - 200
-Dir found: /themes/elastixneo/ - 200
-Dir found: /themes/elastixneo/images/ - 200
-File found: /help/frameLeft.php - 200
-File found: /help/frameRight.php - 200
-Dir found: /modules/ - 200
-Dir found: /themes/al/ - 200
-Dir found: /themes/default/ - 200
-Dir found: /themes/elastixneo/_common/ - 200
-Dir found: /themes/elastixblue/ - 200
-File found: /themes/elastixneo/applet.css - 200
-Dir found: /themes/elastixeasy-Black/ - 200
-File found: /themes/elastixneo/content.css - 200
-...
-ERROR: https://10.10.10.7/themes/default/_common/{$url} - IllegalArgumentException Invalid uri 'https://10.10.10.7/themes/default/_common/{$url}': escaped absolute path not valid
-Exception in thread "Thread-8" java.lang.IllegalArgumentException: Invalid uri 'https://10.10.10.7:443/themes/al/_common/themes/{$THEMENAME}/thereIsNoWayThat-You-CanBeThere/': escaped absolute path not valid
-        at org.apache.commons.httpclient.HttpMethodBase.<init>(HttpMethodBase.java:222)
-        at org.apache.commons.httpclient.methods.GetMethod.<init>(GetMethod.java:89)
-        at com.sittinglittleduck.DirBuster.GenBaseCase.genBaseCase(GenBaseCase.java:126)
-        at com.sittinglittleduck.DirBuster.HTMLparse.findBaseCasePoint(HTMLparse.java:332)
-        at com.sittinglittleduck.DirBuster.HTMLparse.run(HTMLparse.java:196)
-Exception in thread "Thread-9" java.lang.IllegalArgumentException: Invalid uri 'https://10.10.10.7:443/themes/elastixblue/_common/themes/{$THEMENAME}/thereIsNoWayThat-You-CanBeThere/': escaped absolute path not valid
-        at org.apache.commons.httpclient.HttpMethodBase.<init>(HttpMethodBase.java:222)
-        at org.apache.commons.httpclient.methods.GetMethod.<init>(GetMethod.java:89)
-        at com.sittinglittleduck.DirBuster.GenBaseCase.genBaseCase(GenBaseCase.java:126)
-        at com.sittinglittleduck.DirBuster.HTMLparse.findBaseCasePoint(HTMLparse.java:332)
-        at com.sittinglittleduck.DirBuster.HTMLparse.run(HTMLparse.java:196)
-java.lang.IllegalArgumentException: Invalid uri 'https://10.10.10.7/themes/elastixblue/_common/themes/{$THEMENAME}/': escaped absolute path not valid
-        at org.apache.commons.httpclient.HttpMethodBase.<init>(HttpMethodBase.java:222)
-        at org.apache.commons.httpclient.methods.HeadMethod.<init>(HeadMethod.java:94)
-        at com.sittinglittleduck.DirBuster.Worker.run(Worker.java:152)
-        at java.base/java.lang.Thread.run(Thread.java:834)
-ERROR: https://10.10.10.7/themes/elastixblue/_common/themes/{$THEMENAME}/ - IllegalArgumentException Invalid uri 'https://10.10.10.7/themes/elastixblue/_common/themes/{$THEMENAME}/': escaped absolute path not valid
-File found: /config.php - 200
-Dir found: /error/ - 403
-...
-```
+We actually see `/vtigercrm`!
 
 We could now look at finding vulnerabilities in Elastix and VTigerCRM as we've seen in the directories. Let's do some SearchSploits.
 ```
