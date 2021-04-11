@@ -1,1 +1,85 @@
 
+hippoeug@kali:~$ nmap --script vuln 10.129.1.127 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-11 02:25 +08
+NSE: Loaded 149 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 02:25
+Completed NSE at 02:25, 10.01s elapsed
+Initiating NSE at 02:25
+Completed NSE at 02:25, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 02:25
+Completed Parallel DNS resolution of 1 host. at 02:25, 0.00s elapsed
+Initiating Connect Scan at 02:25
+Scanning 10.129.1.127 [1000 ports]
+Discovered open port 80/tcp on 10.129.1.127
+Completed Connect Scan at 02:25, 20.93s elapsed (1000 total ports)
+Initiating Service scan at 02:25
+Scanning 1 service on 10.129.1.127
+Completed Service scan at 02:25, 6.64s elapsed (1 service on 1 host)
+NSE: Script scanning 10.129.1.127.
+Initiating NSE at 02:25
+NSE: [firewall-bypass] lacks privileges.
+Stats: 0:14:13 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 1 (1 waiting)
+NSE Timing: About 99.32% done; ETC: 02:39 (0:00:06 remaining)
+Stats: 0:16:55 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE: Active NSE Script Threads: 1 (1 waiting)
+NSE Timing: About 99.32% done; ETC: 02:42 (0:00:07 remaining)
+Completed NSE at 02:50, 1464.20s elapsed
+Initiating NSE at 02:50
+NSE: [tls-ticketbleed] Not running due to lack of privileges.
+Completed NSE at 02:50, 1.36s elapsed
+Nmap scan report for 10.129.1.127
+Host is up (0.31s latency).
+Not shown: 999 filtered ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    HttpFileServer httpd 2.3
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+| http-fileupload-exploiter: 
+|   
+|_    Couldn't find a file-type field.
+| http-method-tamper: 
+|   VULNERABLE:
+|   Authentication bypass by HTTP verb tampering
+|     State: VULNERABLE (Exploitable)
+|       This web server contains password protected resources vulnerable to authentication bypass
+|       vulnerabilities via HTTP verb tampering. This is often found in web servers that only limit access to the
+|        common HTTP methods and in misconfigured .htaccess files.
+|              
+|     Extra information:
+|       
+|   URIs suspected to be vulnerable to HTTP verb tampering:
+|     /~login [GENERIC]
+|   
+|     References:
+|       http://www.imperva.com/resources/glossary/http_verb_tampering.html
+|       http://www.mkit.com.ar/labs/htexploit/
+|       http://capec.mitre.org/data/definitions/274.html
+|_      https://www.owasp.org/index.php/Testing_for_HTTP_Methods_and_XST_%28OWASP-CM-008%29
+|_http-server-header: HFS 2.3
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| http-vuln-cve2011-3192: 
+|   VULNERABLE:
+|   Apache byterange filter DoS
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2011-3192  BID:49303
+|       The Apache web server is vulnerable to a denial of service attack when numerous
+|       overlapping byte ranges are requested.
+|     Disclosure date: 2011-08-19
+|     References:
+|       https://www.tenable.com/plugins/nessus/55976
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192
+|       https://seclists.org/fulldisclosure/2011/Aug/175
+|_      https://www.securityfocus.com/bid/49303
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+NSE: Script Post-scanning.
+Initiating NSE at 02:50
+Completed NSE at 02:50, 0.00s elapsed
+Initiating NSE at 02:50
+Completed NSE at 02:50, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1503.69 seconds
