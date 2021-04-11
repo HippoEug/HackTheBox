@@ -243,7 +243,8 @@ c:\windows\system32\inetsrv>
 ```
 
 Alternatively, we can also use `exploit/multi/handler`.
-NOTE: USE THE CORRECT PAYLOAD, ie `windows/shell/reverse_tcp` instead of default `generic/shell_reverse_tcp`.
+
+NOTE: WRONG DEFAULT PAYLOAD `generic/shell_reverse_tcp` USED HERE. CORRECTION BELOW.
 ```
 msf5 > use exploit/multi/handler
 ...
