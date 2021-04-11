@@ -7,7 +7,7 @@
 Running NMAP, we see there's only Port 80 open. Thankfully we have only one thing to focus on!
 
 ### 2. Enumeration: Searchsploit & Dirbuster
-Seeing Searchsploit for `HFS 2.3`, we see a couple of vulnerabilties that we can use. Dirbuster didn't work correctly unfortunately.
+Visiting the site, we don't see anything interesting. Searching Searchsploit for `HFS 2.3`, we see a couple of vulnerabilties that we can use. Dirbuster didn't work correctly unfortunately.
 
 ### 3. Attacking HFS 2.3
 We end up using a Remote Command Execution vulnerabiltiy, by downloading and editing the provided Python script, in order to get a regular reverse shell from it. Alternatively, there was a Metasploit module for this vulnerabiltiy which we did not use. 
@@ -103,6 +103,18 @@ No response from netcat attempt.
 Let's KIV those and move on to a little more enumeration.
 
 ## 2. Enumeration: Searchsploit & Dirbuster
+Before anything, we visit the site.
+
+![Page](https://user-images.githubusercontent.com/21957042/114293567-c5a59800-9ac9-11eb-9af3-ea1ef7545dc0.png)
+
+And the `Login` page real quick.
+
+![Login](https://user-images.githubusercontent.com/21957042/114293570-c6d6c500-9ac9-11eb-9c8d-b351f7520190.png)
+
+We don't have credentials. And we hit the `Cancel` button.
+
+![Cancel](https://user-images.githubusercontent.com/21957042/114293572-c76f5b80-9ac9-11eb-9c4a-5cccf5868bda.png)
+
 Let's run some Searchsploit and see what we get.
 ```
 hippoeug@kali:~$ searchsploit httpfileserver
