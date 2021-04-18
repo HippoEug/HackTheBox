@@ -1,3 +1,131 @@
+hippoeug@kali:~$ nmap --script vuln 10.129.123.159 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-18 15:04 +08
+NSE: Loaded 149 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 15:04
+Completed NSE at 15:04, 10.03s elapsed
+Initiating NSE at 15:04
+Completed NSE at 15:04, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 15:04
+Completed Parallel DNS resolution of 1 host. at 15:04, 0.11s elapsed
+Initiating Connect Scan at 15:04
+Scanning 10.129.123.159 [1000 ports]
+Discovered open port 21/tcp on 10.129.123.159
+Discovered open port 80/tcp on 10.129.123.159
+Completed Connect Scan at 15:05, 22.46s elapsed (1000 total ports)
+Initiating Service scan at 15:05
+Scanning 2 services on 10.129.123.159
+Completed Service scan at 15:05, 6.91s elapsed (2 services on 1 host)
+NSE: Script scanning 10.129.123.159.
+Initiating NSE at 15:05
+NSE: [firewall-bypass] lacks privileges.
+Completed NSE at 15:22, 1012.02s elapsed
+Initiating NSE at 15:22
+NSE: [tls-ticketbleed] Not running due to lack of privileges.
+Completed NSE at 15:22, 1.67s elapsed
+Nmap scan report for 10.129.123.159
+Host is up (0.40s latency).
+Not shown: 998 filtered ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     Microsoft ftpd
+|_sslv2-drown: 
+80/tcp open  http    Microsoft IIS httpd 7.5
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+|_http-server-header: Microsoft-IIS/7.5
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+| http-vuln-cve2015-1635: 
+|   VULNERABLE:
+|   Remote Code Execution in HTTP.sys (MS15-034)
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2015-1635
+|       A remote code execution vulnerability exists in the HTTP protocol stack (HTTP.sys) that is
+|       caused when HTTP.sys improperly parses specially crafted HTTP requests. An attacker who
+|       successfully exploited this vulnerability could execute arbitrary code in the context of the System account.
+|           
+|     Disclosure date: 2015-04-14
+|     References:
+|       https://technet.microsoft.com/en-us/library/security/ms15-034.aspx
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-1635
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+NSE: Script Post-scanning.
+Initiating NSE at 15:22
+Completed NSE at 15:22, 0.00s elapsed
+Initiating NSE at 15:22
+Completed NSE at 15:22, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1053.73 seconds
+hippoeug@kali:~$ nmap  10.129.123.159 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-18 15:23 +08
+NSE: Loaded 153 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 15:23
+Completed NSE at 15:23, 0.00s elapsed
+Initiating NSE at 15:23
+Completed NSE at 15:23, 0.00s elapsed
+Initiating NSE at 15:23
+Completed NSE at 15:23, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 15:23
+Completed Parallel DNS resolution of 1 host. at 15:23, 0.11s elapsed
+Initiating Connect Scan at 15:23
+Scanning 10.129.123.159 [1000 ports]
+Discovered open port 80/tcp on 10.129.123.159
+Discovered open port 21/tcp on 10.129.123.159
+Completed Connect Scan at 15:23, 21.34s elapsed (1000 total ports)
+Initiating Service scan at 15:23
+Scanning 2 services on 10.129.123.159
+Completed Service scan at 15:23, 6.80s elapsed (2 services on 1 host)
+NSE: Script scanning 10.129.123.159.
+Initiating NSE at 15:23
+NSE: [ftp-bounce] PORT response: 501 Server cannot accept argument.
+Completed NSE at 15:24, 6.86s elapsed
+Initiating NSE at 15:24
+Completed NSE at 15:24, 2.72s elapsed
+Initiating NSE at 15:24
+Completed NSE at 15:24, 0.00s elapsed
+Nmap scan report for 10.129.123.159
+Host is up (0.39s latency).
+Not shown: 998 filtered ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     Microsoft ftpd
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| 03-18-17  02:06AM       <DIR>          aspnet_client
+| 03-17-17  05:37PM                  689 iisstart.htm
+|_03-17-17  05:37PM               184946 welcome.png
+| ftp-syst: 
+|_  SYST: Windows_NT
+80/tcp open  http    Microsoft IIS httpd 7.5
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/7.5
+|_http-title: IIS7
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+NSE: Script Post-scanning.
+Initiating NSE at 15:24
+Completed NSE at 15:24, 0.00s elapsed
+Initiating NSE at 15:24
+Completed NSE at 15:24, 0.00s elapsed
+Initiating NSE at 15:24
+Completed NSE at 15:24, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 38.54 seconds
+hippoeug@kali:~$ 
+
+
+
+
+
+
+
+
+
 hippoeug@kali:~$ nmap --script vuln 10.129.128.62 -sC -sV -Pn -v
 Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-11 17:53 +08
