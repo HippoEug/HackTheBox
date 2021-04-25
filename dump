@@ -4,34 +4,6 @@
 
 
 
-hippoeug@kali:~$ msfconsole
-msf6 > use auxiliary/scanner/ftp/anonymous
-msf6 auxiliary(scanner/ftp/anonymous) > show options
-
-Module options (auxiliary/scanner/ftp/anonymous):
-
-   Name     Current Setting      Required  Description
-   ----     ---------------      --------  -----------
-   FTPPASS  mozilla@example.com  no        The password for the specified username
-   FTPUSER  anonymous            no        The username to authenticate as
-   RHOSTS                        yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
-   RPORT    21                   yes       The target port (TCP)
-   THREADS  1                    yes       The number of concurrent threads (max one per host)
-
-msf6 auxiliary(scanner/ftp/anonymous) > set rhost 10.129.128.62
-rhost => 10.129.128.62
-msf6 auxiliary(scanner/ftp/anonymous) > run
-
-[+] 10.129.128.62:21      - 10.129.128.62:21 - Anonymous READ/WRITE (220 Microsoft FTP Service)
-[*] 10.129.128.62:21      - Scanned 1 of 1 hosts (100% complete)
-[*] Auxiliary module execution completed
-msf6 auxiliary(scanner/ftp/anonymous) > 
-
-
-
-
-
-
 
 
 msf6 > use exploit/multi/handler
