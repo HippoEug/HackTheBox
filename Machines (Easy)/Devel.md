@@ -30,7 +30,7 @@ Exploit `exploit/windows/local/ms10_015_kitrap0d` worked, and we got another met
 ### 9. Alternative Reverse Shell, with Meterpreter & MSFVenom
 This is a slightly shorter and alternative method of #5, where we can use msfvenom to construct a ASPX meterpreter reverse shell, and upon executing this payload on the target, we immediately get a meterpreter shell.
 
-The guide recommended navigating to `%emp%` directory where this best explained by the official write up: "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
+The guide recommended navigating to `%emp%` directory when performing privilege escalation with `exploit/windows/local/ms10_015_kitrap0d.` This was best explained by the official write up: "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
 
 # Attack
 ## 1. Another Day, Another NMAP
@@ -773,7 +773,7 @@ msf5 exploit(multi/handler) > run
 ```
 We got a Meterpreter shell immediately, and can skip past using `post/multi/manage/shell_to_meterpreter`.
 
-We navigate to `%temp%` directory where this best explained by the official write up: "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
+We navigate to `%temp%` directory where this is best explained by the official write up: "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
 
 We then run `ms10_015_kitrap0d` and we're done.
 ```
