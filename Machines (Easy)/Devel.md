@@ -12,7 +12,7 @@ We perform another NMAP scan looking for more information, even version numbers.
 Our NMAP scan revealed `Anonymous FTP login allowed (FTP code 230)` on Port 21, and with a metasploit auxilary scanner we see that everybody has read/write permissions. We can upload a reverse shell that's supported by IIS.
 
 ### 5. Reverse Shell Execution
-We try uploading and executing various reverse shells, first in PHP which failed, then a ASPX reverse shell. We are able to execute the ASPX reverse shell and get a connection on our Kali machine.
+We try uploading and executing various reverse shells, first in PHP which failed to execute, then a ASPX reverse shell. We are able to execute the ASPX reverse shell and get a connection on our Kali machine.
 
 ### 6. Privilege Escalation Failed Attempts
 This part was a headache, you can ignore this section. I basically tried elevating the regular shell into something more powerful, like meterpreter or simply perform privilege exections which failed. We also upload `winPEAS` tool to enumerate the system to find for weak spots for privilege escalation. Although `winPEAS` tool was successfully ran, I failed to find something to work from.
@@ -25,10 +25,12 @@ Fixing the `exploit/multi/handler` with the correct `windows/shell/reverse_tcp` 
 ### 8. Privilege Escalation
 Upon getting a meterpreter shell, we try `getsystem` which failed. We run a `post/multi/recon/local_exploit_suggester`, and tried one of the exploits, `exploit/windows/local/ms10_015_kitrap0d`. 
 
-It didn't work on the first time because the meterpreter shell we were trying to escalate privileges on was on a directory without write permissions. We had to change to another directory with write permissions, in this case `%temp%`. We run the `ms10_015_kitrap0d` exploit again after changing directory, and successfully got a `AUTHORITY\SYSTEM` meterpreter shell.
+Exploit `exploit/windows/local/ms10_015_kitrap0d` worked, and we got another meterpreter shell with `AUTHORITY\SYSTEM` elevated permissions without changing directory to `%temp%`. Next, there was a bug when doing `ls` on the directory with meterpreter, and we had to downgrade to a regular shell in order to get both flags.
 
 ### 9. Alternative Reverse Shell, with Meterpreter & MSFVenom
 This is a slightly shorter and alternative method of #5, where we can use msfvenom to construct a ASPX meterpreter reverse shell, and upon executing this payload on the target, we immediately get a meterpreter shell.
+
+The guide recommended navigating to `%emp%` directory where this best explained by the official write up: "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
 
 # Attack
 ## 1. Another Day, Another NMAP
