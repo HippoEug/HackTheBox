@@ -270,9 +270,9 @@ ftp> ls
 226 Transfer complete.
 ftp> 
 ```
-Navigating to `http://10.129.135.184/shell.php`, we couldn't run the PHP file.
+Navigating to `http://10.129.135.184/shell.php`, we couldn't run the PHP file and did not get a connection.
 
-ADD SCREENSHOT HERE!!!!
+![Screenshot_2021-04-25_22-05-27](https://user-images.githubusercontent.com/21957042/116108181-3feb3480-a6e6-11eb-8e2e-2e0b96522660.png)
 
 Let's try ASPX. We find a ASPX reverse shell online, [source](https://github.com/borjmz/aspx-reverse-shell/blob/master/shell.aspx) and used it!
 ```
