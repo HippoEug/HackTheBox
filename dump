@@ -1,10 +1,12 @@
 TODO:
 
+REDO ALL NMAPs!!!
+
 Lame: Review
 Legacy: Review
 
 
-
+LEGACY:
 
 hippoeug@kali:~$ nmap 10.129.120.139 -sC -sV -Pn -v
 Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
@@ -416,3 +418,9 @@ C:\Documents and Settings\Administrator\Desktop>type root.txt
 type root.txt
 993442d258b0e0ec917cae9e695d5713
 C:\Documents and Settings\Administrator\Desktop>
+
+
+
+LAME: 
+
+
