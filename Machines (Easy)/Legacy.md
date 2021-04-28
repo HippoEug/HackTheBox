@@ -201,11 +201,6 @@ Channel 1 created.
 Microsoft Windows XP [Version 5.1.2600]
 (C) Copyright 1985-2001 Microsoft Corp.
 
-C:\>ls
-ls
-'ls' is not recognized as an internal or external command,
-operable program or batch file.
-
 C:\>dir
 dir
  Volume in drive C has no label.
