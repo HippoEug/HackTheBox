@@ -1,5 +1,6 @@
 # References
 1. [Shocker Writeup (medium.com)](https://ranakhalil101.medium.com/hack-the-box-shocker-writeup-w-o-metasploit-feb9e5fa5aa2)
+2. [Shocker Writeup (netosec.com)](https://netosec.com/shocker-hackthebox-writeup/)
 
 # Summary
 ### 1. NMAP
@@ -8,7 +9,10 @@ x
 ### 2. Port 80 HTTP Enumeration
 x
 
-### 3. Privilege Escalation
+### 3. Deeper Gobuster Enumeration
+x
+
+### 4. Privilege Escalation
 x
 
 # Attack
@@ -141,3 +145,106 @@ With the slash, it sees the directory and gives a result.
 
 ![cgibin1](https://user-images.githubusercontent.com/21957042/116782263-9e375f00-aaba-11eb-9c52-11aaaf2bf119.png)
 ![icons](https://user-images.githubusercontent.com/21957042/116782266-a0012280-aaba-11eb-9691-e022c35a1456.png)
+
+But still, we are getting `403 Forbidden` error and we do not have anything useful to work with.
+
+## 3. Deeper Gobuster Enumeration
+After getting stuck, I had to look online for clues.
+
+It turns out we need to enumerate deeper using Gobuster. We are looking for files (cgi, sh, pl, py) within the subdirectories we found.
+```
+hippoeug@kali:~$ gobuster dir -u "http://10.129.139.89/cgi-bin/" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 -x cgi,sh,pl,py
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.129.139.89/cgi-bin/
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     cgi,sh,pl,py
+[+] Timeout:        10s
+===============================================================
+2021/05/01 20:41:02 Starting gobuster
+===============================================================
+/user.sh (Status: 200)
+===============================================================
+2021/05/01 21:38:43 Finished
+===============================================================
+```
+A file `/user.sh` exists! Let's see what we get at `http://10.129.139.89/cgi-bin/user.sh`
+
+![user sh](https://user-images.githubusercontent.com/21957042/116787364-24ad6a00-aad6-11eb-98f3-cc47dedf0c6c.png)
+
+We download the file to look at the content.
+```
+Content-Type: text/plain
+
+Just an uptime test script
+
+ 11:35:37 up  3:35,  0 users,  load average: 0.00, 0.00, 0.00
+```
+Hmm, nothing much. Again, I am stuck.
+
+## 4. Port 80 Shellshock Exploitation (Metasploit)
+We can do a NMAP with [script](https://nmap.org/nsedoc/scripts/http-shellshock.html) to detect if Shellshock would work.
+```
+hippoeug@kali:~$ nmap --script http-shellshock --script-args uri=/cgi-bin/user.sh 10.129.139.89 -Pn -v
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-01 20:54 +08
+...
+Scanning 10.129.139.89 [1000 ports]
+Discovered open port 80/tcp on 10.129.139.89
+Discovered open port 2222/tcp on 10.129.139.89
+...
+PORT     STATE SERVICE
+80/tcp   open  http
+| http-shellshock: 
+|   VULNERABLE:
+|   HTTP Shellshock vulnerability
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2014-6271
+|       This web application might be affected by the vulnerability known
+|       as Shellshock. It seems the server is executing commands injected
+|       via malicious HTTP headers.
+|             
+|     Disclosure date: 2014-09-24
+|     References:
+|       http://www.openwall.com/lists/oss-security/2014/09/24/10
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271
+|       http://seclists.org/oss-sec/2014/q3/685
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-7169
+2222/tcp open  EtherNetIP-1
+...
+```
+Indeed it appears to be vulnerable to the Shellshock vulnerability.
+
+Let's search for some Shellshock exploits by Googling `metasploit shellshock`. One of the top results returned with [Apache mod_cgi Bash Environment Variable Code Injection (Shellshock)](https://www.rapid7.com/db/modules/exploit/multi/http/apache_mod_cgi_bash_env_exec/), Metasploit module `exploit/multi/http/apache_mod_cgi_bash_env_exec`.
+
+We also do a quick search on msfconsole itself.
+```
+hippoeug@kali:~$ msfconsole
+msf6 > search shellshock
+
+Matching Modules
+================
+
+   #   Name                                               Disclosure Date  Rank       Check  Description
+   -   ----                                               ---------------  ----       -----  -----------
+   0   auxiliary/scanner/http/apache_mod_cgi_bash_env     2014-09-24       normal     Yes    Apache mod_cgi Bash Environment Variable Injection (Shellshock) Scanner
+   1   auxiliary/server/dhclient_bash_env                 2014-09-24       normal     No     DHCP Client Bash Environment Variable Code Injection (Shellshock)
+   2   exploit/linux/http/advantech_switch_bash_env_exec  2015-12-01       excellent  Yes    Advantech Switch Bash Environment Variable Code Injection (Shellshock)
+   3   exploit/linux/http/ipfire_bashbug_exec             2014-09-29       excellent  Yes    IPFire Bash Environment Variable Injection (Shellshock)
+   4   exploit/multi/ftp/pureftpd_bash_env_exec           2014-09-24       excellent  Yes    Pure-FTPd External Authentication Bash Environment Variable Code Injection (Shellshock)
+   5   exploit/multi/http/apache_mod_cgi_bash_env_exec    2014-09-24       excellent  Yes    Apache mod_cgi Bash Environment Variable Code Injection (Shellshock)
+   6   exploit/multi/http/cups_bash_env_exec              2014-09-24       excellent  Yes    CUPS Filter Bash Environment Variable Code Injection (Shellshock)
+   7   exploit/multi/misc/legend_bot_exec                 2015-04-27       excellent  Yes    Legend Perl IRC Bot Remote Code Execution
+   8   exploit/multi/misc/xdh_x_exec                      2015-12-04       excellent  Yes    Xdh / LinuxNet Perlbot / fBot IRC Bot Remote Code Execution
+   9   exploit/osx/local/vmware_bash_function_root        2014-09-24       normal     Yes    OS X VMWare Fusion Privilege Escalation via Bash Environment Code Injection (Shellshock)
+   10  exploit/unix/dhcp/bash_environment                 2014-09-24       excellent  No     Dhclient Bash Environment Variable Injection (Shellshock)
+   11  exploit/unix/smtp/qmail_bash_env_exec              2014-09-24       normal     No     Qmail SMTP Bash Environment Variable Injection (Shellshock)
+
+
+Interact with a module by name or index. For example info 11, use 11 or use exploit/unix/smtp/qmail_bash_env_exec
+```
