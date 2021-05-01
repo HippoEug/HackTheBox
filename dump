@@ -74,3 +74,27 @@ Matching Modules
 Interact with a module by name or index. For example info 11, use 11 or use exploit/unix/smtp/qmail_bash_env_exec
 
 msf6 > 
+
+
+
+
+
+hippoeug@kali:~$ gobuster dir -u "http://10.129.139.89/cgi-bin/" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 -x cgi,sh,pl,py
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.129.139.89/cgi-bin/
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     cgi,sh,pl,py
+[+] Timeout:        10s
+===============================================================
+2021/05/01 20:41:02 Starting gobuster
+===============================================================
+/user.sh (Status: 200)
+===============================================================
+2021/05/01 21:38:43 Finished
+===============================================================
