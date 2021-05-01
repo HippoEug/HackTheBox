@@ -1,3 +1,6 @@
+# References
+1. [Shocker Writeup (medium.com)](https://ranakhalil101.medium.com/hack-the-box-shocker-writeup-w-o-metasploit-feb9e5fa5aa2)
+
 # Summary
 ### 1. NMAP
 x
