@@ -38,7 +38,7 @@ PORT     STATE SERVICE VERSION
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ...
 ```
-2 ports, not much to enumerate, nice.
+Only 2 ports, not much to enumerate, nice.
 
 And a quick vulnerability script.
 ```
@@ -100,7 +100,6 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ===============================================================
 2021/04/28 22:36:09 Finished
 ===============================================================
-hippoeug@kali:~$ 
 ```
 What?! Only `/server-status`? Nevertheless, let's take a look at it.
 
@@ -110,14 +109,14 @@ Forbidden. Hmm.
 
 As it turns out, our Gobuster did not append a slash at the back of the directory searches.
 
-EXPLAIN HERE.
+The flag `-f` adds a slash at the back of the directory, and Gobuster gave us more results.
 ```
-hippoeug@kali:~$ gobuster dir -u "http://10.129.1.175:80" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 -f
+hippoeug@kali:~$ gobuster dir -u "http://10.129.139.89" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 -f
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ===============================================================
-[+] Url:            http://10.129.1.175:80
+[+] Url:            http://10.129.139.89
 [+] Threads:        100
 [+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 [+] Status codes:   200,204,301,302,307,401,403
@@ -125,13 +124,20 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 [+] Add Slash:      true
 [+] Timeout:        10s
 ===============================================================
-2021/04/29 07:10:08 Starting gobuster
+2021/05/01 20:17:41 Starting gobuster
 ===============================================================
-/cgi-bin/ (Status: 403)
 /icons/ (Status: 403)
+/cgi-bin/ (Status: 403)
 /server-status/ (Status: 403)
 ===============================================================
-2021/04/29 07:21:40 Finished
+2021/05/01 20:29:13 Finished
 ===============================================================
-hippoeug@kali:~$ 
 ```
+Without the slash, Gobuster sees a `404 Not Found` error and hence did not report it.
+
+![cgibin2](https://user-images.githubusercontent.com/21957042/116782264-9f688c00-aaba-11eb-9e0b-4128f20fbeb5.png)
+
+With the slash, it sees the directory and gives a result.
+
+![cgibin1](https://user-images.githubusercontent.com/21957042/116782263-9e375f00-aaba-11eb-9c52-11aaaf2bf119.png)
+![icons](https://user-images.githubusercontent.com/21957042/116782266-a0012280-aaba-11eb-9691-e022c35a1456.png)
