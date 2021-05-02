@@ -20,7 +20,7 @@ x
 ### 5. Privilege Escalation
 x
 
-### 4. Alternative Port 80 Shellshock Exploitation ()
+### 6. Alternative Port 80 Shellshock Exploitation (Curl)
 
 # Attack
 ## 1. NMAP
@@ -369,3 +369,5 @@ root.txt
 cat root.txt
 827704ec5f851e6b2a7c3b895f1e044f
 ```
+
+## 6. Alternative Port 80 Shellshock Exploitation (Curl)
