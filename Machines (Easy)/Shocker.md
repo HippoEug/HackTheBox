@@ -371,3 +371,22 @@ cat root.txt
 ```
 
 ## 6. Alternative Port 80 Shellshock Exploitation (Curl)
+Let me quote [blogl.cloudflare.com](https://blog.cloudflare.com/inside-shellshock/):
+
+"Shellshock occurs when the variables are passed into the shell called "bash". Bash is a common shell used on Linux systems. 
+Web servers quite often need to run other programs to respond to a request, and it's common that these variables are passed into bash or another shell.
+
+The Shellshock problem specifically occurs when an attacker modifies the origin HTTP request to contain the magic `() { :; };` string discussed above.
+
+Suppose the attacker change the User-Agent header above from `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/37.0.2062.124 Safari/537.36` to simply `() { :; }; /bin/eject`. This creates the following variable inside a web server: `HTTP_USER_AGENT=() { :; }; /bin/eject`.
+
+If that variable gets passed into bash by the web server, the Shellshock problem occurs. This is because bash has special rules for handling a variable starting with () { :; };. Rather than treating the variable HTTP_USER_AGENT as a sequence of characters with no special meaning, bash will interpret it as a command that needs to be executed.
+
+The problem is that HTTP_USER_AGENT came from the User-Agent header which is something an attacker controls because it comes into the web server in an HTTP request. And that's a recipe for disaster because an attacker can make a vulnerable server run any command it wants."
+
+Knowing this now, we can run a `curl` command with the malicious string `() { :; };` and spawn a reverse shell from there.
+
+Let's run that malicious string in `User-Agent`.
+```
+```
