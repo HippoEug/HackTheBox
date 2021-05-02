@@ -1,6 +1,8 @@
 # References
 1. [Shocker Writeup (medium.com)](https://ranakhalil101.medium.com/hack-the-box-shocker-writeup-w-o-metasploit-feb9e5fa5aa2)
 2. [Shocker Writeup (netosec.com)](https://netosec.com/shocker-hackthebox-writeup/)
+3. [Shocker Writeup (clearinfosec.com)](https://clearinfosec.com/shocker-hackthebox-walkthrough/)
+4. [Shocker Writeup (ethicalhacs.com)](https://ethicalhacs.com/shocker-hackthebox-walkthrough/)
 
 # Summary
 ### 1. NMAP
@@ -17,6 +19,8 @@ x
 
 ### 5. Privilege Escalation
 x
+
+### 4. Alternative Port 80 Shellshock Exploitation ()
 
 # Attack
 ## 1. NMAP
@@ -188,7 +192,9 @@ Just an uptime test script
 
  11:35:37 up  3:35,  0 users,  load average: 0.00, 0.00, 0.00
 ```
-Hmm, nothing much. Again, I am stuck.
+Hmm, nothing much. Again, I am stuck. As I look and quote from [Reference 4](https://ethicalhacs.com/shocker-hackthebox-walkthrough/), he mentions the `/cgi-bin/user.sh` file is executing everytime we access it, as the time in the file changes everytime. The file `user.sh` is also a bash script, in a `/cgi-bin/` directory.
+
+Since the machine name is called `Shocker`, these clues combined should give it away that it could have a Shellshock vulnerability.
 
 ## 4. Port 80 Shellshock Exploitation (Metasploit)
 We can do a NMAP with [script](https://nmap.org/nsedoc/scripts/http-shellshock.html) to detect if Shellshock would work.
@@ -344,7 +350,7 @@ User shelly may run the following commands on Shocker:
 ```
 Ooh! We can run `perl` as root. If this fails, we could probably look at SUID configurations or services or things like that.
 
-From online references, here is where I learnt you can launch a shell using `perl`.
+From online references [1](https://www.hacknos.com/perl-python-ruby-privilege-escalation-linux/) & [2](https://www.hackingarticles.in/linux-for-pentester-perl-privilege-escalation/), here is where I learnt you can launch a shell using `perl`.
 ```
 id
 uid=1000(shelly) gid=1000(shelly) groups=1000(shelly),4(adm),24(cdrom),30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
