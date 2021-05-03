@@ -20,7 +20,7 @@ Sorted by HTB Difficulty Rating & Order
 10. [Blocky](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blocky.md): Port 80 Credentials discovered through GoBuster, SSH through Credential Reuse
 11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): MS17_010 EternalBlue
 12. [Mirai](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Mirai.md): Port 22 SSH with Default Password, Root Flag in USB Device
-13. [Shocker](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Shocker.md): 
+13. [Shocker](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Shocker.md): Port 80 Shellshock Vulnerability
 14. [Sense](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Sense.md):
 
 ## Challenges
