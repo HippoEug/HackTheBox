@@ -2,7 +2,10 @@
 ### 1. NMAP
 x
 
-### 2. Port 80 HTTP Enumeration
+### 2. Port 443 HTTPS Enumeration
+x
+
+### 3. Port 443 HTTPS Exploration with Credentials
 x
 
 # Attack
@@ -114,7 +117,7 @@ PORT    STATE SERVICE
 ```
 Ooh! Lots of results on Port 443 HTTPS, lets KIV them.
 
-## 2. Port 80 HTTP Enumeration
+## 2. Port 443 HTTPS Enumeration
 A visit to Port 80 `http://10.129.140.47`, but we get redirected to Port 443 `https://10.129.140.47`.
 
 ![443](https://user-images.githubusercontent.com/21957042/116856129-29d0fd00-ac2d-11eb-934c-30e76f9d70d6.png)
@@ -249,6 +252,84 @@ Looks like some default site. And the other, `https://10.129.140.47/installer/`.
 
 ![installer](https://user-images.githubusercontent.com/21957042/116856134-2b022a00-ac2d-11eb-9329-05e240324a9b.png)
 
-Ah nothing interesting on this particular page.
+Ah nothing interesting on this particular page. However, we have one final trick up our sleeve from the previous machine [Shocker](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Shocker.md).
 
-## 3. Port 80 XXXX Exploitation
+We could run the Gobuster to look for files itself, let's see if we get anything. Files we are looking for include `.cgi`, `.sh`, `.pl`, `.py`, `.php` & `.txt` files.
+```
+hippoeug@kali:~$ gobuster dir -u "https://10.129.140.47" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 -f -k -x cgi,sh,pl,py,php,txt
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            https://10.129.140.47
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     php,txt,cgi,sh,pl,py
+[+] Add Slash:      true
+[+] Timeout:        10s
+===============================================================
+2021/05/03 17:44:41 Starting gobuster
+===============================================================
+/help.php (Status: 200)
+/index.php (Status: 200)
+/stats.php (Status: 200)
+/edit.php (Status: 200)
+/system.php (Status: 200)
+/license.php (Status: 200)
+/status.php (Status: 200)
+/changelog.txt (Status: 200)
+/exec.php (Status: 200)
+/graph.php (Status: 200)
+/tree/ (Status: 200)
+/wizard.php (Status: 200)
+/pkg.php (Status: 200)
+/installer/ (Status: 302)
+/xmlrpc.php (Status: 200)
+/reboot.php (Status: 200)
+/interfaces.php (Status: 200)
+/system-users.txt (Status: 200)
+===============================================================
+2021/05/03 19:09:24 Finished
+===============================================================
+```
+Dang, this took quite some time to run but actually showed some new useful stuff. We could run with slightly more threads next time. Let's explore these files.
+
+Unfortuantely, most of these `.php` files all lead back to the original pfSense login page and wasn't useful. We will use the `/help.php` as an example.
+
+![help](https://user-images.githubusercontent.com/21957042/116892323-4dfb0100-ac62-11eb-8491-e59899e6cd57.png)
+
+Another file `/xmlrpc.php` was different, but wasn't useful.
+
+![xmlrpc](https://user-images.githubusercontent.com/21957042/116892328-4f2c2e00-ac62-11eb-9f54-0de097f0c6df.png)
+
+There are also two other `.txt` files. Let's take a look at `https://10.129.140.47/changelog.txt` first.
+```
+# Security Changelog 
+
+### Issue
+There was a failure in updating the firewall. Manual patching is therefore required
+
+### Mitigated
+2 of 3 vulnerabilities have been patched.
+
+### Timeline
+The remaining patches will be installed during the next maintenance window
+```
+Ooh, interesting stuff. Too bad this f\*\*ker didn't tell us what the vulnerability is.
+
+And the other file at `https://10.129.140.47/system-users.txt`.
+```
+####Support ticket###
+
+Please create the following user
+
+
+username: Rohit
+password: company defaults
+```
+Credentials! Username `Rohit` and password `company defaults` hehe, that's always fun.
+
+## 3. Port 443 HTTPS Exploration with Credentials
+Let's try to login to the pfSense page at `https://10.129.140.47` with the credentials we just got, username `Rohit` and password `company defaults`.
