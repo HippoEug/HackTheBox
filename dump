@@ -1,1 +1,38 @@
 
+hippoeug@kali:~$ gobuster dir -u "https://10.129.140.47" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 -f -k -x cgi,sh,pl,py,php,txt
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            https://10.129.140.47
+[+] Threads:        100
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     php,txt,cgi,sh,pl,py
+[+] Add Slash:      true
+[+] Timeout:        10s
+===============================================================
+2021/05/03 17:44:41 Starting gobuster
+===============================================================
+/help.php (Status: 200)
+/index.php (Status: 200)
+/stats.php (Status: 200)
+/edit.php (Status: 200)
+/system.php (Status: 200)
+/license.php (Status: 200)
+/status.php (Status: 200)
+/changelog.txt (Status: 200)
+/exec.php (Status: 200)
+/graph.php (Status: 200)
+/tree/ (Status: 200)
+/wizard.php (Status: 200)
+/pkg.php (Status: 200)
+/installer/ (Status: 302)
+/xmlrpc.php (Status: 200)
+/reboot.php (Status: 200)
+/interfaces.php (Status: 200)
+/system-users.txt (Status: 200)
+===============================================================
+2021/05/03 19:09:24 Finished
+===============================================================
