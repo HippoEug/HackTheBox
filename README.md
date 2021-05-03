@@ -5,6 +5,7 @@ Sorted by HTB Difficulty Rating & Order
 ### Easy (Active)
  1. [ScriptKiddie](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/ScriptKiddie.md): Metasploit APK Template Command Injection, sh -c Command Execution (TO REVIEW OFFICIAL WALKTHROUGH)
  2. [Delivery](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Delivery.md): Credentials through Bad Email Configuration, Privilege Escalation using HashCat (TO REVIEW OFFICIAL WALKTHROUGH)
+ 3. [Love](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Love.md): (TO REVIEW OFFICIAL WALKTHROUGH)
 
 ### Easy (Retired)
  1. [Lame](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Lame.md): Port 445 Netbios Samba Username Map Script Command Execution
@@ -20,6 +21,7 @@ Sorted by HTB Difficulty Rating & Order
 11. [Blue](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Blue.md): MS17_010 EternalBlue
 12. [Mirai](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Mirai.md): Port 22 SSH with Default Password, Root Flag in USB Device
 13. [Shocker](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Shocker.md): 
+14. [Sense](https://github.com/HippoEug/HackTheBox/blob/main/Machines%20(Easy)/Sense.md):
 
 ## Challenges
 ### Easy
