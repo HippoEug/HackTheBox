@@ -245,6 +245,10 @@ Let's visit them. First to `https://10.129.140.47/tree/`
 
 ![tree](https://user-images.githubusercontent.com/21957042/116856135-2b9ac080-ac2d-11eb-9aaa-cf189f9bce70.png)
 
-Looks like some default site. And the other, `https://10.129.140.47/installer/`.
+Looks like some default site. And the other, `https://10.129.140.47/installer/`. But we got redirected to `https://10.129.140.47/installer/installer.php`.
 
 ![installer](https://user-images.githubusercontent.com/21957042/116856134-2b022a00-ac2d-11eb-9329-05e240324a9b.png)
+
+Ah nothing interesting on this particular page.
+
+## 3. Port 80 XXXX Exploitation
