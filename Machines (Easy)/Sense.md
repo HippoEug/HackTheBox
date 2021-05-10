@@ -8,6 +8,9 @@ x
 ### 3. Port 443 HTTPS Exploration with Credentials
 x
 
+### 4. Port 443 Command Injection Exploit
+x
+
 # Attack
 ## 1. NMAP
 Quick scan.
@@ -340,6 +343,34 @@ We got a "Username or Password incorrect" error.
 
 Maybe the password is pfSense's defualt password, which is just `pfsense` when we googled. Let's try username `Rohit` and password `pfsense`. But still we got a "Username or Password incorrect" error.
 
-Turns out, the username must also be lowered-case. So username `rohit` and password `pfsense`. Damn it Rohito!
+Turns out, the username must also be lowered-case. So username `rohit` and password `pfsense`. Damn it Rohito! With this credentials, we have access to the pfSense Dashboard.
 
+![page](https://user-images.githubusercontent.com/21957042/116896021-610fd000-ac66-11eb-81a9-a337f07ca365.png)
 
+Doing some exploration, we can see that the version of the pfSense is `2.1.3-RELEASE`.
+
+With this, we can do a Searchsploit.
+```
+hippoeug@kali:~$ searchsploit pfsense 2.1.3
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+ Exploit Title                                                                                                                      |  Path
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+pfSense < 2.1.4 - 'status_rrd_graph_img.php' Command Injection                                                                      | php/webapps/43560.py
+------------------------------------------------------------------------------------------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+```
+Cool! We could try this `43560.py` script, a Command Injection exploit.
+
+As usual, we will also do a quick Google in case we miss out something obvious. Searching for "pfsense 2.1.3 exploit", we see the same result [43560.py](https://www.exploit-db.com/exploits/43560).
+
+## 4. Port 443 Command Injection Exploit
+Let's download the script and give it a shot.
+```
+hippoeug@kali:~$ searchsploit -m 43560.py
+  Exploit: pfSense < 2.1.4 - 'status_rrd_graph_img.php' Command Injection
+      URL: https://www.exploit-db.com/exploits/43560
+     Path: /usr/share/exploitdb/exploits/php/webapps/43560.py
+File Type: Python script, ASCII text executable, with CRLF line terminators
+
+Copied to: /home/hippoeug/43560.py
+```
