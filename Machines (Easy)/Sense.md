@@ -333,3 +333,13 @@ Credentials! Username `Rohit` and password `company defaults` hehe, that's alway
 
 ## 3. Port 443 HTTPS Exploration with Credentials
 Let's try to login to the pfSense page at `https://10.129.140.47` with the credentials we just got, username `Rohit` and password `company defaults`.
+
+![invalid](https://user-images.githubusercontent.com/21957042/116894558-ca8edf00-ac64-11eb-8f4f-f4b9de743ef5.png)
+
+We got a "Username or Password incorrect" error. 
+
+Maybe the password is pfSense's defualt password, which is just `pfsense` when we googled. Let's try username `Rohit` and password `pfsense`. But still we got a "Username or Password incorrect" error.
+
+Turns out, the username must also be lowered-case. So username `rohit` and password `pfsense`. Damn it Rohito!
+
+
