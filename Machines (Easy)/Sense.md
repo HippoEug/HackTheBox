@@ -666,4 +666,6 @@ After this is done, let's navigate to the file `https://10.129.73.176/cmd.txt` w
 
 ![notfound](https://user-images.githubusercontent.com/21957042/118416178-f8523a00-b6e0-11eb-83c2-9f08582e4ce9.png)
 
-Unfortunately, we get a `404 - Not Found` error.
+Unfortunately, we get a `404 - Not Found` error. This is probably because we are in the wrong directory `/var/db/rrd`, and we won't be able to access this file at `/var/db/rrd/cmd.txt` from the browser.
+
+If we wanted, we could do `queues;cd+..;cd+..;cd+..;cd+usr;cd+local;cd+www;echo+"CMD+INJECT">cmd.txt`, navigating to the pfSense DocumentRoot folder which is on path `/usr/local/www/cmd.txt`.
