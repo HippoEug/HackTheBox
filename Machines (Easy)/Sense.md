@@ -638,3 +638,34 @@ if(strstr($curdatabase, "queues")) {
 	enable_rrd_graphing();
 }
 ```
+Let's get started.
+
+Since we saw that the exploit is related to `\_rrd_graph_img.php` page, we navigate around the pfSense page to find it under Status.
+
+![graph](https://user-images.githubusercontent.com/21957042/118416169-f4261c80-b6e0-11eb-9079-77431093d8e9.png)
+![graph2](https://user-images.githubusercontent.com/21957042/118416171-f5574980-b6e0-11eb-95bc-3ff43895c961.png)
+
+We can see the URL is `https://10.129.146.60/status_rrd_graph.php`, not exactly what we want to see.
+
+However, if we right click on the image and "View Image" instead, we see that the URL `https://10.129.146.60/status_rrd_graph_img.php?start=1621149559&graph=eight_hour&database=system-processor.rrd&style=inverse&tmp=10` looks exploitable.
+
+![graph3](https://user-images.githubusercontent.com/21957042/118416172-f5efe000-b6e0-11eb-8a4f-d40c58eef74b.png)
+![graph4](https://user-images.githubusercontent.com/21957042/118416173-f6887680-b6e0-11eb-99a6-2a846a831aaf.png)
+
+Cool. Now let's just fire up Burpsuite, setup the proxy settings correctly, and reload the page.
+
+![burpsendtorepeater](https://user-images.githubusercontent.com/21957042/118416174-f7210d00-b6e0-11eb-84cb-b55452543d5e.png)
+
+We see it on Proxy Intercept, and we click on Actions and sent it to Repeater instead.
+
+![burpsendtorepeater](https://user-images.githubusercontent.com/21957042/118416174-f7210d00-b6e0-11eb-84cb-b55452543d5e.png)
+
+From here, let's modify the GET request to try putting a text file in the system. We will change the GET to `GET /status_rrd_graph_img.php?database=queues;echo+"CMD+INJECT">cmd.txt HTTP/1.1`.
+
+![repeater2](https://user-images.githubusercontent.com/21957042/118416179-f8ead080-b6e0-11eb-8ecb-a8110b40222a.png)
+
+After this is done, let's navigate to the file `https://10.129.73.176/cmd.txt` we created to see if we see it.
+
+![notfound](https://user-images.githubusercontent.com/21957042/118416178-f8523a00-b6e0-11eb-83c2-9f08582e4ce9.png)
+
+Unfortunately, we get a `404 - Not Found` error.
