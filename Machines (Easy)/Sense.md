@@ -654,8 +654,6 @@ However, if we right click on the image and "View Image" instead, we see that th
 
 Cool. Now let's just fire up Burpsuite, setup the proxy settings correctly, and reload the page.
 
-![burpsendtorepeater](https://user-images.githubusercontent.com/21957042/118416174-f7210d00-b6e0-11eb-84cb-b55452543d5e.png)
-
 We see it on Proxy Intercept, and we click on Actions and sent it to Repeater instead.
 
 ![burpsendtorepeater](https://user-images.githubusercontent.com/21957042/118416174-f7210d00-b6e0-11eb-84cb-b55452543d5e.png)
