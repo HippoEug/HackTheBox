@@ -668,4 +668,4 @@ After this is done, let's navigate to the file `https://10.129.73.176/cmd.txt` w
 
 Unfortunately, we get a `404 - Not Found` error. This is probably because we are in the wrong directory `/var/db/rrd`, and we won't be able to access this file at `/var/db/rrd/cmd.txt` from the browser.
 
-If we wanted, we could do `queues;cd+..;cd+..;cd+..;cd+usr;cd+local;cd+www;echo+"CMD+INJECT">cmd.txt`, navigating to the pfSense DocumentRoot folder which is on path `/usr/local/www/cmd.txt`.
+If we wanted, we could do `queues;cd+..;cd+..;cd+..;cd+usr;cd+local;cd+www;echo+"CMD+INJECT">cmd.txt`, navigating to the pfSense DocumentRoot folder which is on path `/usr/local/www/cmd.txt`.  This step is just following the [article presenting the CVE-2014-4688 vulnerability which existed in this pfSense version](https://www.proteansec.com/linux/pfsense-vulnerabilities-part-2-command-injection/).
