@@ -1,6 +1,7 @@
 # References
 1. [Sense Writeup (v3ded.github.io)](https://v3ded.github.io/ctf/htb-sense)
 2. [Sense Video (IppSec youtube.com)](https://www.youtube.com/watch?v=d2nVDoVr0jE&ab_channel=IppSec)
+3. [Sense Writeup (infosecwriteups.com)](https://infosecwriteups.com/dive-into-sense-hack-the-box-2f700ef7f09c)
 
 # Summary
 ### 1. NMAP
@@ -621,7 +622,7 @@ Quoting one of the sources: "pfSense, a free BSD based open source firewall dist
 
 In [IppSec's video](https://www.youtube.com/watch?v=d2nVDoVr0jE&ab_channel=IppSec), he goes through this exploit in detail too.
 
-In short, there is a GET request to `$curdatabase`, and later on in the pfSense code, this variable will be executed. Here is where the command execution is exploited.
+In short, there is a GET request to `$curdatabase`, and later on in the pfSense code, this variable will be executed. Here is where the command execution is exploited. Our [infosecwriteups.com source](https://infosecwriteups.com/dive-into-sense-hack-the-box-2f700ef7f09c) mentions "The strstr(str1, str2) PHP function verifies if there is any occurrence of str2 inside str1. So as you can see, the exec function is called if a queues or queuesdrop string is present in the database parameter. We could use queuesdrop too, it doesn’t make much difference.".
 ```
 if ($_GET['database']) {
 	$curdatabase = basename($_GET['database']);
@@ -631,10 +632,17 @@ else {
 }
 ...
 if(strstr($curdatabase, "queues")) {
-	...
+	log_error(sprintf(gettext("failed to create graph from %s%s, removing database"),$rrddbpath,$curdatabase));
+	exec("/bin/rm -f $rrddbpath$curif$queues");
+	flush();
+	usleep(500);
+	enable_rrd_graphing();
+}
+if(strstr($curdatabase, "queuesdrop")) {
+	log_error(sprintf(gettext("failed to create graph from %s%s, removing database"),$rrddbpath,$curdatabase));
 	exec("/bin/rm -f $rrddbpath$curdatabase");
-	Flush();
-	Usleep(500);
+	flush();
+	usleep(500);
 	enable_rrd_graphing();
 }
 ```
